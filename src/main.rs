@@ -5,7 +5,7 @@ use anyhow::Result;
 use clap::Parser;
 use chrono::Local;
 use headless_chrome::Browser;
-use std::fs;
+use std::{env, fs, path::PathBuf};
 
 use data::{AgriculturalReport, parse_agricultural_report};
 use render::{render_html_to_image};
@@ -28,9 +28,14 @@ async fn main() -> Result<()> {
     
     let report = scrape_agriculture_data(&today, &args.language).await?;
     let json = serde_json::to_string_pretty(&report)?;
-    fs::write("report.json", &json)?;
+    let json_file_name = "report.json";
 
-    print!("Extracted data:\n{}", json);
+    fs::write(json_file_name, &json)?;
+    
+    let mut json_path: PathBuf = env::current_dir()?;
+    json_path.push(json_file_name);
+
+    print!("Extracted JSON to: {}\n", json_path.display());
     // Fill HTML template with table data and render to image
     render_html_to_image(&report).await?;
     

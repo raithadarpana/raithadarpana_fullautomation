@@ -7,7 +7,7 @@ use headless_chrome::{
     LaunchOptions,
     protocol::cdp::Page::{self, CaptureScreenshotFormatOption},
 };
-use std::fs;
+use std::{env, fs, path::PathBuf};
 
 pub async fn render_html_to_image(report: &AgriculturalReport) -> Result<()> {
     // Build HTML table rows dynamically from parsed data
@@ -112,7 +112,10 @@ pub async fn render_html_to_image(report: &AgriculturalReport) -> Result<()> {
     let filename = format!("agriculture_report_{}.png", Local::now().format("%Y%m%d_%H%M%S"));
     fs::write(&filename, png_data)?;
     
-    println!("Report saved to: {}", filename);
+    let mut png_path: PathBuf = env::current_dir()?;
+    png_path.push(filename);
+
+    println!("Screenshot saved to: {}", png_path.display());
     
     Ok(())
 }
