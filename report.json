@@ -1,0 +1,5950 @@
+{
+  "report_date": "24/07/2026",
+  "cities": [
+    {
+      "city_name": "1]  ಮಾರುಕಟ್ಟೆ: ಅರಸೀಕೆರೆ",
+      "commodities": [
+        {
+          "commodity": "ತೆಂಗಿನ ಕಡ್ಡಿ (ಸೀಗು)",
+          "variety": "ತೆಂಗಿನ ಕಡ್ಡಿ (ಸೀಗು)",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 30.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 4100.0,
+          "max_rs": 4100.0,
+          "modal_rs": 4100.0
+        },
+        {
+          "commodity": "ಕೊಬ್ಬರಿ",
+          "variety": "ಮಿಲ್ಲಿಂಗ್",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 24.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 18000.0,
+          "max_rs": 20000.0,
+          "modal_rs": 20000.0
+        },
+        {
+          "commodity": "ಕೊಬ್ಬರಿ",
+          "variety": "ಇತರೆ",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 113.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 9500.0,
+          "max_rs": 12500.0,
+          "modal_rs": 12500.0
+        }
+      ]
+    },
+    {
+      "city_name": "2]  ಮಾರುಕಟ್ಟೆ: ಉಡುಪಿ",
+      "commodities": [
+        {
+          "commodity": "ಬಾಳೆಹಣ್ಣು",
+          "variety": "ಮಧ್ಯಮ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 16.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 1800.0,
+          "max_rs": 3800.0,
+          "modal_rs": 2200.0
+        },
+        {
+          "commodity": "ಈರುಳ್ಳಿ",
+          "variety": "ಈರುಳ್ಳಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 52.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 1900.0,
+          "max_rs": 2000.0,
+          "modal_rs": 2000.0
+        },
+        {
+          "commodity": "ಆಲೂಗಡ್ಡೆ",
+          "variety": "ಆಲೂಗಡ್ಡೆ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 118.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 1400.0,
+          "max_rs": 1500.0,
+          "modal_rs": 1500.0
+        },
+        {
+          "commodity": "ಸಿಹಿ ಗೆಣಸು",
+          "variety": "ಗೆಣಸು",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 61.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2700.0,
+          "max_rs": 2800.0,
+          "modal_rs": 2800.0
+        }
+      ]
+    },
+    {
+      "city_name": "3]  ಮಾರುಕಟ್ಟೆ: ಕೆ.ಅರ್ .ಪೇಟೆ",
+      "commodities": [
+        {
+          "commodity": "ಅಡಿಕೆ",
+          "variety": "ರಾಶಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 1.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 51000.0,
+          "max_rs": 51000.0,
+          "modal_rs": 51000.0
+        },
+        {
+          "commodity": "ತೆಂಗಿನಕಾಯಿ",
+          "variety": "ತೆಂಗಿನಕಾಯಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 249548.0,
+          "units": "ಸಂಖ್ಯೆಗಳಲ್ಲಿ",
+          "min_rs": 22000.0,
+          "max_rs": 27000.0,
+          "modal_rs": 22000.0
+        },
+        {
+          "commodity": "ಎಳನೀರು",
+          "variety": "ಎಳನೀರು",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 215500.0,
+          "units": "ಸಾವಿರ",
+          "min_rs": 10000.0,
+          "max_rs": 36000.0,
+          "modal_rs": 15000.0
+        }
+      ]
+    },
+    {
+      "city_name": "4]  ಮಾರುಕಟ್ಟೆ: ಕಡೂರು",
+      "commodities": [
+        {
+          "commodity": "ಸೌತೆಕಾಯಿ",
+          "variety": "ಸೌತೆಕಾಯಿ",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 10.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 1665.0,
+          "max_rs": 1665.0,
+          "modal_rs": 1665.0
+        },
+        {
+          "commodity": "ನುಗ್ಗೆಕಾಯಿ",
+          "variety": "ನುಗ್ಗೆಕಾಯಿ",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 2.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 4165.0,
+          "max_rs": 4165.0,
+          "modal_rs": 4165.0
+        },
+        {
+          "commodity": "ಬೆಂಡೇಕಾಯಿ",
+          "variety": "ಬೆಂಡೆಕಾಯಿ",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 4.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2082.0,
+          "max_rs": 2082.0,
+          "modal_rs": 2082.0
+        },
+        {
+          "commodity": "ಈರುಳ್ಳಿ",
+          "variety": "ಈರುಳ್ಳಿ",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 5.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 1666.0,
+          "max_rs": 1666.0,
+          "modal_rs": 1666.0
+        },
+        {
+          "commodity": "ಹೀರೇಕಾಯಿ",
+          "variety": "ಹೀರೆಕಾಯಿ",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 7.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2378.0,
+          "max_rs": 2378.0,
+          "modal_rs": 2378.0
+        },
+        {
+          "commodity": "ಟೊಮ್ಯಾಟೊ",
+          "variety": "ಟೊಮ್ಯೂಟೊ",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 130.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 1190.0,
+          "max_rs": 2081.0,
+          "modal_rs": 1665.0
+        }
+      ]
+    },
+    {
+      "city_name": "5]  ಮಾರುಕಟ್ಟೆ: ಕನಕಪುರ",
+      "commodities": [
+        {
+          "commodity": "ಟೊಮ್ಯಾಟೊ",
+          "variety": "ಹೈಬ್ರಿಡ್",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 8.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 600.0,
+          "max_rs": 1300.0,
+          "modal_rs": 1000.0
+        }
+      ]
+    },
+    {
+      "city_name": "6]  ಮಾರುಕಟ್ಟೆ: ಕಲಬುರಗಿ",
+      "commodities": [
+        {
+          "commodity": "ಸೇಬು",
+          "variety": "ಸೇಬು",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 2.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 3800.0,
+          "max_rs": 7600.0,
+          "modal_rs": 5700.0
+        },
+        {
+          "commodity": "ಹುರುಳಿಕಾಯಿ",
+          "variety": "ಬೀನ್ಸ್ (ವೋಲ್)",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 1.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 1000.0,
+          "max_rs": 2800.0,
+          "modal_rs": 1900.0
+        },
+        {
+          "commodity": "ಕಡಲೆಕಾಳು",
+          "variety": "ಆವರೇಜ್ (ಇಡಿ)",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 50.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 5500.0,
+          "max_rs": 6400.0,
+          "modal_rs": 6000.0
+        },
+        {
+          "commodity": "ಉದ್ದಿನಕಾಳು",
+          "variety": "ಉದ್ದಿನ ಕಾಳು",
+          "grade": "ಚಿಕ್ಕದು",
+          "arrivals": 10.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 4500.0,
+          "max_rs": 7500.0,
+          "modal_rs": 6000.0
+        },
+        {
+          "commodity": "ಬದನೆಕಾಯಿ",
+          "variety": "ಬದನೆಕಾಯಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 3.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 1600.0,
+          "max_rs": 3400.0,
+          "modal_rs": 2500.0
+        },
+        {
+          "commodity": "ದಪ್ಪ ಮೆಣಸಿನಕಾಯಿ",
+          "variety": "ದಪ್ಪ ಮೆಣಸಿನಕಾಯಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 5.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2000.0,
+          "max_rs": 4600.0,
+          "modal_rs": 3300.0
+        },
+        {
+          "commodity": "ಸಪೋಟ",
+          "variety": "ಸಪೋಟ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 2.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2500.0,
+          "max_rs": 3300.0,
+          "modal_rs": 2900.0
+        },
+        {
+          "commodity": "ಹಸಿರು ಮೆಣಸಿನಕಾಯಿ",
+          "variety": "ಹಸಿರು ಮೆಣಸಿನಕಾಯಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 6.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2000.0,
+          "max_rs": 3100.0,
+          "modal_rs": 2550.0
+        },
+        {
+          "commodity": "ಹೆಸರುಕಾಳು",
+          "variety": "ಹೆಸರುಕಾಳು",
+          "grade": "ಚಿಕ್ಕದು",
+          "arrivals": 10.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 4900.0,
+          "max_rs": 7400.0,
+          "modal_rs": 6000.0
+        },
+        {
+          "commodity": "ಸೀಬೆಹಣ್ಣು",
+          "variety": "ಸೀಬೆಕಾಯಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 4.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2400.0,
+          "max_rs": 3400.0,
+          "modal_rs": 2900.0
+        },
+        {
+          "commodity": "ಜೋಳ",
+          "variety": "ಜೋಳ ಬಿಳಿ",
+          "grade": "ಚಿಕ್ಕದು",
+          "arrivals": 50.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2500.0,
+          "max_rs": 5500.0,
+          "modal_rs": 4000.0
+        },
+        {
+          "commodity": "ಕರಬೂಜ",
+          "variety": "ಕರ್ಬೂಜ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 2.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2000.0,
+          "max_rs": 7000.0,
+          "modal_rs": 4500.0
+        },
+        {
+          "commodity": "ಬೆಂಡೇಕಾಯಿ",
+          "variety": "ಬೆಂಡೆಕಾಯಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 2.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2000.0,
+          "max_rs": 2400.0,
+          "modal_rs": 2200.0
+        },
+        {
+          "commodity": "ಕಿತ್ತಳೆ",
+          "variety": "ಕಿತ್ತಳೆ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 1.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2000.0,
+          "max_rs": 3800.0,
+          "modal_rs": 2900.0
+        },
+        {
+          "commodity": "ಪಪ್ಪಾಯಿ",
+          "variety": "ಪಪ್ಪಾಯಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 2.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 4000.0,
+          "max_rs": 7000.0,
+          "modal_rs": 5500.0
+        },
+        {
+          "commodity": "ಆಲೂಗಡ್ಡೆ",
+          "variety": "ಆಲೂಗಡ್ಡೆ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 147.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 1000.0,
+          "max_rs": 1200.0,
+          "modal_rs": 1100.0
+        },
+        {
+          "commodity": "ಅಕ್ಕಿ",
+          "variety": "ನುಚ್ಚಕ್ಕಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 10.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2350.0,
+          "max_rs": 3200.0,
+          "modal_rs": 2750.0
+        },
+        {
+          "commodity": "ಅಕ್ಕಿ",
+          "variety": "ದಪ್ಪ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 30.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 3100.0,
+          "max_rs": 4000.0,
+          "modal_rs": 3600.0
+        },
+        {
+          "commodity": "ಅಕ್ಕಿ",
+          "variety": "ಉತ್ತಮ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 23.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 4100.0,
+          "max_rs": 5400.0,
+          "modal_rs": 4600.0
+        },
+        {
+          "commodity": "ಕುಸುಬೆ",
+          "variety": "ಸಾಫ್ ಫ್ಲವರ್",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 20.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 4200.0,
+          "max_rs": 5200.0,
+          "modal_rs": 5000.0
+        },
+        {
+          "commodity": "ಎಳ್ಳು",
+          "variety": "ಬಿಳಿ",
+          "grade": "ಚಿಕ್ಕದು",
+          "arrivals": 5.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 8000.0,
+          "max_rs": 12000.0,
+          "modal_rs": 11000.0
+        },
+        {
+          "commodity": "ಸೋಯಾಬಿನ್",
+          "variety": "ಸೋಯಾಬಿನ್",
+          "grade": "ಚಿಕ್ಕದು",
+          "arrivals": 10.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 6200.0,
+          "max_rs": 7100.0,
+          "modal_rs": 6800.0
+        },
+        {
+          "commodity": "ಟೊಮ್ಯಾಟೊ",
+          "variety": "ಟೊಮ್ಯೂಟೊ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 70.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 1100.0,
+          "max_rs": 1600.0,
+          "modal_rs": 1350.0
+        },
+        {
+          "commodity": "ತೊಗರಿ",
+          "variety": "ತೊಗರಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 450.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 7000.0,
+          "max_rs": 8400.0,
+          "modal_rs": 7800.0
+        },
+        {
+          "commodity": "ಕಲ್ಲಂಗಡಿ",
+          "variety": "ಕಲ್ಲಂಗಡಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 1.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 3000.0,
+          "max_rs": 6000.0,
+          "modal_rs": 4500.0
+        },
+        {
+          "commodity": "ಗೋಧಿ",
+          "variety": "ಶರಬತಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 10.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2500.0,
+          "max_rs": 3150.0,
+          "modal_rs": 3000.0
+        }
+      ]
+    },
+    {
+      "city_name": "7]  ಮಾರುಕಟ್ಟೆ: ಕುಂದಾಪುರ",
+      "commodities": [
+        {
+          "commodity": "ಅಡಿಕೆ",
+          "variety": "ಹೊಸ ಚಾಲಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 32.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 40000.0,
+          "max_rs": 47500.0,
+          "modal_rs": 46600.0
+        }
+      ]
+    },
+    {
+      "city_name": "8]  ಮಾರುಕಟ್ಟೆ: ಕುಮುಟ",
+      "commodities": [
+        {
+          "commodity": "ಅಡಿಕೆ",
+          "variety": "ಚಿಪ್ಪು",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 30.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 30169.0,
+          "max_rs": 33099.0,
+          "modal_rs": 31589.0
+        },
+        {
+          "commodity": "ಅಡಿಕೆ",
+          "variety": "ಕೋಕ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 15.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 17869.0,
+          "max_rs": 32099.0,
+          "modal_rs": 30679.0
+        },
+        {
+          "commodity": "ಅಡಿಕೆ",
+          "variety": "ಫ್ಯಾಕ್ಟರಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 20.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 8572.0,
+          "max_rs": 23629.0,
+          "modal_rs": 20549.0
+        },
+        {
+          "commodity": "ಅಡಿಕೆ",
+          "variety": "ಹಳೆ ಚಾಲಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 25.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 46099.0,
+          "max_rs": 48619.0,
+          "modal_rs": 47389.0
+        },
+        {
+          "commodity": "ಅಡಿಕೆ",
+          "variety": "ಹೊಸ ಚಾಲಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 175.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 37269.0,
+          "max_rs": 46099.0,
+          "modal_rs": 44769.0
+        }
+      ]
+    },
+    {
+      "city_name": "9]  ಮಾರುಕಟ್ಟೆ: ಕೊಪ್ಪ",
+      "commodities": [
+        {
+          "commodity": "ತೆಂಗಿನಕಾಯಿ",
+          "variety": "ತೆಂಗಿನಕಾಯಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 672.0,
+          "units": "ಸಂಖ್ಯೆಗಳಲ್ಲಿ",
+          "min_rs": 4200.0,
+          "max_rs": 4200.0,
+          "modal_rs": 4200.0
+        }
+      ]
+    },
+    {
+      "city_name": "10]  ಮಾರುಕಟ್ಟೆ: ಗಂಗಾವತಿ",
+      "commodities": [
+        {
+          "commodity": "ಭತ್ತ",
+          "variety": "ಕಾವೇರಿ ಸೋನ",
+          "grade": "ಚಿಕ್ಕದು",
+          "arrivals": 495.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2300.0,
+          "max_rs": 2300.0,
+          "modal_rs": 2300.0
+        },
+        {
+          "commodity": "ಭತ್ತ",
+          "variety": "ಭತ್ತದ ಆರ್ಎನ್ಆರ್ ಹೊಸದು",
+          "grade": "ಚಿಕ್ಕದು",
+          "arrivals": 220.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2600.0,
+          "max_rs": 2600.0,
+          "modal_rs": 2600.0
+        },
+        {
+          "commodity": "ಭತ್ತ",
+          "variety": "ಭತ್ತದ ಆರ್ಎನ್ಆರ್ ಹಳೆಯದು",
+          "grade": "ಚಿಕ್ಕದು",
+          "arrivals": 2886.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 3733.0,
+          "max_rs": 4000.0,
+          "modal_rs": 3893.0
+        },
+        {
+          "commodity": "ಅಕ್ಕಿ",
+          "variety": "ನುಚ್ಚಕ್ಕಿ",
+          "grade": "ಚಿಕ್ಕದು",
+          "arrivals": 525.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2150.0,
+          "max_rs": 2500.0,
+          "modal_rs": 2490.0
+        },
+        {
+          "commodity": "ಅಕ್ಕಿ",
+          "variety": "ಇತರೆ",
+          "grade": "ಚಿಕ್ಕದು",
+          "arrivals": 8843.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2300.0,
+          "max_rs": 4500.0,
+          "modal_rs": 2600.0
+        }
+      ]
+    },
+    {
+      "city_name": "11]  ಮಾರುಕಟ್ಟೆ: ಗುಂಡ್ಲುಪೇಟೆ",
+      "commodities": [
+        {
+          "commodity": "ಹುರುಳಿಕಾಯಿ",
+          "variety": "ಬೀನ್ಸ್ (ವೋಲ್)",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 8.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 3800.0,
+          "max_rs": 3800.0,
+          "modal_rs": 3800.0
+        },
+        {
+          "commodity": "ಹಸಿರು ಮೆಣಸಿನಕಾಯಿ",
+          "variety": "ಹಸಿರು ಮೆಣಸಿನಕಾಯಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 16.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2000.0,
+          "max_rs": 2000.0,
+          "modal_rs": 2000.0
+        },
+        {
+          "commodity": "ಜೋಳ",
+          "variety": "ಸ್ಥಳೀಯ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 267.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 1600.0,
+          "max_rs": 1600.0,
+          "modal_rs": 1600.0
+        },
+        {
+          "commodity": "ಬೇವಿನ ಬೀಜ",
+          "variety": "ಬೇವಿನ ಬೀಜ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 25.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 6700.0,
+          "max_rs": 6700.0,
+          "modal_rs": 6700.0
+        },
+        {
+          "commodity": "ಟೊಮ್ಯಾಟೊ",
+          "variety": "ಟೊಮ್ಯೂಟೊ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 144.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 700.0,
+          "max_rs": 900.0,
+          "modal_rs": 800.0
+        }
+      ]
+    },
+    {
+      "city_name": "12]  ಮಾರುಕಟ್ಟೆ: ಗೋಣಿಕೊಪ್ಪಲ್",
+      "commodities": [
+        {
+          "commodity": "ಮೆಣಸು",
+          "variety": "ಕರಿಮೆಣಸು",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 142.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 36000.0,
+          "max_rs": 71500.0,
+          "modal_rs": 38000.0
+        }
+      ]
+    },
+    {
+      "city_name": "13]  ಮಾರುಕಟ್ಟೆ: ಗೌರಿಬಿದನೂರು",
+      "commodities": [
+        {
+          "commodity": "ಹುರುಳಿಕಾಯಿ",
+          "variety": "ಬೀನ್ಸ್ (ವೋಲ್)",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 3.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2500.0,
+          "max_rs": 3500.0,
+          "modal_rs": 3000.0
+        },
+        {
+          "commodity": "ಬೀಟ್ರೂಟ್",
+          "variety": "ಬೀಟ್ ರೂಟ್",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 2.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 1500.0,
+          "max_rs": 2500.0,
+          "modal_rs": 2000.0
+        },
+        {
+          "commodity": "ಹಾಗಲಕಾಯಿ",
+          "variety": "ಹಾಗಲಕಾಯಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 3.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2500.0,
+          "max_rs": 3500.0,
+          "modal_rs": 3000.0
+        },
+        {
+          "commodity": "ಸೋರೆಕಾಯಿ",
+          "variety": "ಸೋರೆಕಾಯಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 2.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 1500.0,
+          "max_rs": 2200.0,
+          "modal_rs": 2000.0
+        },
+        {
+          "commodity": "ಬದನೆಕಾಯಿ",
+          "variety": "ರೌಂಡ್",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 8.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 1000.0,
+          "max_rs": 2000.0,
+          "modal_rs": 1500.0
+        },
+        {
+          "commodity": "ಎಲೆಕೋಸು",
+          "variety": "ಎಲೆಕೋಸು",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 10.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 800.0,
+          "max_rs": 1500.0,
+          "modal_rs": 1300.0
+        },
+        {
+          "commodity": "ಕ್ಯಾರೆಟ್",
+          "variety": "ಕ್ಯಾರೆಟ್",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 4.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 1800.0,
+          "max_rs": 2500.0,
+          "modal_rs": 2300.0
+        },
+        {
+          "commodity": "ಹೂಕೋಸು",
+          "variety": "ಸ್ಥಳೀಯ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 3.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 1500.0,
+          "max_rs": 2500.0,
+          "modal_rs": 2000.0
+        },
+        {
+          "commodity": "ಚಪ್ಪರದವರೆ",
+          "variety": "ಚಪ್ಪರದ ಅವರೆಕಾಯಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 2.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 1500.0,
+          "max_rs": 2200.0,
+          "modal_rs": 2000.0
+        },
+        {
+          "commodity": "ಸೌತೆಕಾಯಿ",
+          "variety": "ಸೌತೆಕಾಯಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 12.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 500.0,
+          "max_rs": 800.0,
+          "modal_rs": 700.0
+        },
+        {
+          "commodity": "ಹಸಿರು ಮೆಣಸಿನಕಾಯಿ",
+          "variety": "ಹಸಿರು ಮೆಣಸಿನಕಾಯಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 2.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 3500.0,
+          "max_rs": 4200.0,
+          "modal_rs": 4000.0
+        },
+        {
+          "commodity": "ನವಿಲುಕೋಸು",
+          "variety": "ನವಿಲುಕೋಸು",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 3.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2000.0,
+          "max_rs": 3000.0,
+          "modal_rs": 2500.0
+        },
+        {
+          "commodity": "ಬೆಂಡೇಕಾಯಿ",
+          "variety": "ಬೆಂಡೆಕಾಯಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 2.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2500.0,
+          "max_rs": 3500.0,
+          "modal_rs": 3000.0
+        },
+        {
+          "commodity": "ನಿಂಬೆಹಣ್ಣು",
+          "variety": "ನಿಂಬೆಹಣ್ಣು",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 1.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 3500.0,
+          "max_rs": 4500.0,
+          "modal_rs": 4000.0
+        },
+        {
+          "commodity": "ಈರುಳ್ಳಿ",
+          "variety": "ಈರುಳ್ಳಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 4.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2000.0,
+          "max_rs": 3000.0,
+          "modal_rs": 2500.0
+        },
+        {
+          "commodity": "ಆಲೂಗಡ್ಡೆ",
+          "variety": "ಆಲೂಗಡ್ಡೆ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 5.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 1000.0,
+          "max_rs": 2000.0,
+          "modal_rs": 1500.0
+        },
+        {
+          "commodity": "ಮುೂಲಂಗಿ",
+          "variety": "ಮೂಲಂಗಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 3.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2500.0,
+          "max_rs": 3500.0,
+          "modal_rs": 3000.0
+        },
+        {
+          "commodity": "ರಾಗಿ",
+          "variety": "ಸ್ಥಳೀಯ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 320.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 3000.0,
+          "max_rs": 4000.0,
+          "modal_rs": 3500.0
+        },
+        {
+          "commodity": "ಹೀರೇಕಾಯಿ",
+          "variety": "ಹೀರೆಕಾಯಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 2.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 1500.0,
+          "max_rs": 2500.0,
+          "modal_rs": 2000.0
+        },
+        {
+          "commodity": "ತೊಂಡೆಕಾಯಿ",
+          "variety": "ತೊಂಡೇಕಾಯಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 2.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2500.0,
+          "max_rs": 3500.0,
+          "modal_rs": 3000.0
+        },
+        {
+          "commodity": "ಟೊಮ್ಯಾಟೊ",
+          "variety": "ಟೊಮ್ಯೂಟೊ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 15.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 600.0,
+          "max_rs": 1800.0,
+          "modal_rs": 1500.0
+        }
+      ]
+    },
+    {
+      "city_name": "14]  ಮಾರುಕಟ್ಟೆ: ಚಿಂಚೋಳಿ",
+      "commodities": [
+        {
+          "commodity": "ತೊಗರಿ",
+          "variety": "ತೊಗರಿ",
+          "grade": "ಚಿಕ್ಕದು",
+          "arrivals": 1.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 7200.0,
+          "max_rs": 7500.0,
+          "modal_rs": 7300.0
+        }
+      ]
+    },
+    {
+      "city_name": "15]  ಮಾರುಕಟ್ಟೆ: ಚಿಂತಾಮಣಿ",
+      "commodities": [
+        {
+          "commodity": "ಹುರುಳಿಕಾಯಿ",
+          "variety": "ಬೀನ್ಸ್ (ವೋಲ್)",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 11.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 3000.0,
+          "max_rs": 5000.0,
+          "modal_rs": 4000.0
+        },
+        {
+          "commodity": "ಬೀಟ್ರೂಟ್",
+          "variety": "ಬೀಟ್ ರೂಟ್",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 7.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 1000.0,
+          "max_rs": 2000.0,
+          "modal_rs": 1500.0
+        },
+        {
+          "commodity": "ಬದನೆಕಾಯಿ",
+          "variety": "ಬದನೆಕಾಯಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 8.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 1000.0,
+          "max_rs": 2000.0,
+          "modal_rs": 1500.0
+        },
+        {
+          "commodity": "ಕ್ಯಾರೆಟ್",
+          "variety": "ಕ್ಯಾರೆಟ್",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 10.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2000.0,
+          "max_rs": 4000.0,
+          "modal_rs": 3000.0
+        },
+        {
+          "commodity": "ಬಜ್ಜಿ ಮೆಣಸಿನಕಾಯಿ",
+          "variety": "ದಪ್ಪ ಮೆಣಸಿನಕಾಯಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 8.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 1000.0,
+          "max_rs": 2000.0,
+          "modal_rs": 1500.0
+        },
+        {
+          "commodity": "ಸೌತೆಕಾಯಿ",
+          "variety": "ಸೌತೆಕಾಯಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 40.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 400.0,
+          "max_rs": 600.0,
+          "modal_rs": 500.0
+        },
+        {
+          "commodity": "ಹಸಿರು ಮೆಣಸಿನಕಾಯಿ",
+          "variety": "ಹಸಿರು ಮೆಣಸಿನಕಾಯಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 12.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2000.0,
+          "max_rs": 4000.0,
+          "modal_rs": 3000.0
+        },
+        {
+          "commodity": "ನವಿಲುಕೋಸು",
+          "variety": "ನವಿಲುಕೋಸು",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 9.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 1500.0,
+          "max_rs": 3000.0,
+          "modal_rs": 2000.0
+        },
+        {
+          "commodity": "ಬೆಂಡೇಕಾಯಿ",
+          "variety": "ಬೆಂಡೆಕಾಯಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 8.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 1500.0,
+          "max_rs": 2500.0,
+          "modal_rs": 2000.0
+        },
+        {
+          "commodity": "ಮುೂಲಂಗಿ",
+          "variety": "ಮೂಲಂಗಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 10.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 1000.0,
+          "max_rs": 2000.0,
+          "modal_rs": 1500.0
+        },
+        {
+          "commodity": "ಹೀರೇಕಾಯಿ",
+          "variety": "ಹೀರೆಕಾಯಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 8.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 1500.0,
+          "max_rs": 3000.0,
+          "modal_rs": 2000.0
+        },
+        {
+          "commodity": "ಟೊಮ್ಯಾಟೊ",
+          "variety": "ಟೊಮ್ಯೂಟೊ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 14962.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 266.0,
+          "max_rs": 1200.0,
+          "modal_rs": 800.0
+        }
+      ]
+    },
+    {
+      "city_name": "16]  ಮಾರುಕಟ್ಟೆ: ಚಿಕ್ಕಮಂಗಳೂರು",
+      "commodities": [
+        {
+          "commodity": "ಹುರುಳಿಕಾಯಿ",
+          "variety": "ಬೀನ್ಸ್ (ವೋಲ್)",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 161.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2600.0,
+          "max_rs": 3600.0,
+          "modal_rs": 3100.0
+        },
+        {
+          "commodity": "ಬೀಟ್ರೂಟ್",
+          "variety": "ಬೀಟ್ ರೂಟ್",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 35.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2400.0,
+          "max_rs": 2400.0,
+          "modal_rs": 2400.0
+        },
+        {
+          "commodity": "ಎಲೆಕೋಸು",
+          "variety": "ಎಲೆಕೋಸು",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 47.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 1800.0,
+          "max_rs": 1800.0,
+          "modal_rs": 1800.0
+        },
+        {
+          "commodity": "ಹೂಕೋಸು",
+          "variety": "ಸ್ಥಳೀಯ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 21.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 1600.0,
+          "max_rs": 1600.0,
+          "modal_rs": 1600.0
+        },
+        {
+          "commodity": "ಸೌತೆಕಾಯಿ",
+          "variety": "ಸೌತೆಕಾಯಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 69.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 1200.0,
+          "max_rs": 1200.0,
+          "modal_rs": 1200.0
+        },
+        {
+          "commodity": "ಹಸಿರು ಮೆಣಸಿನಕಾಯಿ",
+          "variety": "ಹಸಿರು ಮೆಣಸಿನಕಾಯಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 61.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 1300.0,
+          "max_rs": 1400.0,
+          "modal_rs": 1350.0
+        },
+        {
+          "commodity": "ಈರುಳ್ಳಿ",
+          "variety": "ಇತರೆ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 25.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2600.0,
+          "max_rs": 2600.0,
+          "modal_rs": 2600.0
+        },
+        {
+          "commodity": "ಆಲೂಗಡ್ಡೆ",
+          "variety": "ಇತರೆ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 40.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2000.0,
+          "max_rs": 2000.0,
+          "modal_rs": 2000.0
+        },
+        {
+          "commodity": "ಹೀರೇಕಾಯಿ",
+          "variety": "ಹೀರೆಕಾಯಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 23.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2200.0,
+          "max_rs": 2200.0,
+          "modal_rs": 2200.0
+        },
+        {
+          "commodity": "ಟೊಮ್ಯಾಟೊ",
+          "variety": "ಟೊಮ್ಯೂಟೊ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 2501.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 600.0,
+          "max_rs": 1500.0,
+          "modal_rs": 1050.0
+        },
+        {
+          "commodity": "ಬೂದುಕುಂಬಳ ಕಾಯಿ",
+          "variety": "ಬೂದು ಕುಂಬಳಕಾಯಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 17.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2000.0,
+          "max_rs": 2000.0,
+          "modal_rs": 2000.0
+        }
+      ]
+    },
+    {
+      "city_name": "17]  ಮಾರುಕಟ್ಟೆ: ಚಿತ್ರದುರ್ಗ",
+      "commodities": [
+        {
+          "commodity": "ಮೆಕ್ಕೆಜೋಳ",
+          "variety": "ಸ್ಥಳೀಯ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 147.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 1511.0,
+          "max_rs": 2689.0,
+          "modal_rs": 2506.0
+        },
+        {
+          "commodity": "ರಾಗಿ",
+          "variety": "ಸ್ಥಳೀಯ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 430.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 3348.0,
+          "max_rs": 3899.0,
+          "modal_rs": 3406.0
+        }
+      ]
+    },
+    {
+      "city_name": "18]  ಮಾರುಕಟ್ಟೆ: ಚನ್ನಪಟ್ಟಣ",
+      "commodities": [
+        {
+          "commodity": "ಬಾಳೆಹಣ್ಣು",
+          "variety": "ಏಲಕ್ಕಿ ಬಾಳೆ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 63.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 3700.0,
+          "max_rs": 6700.0,
+          "modal_rs": 6000.0
+        },
+        {
+          "commodity": "ಬದನೆಕಾಯಿ",
+          "variety": "ಬದನೆಕಾಯಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 4.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2500.0,
+          "max_rs": 3000.0,
+          "modal_rs": 2700.0
+        },
+        {
+          "commodity": "ಸೌತೆಕಾಯಿ",
+          "variety": "ಸೌತೆಕಾಯಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 14.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 800.0,
+          "max_rs": 1600.0,
+          "modal_rs": 1200.0
+        },
+        {
+          "commodity": "ಹಸಿರು ಮೆಣಸಿನಕಾಯಿ",
+          "variety": "ಹಸಿರು ಮೆಣಸಿನಕಾಯಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 4.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 3500.0,
+          "max_rs": 4000.0,
+          "modal_rs": 3800.0
+        },
+        {
+          "commodity": "ಬೆಂಡೇಕಾಯಿ",
+          "variety": "ಬೆಂಡೆಕಾಯಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 5.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 1800.0,
+          "max_rs": 2200.0,
+          "modal_rs": 2000.0
+        },
+        {
+          "commodity": "ಹೀರೇಕಾಯಿ",
+          "variety": "ಹೀರೆಕಾಯಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 3.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2500.0,
+          "max_rs": 3000.0,
+          "modal_rs": 2800.0
+        },
+        {
+          "commodity": "ಟೊಮ್ಯಾಟೊ",
+          "variety": "ಟೊಮ್ಯೂಟೊ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 82.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 350.0,
+          "max_rs": 1000.0,
+          "modal_rs": 700.0
+        }
+      ]
+    },
+    {
+      "city_name": "19]  ಮಾರುಕಟ್ಟೆ: ಚಳ್ಳಕೆರೆ",
+      "commodities": [
+        {
+          "commodity": "ನೆಲಗಡಲೆ (ಶೇಂಗಾ)",
+          "variety": "ಶೇಂಗಾ ಗೆಜ್ಜೆ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 75.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 4900.0,
+          "max_rs": 9399.0,
+          "modal_rs": 7992.0
+        },
+        {
+          "commodity": "ಮೆಕ್ಕೆಜೋಳ",
+          "variety": "ಹಳದಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 431.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2130.0,
+          "max_rs": 2686.0,
+          "modal_rs": 2581.0
+        }
+      ]
+    },
+    {
+      "city_name": "20]  ಮಾರುಕಟ್ಟೆ: ಚಾಮರಾಜನಗರ",
+      "commodities": [
+        {
+          "commodity": "ಹುರುಳಿಕಾಯಿ",
+          "variety": "ಬೀನ್ಸ್ (ವೋಲ್)",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 25.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2000.0,
+          "max_rs": 4000.0,
+          "modal_rs": 3000.0
+        },
+        {
+          "commodity": "ಬೀಟ್ರೂಟ್",
+          "variety": "ಬೀಟ್ ರೂಟ್",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 10.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 1600.0,
+          "max_rs": 3400.0,
+          "modal_rs": 2400.0
+        },
+        {
+          "commodity": "ಬದನೆಕಾಯಿ",
+          "variety": "ಇತರೆ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 8.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 1000.0,
+          "max_rs": 1600.0,
+          "modal_rs": 1300.0
+        },
+        {
+          "commodity": "ಬದನೆಕಾಯಿ",
+          "variety": "ರೌಂಡ್ / ಲಾಂಗ್",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 10.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 1000.0,
+          "max_rs": 1800.0,
+          "modal_rs": 1400.0
+        },
+        {
+          "commodity": "ಎಲೆಕೋಸು",
+          "variety": "ಎಲೆಕೋಸು",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 8.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2000.0,
+          "max_rs": 2500.0,
+          "modal_rs": 2300.0
+        },
+        {
+          "commodity": "ಕ್ಯಾರೆಟ್",
+          "variety": "ಕ್ಯಾರೆಟ್",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 20.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 1500.0,
+          "max_rs": 3200.0,
+          "modal_rs": 2300.0
+        },
+        {
+          "commodity": "ತೆಂಗಿನಕಾಯಿ",
+          "variety": "ತೆಂಗಿನಕಾಯಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 198500.0,
+          "units": "ಸಂಖ್ಯೆಗಳಲ್ಲಿ",
+          "min_rs": 14000.0,
+          "max_rs": 29000.0,
+          "modal_rs": 24000.0
+        },
+        {
+          "commodity": "ಸೌತೆಕಾಯಿ",
+          "variety": "ಸೌತೆಕಾಯಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 12.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 1000.0,
+          "max_rs": 1800.0,
+          "modal_rs": 1400.0
+        },
+        {
+          "commodity": "ನವಿಲುಕೋಸು",
+          "variety": "ನವಿಲುಕೋಸು",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 10.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 1500.0,
+          "max_rs": 3000.0,
+          "modal_rs": 2300.0
+        },
+        {
+          "commodity": "ಮುೂಲಂಗಿ",
+          "variety": "ಮೂಲಂಗಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 10.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 1500.0,
+          "max_rs": 3000.0,
+          "modal_rs": 2200.0
+        },
+        {
+          "commodity": "ಹೀರೇಕಾಯಿ",
+          "variety": "ಹೀರೆಕಾಯಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 12.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 1600.0,
+          "max_rs": 3500.0,
+          "modal_rs": 2400.0
+        },
+        {
+          "commodity": "ಎಳನೀರು",
+          "variety": "ಎಳನೀರು",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 69000.0,
+          "units": "ಸಾವಿರ",
+          "min_rs": 20000.0,
+          "max_rs": 25000.0,
+          "modal_rs": 20000.0
+        },
+        {
+          "commodity": "ಟೊಮ್ಯಾಟೊ",
+          "variety": "ಟೊಮ್ಯೂಟೊ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 30.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 400.0,
+          "max_rs": 1000.0,
+          "modal_rs": 700.0
+        }
+      ]
+    },
+    {
+      "city_name": "21]  ಮಾರುಕಟ್ಟೆ: ಜಗಳೂರು",
+      "commodities": [
+        {
+          "commodity": "ರಾಗಿ",
+          "variety": "ಸ್ಥಳೀಯ",
+          "grade": "ಚಿಕ್ಕದು",
+          "arrivals": 55.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2800.0,
+          "max_rs": 2800.0,
+          "modal_rs": 2800.0
+        }
+      ]
+    },
+    {
+      "city_name": "22]  ಮಾರುಕಟ್ಟೆ: ತಾಳಿಕೋಟೆ",
+      "commodities": [
+        {
+          "commodity": "ತೊಗರಿ",
+          "variety": "ತೊಗರಿ",
+          "grade": "ದೊಡ್ಡ್ಡದು",
+          "arrivals": 177.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 7500.0,
+          "max_rs": 8051.0,
+          "modal_rs": 7839.0
+        }
+      ]
+    },
+    {
+      "city_name": "23]  ಮಾರುಕಟ್ಟೆ: ತೀರ್ಥಹಳ್ಳಿ",
+      "commodities": [
+        {
+          "commodity": "ಅಡಿಕೆ",
+          "variety": "ಇತರೆ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 101.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 28884.0,
+          "max_rs": 28884.0,
+          "modal_rs": 28884.0
+        },
+        {
+          "commodity": "ಅಡಿಕೆ",
+          "variety": "ರಾಶಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 3.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 51775.0,
+          "max_rs": 51775.0,
+          "modal_rs": 51775.0
+        },
+        {
+          "commodity": "ಅಡಿಕೆ",
+          "variety": "ಸಿಪ್ಪೆಗೋಟು",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 42.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 11000.0,
+          "max_rs": 13500.0,
+          "modal_rs": 13500.0
+        },
+        {
+          "commodity": "ಮೆಕ್ಕೆಜೋಳ",
+          "variety": "ಹೈಬ್ರಿಡ್ ಸ್ಥಳೀಯ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 250.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2400.0,
+          "max_rs": 2400.0,
+          "modal_rs": 2400.0
+        },
+        {
+          "commodity": "ಮೆಣಸು",
+          "variety": "ಇತರೆ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 27.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 30000.0,
+          "max_rs": 30000.0,
+          "modal_rs": 30000.0
+        }
+      ]
+    },
+    {
+      "city_name": "24]  ಮಾರುಕಟ್ಟೆ: ದಾವಣಗೆರೆ",
+      "commodities": [
+        {
+          "commodity": "ಸೇಬು",
+          "variety": "ಸೇಬು",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 6.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 10000.0,
+          "max_rs": 20000.0,
+          "modal_rs": 15000.0
+        },
+        {
+          "commodity": "ಅಡಿಕೆ",
+          "variety": "ರಾಶಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 145.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 24000.0,
+          "max_rs": 43000.0,
+          "modal_rs": 33579.0
+        },
+        {
+          "commodity": "ಅಡಿಕೆ",
+          "variety": "ಸಿಪ್ಪೆಗೋಟು",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 27.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 12000.0,
+          "max_rs": 12000.0,
+          "modal_rs": 12000.0
+        },
+        {
+          "commodity": "ಬಾಳೆಹಣ್ಣು",
+          "variety": "ಏಲಕ್ಕಿ ಬಾಳೆ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 35.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2200.0,
+          "max_rs": 4100.0,
+          "modal_rs": 3400.0
+        },
+        {
+          "commodity": "ಬಾಳೆಹಣ್ಣು",
+          "variety": "ಪಚ್ಚಬಾಳೆ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 25.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 900.0,
+          "max_rs": 2400.0,
+          "modal_rs": 1700.0
+        },
+        {
+          "commodity": "ಹುರುಳಿಕಾಯಿ",
+          "variety": "ಬೀನ್ಸ್ (ವೋಲ್)",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 20.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 1000.0,
+          "max_rs": 2500.0,
+          "modal_rs": 2100.0
+        },
+        {
+          "commodity": "ಬೀಟ್ರೂಟ್",
+          "variety": "ಬೀಟ್ ರೂಟ್",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 15.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 800.0,
+          "max_rs": 2200.0,
+          "modal_rs": 1400.0
+        },
+        {
+          "commodity": "ಹಾಗಲಕಾಯಿ",
+          "variety": "ಹಾಗಲಕಾಯಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 15.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 800.0,
+          "max_rs": 2500.0,
+          "modal_rs": 1600.0
+        },
+        {
+          "commodity": "ಸೋರೆಕಾಯಿ",
+          "variety": "ಸೋರೆಕಾಯಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 12.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 900.0,
+          "max_rs": 2600.0,
+          "modal_rs": 1700.0
+        },
+        {
+          "commodity": "ಬದನೆಕಾಯಿ",
+          "variety": "ರೌಂಡ್ / ಲಾಂಗ್",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 20.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 700.0,
+          "max_rs": 2000.0,
+          "modal_rs": 1200.0
+        },
+        {
+          "commodity": "ಗೋರಿಕಾಯಿ",
+          "variety": "ಗೋರಿಕಾಯಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 15.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 700.0,
+          "max_rs": 2400.0,
+          "modal_rs": 1300.0
+        },
+        {
+          "commodity": "ಎಲೆಕೋಸು",
+          "variety": "ಎಲೆಕೋಸು",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 15.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 900.0,
+          "max_rs": 2400.0,
+          "modal_rs": 1500.0
+        },
+        {
+          "commodity": "ದಪ್ಪ ಮೆಣಸಿನಕಾಯಿ",
+          "variety": "ದಪ್ಪ ಮೆಣಸಿನಕಾಯಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 8.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2400.0,
+          "max_rs": 4200.0,
+          "modal_rs": 3800.0
+        },
+        {
+          "commodity": "ಕ್ಯಾರೆಟ್",
+          "variety": "ಕ್ಯಾರೆಟ್",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 20.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 700.0,
+          "max_rs": 3100.0,
+          "modal_rs": 1700.0
+        },
+        {
+          "commodity": "ಹೂಕೋಸು",
+          "variety": "ಹೂಕೋಸು",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 15.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 600.0,
+          "max_rs": 2200.0,
+          "modal_rs": 1000.0
+        },
+        {
+          "commodity": "ಸೌತೆಕಾಯಿ",
+          "variety": "ಸೌತೆಕಾಯಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 20.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 800.0,
+          "max_rs": 2000.0,
+          "modal_rs": 1400.0
+        },
+        {
+          "commodity": "ನುಗ್ಗೆಕಾಯಿ",
+          "variety": "ನುಗ್ಗೆಕಾಯಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 10.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 800.0,
+          "max_rs": 2500.0,
+          "modal_rs": 1500.0
+        },
+        {
+          "commodity": "ಹಸಿರು ಮೆಣಸಿನಕಾಯಿ",
+          "variety": "ಹಸಿರು ಮೆಣಸಿನಕಾಯಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 30.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 800.0,
+          "max_rs": 2400.0,
+          "modal_rs": 1500.0
+        },
+        {
+          "commodity": "ಕರಬೂಜ",
+          "variety": "ಕರ್ಬೂಜ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 8.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 1000.0,
+          "max_rs": 2000.0,
+          "modal_rs": 1500.0
+        },
+        {
+          "commodity": "ನವಿಲುಕೋಸು",
+          "variety": "ನವಿಲುಕೋಸು",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 12.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 1300.0,
+          "max_rs": 3700.0,
+          "modal_rs": 2700.0
+        },
+        {
+          "commodity": "ಬೆಂಡೇಕಾಯಿ",
+          "variety": "ಬೆಂಡೆಕಾಯಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 12.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 1000.0,
+          "max_rs": 2600.0,
+          "modal_rs": 1400.0
+        },
+        {
+          "commodity": "ನಿಂಬೆಹಣ್ಣು",
+          "variety": "ನಿಂಬೆಹಣ್ಣು",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 2.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 1000.0,
+          "max_rs": 2400.0,
+          "modal_rs": 1500.0
+        },
+        {
+          "commodity": "ಮಾವಿನಹಣ್ಣು",
+          "variety": "ಮೂವಿನಹಣ್ಣು",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 10.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 3000.0,
+          "max_rs": 4000.0,
+          "modal_rs": 3500.0
+        },
+        {
+          "commodity": "ಮೂಸಂಬಿ",
+          "variety": "ಮೊಸಂಬಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 6.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 3000.0,
+          "max_rs": 4000.0,
+          "modal_rs": 3500.0
+        },
+        {
+          "commodity": "ಭತ್ತ",
+          "variety": "ಸಾಧಾರಣ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 1523.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2323.0,
+          "max_rs": 3240.0,
+          "modal_rs": 2786.0
+        },
+        {
+          "commodity": "ಪಪ್ಪಾಯಿ",
+          "variety": "ಪಪ್ಪಾಯಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 6.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 1000.0,
+          "max_rs": 2000.0,
+          "modal_rs": 1500.0
+        },
+        {
+          "commodity": "ಅನಾನಸ್",
+          "variety": "ಅನಾನಸ್",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 8.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2000.0,
+          "max_rs": 3000.0,
+          "modal_rs": 2500.0
+        },
+        {
+          "commodity": "ದಾಳಿಂಬೆ",
+          "variety": "ದಾಳಿಂಬೆ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 10.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 5000.0,
+          "max_rs": 6000.0,
+          "modal_rs": 5500.0
+        },
+        {
+          "commodity": "ಆಲೂಗಡ್ಡೆ",
+          "variety": "ಆಲೂಗಡ್ಡೆ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 30.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 900.0,
+          "max_rs": 2300.0,
+          "modal_rs": 1400.0
+        },
+        {
+          "commodity": "ಮುೂಲಂಗಿ",
+          "variety": "ಮೂಲಂಗಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 15.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 700.0,
+          "max_rs": 2300.0,
+          "modal_rs": 1300.0
+        },
+        {
+          "commodity": "ರಾಗಿ",
+          "variety": "ಸ್ಥಳೀಯ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 950.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2000.0,
+          "max_rs": 3700.0,
+          "modal_rs": 2862.0
+        },
+        {
+          "commodity": "ಅಕ್ಕಿ",
+          "variety": "ಮಧ್ಯಮ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 3700.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2400.0,
+          "max_rs": 2790.0,
+          "modal_rs": 2607.0
+        },
+        {
+          "commodity": "ಹೀರೇಕಾಯಿ",
+          "variety": "ಹೀರೆಕಾಯಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 15.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 800.0,
+          "max_rs": 2300.0,
+          "modal_rs": 1600.0
+        },
+        {
+          "commodity": "ಸೀಮೆ ಬದನೆಕಾಯಿ",
+          "variety": "ಸೀಮೆಬದನೆಕಾಯಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 12.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 1000.0,
+          "max_rs": 3200.0,
+          "modal_rs": 2000.0
+        },
+        {
+          "commodity": "ಸುವಣಗೆಡ್ಡೆ",
+          "variety": "ಸುವರ್ಣ ಗೆಡ್ಡೆ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 2.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 700.0,
+          "max_rs": 2000.0,
+          "modal_rs": 1400.0
+        },
+        {
+          "commodity": "ಸಿಹಿ ಕುಂಬಳಕಾಯಿ",
+          "variety": "ಸಿಹಿಕುಂಬಳಕಾಯಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 10.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 600.0,
+          "max_rs": 2300.0,
+          "modal_rs": 1000.0
+        },
+        {
+          "commodity": "ತೊಂಡೆಕಾಯಿ",
+          "variety": "ತೊಂಡೇಕಾಯಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 2.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 1200.0,
+          "max_rs": 3500.0,
+          "modal_rs": 2500.0
+        },
+        {
+          "commodity": "ಟೊಮ್ಯಾಟೊ",
+          "variety": "ಟೊಮ್ಯೂಟೊ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 30.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 600.0,
+          "max_rs": 2200.0,
+          "modal_rs": 1000.0
+        },
+        {
+          "commodity": "ಕಲ್ಲಂಗಡಿ",
+          "variety": "ಕಲ್ಲಂಗಡಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 6.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 1000.0,
+          "max_rs": 2000.0,
+          "modal_rs": 1500.0
+        }
+      ]
+    },
+    {
+      "city_name": "25]  ಮಾರುಕಟ್ಟೆ: ದೊಡ್ಡಬಳ್ಳಾಪುರ",
+      "commodities": [
+        {
+          "commodity": "ಬಾಳೆಕಾಯಿ",
+          "variety": "ಬಾಳೇಕಾಯಿ",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 4.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 5000.0,
+          "max_rs": 6000.0,
+          "modal_rs": 5500.0
+        },
+        {
+          "commodity": "ಹುರುಳಿಕಾಯಿ",
+          "variety": "ಬೀನ್ಸ್ (ವೋಲ್)",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 3.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 4000.0,
+          "max_rs": 5000.0,
+          "modal_rs": 4500.0
+        },
+        {
+          "commodity": "ಹಾಗಲಕಾಯಿ",
+          "variety": "ಹಾಗಲಕಾಯಿ",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 3.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2500.0,
+          "max_rs": 3500.0,
+          "modal_rs": 3000.0
+        },
+        {
+          "commodity": "ಉದ್ದಿನಬೇಳೆ",
+          "variety": "ಉದ್ದಿನಬೇಳೆ",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 944.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 9000.0,
+          "max_rs": 11500.0,
+          "modal_rs": 10200.0
+        },
+        {
+          "commodity": "ಬದನೆಕಾಯಿ",
+          "variety": "ಬದನೆಕಾಯಿ",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 3.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2500.0,
+          "max_rs": 3100.0,
+          "modal_rs": 2800.0
+        },
+        {
+          "commodity": "ಕ್ಯಾರೆಟ್",
+          "variety": "ಇತರೆ",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 3.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 3500.0,
+          "max_rs": 4500.0,
+          "modal_rs": 4000.0
+        },
+        {
+          "commodity": "ಸೌತೆಕಾಯಿ",
+          "variety": "ಸೌತೆಕಾಯಿ",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 28.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 1500.0,
+          "max_rs": 2100.0,
+          "modal_rs": 1800.0
+        },
+        {
+          "commodity": "ಬೆಳ್ಳುಳ್ಳಿ",
+          "variety": "ಇತರೆ",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 4.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 14000.0,
+          "max_rs": 18000.0,
+          "modal_rs": 16000.0
+        },
+        {
+          "commodity": "ಹಸಿರು ಮೆಣಸಿನಕಾಯಿ",
+          "variety": "ಹಸಿರು ಮೆಣಸಿನಕಾಯಿ",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 3.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 3500.0,
+          "max_rs": 4500.0,
+          "modal_rs": 4000.0
+        },
+        {
+          "commodity": "ಹಸಿ ಶುಂಠಿ",
+          "variety": "ಹಸಿ ಶುಂಠಿ",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 3.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 12000.0,
+          "max_rs": 16000.0,
+          "modal_rs": 14000.0
+        },
+        {
+          "commodity": "ನವಿಲುಕೋಸು",
+          "variety": "ನವಿಲುಕೋಸು",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 3.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 3000.0,
+          "max_rs": 4000.0,
+          "modal_rs": 3500.0
+        },
+        {
+          "commodity": "ಬೆಂಡೇಕಾಯಿ",
+          "variety": "ಬೆಂಡೆಕಾಯಿ",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 3.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2000.0,
+          "max_rs": 3000.0,
+          "modal_rs": 2500.0
+        },
+        {
+          "commodity": "ಈರುಳ್ಳಿ",
+          "variety": "ಈರುಳ್ಳಿ",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 18.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2200.0,
+          "max_rs": 2800.0,
+          "modal_rs": 2500.0
+        },
+        {
+          "commodity": "ಭತ್ತ",
+          "variety": "ಭತ್ತ-1001",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 250.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2475.0,
+          "max_rs": 2475.0,
+          "modal_rs": 2475.0
+        },
+        {
+          "commodity": "ಆಲೂಗಡ್ಡೆ",
+          "variety": "ಸ್ಥಳೀಯ",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 20.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2200.0,
+          "max_rs": 3000.0,
+          "modal_rs": 2600.0
+        },
+        {
+          "commodity": "ಅಕ್ಕಿ",
+          "variety": "ನುಚ್ಚಕ್ಕಿ",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 181.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2400.0,
+          "max_rs": 2400.0,
+          "modal_rs": 2400.0
+        },
+        {
+          "commodity": "ಹೀರೇಕಾಯಿ",
+          "variety": "ಹೀರೆಕಾಯಿ",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 3.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2000.0,
+          "max_rs": 2800.0,
+          "modal_rs": 2500.0
+        },
+        {
+          "commodity": "ಟೊಮ್ಯಾಟೊ",
+          "variety": "ಟೊಮ್ಯೂಟೊ",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 19.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 1400.0,
+          "max_rs": 2200.0,
+          "modal_rs": 1800.0
+        }
+      ]
+    },
+    {
+      "city_name": "26]  ಮಾರುಕಟ್ಟೆ: ಪಾ೦ಡವಪುರ",
+      "commodities": [
+        {
+          "commodity": "ಎಳನೀರು",
+          "variety": "ಎಳನೀರು",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 30000.0,
+          "units": "ಸಾವಿರ",
+          "min_rs": 22000.0,
+          "max_rs": 24000.0,
+          "modal_rs": 23000.0
+        }
+      ]
+    },
+    {
+      "city_name": "27]  ಮಾರುಕಟ್ಟೆ: ಪುತ್ತೂರು",
+      "commodities": [
+        {
+          "commodity": "ಅಡಿಕೆ",
+          "variety": "ಕೋಕ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 240.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 20000.0,
+          "max_rs": 33000.0,
+          "modal_rs": 29000.0
+        },
+        {
+          "commodity": "ಅಡಿಕೆ",
+          "variety": "ನ್ಯೂ ವೆರೈಟಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 105.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 30000.0,
+          "max_rs": 47500.0,
+          "modal_rs": 33400.0
+        }
+      ]
+    },
+    {
+      "city_name": "28]  ಮಾರುಕಟ್ಟೆ: ಬೆಂಗಳೂರು",
+      "commodities": [
+        {
+          "commodity": "ಅಲಸಂದೆ ಕಾಳು",
+          "variety": "ಅಲಸಂದೆಕಾಳು",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 344.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 8000.0,
+          "max_rs": 9000.0,
+          "modal_rs": 8500.0
+        },
+        {
+          "commodity": "ಸಜ್ಜೆ",
+          "variety": "ಹೈಬ್ರಿಡ್",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 62.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2800.0,
+          "max_rs": 3200.0,
+          "modal_rs": 3000.0
+        },
+        {
+          "commodity": "ಕಡಲೆಬೇಳೆ",
+          "variety": "ಕಡ್ಲೆಬೇಳೆ",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 1296.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 7000.0,
+          "max_rs": 8500.0,
+          "modal_rs": 7750.0
+        },
+        {
+          "commodity": "ಕಡಲೆಕಾಳು",
+          "variety": "ಆವರೇಜ್ (ಇಡಿ)",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 1309.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 7000.0,
+          "max_rs": 7500.0,
+          "modal_rs": 7250.0
+        },
+        {
+          "commodity": "ಉದ್ದಿನಬೇಳೆ",
+          "variety": "ಉದ್ದಿನಬೇಳೆ",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 1877.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 9000.0,
+          "max_rs": 15000.0,
+          "modal_rs": 12000.0
+        },
+        {
+          "commodity": "ಉದ್ದಿನಕಾಳು",
+          "variety": "ಉದ್ದಿನ ಕಾಳು",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 228.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 11500.0,
+          "max_rs": 13000.0,
+          "modal_rs": 12250.0
+        },
+        {
+          "commodity": "ಚೆನ್ನಂಗಿ ದಾಲ್",
+          "variety": "ಚನ್ನಂಗಿಬೇಳೆ",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 1486.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 7000.0,
+          "max_rs": 8000.0,
+          "modal_rs": 7500.0
+        },
+        {
+          "commodity": "ತೆಂಗಿನಕಾಯಿ",
+          "variety": "ತೆಂಗಿನಕಾಯಿ",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 28000.0,
+          "units": "ಸಂಖ್ಯೆಗಳಲ್ಲಿ",
+          "min_rs": 20000.0,
+          "max_rs": 30000.0,
+          "modal_rs": 25000.0
+        },
+        {
+          "commodity": "ಧನಿಯಾ (ಕೊತ್ತಂಬರಿ ಬೀಜ)",
+          "variety": "ಧನಿಯಾ ಬೀಜ",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 433.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 16000.0,
+          "max_rs": 22000.0,
+          "modal_rs": 19000.0
+        },
+        {
+          "commodity": "ಒಣ ಮೆಣಸಿನಕಾಯಿ",
+          "variety": "ಬ್ಯಾಡಗಿ",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 15.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 35000.0,
+          "max_rs": 80000.0,
+          "modal_rs": 57500.0
+        },
+        {
+          "commodity": "ಒಣ ಮೆಣಸಿನಕಾಯಿ",
+          "variety": "ಗುಂಟೂರು",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 26.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 20000.0,
+          "max_rs": 28000.0,
+          "modal_rs": 24000.0
+        },
+        {
+          "commodity": "ಬೆಳ್ಳುಳ್ಳಿ",
+          "variety": "ಬೆಳ್ಳುಳ್ಳಿ",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 1885.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 9000.0,
+          "max_rs": 25000.0,
+          "modal_rs": 14000.0
+        },
+        {
+          "commodity": "ಹಸಿ ಶುಂಠಿ",
+          "variety": "ಹಸಿ ಶುಂಠಿ",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 320.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 5000.0,
+          "max_rs": 12000.0,
+          "modal_rs": 10000.0
+        },
+        {
+          "commodity": "ಹೆಸರುಬೇಳೆ",
+          "variety": "ಹೆಸರುಬೇಳೆ",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 1074.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 8800.0,
+          "max_rs": 10800.0,
+          "modal_rs": 9800.0
+        },
+        {
+          "commodity": "ಬಟಾಣಿ",
+          "variety": "ಹಸಿ ಬಟಾಣಿ",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 1128.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 7000.0,
+          "max_rs": 10000.0,
+          "modal_rs": 8500.0
+        },
+        {
+          "commodity": "ಹೆಸರುಕಾಳು",
+          "variety": "ಹೆಸರುಕಾಳು",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 944.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 8000.0,
+          "max_rs": 12000.0,
+          "modal_rs": 10000.0
+        },
+        {
+          "commodity": "ಕಡಲೆಕಾಯಿ ಬೀಜ",
+          "variety": "ಕಡ್ಲೆಕಾಯಿ ಬೀಜ",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 243.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 16000.0,
+          "max_rs": 18000.0,
+          "modal_rs": 17000.0
+        },
+        {
+          "commodity": "ಹುರುಳಿ ಕಾಳು",
+          "variety": "ಹುರುಳಿಕಾಳು (ವೋಲ್)",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 281.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 5800.0,
+          "max_rs": 6500.0,
+          "modal_rs": 6150.0
+        },
+        {
+          "commodity": "ಬೆಲ್ಲ",
+          "variety": "ಮುದ್ದೆ",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 581.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 5200.0,
+          "max_rs": 5400.0,
+          "modal_rs": 5300.0
+        },
+        {
+          "commodity": "ಜೋಳ",
+          "variety": "ಜೋಳ ಬಿಳಿ",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 542.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 3000.0,
+          "max_rs": 3500.0,
+          "modal_rs": 3250.0
+        },
+        {
+          "commodity": "ಮೆಂತ್ಯ ಬೇಜ",
+          "variety": "ಮೆಂತ್ಯ ಬೀಜ",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 48.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 9800.0,
+          "max_rs": 11800.0,
+          "modal_rs": 10800.0
+        },
+        {
+          "commodity": "ಮೋತ್",
+          "variety": "ಮೋತ್ (ವೋಲ್)",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 21.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 8000.0,
+          "max_rs": 9000.0,
+          "modal_rs": 8500.0
+        },
+        {
+          "commodity": "ಸಾಸುವೆ",
+          "variety": "ಇತರೆ",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 87.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 9800.0,
+          "max_rs": 11500.0,
+          "modal_rs": 10650.0
+        },
+        {
+          "commodity": "ನವಣೆ",
+          "variety": "ಇತರೆ",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 83.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 4000.0,
+          "max_rs": 4500.0,
+          "modal_rs": 4250.0
+        },
+        {
+          "commodity": "ಈರುಳ್ಳಿ",
+          "variety": "ಬೆಂಗಳೂರು ಸಣ್ಣ",
+          "grade": "ಚಿಕ್ಕದು",
+          "arrivals": 2614.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 1000.0,
+          "max_rs": 1500.0,
+          "modal_rs": 1200.0
+        },
+        {
+          "commodity": "ಈರುಳ್ಳಿ",
+          "variety": "ಸ್ಥಳೀಯ",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 2615.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 1400.0,
+          "max_rs": 2200.0,
+          "modal_rs": 2000.0
+        },
+        {
+          "commodity": "ಈರುಳ್ಳಿ",
+          "variety": "ಈರುಳ್ಳಿ",
+          "grade": "ದೊಡ್ಡ್ಡದು",
+          "arrivals": 2615.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2400.0,
+          "max_rs": 2800.0,
+          "modal_rs": 2500.0
+        },
+        {
+          "commodity": "ಈರುಳ್ಳಿ",
+          "variety": "ಪೂನ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 18304.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2000.0,
+          "max_rs": 3200.0,
+          "modal_rs": 2600.0
+        },
+        {
+          "commodity": "ಆಲೂಗಡ್ಡೆ",
+          "variety": "ಸ್ಥಳೀಯ",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 1656.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 1800.0,
+          "max_rs": 2100.0,
+          "modal_rs": 1900.0
+        },
+        {
+          "commodity": "ಆಲೂಗಡ್ಡೆ",
+          "variety": "ಆಲೂಗಡ್ಡೆ",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 14899.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 1000.0,
+          "max_rs": 2400.0,
+          "modal_rs": 2000.0
+        },
+        {
+          "commodity": "ರಾಗಿ",
+          "variety": "ಉತ್ತಮ",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 123.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 4300.0,
+          "max_rs": 4800.0,
+          "modal_rs": 4550.0
+        },
+        {
+          "commodity": "ಅಕ್ಕಿ",
+          "variety": "ದಪ್ಪ",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 10012.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 3100.0,
+          "max_rs": 3300.0,
+          "modal_rs": 3200.0
+        },
+        {
+          "commodity": "ಅಕ್ಕಿ",
+          "variety": "ಉತ್ತಮ",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 13350.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 5800.0,
+          "max_rs": 6500.0,
+          "modal_rs": 6150.0
+        },
+        {
+          "commodity": "ಅಕ್ಕಿ",
+          "variety": "ಮಧ್ಯಮ",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 10012.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 5400.0,
+          "max_rs": 5600.0,
+          "modal_rs": 5500.0
+        },
+        {
+          "commodity": "ಸೋಯಾಬಿನ್",
+          "variety": "ಸೋಯಾಬಿನ್",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 30.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 9000.0,
+          "max_rs": 9500.0,
+          "modal_rs": 9250.0
+        },
+        {
+          "commodity": "ತೊಗರಿ ಬೇಳೆ",
+          "variety": "ತೊಗರಿಬೇಳೆ",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 1955.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 8000.0,
+          "max_rs": 12500.0,
+          "modal_rs": 10250.0
+        },
+        {
+          "commodity": "ಗೋಧಿ",
+          "variety": "ಸ್ಥಳೀಯ",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 374.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 3200.0,
+          "max_rs": 4500.0,
+          "modal_rs": 3850.0
+        }
+      ]
+    },
+    {
+      "city_name": "29]  ಮಾರುಕಟ್ಟೆ: ಬಂಗಾರಪೇಟೆ",
+      "commodities": [
+        {
+          "commodity": "ಹುರುಳಿಕಾಯಿ",
+          "variety": "ಬೀನ್ಸ್ (ವೋಲ್)",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 8.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 4000.0,
+          "max_rs": 5500.0,
+          "modal_rs": 5000.0
+        },
+        {
+          "commodity": "ಬೀಟ್ರೂಟ್",
+          "variety": "ಬೀಟ್ ರೂಟ್",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 7.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2000.0,
+          "max_rs": 2500.0,
+          "modal_rs": 2300.0
+        },
+        {
+          "commodity": "ಹಾಗಲಕಾಯಿ",
+          "variety": "ಹಾಗಲಕಾಯಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 4.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2300.0,
+          "max_rs": 2700.0,
+          "modal_rs": 2500.0
+        },
+        {
+          "commodity": "ಬದನೆಕಾಯಿ",
+          "variety": "ಬದನೆಕಾಯಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 4.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 700.0,
+          "max_rs": 1300.0,
+          "modal_rs": 1000.0
+        },
+        {
+          "commodity": "ಎಲೆಕೋಸು",
+          "variety": "ಎಲೆಕೋಸು",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 5.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 800.0,
+          "max_rs": 1500.0,
+          "modal_rs": 1000.0
+        },
+        {
+          "commodity": "ದಪ್ಪ ಮೆಣಸಿನಕಾಯಿ",
+          "variety": "ದಪ್ಪ ಮೆಣಸಿನಕಾಯಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 7.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 1500.0,
+          "max_rs": 2300.0,
+          "modal_rs": 2000.0
+        },
+        {
+          "commodity": "ಕ್ಯಾರೆಟ್",
+          "variety": "ಕ್ಯಾರೆಟ್",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 10.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 3500.0,
+          "max_rs": 4700.0,
+          "modal_rs": 4500.0
+        },
+        {
+          "commodity": "ಬಜ್ಜಿ ಮೆಣಸಿನಕಾಯಿ",
+          "variety": "ದಪ್ಪ ಮೆಣಸಿನಕಾಯಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 4.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 1700.0,
+          "max_rs": 2500.0,
+          "modal_rs": 2300.0
+        },
+        {
+          "commodity": "ಸೌತೆಕಾಯಿ",
+          "variety": "ಸೌತೆಕಾಯಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 5.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 1000.0,
+          "max_rs": 2000.0,
+          "modal_rs": 1700.0
+        },
+        {
+          "commodity": "ನುಗ್ಗೆಕಾಯಿ",
+          "variety": "ನುಗ್ಗೆಕಾಯಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 4.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2500.0,
+          "max_rs": 3700.0,
+          "modal_rs": 3500.0
+        },
+        {
+          "commodity": "ಬೆಳ್ಳುಳ್ಳಿ",
+          "variety": "ಬೆಳ್ಳುಳ್ಳಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 8.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 10000.0,
+          "max_rs": 11300.0,
+          "modal_rs": 11000.0
+        },
+        {
+          "commodity": "ಹಸಿರು ಮೆಣಸಿನಕಾಯಿ",
+          "variety": "ಹಸಿರು ಮೆಣಸಿನಕಾಯಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 4.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2000.0,
+          "max_rs": 2700.0,
+          "modal_rs": 2500.0
+        },
+        {
+          "commodity": "ಹಸಿ ಶುಂಠಿ",
+          "variety": "ಹಸಿ ಶುಂಠಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 9.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 8000.0,
+          "max_rs": 9500.0,
+          "modal_rs": 9000.0
+        },
+        {
+          "commodity": "ನವಿಲುಕೋಸು",
+          "variety": "ನವಿಲುಕೋಸು",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 8.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 1500.0,
+          "max_rs": 2500.0,
+          "modal_rs": 2300.0
+        },
+        {
+          "commodity": "ಬೆಂಡೇಕಾಯಿ",
+          "variety": "ಬೆಂಡೆಕಾಯಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 4.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 1700.0,
+          "max_rs": 2300.0,
+          "modal_rs": 2000.0
+        },
+        {
+          "commodity": "ಈರುಳ್ಳಿ",
+          "variety": "ಈರುಳ್ಳಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 7.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2000.0,
+          "max_rs": 2700.0,
+          "modal_rs": 2500.0
+        },
+        {
+          "commodity": "ಆಲೂಗಡ್ಡೆ",
+          "variety": "ಸ್ಥಳೀಯ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 8.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 1000.0,
+          "max_rs": 2000.0,
+          "modal_rs": 1700.0
+        },
+        {
+          "commodity": "ಮುೂಲಂಗಿ",
+          "variety": "ಮೂಲಂಗಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 3.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2300.0,
+          "max_rs": 2700.0,
+          "modal_rs": 2500.0
+        },
+        {
+          "commodity": "ಹೀರೇಕಾಯಿ",
+          "variety": "ಹೀರೆಕಾಯಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 6.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 1700.0,
+          "max_rs": 2300.0,
+          "modal_rs": 2000.0
+        },
+        {
+          "commodity": "ಟೊಮ್ಯಾಟೊ",
+          "variety": "ಟೊಮ್ಯೂಟೊ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 25.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 500.0,
+          "max_rs": 1200.0,
+          "modal_rs": 900.0
+        }
+      ]
+    },
+    {
+      "city_name": "30]  ಮಾರುಕಟ್ಟೆ: ಬಂಟ್ವಾಳ",
+      "commodities": [
+        {
+          "commodity": "ಅಡಿಕೆ",
+          "variety": "ಕೋಕ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 53.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 17000.0,
+          "max_rs": 27000.0,
+          "modal_rs": 25000.0
+        },
+        {
+          "commodity": "ಅಡಿಕೆ",
+          "variety": "ನ್ಯೂ ವೆರೈಟಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 283.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 27000.0,
+          "max_rs": 47500.0,
+          "modal_rs": 30100.0
+        },
+        {
+          "commodity": "ಕೊಬ್ಬರಿ",
+          "variety": "ಇತರೆ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 6.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 12000.0,
+          "max_rs": 15000.0,
+          "modal_rs": 13000.0
+        },
+        {
+          "commodity": "ಮೆಣಸು",
+          "variety": "ಕರಿಮೆಣಸು",
+          "grade": "ಸಾಮನ್ಯ",
+          "arrivals": 11.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 40000.0,
+          "max_rs": 68500.0,
+          "modal_rs": 51500.0
+        },
+        {
+          "commodity": "ಅಕ್ಕಿ",
+          "variety": "ಇತರೆ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 160.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2500.0,
+          "max_rs": 3000.0,
+          "modal_rs": 2800.0
+        }
+      ]
+    },
+    {
+      "city_name": "31]  ಮಾರುಕಟ್ಟೆ: ಬಿನ್ನಿಮಿಲ್",
+      "commodities": [
+        {
+          "commodity": "ಅಲಸಂದಿಕಾಯಿ",
+          "variety": "ಅಲಸಂದಿಕಾಯಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 42.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2600.0,
+          "max_rs": 3000.0,
+          "modal_rs": 2900.0
+        },
+        {
+          "commodity": "ಸೇಬು",
+          "variety": "ಸೇಬು",
+          "grade": "ದೊಡ್ಡ್ಡದು",
+          "arrivals": 3484.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 10000.0,
+          "max_rs": 16000.0,
+          "modal_rs": 12000.0
+        },
+        {
+          "commodity": "ಬಾಳೆಹಣ್ಣು",
+          "variety": "ಏಲಕ್ಕಿ ಬಾಳೆ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 557.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 1000.0,
+          "max_rs": 7100.0,
+          "modal_rs": 4050.0
+        },
+        {
+          "commodity": "ಬಾಳೆಹಣ್ಣು",
+          "variety": "ನಾಟಿ ಬಾಳೆ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 30.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 700.0,
+          "max_rs": 2800.0,
+          "modal_rs": 1750.0
+        },
+        {
+          "commodity": "ಬಾಳೆಹಣ್ಣು",
+          "variety": "ನೇಂದ್ರಬಾಳೆ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 33.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 1000.0,
+          "max_rs": 2900.0,
+          "modal_rs": 1950.0
+        },
+        {
+          "commodity": "ಬಾಳೆಹಣ್ಣು",
+          "variety": "ಪಚ್ಚಬಾಳೆ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 360.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 600.0,
+          "max_rs": 2700.0,
+          "modal_rs": 1650.0
+        },
+        {
+          "commodity": "ಬಾಳೆಕಾಯಿ",
+          "variety": "ಬಾಳೇಕಾಯಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 100.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2300.0,
+          "max_rs": 2500.0,
+          "modal_rs": 2400.0
+        },
+        {
+          "commodity": "ಹುರುಳಿಕಾಯಿ",
+          "variety": "ಬೀನ್ಸ್ (ವೋಲ್)",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 140.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 4000.0,
+          "max_rs": 5000.0,
+          "modal_rs": 4500.0
+        },
+        {
+          "commodity": "ಬೀಟ್ರೂಟ್",
+          "variety": "ಬೀಟ್ ರೂಟ್",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 253.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2600.0,
+          "max_rs": 3000.0,
+          "modal_rs": 2700.0
+        },
+        {
+          "commodity": "ಹಾಗಲಕಾಯಿ",
+          "variety": "ಹಾಗಲಕಾಯಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 74.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2600.0,
+          "max_rs": 3000.0,
+          "modal_rs": 2800.0
+        },
+        {
+          "commodity": "ಸೋರೆಕಾಯಿ",
+          "variety": "ಸೋರೆಕಾಯಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 43.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2000.0,
+          "max_rs": 2400.0,
+          "modal_rs": 2200.0
+        },
+        {
+          "commodity": "ಬದನೆಕಾಯಿ",
+          "variety": "ಬದನೆಕಾಯಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 149.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2500.0,
+          "max_rs": 2800.0,
+          "modal_rs": 2700.0
+        },
+        {
+          "commodity": "ಗೋರಿಕಾಯಿ",
+          "variety": "ಗೋರಿಕಾಯಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 47.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 4000.0,
+          "max_rs": 5000.0,
+          "modal_rs": 4500.0
+        },
+        {
+          "commodity": "ಎಲೆಕೋಸು",
+          "variety": "ಎಲೆಕೋಸು",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 205.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 1600.0,
+          "max_rs": 1800.0,
+          "modal_rs": 1700.0
+        },
+        {
+          "commodity": "ದಪ್ಪ ಮೆಣಸಿನಕಾಯಿ",
+          "variety": "ದಪ್ಪ ಮೆಣಸಿನಕಾಯಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 117.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 4000.0,
+          "max_rs": 5000.0,
+          "modal_rs": 4500.0
+        },
+        {
+          "commodity": "ಕ್ಯಾರೆಟ್",
+          "variety": "ಕ್ಯಾರೆಟ್",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 267.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 5500.0,
+          "max_rs": 6000.0,
+          "modal_rs": 5800.0
+        },
+        {
+          "commodity": "ಹೂಕೋಸು",
+          "variety": "ಹೂಕೋಸು",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 78.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2400.0,
+          "max_rs": 2800.0,
+          "modal_rs": 2600.0
+        },
+        {
+          "commodity": "ಚಪ್ಪರದವರೆ",
+          "variety": "ಚಪ್ಪರದ ಅವರೆಕಾಯಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 65.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 3600.0,
+          "max_rs": 4000.0,
+          "modal_rs": 3800.0
+        },
+        {
+          "commodity": "ಸಪೋಟ",
+          "variety": "ಸಪೋಟ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 27.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2000.0,
+          "max_rs": 3500.0,
+          "modal_rs": 3000.0
+        },
+        {
+          "commodity": "ಸೌತೆಕಾಯಿ",
+          "variety": "ಸೌತೆಕಾಯಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 218.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2700.0,
+          "max_rs": 3000.0,
+          "modal_rs": 2800.0
+        },
+        {
+          "commodity": "ನುಗ್ಗೆಕಾಯಿ",
+          "variety": "ನುಗ್ಗೆಕಾಯಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 132.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 4000.0,
+          "max_rs": 5500.0,
+          "modal_rs": 4500.0
+        },
+        {
+          "commodity": "ದ್ರಾಕ್ಷಿ",
+          "variety": "ಕಪ್ಪು",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 20.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2000.0,
+          "max_rs": 3000.0,
+          "modal_rs": 2500.0
+        },
+        {
+          "commodity": "ದ್ರಾಕ್ಷಿ",
+          "variety": "ಬಿಳಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 62.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 3000.0,
+          "max_rs": 5000.0,
+          "modal_rs": 4000.0
+        },
+        {
+          "commodity": "ಅವರೇಕಾಯಿ",
+          "variety": "ಅವರೆಕಾಯಿ (ಇಡಿ)",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 24.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 3200.0,
+          "max_rs": 3800.0,
+          "modal_rs": 3400.0
+        },
+        {
+          "commodity": "ಹಸಿರು ಮೆಣಸಿನಕಾಯಿ",
+          "variety": "ಹಸಿರು ಮೆಣಸಿನಕಾಯಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 263.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 3200.0,
+          "max_rs": 4000.0,
+          "modal_rs": 3600.0
+        },
+        {
+          "commodity": "ಹಸಿ ಶುಂಠಿ",
+          "variety": "ಹಸಿ ಶುಂಠಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 84.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 12000.0,
+          "max_rs": 14000.0,
+          "modal_rs": 13000.0
+        },
+        {
+          "commodity": "ಕರಬೂಜ",
+          "variety": "ಕರ್ಬೂಜ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 440.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 1000.0,
+          "max_rs": 1800.0,
+          "modal_rs": 1500.0
+        },
+        {
+          "commodity": "ನವಿಲುಕೋಸು",
+          "variety": "ನವಿಲುಕೋಸು",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 126.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 3000.0,
+          "max_rs": 3400.0,
+          "modal_rs": 3200.0
+        },
+        {
+          "commodity": "ಬೆಂಡೇಕಾಯಿ",
+          "variety": "ಬೆಂಡೆಕಾಯಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 203.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2500.0,
+          "max_rs": 2800.0,
+          "modal_rs": 2700.0
+        },
+        {
+          "commodity": "ನಿಂಬೆಹಣ್ಣು",
+          "variety": "ನಿಂಬೆಹಣ್ಣು",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 200.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 6000.0,
+          "max_rs": 7000.0,
+          "modal_rs": 6500.0
+        },
+        {
+          "commodity": "ಮಾವಿನಹಣ್ಣು",
+          "variety": "ನೀಲಂ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 710.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2000.0,
+          "max_rs": 3000.0,
+          "modal_rs": 2500.0
+        },
+        {
+          "commodity": "ಮಾವಿನಹಣ್ಣು",
+          "variety": "ತೋತಾಪುರಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 97.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 800.0,
+          "max_rs": 1400.0,
+          "modal_rs": 1000.0
+        },
+        {
+          "commodity": "ಮೂಸಂಬಿ",
+          "variety": "ಮೊಸಂಬಿ",
+          "grade": "ದೊಡ್ಡ್ಡದು",
+          "arrivals": 1010.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 3000.0,
+          "max_rs": 4000.0,
+          "modal_rs": 3500.0
+        },
+        {
+          "commodity": "ಪಪ್ಪಾಯಿ",
+          "variety": "ಪಪ್ಪಾಯಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 330.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 800.0,
+          "max_rs": 1600.0,
+          "modal_rs": 1400.0
+        },
+        {
+          "commodity": "ಹಸಿ ಬಟಾಣಿ",
+          "variety": "ಹಸಿ ಬಟಾಣಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 85.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 12000.0,
+          "max_rs": 14000.0,
+          "modal_rs": 13000.0
+        },
+        {
+          "commodity": "ಅನಾನಸ್",
+          "variety": "ಅನಾನಸ್",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 210.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2500.0,
+          "max_rs": 3500.0,
+          "modal_rs": 3000.0
+        },
+        {
+          "commodity": "ದಾಳಿಂಬೆ",
+          "variety": "ದಾಳಿಂಬೆ",
+          "grade": "ದೊಡ್ಡ್ಡದು",
+          "arrivals": 2380.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 10000.0,
+          "max_rs": 16000.0,
+          "modal_rs": 12000.0
+        },
+        {
+          "commodity": "ಮುೂಲಂಗಿ",
+          "variety": "ಮೂಲಂಗಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 128.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2000.0,
+          "max_rs": 2400.0,
+          "modal_rs": 2300.0
+        },
+        {
+          "commodity": "ಹೀರೇಕಾಯಿ",
+          "variety": "ಹೀರೆಕಾಯಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 81.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2500.0,
+          "max_rs": 3000.0,
+          "modal_rs": 2800.0
+        },
+        {
+          "commodity": "ಸೀಮೆ ಬದನೆಕಾಯಿ",
+          "variety": "ಸೀಮೆಬದನೆಕಾಯಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 109.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 1400.0,
+          "max_rs": 1600.0,
+          "modal_rs": 1500.0
+        },
+        {
+          "commodity": "ಪಡವಲಕಾಯಿ",
+          "variety": "ಪಡವಲಕಾಯಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 56.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 1500.0,
+          "max_rs": 2000.0,
+          "modal_rs": 1800.0
+        },
+        {
+          "commodity": "ಸುವಣಗೆಡ್ಡೆ",
+          "variety": "ಸುವರ್ಣ ಗೆಡ್ಡೆ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 50.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 3800.0,
+          "max_rs": 4000.0,
+          "modal_rs": 3900.0
+        },
+        {
+          "commodity": "ಸಿಹಿ ಗೆಣಸು",
+          "variety": "ಗೆಣಸು",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 80.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 3000.0,
+          "max_rs": 3200.0,
+          "modal_rs": 3100.0
+        },
+        {
+          "commodity": "ಸಿಹಿ ಕುಂಬಳಕಾಯಿ",
+          "variety": "ಸಿಹಿಕುಂಬಳಕಾಯಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 20.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 800.0,
+          "max_rs": 1000.0,
+          "modal_rs": 900.0
+        },
+        {
+          "commodity": "ತೊಂಡೆಕಾಯಿ",
+          "variety": "ತೊಂಡೇಕಾಯಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 52.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2600.0,
+          "max_rs": 2900.0,
+          "modal_rs": 2800.0
+        },
+        {
+          "commodity": "ಟೊಮ್ಯಾಟೊ",
+          "variety": "ಟೊಮ್ಯೂಟೊ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 419.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 1600.0,
+          "max_rs": 1800.0,
+          "modal_rs": 1700.0
+        },
+        {
+          "commodity": "ಕಲ್ಲಂಗಡಿ",
+          "variety": "ಕಲ್ಲಂಗಡಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 870.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 800.0,
+          "max_rs": 1600.0,
+          "modal_rs": 1400.0
+        },
+        {
+          "commodity": "ಬೂದುಕುಂಬಳ ಕಾಯಿ",
+          "variety": "ಬೂದು ಕುಂಬಳಕಾಯಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 130.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 1200.0,
+          "max_rs": 1400.0,
+          "modal_rs": 1300.0
+        }
+      ]
+    },
+    {
+      "city_name": "32]  ಮಾರುಕಟ್ಟೆ: ಬೆಳಗಾವಿ",
+      "commodities": [
+        {
+          "commodity": "ಬೆಲ್ಲ",
+          "variety": "ಮುದ್ದೆ",
+          "grade": "ದೊಡ್ಡ್ಡದು",
+          "arrivals": 4.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 4000.0,
+          "max_rs": 4500.0,
+          "modal_rs": 4200.0
+        },
+        {
+          "commodity": "ಆಲೂಗಡ್ಡೆ",
+          "variety": "ಸ್ಥಳೀಯ",
+          "grade": "ದೊಡ್ಡ್ಡದು",
+          "arrivals": 1726.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 1000.0,
+          "max_rs": 1800.0,
+          "modal_rs": 1300.0
+        },
+        {
+          "commodity": "ಸಿಹಿ ಗೆಣಸು",
+          "variety": "ಗೆಣಸು",
+          "grade": "ದೊಡ್ಡ್ಡದು",
+          "arrivals": 358.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 3000.0,
+          "max_rs": 4000.0,
+          "modal_rs": 3500.0
+        }
+      ]
+    },
+    {
+      "city_name": "33]  ಮಾರುಕಟ್ಟೆ: ಬೆಳ್ತಂಗಡಿ",
+      "commodities": [
+        {
+          "commodity": "ಅಡಿಕೆ",
+          "variety": "ನ್ಯೂ ವೆರೈಟಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 166.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 28000.0,
+          "max_rs": 47000.0,
+          "modal_rs": 29000.0
+        }
+      ]
+    },
+    {
+      "city_name": "34]  ಮಾರುಕಟ್ಟೆ: ಬಸವಕಲ್ಯಾಣ",
+      "commodities": [
+        {
+          "commodity": "ಜೋಳ",
+          "variety": "ಜೋಳ ಬಿಳಿ",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 2.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2170.0,
+          "max_rs": 4150.0,
+          "modal_rs": 2200.0
+        },
+        {
+          "commodity": "ಕುಸುಬೆ",
+          "variety": "ಸಾಫ್ ಫ್ಲವರ್",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 3.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 5320.0,
+          "max_rs": 5400.0,
+          "modal_rs": 5320.0
+        },
+        {
+          "commodity": "ಸೋಯಾಬಿನ್",
+          "variety": "ಸೋಯಾಬಿನ್",
+          "grade": "ದೊಡ್ಡ್ಡದು",
+          "arrivals": 1.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 4300.0,
+          "max_rs": 7250.0,
+          "modal_rs": 7090.0
+        },
+        {
+          "commodity": "ತೊಗರಿ",
+          "variety": "ತೊಗರಿ",
+          "grade": "ದೊಡ್ಡ್ಡದು",
+          "arrivals": 16.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 7900.0,
+          "max_rs": 8210.0,
+          "modal_rs": 8000.0
+        },
+        {
+          "commodity": "ಗೋಧಿ",
+          "variety": "ಮೆಕ್ಸಿಕನ್",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 15.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2411.0,
+          "max_rs": 2590.0,
+          "modal_rs": 2450.0
+        },
+        {
+          "commodity": "ಗೋಧಿ",
+          "variety": "ಗಿರಣಿ ಗೋಧಿ",
+          "grade": "ಚಿಕ್ಕದು",
+          "arrivals": 12.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 3800.0,
+          "max_rs": 3921.0,
+          "modal_rs": 3880.0
+        }
+      ]
+    },
+    {
+      "city_name": "35]  ಮಾರುಕಟ್ಟೆ: ಬಾಗೆಪಲ್ಲಿ",
+      "commodities": [
+        {
+          "commodity": "ಟೊಮ್ಯಾಟೊ",
+          "variety": "ಹೈಬ್ರಿಡ್",
+          "grade": "ಚಿಕ್ಕದು",
+          "arrivals": 3100.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 230.0,
+          "max_rs": 1385.0,
+          "modal_rs": 920.0
+        }
+      ]
+    },
+    {
+      "city_name": "36]  ಮಾರುಕಟ್ಟೆ: ಬಾಗಲಕೋಟೆ",
+      "commodities": [
+        {
+          "commodity": "ಅಲಸಂದೆ",
+          "variety": "ಕೌಪಿಯಾ (ವೋಲ್)",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 62.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 7500.0,
+          "max_rs": 7500.0,
+          "modal_rs": 7500.0
+        },
+        {
+          "commodity": "ಹೆಸರುಕಾಳು",
+          "variety": "ಹೆಸರುಕಾಳು",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 1.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 9221.0,
+          "max_rs": 9221.0,
+          "modal_rs": 9221.0
+        },
+        {
+          "commodity": "ನೆಲಗಡಲೆ (ಶೇಂಗಾ)",
+          "variety": "ಶೇಂಗಾ ಗೆಜ್ಜೆ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 63.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 7011.0,
+          "max_rs": 8389.0,
+          "modal_rs": 8199.0
+        },
+        {
+          "commodity": "ಜೋಳ",
+          "variety": "ಜೋಳ ಬಿಳಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 20.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 4100.0,
+          "max_rs": 4100.0,
+          "modal_rs": 4100.0
+        },
+        {
+          "commodity": "ಮೆಕ್ಕೆಜೋಳ",
+          "variety": "ಹೈಬ್ರಿಡ್ ಸ್ಥಳೀಯ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 121.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2400.0,
+          "max_rs": 2519.0,
+          "modal_rs": 2515.0
+        },
+        {
+          "commodity": "ಸೂರ್ಯ ಕಾಂತಿ",
+          "variety": "ಸೂರ್ಯಪಾನ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 4.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 7600.0,
+          "max_rs": 7600.0,
+          "modal_rs": 7600.0
+        }
+      ]
+    },
+    {
+      "city_name": "37]  ಮಾರುಕಟ್ಟೆ: ಬೀದರ್",
+      "commodities": [
+        {
+          "commodity": "ಕಡಲೆಕಾಳು",
+          "variety": "ಜವರಿ / ಸ್ಥಳಿಯ",
+          "grade": "ಚಿಕ್ಕದು",
+          "arrivals": 99.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 5700.0,
+          "max_rs": 6262.0,
+          "modal_rs": 6175.0
+        },
+        {
+          "commodity": "ಉದ್ದಿನಕಾಳು",
+          "variety": "ಉದ್ದಿನ ಕಾಳು",
+          "grade": "ಚಿಕ್ಕದು",
+          "arrivals": 78.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 5411.0,
+          "max_rs": 8879.0,
+          "modal_rs": 7868.0
+        },
+        {
+          "commodity": "ಹೆಸರುಕಾಳು",
+          "variety": "ಜವರಿ / ಸ್ಥಳಿಯ",
+          "grade": "ಚಿಕ್ಕದು",
+          "arrivals": 14.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 4212.0,
+          "max_rs": 6222.0,
+          "modal_rs": 5449.0
+        },
+        {
+          "commodity": "ಸೋಯಾಬಿನ್",
+          "variety": "ಹಳದಿ",
+          "grade": "ಚಿಕ್ಕದು",
+          "arrivals": 104.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 6464.0,
+          "max_rs": 7550.0,
+          "modal_rs": 7299.0
+        },
+        {
+          "commodity": "ತೊಗರಿ",
+          "variety": "ತೊಗರಿ",
+          "grade": "ಚಿಕ್ಕದು",
+          "arrivals": 904.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 5212.0,
+          "max_rs": 8434.0,
+          "modal_rs": 8112.0
+        }
+      ]
+    },
+    {
+      "city_name": "38]  ಮಾರುಕಟ್ಟೆ: ಬೈಲಹೊಂಗಲ",
+      "commodities": [
+        {
+          "commodity": "ಮೆಕ್ಕೆಜೋಳ",
+          "variety": "ಹೈಬ್ರಿಡ್ ಸ್ಥಳೀಯ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 650.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2000.0,
+          "max_rs": 2300.0,
+          "modal_rs": 2200.0
+        },
+        {
+          "commodity": "ಸೋಯಾಬಿನ್",
+          "variety": "ಸೋಯಾಬಿನ್",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 363.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 6740.0,
+          "max_rs": 7320.0,
+          "modal_rs": 7181.0
+        }
+      ]
+    },
+    {
+      "city_name": "39]  ಮಾರುಕಟ್ಟೆ: ಭದ್ರಾವತಿ",
+      "commodities": [
+        {
+          "commodity": "ಅಡಿಕೆ",
+          "variety": "ಇತರೆ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 60.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 22000.0,
+          "max_rs": 26000.0,
+          "modal_rs": 26000.0
+        },
+        {
+          "commodity": "ತೆಂಗಿನಕಾಯಿ",
+          "variety": "ಮಧ್ಯಮ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 18930.0,
+          "units": "ಸಂಖ್ಯೆಗಳಲ್ಲಿ",
+          "min_rs": 28000.0,
+          "max_rs": 28000.0,
+          "modal_rs": 28000.0
+        },
+        {
+          "commodity": "ಬೆಲ್ಲ",
+          "variety": "ಉಂಡೆ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 12.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 4850.0,
+          "max_rs": 4850.0,
+          "modal_rs": 4850.0
+        },
+        {
+          "commodity": "ಭತ್ತ",
+          "variety": "ಸಾಧಾರಣ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 746.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 3900.0,
+          "max_rs": 3960.0,
+          "modal_rs": 3900.0
+        },
+        {
+          "commodity": "ಅಕ್ಕಿ",
+          "variety": "ಮಧ್ಯಮ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 380.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2500.0,
+          "max_rs": 2500.0,
+          "modal_rs": 2500.0
+        }
+      ]
+    },
+    {
+      "city_name": "40]  ಮಾರುಕಟ್ಟೆ: ಮಂಡ್ಯ",
+      "commodities": [
+        {
+          "commodity": "ಬೆಲ್ಲ",
+          "variety": "ಅಚ್ಚು",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 1652.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 4200.0,
+          "max_rs": 4970.0,
+          "modal_rs": 4500.0
+        },
+        {
+          "commodity": "ಬೆಲ್ಲ",
+          "variety": "ಕುರಿಕಟ್ಟು",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 112.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 3800.0,
+          "max_rs": 4300.0,
+          "modal_rs": 4000.0
+        },
+        {
+          "commodity": "ಬೆಲ್ಲ",
+          "variety": "ಇತರೆ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 1275.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 4000.0,
+          "max_rs": 4850.0,
+          "modal_rs": 4450.0
+        },
+        {
+          "commodity": "ಬೆಲ್ಲ",
+          "variety": "ಹಳದಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 308.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 4200.0,
+          "max_rs": 4700.0,
+          "modal_rs": 4450.0
+        }
+      ]
+    },
+    {
+      "city_name": "41]  ಮಾರುಕಟ್ಟೆ: ಮಾನ್ವಿ",
+      "commodities": [
+        {
+          "commodity": "ಸಜ್ಜೆ",
+          "variety": "ಇತರೆ",
+          "grade": "ಚಿಕ್ಕದು",
+          "arrivals": 371.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2600.0,
+          "max_rs": 2750.0,
+          "modal_rs": 2650.0
+        },
+        {
+          "commodity": "ಭತ್ತ",
+          "variety": "ಹಳೇ ಸೋನ ಮಸೂರಿ",
+          "grade": "ಚಿಕ್ಕದು",
+          "arrivals": 255.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 3863.0,
+          "max_rs": 3863.0,
+          "modal_rs": 3863.0
+        },
+        {
+          "commodity": "ಅಕ್ಕಿ",
+          "variety": "ಇತರೆ",
+          "grade": "ಚಿಕ್ಕದು",
+          "arrivals": 1400.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2850.0,
+          "max_rs": 2850.0,
+          "modal_rs": 2850.0
+        }
+      ]
+    },
+    {
+      "city_name": "42]  ಮಾರುಕಟ್ಟೆ: ಮಾಲೂರು",
+      "commodities": [
+        {
+          "commodity": "ಹುರುಳಿಕಾಯಿ",
+          "variety": "ಬೀನ್ಸ್ (ವೋಲ್)",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 399.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 3500.0,
+          "max_rs": 4500.0,
+          "modal_rs": 4000.0
+        }
+      ]
+    },
+    {
+      "city_name": "43]  ಮಾರುಕಟ್ಟೆ: ಮುಂಡಗೋಡು",
+      "commodities": [
+        {
+          "commodity": "ಮೆಕ್ಕೆಜೋಳ",
+          "variety": "ಹೈಬ್ರಿಡ್ ಸ್ಥಳೀಯ",
+          "grade": "ಚಿಕ್ಕದು",
+          "arrivals": 500.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2500.0,
+          "max_rs": 2500.0,
+          "modal_rs": 2500.0
+        },
+        {
+          "commodity": "ಭತ್ತ",
+          "variety": "ಭತ್ತ-1",
+          "grade": "ಚಿಕ್ಕದು",
+          "arrivals": 500.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2500.0,
+          "max_rs": 2500.0,
+          "modal_rs": 2500.0
+        }
+      ]
+    },
+    {
+      "city_name": "44]  ಮಾರುಕಟ್ಟೆ: ಮೂಡಿಗೆರೆ",
+      "commodities": [
+        {
+          "commodity": "ಮೆಣಸು",
+          "variety": "ಕರಿಮೆಣಸು",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 105.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 35200.0,
+          "max_rs": 37843.0,
+          "modal_rs": 37843.0
+        }
+      ]
+    },
+    {
+      "city_name": "45]  ಮಾರುಕಟ್ಟೆ: ಮೈಸೂರು",
+      "commodities": [
+        {
+          "commodity": "ಬೂದುಕುಂಬಳ ಕಾಯಿ",
+          "variety": "ಬೂದುಕುಂಬಳ",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 12.0,
+          "units": "ಸಂಖ್ಯೆಗಳಲ್ಲಿ",
+          "min_rs": 11.0,
+          "max_rs": 13.0,
+          "modal_rs": 12.0
+        },
+        {
+          "commodity": "ಹುರುಳಿಕಾಯಿ",
+          "variety": "ಬೀನ್ಸ್ (ವೋಲ್)",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 34.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 3500.0,
+          "max_rs": 4000.0,
+          "modal_rs": 3800.0
+        },
+        {
+          "commodity": "ಬೀಟ್ರೂಟ್",
+          "variety": "ಬೀಟ್ ರೂಟ್",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 26.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2600.0,
+          "max_rs": 2800.0,
+          "modal_rs": 2700.0
+        },
+        {
+          "commodity": "ಹಾಗಲಕಾಯಿ",
+          "variety": "ಹಾಗಲಕಾಯಿ",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 15.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 4000.0,
+          "max_rs": 4200.0,
+          "modal_rs": 4100.0
+        },
+        {
+          "commodity": "ಸೋರೆಕಾಯಿ",
+          "variety": "ಸೋರೆಕಾಯಿ",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 7.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 1000.0,
+          "max_rs": 1200.0,
+          "modal_rs": 1100.0
+        },
+        {
+          "commodity": "ಬದನೆಕಾಯಿ",
+          "variety": "ಬದನೆಕಾಯಿ",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 12.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2000.0,
+          "max_rs": 2200.0,
+          "modal_rs": 2100.0
+        },
+        {
+          "commodity": "ಬದನೆಕಾಯಿ",
+          "variety": "ರೌಂಡ್",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 18.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 1600.0,
+          "max_rs": 1800.0,
+          "modal_rs": 1700.0
+        },
+        {
+          "commodity": "ಎಲೆಕೋಸು",
+          "variety": "ಎಲೆಕೋಸು",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 68.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2000.0,
+          "max_rs": 2200.0,
+          "modal_rs": 2100.0
+        },
+        {
+          "commodity": "ದಪ್ಪ ಮೆಣಸಿನಕಾಯಿ",
+          "variety": "ದಪ್ಪ ಮೆಣಸಿನಕಾಯಿ",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 58.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 4800.0,
+          "max_rs": 5000.0,
+          "modal_rs": 4900.0
+        },
+        {
+          "commodity": "ಕ್ಯಾರೆಟ್",
+          "variety": "ಕ್ಯಾರೆಟ್",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 23.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 5300.0,
+          "max_rs": 5500.0,
+          "modal_rs": 5400.0
+        },
+        {
+          "commodity": "ಹೂಕೋಸು",
+          "variety": "ಸ್ಥಳೀಯ",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 39.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 1300.0,
+          "max_rs": 1500.0,
+          "modal_rs": 1400.0
+        },
+        {
+          "commodity": "ಬಜ್ಜಿ ಮೆಣಸಿನಕಾಯಿ",
+          "variety": "ದಪ್ಪ ಮೆಣಸಿನಕಾಯಿ",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 21.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 3000.0,
+          "max_rs": 5000.0,
+          "modal_rs": 4000.0
+        },
+        {
+          "commodity": "ಸೌತೆಕಾಯಿ",
+          "variety": "ಸೌತೆಕಾಯಿ",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 38.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 1400.0,
+          "max_rs": 1600.0,
+          "modal_rs": 1500.0
+        },
+        {
+          "commodity": "ನುಗ್ಗೆಕಾಯಿ",
+          "variety": "ನುಗ್ಗೆಕಾಯಿ",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 4.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 4800.0,
+          "max_rs": 5000.0,
+          "modal_rs": 4900.0
+        },
+        {
+          "commodity": "ಹಸಿರು ಮೆಣಸಿನಕಾಯಿ",
+          "variety": "ಹಸಿರು ಮೆಣಸಿನಕಾಯಿ",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 18.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2100.0,
+          "max_rs": 2300.0,
+          "modal_rs": 2200.0
+        },
+        {
+          "commodity": "ಹಸಿ ಶುಂಠಿ",
+          "variety": "ಹಸಿ ಶುಂಠಿ",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 5.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 14300.0,
+          "max_rs": 14500.0,
+          "modal_rs": 14400.0
+        },
+        {
+          "commodity": "ನವಿಲುಕೋಸು",
+          "variety": "ನವಿಲುಕೋಸು",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 15.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2300.0,
+          "max_rs": 2500.0,
+          "modal_rs": 2400.0
+        },
+        {
+          "commodity": "ಬೆಂಡೇಕಾಯಿ",
+          "variety": "ಬೆಂಡೆಕಾಯಿ",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 12.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 1800.0,
+          "max_rs": 2000.0,
+          "modal_rs": 1900.0
+        },
+        {
+          "commodity": "ಹೀರೇಕಾಯಿ",
+          "variety": "ಹೀರೆಕಾಯಿ",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 42.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2300.0,
+          "max_rs": 2500.0,
+          "modal_rs": 2400.0
+        },
+        {
+          "commodity": "ಸೀಮೆ ಬದನೆಕಾಯಿ",
+          "variety": "ಸೀಮೆಬದನೆಕಾಯಿ",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 29.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2200.0,
+          "max_rs": 2400.0,
+          "modal_rs": 2300.0
+        },
+        {
+          "commodity": "ಪಡವಲಕಾಯಿ",
+          "variety": "ಪಡವಲಕಾಯಿ",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 18.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2000.0,
+          "max_rs": 2200.0,
+          "modal_rs": 2100.0
+        },
+        {
+          "commodity": "ಸುವಣಗೆಡ್ಡೆ",
+          "variety": "ಸುವರ್ಣ ಗೆಡ್ಡೆ",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 11.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 3300.0,
+          "max_rs": 3500.0,
+          "modal_rs": 3400.0
+        },
+        {
+          "commodity": "ಸಿಹಿ ಗೆಣಸು",
+          "variety": "ಗೆಣಸು",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 12.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2600.0,
+          "max_rs": 2800.0,
+          "modal_rs": 2700.0
+        },
+        {
+          "commodity": "ಸಿಹಿ ಕುಂಬಳಕಾಯಿ",
+          "variety": "ಸಿಹಿಕುಂಬಳಕಾಯಿ",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 63.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 400.0,
+          "max_rs": 600.0,
+          "modal_rs": 500.0
+        },
+        {
+          "commodity": "ತೊಂಡೆಕಾಯಿ",
+          "variety": "ತೊಂಡೇಕಾಯಿ",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 16.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2400.0,
+          "max_rs": 2600.0,
+          "modal_rs": 2500.0
+        },
+        {
+          "commodity": "ಟೊಮ್ಯಾಟೊ",
+          "variety": "ಟೊಮ್ಯೂಟೊ",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 81.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 500.0,
+          "max_rs": 700.0,
+          "modal_rs": 600.0
+        }
+      ]
+    },
+    {
+      "city_name": "46]  ಮಾರುಕಟ್ಟೆ: ಯರಹಳ್ಳಿ",
+      "commodities": [
+        {
+          "commodity": "ಎಲೆಕೋಸು",
+          "variety": "ಎಲೆಕೋಸು",
+          "grade": "ಚಿಕ್ಕದು",
+          "arrivals": 10.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 1660.0,
+          "max_rs": 1660.0,
+          "modal_rs": 1660.0
+        },
+        {
+          "commodity": "ತೆಂಗಿನಕಾಯಿ",
+          "variety": "ತೆಂಗಿನಕಾಯಿ",
+          "grade": "ಚಿಕ್ಕದು",
+          "arrivals": 228000.0,
+          "units": "ಸಂಖ್ಯೆಗಳಲ್ಲಿ",
+          "min_rs": 20000.0,
+          "max_rs": 20000.0,
+          "modal_rs": 20000.0
+        },
+        {
+          "commodity": "ಹತ್ತಿ",
+          "variety": "ಡಿ.ಸಿ.ಹೆಚ್.",
+          "grade": "ಚಿಕ್ಕದು",
+          "arrivals": 125.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 5000.0,
+          "max_rs": 11400.0,
+          "modal_rs": 11400.0
+        },
+        {
+          "commodity": "ಹತ್ತಿ",
+          "variety": "ಸ್ಪೆಷಲ್ ಲೆಂತ್ 29.5-30.5 ಮಿ.ಮಿ. ಮತ್ತು ಮೈಕ್ರೋನೇರ್ವ್ಯಾಲ್ಯೂ 3.5-4.3",
+          "grade": "ಚಿಕ್ಕದು",
+          "arrivals": 285.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 8800.0,
+          "max_rs": 10963.0,
+          "modal_rs": 8800.0
+        },
+        {
+          "commodity": "ಸೌತೆಕಾಯಿ",
+          "variety": "ಸೌತೆಕಾಯಿ",
+          "grade": "ಚಿಕ್ಕದು",
+          "arrivals": 5.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 1660.0,
+          "max_rs": 1660.0,
+          "modal_rs": 1660.0
+        },
+        {
+          "commodity": "ಶುಂಠಿ",
+          "variety": "ಒಣ",
+          "grade": "ಚಿಕ್ಕದು",
+          "arrivals": 653.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 16000.0,
+          "max_rs": 18000.0,
+          "modal_rs": 16000.0
+        },
+        {
+          "commodity": "ಹಸಿರು ಮೆಣಸಿನಕಾಯಿ",
+          "variety": "ಹಸಿರು ಮೆಣಸಿನಕಾಯಿ",
+          "grade": "ಚಿಕ್ಕದು",
+          "arrivals": 25.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 1660.0,
+          "max_rs": 1660.0,
+          "modal_rs": 1660.0
+        },
+        {
+          "commodity": "ಹಸಿ ಶುಂಠಿ",
+          "variety": "ಹಸಿ ಶುಂಠಿ",
+          "grade": "ಚಿಕ್ಕದು",
+          "arrivals": 6681.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2500.0,
+          "max_rs": 4000.0,
+          "modal_rs": 3000.0
+        },
+        {
+          "commodity": "ಭತ್ತ",
+          "variety": "ಭತ್ತ-1",
+          "grade": "ಚಿಕ್ಕದು",
+          "arrivals": 5441.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2200.0,
+          "max_rs": 3400.0,
+          "modal_rs": 3000.0
+        },
+        {
+          "commodity": "ಎಳನೀರು",
+          "variety": "ಎಳನೀರು",
+          "grade": "ಚಿಕ್ಕದು",
+          "arrivals": 38500.0,
+          "units": "ಸಾವಿರ",
+          "min_rs": 25000.0,
+          "max_rs": 25000.0,
+          "modal_rs": 25000.0
+        },
+        {
+          "commodity": "ಟೊಮ್ಯಾಟೊ",
+          "variety": "ಟೊಮ್ಯೂಟೊ",
+          "grade": "ಚಿಕ್ಕದು",
+          "arrivals": 10.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 1660.0,
+          "max_rs": 1660.0,
+          "modal_rs": 1660.0
+        }
+      ]
+    },
+    {
+      "city_name": "47]  ಮಾರುಕಟ್ಟೆ: ಯಲ್ಬುರ್ಗ",
+      "commodities": [
+        {
+          "commodity": "ಕಡಲೆಕಾಳು",
+          "variety": "ಆವರೇಜ್ (ಇಡಿ)",
+          "grade": "ಚಿಕ್ಕದು",
+          "arrivals": 596.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 6025.0,
+          "max_rs": 6025.0,
+          "modal_rs": 6025.0
+        },
+        {
+          "commodity": "ಹೆಸರುಕಾಳು",
+          "variety": "ಹೆಸರುಕಾಳು",
+          "grade": "ಚಿಕ್ಕದು",
+          "arrivals": 26.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 9000.0,
+          "max_rs": 9000.0,
+          "modal_rs": 9000.0
+        }
+      ]
+    },
+    {
+      "city_name": "48]  ಮಾರುಕಟ್ಟೆ: ಯಲ್ಲಾಪೂರ",
+      "commodities": [
+        {
+          "commodity": "ಅಡಿಕೆ",
+          "variety": "ಬಿಳೆ ಗೋಟು",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 41.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 20000.0,
+          "max_rs": 33922.0,
+          "modal_rs": 32199.0
+        },
+        {
+          "commodity": "ಅಡಿಕೆ",
+          "variety": "ಚಾಲಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 231.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 36869.0,
+          "max_rs": 48340.0,
+          "modal_rs": 47099.0
+        },
+        {
+          "commodity": "ಅಡಿಕೆ",
+          "variety": "ಕೋಕ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 56.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 16900.0,
+          "max_rs": 31199.0,
+          "modal_rs": 27699.0
+        },
+        {
+          "commodity": "ಅಡಿಕೆ",
+          "variety": "ಕೆಂಪುಗೋಟು",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 4.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 26621.0,
+          "max_rs": 34969.0,
+          "modal_rs": 32399.0
+        },
+        {
+          "commodity": "ಅಡಿಕೆ",
+          "variety": "ರಾಶಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 73.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 49300.0,
+          "max_rs": 54799.0,
+          "modal_rs": 52499.0
+        },
+        {
+          "commodity": "ಅಡಿಕೆ",
+          "variety": "ತಟ್ಟಿಬೆಟ್ಟೆ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 18.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 39421.0,
+          "max_rs": 46099.0,
+          "modal_rs": 43399.0
+        },
+        {
+          "commodity": "ತೆಂಗಿನಕಾಯಿ",
+          "variety": "ಮಧ್ಯಮ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 740.0,
+          "units": "ಸಂಖ್ಯೆಗಳಲ್ಲಿ",
+          "min_rs": 23000.0,
+          "max_rs": 26000.0,
+          "modal_rs": 26000.0
+        },
+        {
+          "commodity": "ಮೆಣಸು",
+          "variety": "ಇತರೆ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 6.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 52575.0,
+          "max_rs": 66201.0,
+          "modal_rs": 64899.0
+        }
+      ]
+    },
+    {
+      "city_name": "49]  ಮಾರುಕಟ್ಟೆ: ರಾಣೆಬೆನ್ನೂರು",
+      "commodities": [
+        {
+          "commodity": "ಎಲೆಕೋಸು",
+          "variety": "ಎಲೆಕೋಸು",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 5.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 400.0,
+          "max_rs": 2000.0,
+          "modal_rs": 1500.0
+        },
+        {
+          "commodity": "ಹತ್ತಿ",
+          "variety": "ಡಿ.ಸಿ.ಹೆಚ್.",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 39.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 8596.0,
+          "max_rs": 10701.0,
+          "modal_rs": 9648.0
+        },
+        {
+          "commodity": "ಹಸಿರು ಮೆಣಸಿನಕಾಯಿ",
+          "variety": "ಹಸಿರು ಮೆಣಸಿನಕಾಯಿ",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 3.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 1200.0,
+          "max_rs": 3500.0,
+          "modal_rs": 2500.0
+        },
+        {
+          "commodity": "ಜೋಳ",
+          "variety": "ಹೈಬ್ರಿಡ್ ಜೋಳ",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 682.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2650.0,
+          "max_rs": 2650.0,
+          "modal_rs": 2650.0
+        },
+        {
+          "commodity": "ಮೆಕ್ಕೆಜೋಳ",
+          "variety": "ಸ್ಥಳೀಯ",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 2819.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2000.0,
+          "max_rs": 2480.0,
+          "modal_rs": 2240.0
+        },
+        {
+          "commodity": "ಟೊಮ್ಯಾಟೊ",
+          "variety": "ಟೊಮ್ಯೂಟೊ",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 4.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 500.0,
+          "max_rs": 2000.0,
+          "modal_rs": 1200.0
+        },
+        {
+          "commodity": "ಗೋಧಿ",
+          "variety": "ಸ್ಥಳೀಯ",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 120.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 3101.0,
+          "max_rs": 3101.0,
+          "modal_rs": 3101.0
+        }
+      ]
+    },
+    {
+      "city_name": "50]  ಮಾರುಕಟ್ಟೆ: ರಾಮನಗರ",
+      "commodities": [
+        {
+          "commodity": "ಅಲಸಂದಿಕಾಯಿ",
+          "variety": "ಅಲಸಂದಿಕಾಯಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 4.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 3800.0,
+          "max_rs": 4400.0,
+          "modal_rs": 4000.0
+        },
+        {
+          "commodity": "ಹುರುಳಿಕಾಯಿ",
+          "variety": "ಬೀನ್ಸ್ (ವೋಲ್)",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 13.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 3000.0,
+          "max_rs": 4400.0,
+          "modal_rs": 4000.0
+        },
+        {
+          "commodity": "ಬೀಟ್ರೂಟ್",
+          "variety": "ಬೀಟ್ ರೂಟ್",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 5.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 3200.0,
+          "max_rs": 3600.0,
+          "modal_rs": 3500.0
+        },
+        {
+          "commodity": "ಹಾಗಲಕಾಯಿ",
+          "variety": "ಹಾಗಲಕಾಯಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 6.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 3500.0,
+          "max_rs": 4600.0,
+          "modal_rs": 4000.0
+        },
+        {
+          "commodity": "ಸೋರೆಕಾಯಿ",
+          "variety": "ಸೋರೆಕಾಯಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 8.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 1000.0,
+          "max_rs": 1600.0,
+          "modal_rs": 1200.0
+        },
+        {
+          "commodity": "ಬದನೆಕಾಯಿ",
+          "variety": "ಬದನೆಕಾಯಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 8.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 3000.0,
+          "max_rs": 4500.0,
+          "modal_rs": 4000.0
+        },
+        {
+          "commodity": "ಬದನೆಕಾಯಿ",
+          "variety": "ರೌಂಡ್",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 6.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2000.0,
+          "max_rs": 2400.0,
+          "modal_rs": 2200.0
+        },
+        {
+          "commodity": "ಎಲೆಕೋಸು",
+          "variety": "ಎಲೆಕೋಸು",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 12.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2000.0,
+          "max_rs": 2600.0,
+          "modal_rs": 2400.0
+        },
+        {
+          "commodity": "ದಪ್ಪ ಮೆಣಸಿನಕಾಯಿ",
+          "variety": "ದಪ್ಪ ಮೆಣಸಿನಕಾಯಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 7.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 5000.0,
+          "max_rs": 7000.0,
+          "modal_rs": 6000.0
+        },
+        {
+          "commodity": "ಕ್ಯಾರೆಟ್",
+          "variety": "ಕ್ಯಾರೆಟ್",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 7.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 4000.0,
+          "max_rs": 5500.0,
+          "modal_rs": 5000.0
+        },
+        {
+          "commodity": "ಹೂಕೋಸು",
+          "variety": "ಹೂಕೋಸು",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 13.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2000.0,
+          "max_rs": 2800.0,
+          "modal_rs": 2500.0
+        },
+        {
+          "commodity": "ಬಜ್ಜಿ ಮೆಣಸಿನಕಾಯಿ",
+          "variety": "ದಪ್ಪ ಮೆಣಸಿನಕಾಯಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 6.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 4000.0,
+          "max_rs": 6000.0,
+          "modal_rs": 5000.0
+        },
+        {
+          "commodity": "ಸೌತೆಕಾಯಿ",
+          "variety": "ಸೌತೆಕಾಯಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 30.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2000.0,
+          "max_rs": 2400.0,
+          "modal_rs": 2200.0
+        },
+        {
+          "commodity": "ನುಗ್ಗೆಕಾಯಿ",
+          "variety": "ನುಗ್ಗೆಕಾಯಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 13.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2000.0,
+          "max_rs": 2800.0,
+          "modal_rs": 2500.0
+        },
+        {
+          "commodity": "ಅವರೇಕಾಯಿ",
+          "variety": "ಅವರೆಕಾಯಿ (ಇಡಿ)",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 7.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 3500.0,
+          "max_rs": 5000.0,
+          "modal_rs": 4400.0
+        },
+        {
+          "commodity": "ಹಸಿರು ಮೆಣಸಿನಕಾಯಿ",
+          "variety": "ಹಸಿರು ಮೆಣಸಿನಕಾಯಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 12.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2400.0,
+          "max_rs": 4500.0,
+          "modal_rs": 3600.0
+        },
+        {
+          "commodity": "ಹಸಿ ಶುಂಠಿ",
+          "variety": "ಹಸಿ ಶುಂಠಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 6.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 7000.0,
+          "max_rs": 11000.0,
+          "modal_rs": 10500.0
+        },
+        {
+          "commodity": "ನವಿಲುಕೋಸು",
+          "variety": "ನವಿಲುಕೋಸು",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 9.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 3000.0,
+          "max_rs": 4500.0,
+          "modal_rs": 4000.0
+        },
+        {
+          "commodity": "ಬೆಂಡೇಕಾಯಿ",
+          "variety": "ಬೆಂಡೆಕಾಯಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 9.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 1800.0,
+          "max_rs": 2600.0,
+          "modal_rs": 2000.0
+        },
+        {
+          "commodity": "ಮುೂಲಂಗಿ",
+          "variety": "ಮೂಲಂಗಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 8.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 1600.0,
+          "max_rs": 2800.0,
+          "modal_rs": 2400.0
+        },
+        {
+          "commodity": "ಹೀರೇಕಾಯಿ",
+          "variety": "ಹೀರೆಕಾಯಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 9.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2000.0,
+          "max_rs": 3200.0,
+          "modal_rs": 2400.0
+        },
+        {
+          "commodity": "ಸೀಮೆ ಬದನೆಕಾಯಿ",
+          "variety": "ಸೀಮೆಬದನೆಕಾಯಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 7.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2000.0,
+          "max_rs": 2800.0,
+          "modal_rs": 2400.0
+        },
+        {
+          "commodity": "ಪಡವಲಕಾಯಿ",
+          "variety": "ಪಡವಲಕಾಯಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 6.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2000.0,
+          "max_rs": 2800.0,
+          "modal_rs": 2500.0
+        },
+        {
+          "commodity": "ಟೊಮ್ಯಾಟೊ",
+          "variety": "ಟೊಮ್ಯೂಟೊ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 80.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 600.0,
+          "max_rs": 1300.0,
+          "modal_rs": 1000.0
+        }
+      ]
+    },
+    {
+      "city_name": "51]  ಮಾರುಕಟ್ಟೆ: ರಾಯಚೂರು",
+      "commodities": [
+        {
+          "commodity": "ಸಜ್ಜೆ",
+          "variety": "ಸ್ಥಳೀಯ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 8.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2880.0,
+          "max_rs": 2880.0,
+          "modal_rs": 2880.0
+        },
+        {
+          "commodity": "ಕಡಲೆಕಾಳು",
+          "variety": "ಜವರಿ / ಸ್ಥಳಿಯ",
+          "grade": "",
+          "arrivals": 1.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 5227.0,
+          "max_rs": 5227.0,
+          "modal_rs": 5227.0
+        },
+        {
+          "commodity": "ಹತ್ತಿ",
+          "variety": "ಹೈಬ್ರಿಡ್-44",
+          "grade": "ಸಾಮನ್ಯ",
+          "arrivals": 1383.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 9100.0,
+          "max_rs": 9202.0,
+          "modal_rs": 9179.0
+        },
+        {
+          "commodity": "ನೆಲಗಡಲೆ (ಶೇಂಗಾ)",
+          "variety": "ಗುಂಗ್ರಿ",
+          "grade": "",
+          "arrivals": 87.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 4796.0,
+          "max_rs": 6895.0,
+          "modal_rs": 5799.0
+        },
+        {
+          "commodity": "ಭತ್ತ",
+          "variety": "ಸೋನ ಮಸೂರಿ",
+          "grade": "ಸಾಮನ್ಯ",
+          "arrivals": 74.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 3329.0,
+          "max_rs": 3349.0,
+          "modal_rs": 3341.0
+        },
+        {
+          "commodity": "ತೊಗರಿ",
+          "variety": "ಕೆಂಪು",
+          "grade": "",
+          "arrivals": 2.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 6689.0,
+          "max_rs": 6729.0,
+          "modal_rs": 6729.0
+        }
+      ]
+    },
+    {
+      "city_name": "52]  ಮಾರುಕಟ್ಟೆ: ಲಿಂಗಸುಗೂರು",
+      "commodities": [
+        {
+          "commodity": "ಸಜ್ಜೆ",
+          "variety": "ಹೈಬ್ರಿಡ್",
+          "grade": "ಚಿಕ್ಕದು",
+          "arrivals": 1468.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2425.0,
+          "max_rs": 2900.0,
+          "modal_rs": 2750.0
+        },
+        {
+          "commodity": "ಭತ್ತ",
+          "variety": "ಐ.ಆರ್.64",
+          "grade": "ಚಿಕ್ಕದು",
+          "arrivals": 727.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2450.0,
+          "max_rs": 3200.0,
+          "modal_rs": 2450.0
+        }
+      ]
+    },
+    {
+      "city_name": "53]  ಮಾರುಕಟ್ಟೆ: ವಿಜಯಾಪುರ",
+      "commodities": [
+        {
+          "commodity": "ಕಡಲೆಬೇಳೆ",
+          "variety": "ಕಡ್ಲೆಬೇಳೆ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 292.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 6575.0,
+          "max_rs": 9400.0,
+          "modal_rs": 7335.0
+        },
+        {
+          "commodity": "ಕಡಲೆಕಾಳು",
+          "variety": "ಆವರೇಜ್ (ಇಡಿ)",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 3.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 5709.0,
+          "max_rs": 5709.0,
+          "modal_rs": 5709.0
+        },
+        {
+          "commodity": "ಉದ್ದಿನಬೇಳೆ",
+          "variety": "ಉದ್ದಿನಬೇಳೆ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 512.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 7250.0,
+          "max_rs": 10600.0,
+          "modal_rs": 9193.0
+        },
+        {
+          "commodity": "ಉದ್ದಿನಕಾಳು",
+          "variety": "ಉದ್ದಿನ ಕಾಳು",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 60.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 9300.0,
+          "max_rs": 9300.0,
+          "modal_rs": 9300.0
+        },
+        {
+          "commodity": "ಚೆನ್ನಂಗಿ ದಾಲ್",
+          "variety": "ಚನ್ನಂಗಿಬೇಳೆ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 216.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 6800.0,
+          "max_rs": 9800.0,
+          "modal_rs": 7956.0
+        },
+        {
+          "commodity": "ಹತ್ತಿ",
+          "variety": "ಬನಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 320.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 9387.0,
+          "max_rs": 9897.0,
+          "modal_rs": 9835.0
+        },
+        {
+          "commodity": "ಒಣದ್ರಾಕ್ಷಿ",
+          "variety": "ಒಣದ್ರಾಕ್ಷಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 47.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 5700.0,
+          "max_rs": 33400.0,
+          "modal_rs": 23000.0
+        },
+        {
+          "commodity": "ಹೆಸರುಕಾಳು",
+          "variety": "ಹೆಸರುಕಾಳು",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 163.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 8000.0,
+          "max_rs": 9800.0,
+          "modal_rs": 8999.0
+        },
+        {
+          "commodity": "ನೆಲಗಡಲೆ (ಶೇಂಗಾ)",
+          "variety": "ಶೇಂಗಾ ಗೆಜ್ಜೆ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 16.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 8043.0,
+          "max_rs": 8043.0,
+          "modal_rs": 8043.0
+        },
+        {
+          "commodity": "ಮೆಕ್ಕೆಜೋಳ",
+          "variety": "ಹೈಬ್ರಿಡ್ ಸ್ಥಳೀಯ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 36.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2400.0,
+          "max_rs": 2400.0,
+          "modal_rs": 2400.0
+        },
+        {
+          "commodity": "ಮಡಿಕೆ (ಮಟಕಿ)",
+          "variety": "ಮಟಕಿ (ವೋಲ್)",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 100.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 6000.0,
+          "max_rs": 9350.0,
+          "modal_rs": 7542.0
+        },
+        {
+          "commodity": "ಅಕ್ಕಿ",
+          "variety": "ಇತರೆ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 567.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2700.0,
+          "max_rs": 6400.0,
+          "modal_rs": 4990.0
+        },
+        {
+          "commodity": "ಕುಸುಬೆ",
+          "variety": "ಸಾಫ್ ಫ್ಲವರ್",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 11.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 5034.0,
+          "max_rs": 5034.0,
+          "modal_rs": 5034.0
+        },
+        {
+          "commodity": "ತೊಗರಿ",
+          "variety": "ತೊಗರಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 1189.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 7300.0,
+          "max_rs": 8250.0,
+          "modal_rs": 7913.0
+        },
+        {
+          "commodity": "ತೊಗರಿ ಬೇಳೆ",
+          "variety": "ತೊಗರಿಬೇಳೆ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 209.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 7784.0,
+          "max_rs": 14342.0,
+          "modal_rs": 9568.0
+        },
+        {
+          "commodity": "ಗೋಧಿ",
+          "variety": "ಸೋನ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 308.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2147.0,
+          "max_rs": 3261.0,
+          "modal_rs": 2637.0
+        }
+      ]
+    },
+    {
+      "city_name": "54]  ಮಾರುಕಟ್ಟೆ: ಶಿಕಾರಿಪುರ",
+      "commodities": [
+        {
+          "commodity": "ಮೆಕ್ಕೆಜೋಳ",
+          "variety": "ಸ್ಥಳೀಯ",
+          "grade": "ಸಾಮನ್ಯ",
+          "arrivals": 2383.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2300.0,
+          "max_rs": 2550.0,
+          "modal_rs": 2404.0
+        },
+        {
+          "commodity": "ಭತ್ತ",
+          "variety": "ಭತ್ತ-1",
+          "grade": "ಸಾಮನ್ಯ",
+          "arrivals": 1304.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2370.0,
+          "max_rs": 2700.0,
+          "modal_rs": 2471.0
+        }
+      ]
+    },
+    {
+      "city_name": "55]  ಮಾರುಕಟ್ಟೆ: ಶ್ರೀರ೦ಗಪಟ್ಟಣ",
+      "commodities": [
+        {
+          "commodity": "ತೆಂಗಿನಕಾಯಿ",
+          "variety": "ತೆಂಗಿನಕಾಯಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 109321.0,
+          "units": "ಸಂಖ್ಯೆಗಳಲ್ಲಿ",
+          "min_rs": 23000.0,
+          "max_rs": 23000.0,
+          "modal_rs": 23000.0
+        },
+        {
+          "commodity": "ಬೆಲ್ಲ",
+          "variety": "ಕುರಿಕಟ್ಟು",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 166.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 3800.0,
+          "max_rs": 4530.0,
+          "modal_rs": 4000.0
+        },
+        {
+          "commodity": "ಭತ್ತ",
+          "variety": "ಜಯ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 40777.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 1800.0,
+          "max_rs": 3300.0,
+          "modal_rs": 2500.0
+        },
+        {
+          "commodity": "ಎಳನೀರು",
+          "variety": "ಎಳನೀರು",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 10000.0,
+          "units": "ಸಾವಿರ",
+          "min_rs": 20000.0,
+          "max_rs": 25000.0,
+          "modal_rs": 25000.0
+        }
+      ]
+    },
+    {
+      "city_name": "56]  ಮಾರುಕಟ್ಟೆ: ಶಿವಮೊಗ್ಗ",
+      "commodities": [
+        {
+          "commodity": "ಹುರುಳಿಕಾಯಿ",
+          "variety": "ಬೀನ್ಸ್ (ವೋಲ್)",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 24.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 3000.0,
+          "max_rs": 3500.0,
+          "modal_rs": 3250.0
+        },
+        {
+          "commodity": "ಬೀಟ್ರೂಟ್",
+          "variety": "ಬೀಟ್ ರೂಟ್",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 20.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2400.0,
+          "max_rs": 3000.0,
+          "modal_rs": 2700.0
+        },
+        {
+          "commodity": "ಹಾಗಲಕಾಯಿ",
+          "variety": "ಹಾಗಲಕಾಯಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 4.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 3000.0,
+          "max_rs": 4000.0,
+          "modal_rs": 3500.0
+        },
+        {
+          "commodity": "ಬದನೆಕಾಯಿ",
+          "variety": "ಬದನೆಕಾಯಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 33.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 1200.0,
+          "max_rs": 1600.0,
+          "modal_rs": 1400.0
+        },
+        {
+          "commodity": "ಎಲೆಕೋಸು",
+          "variety": "ಎಲೆಕೋಸು",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 20.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 1500.0,
+          "max_rs": 2000.0,
+          "modal_rs": 1750.0
+        },
+        {
+          "commodity": "ದಪ್ಪ ಮೆಣಸಿನಕಾಯಿ",
+          "variety": "ದಪ್ಪ ಮೆಣಸಿನಕಾಯಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 6.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 4000.0,
+          "max_rs": 6000.0,
+          "modal_rs": 5000.0
+        },
+        {
+          "commodity": "ಕ್ಯಾರೆಟ್",
+          "variety": "ಕ್ಯಾರೆಟ್",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 90.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 3000.0,
+          "max_rs": 4000.0,
+          "modal_rs": 3500.0
+        },
+        {
+          "commodity": "ಹೂಕೋಸು",
+          "variety": "ಹೂಕೋಸು",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 6.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2000.0,
+          "max_rs": 2500.0,
+          "modal_rs": 2250.0
+        },
+        {
+          "commodity": "ಸೌತೆಕಾಯಿ",
+          "variety": "ಸೌತೆಕಾಯಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 21.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 1000.0,
+          "max_rs": 1200.0,
+          "modal_rs": 1100.0
+        },
+        {
+          "commodity": "ನುಗ್ಗೆಕಾಯಿ",
+          "variety": "ನುಗ್ಗೆಕಾಯಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 2.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 5000.0,
+          "max_rs": 6000.0,
+          "modal_rs": 5500.0
+        },
+        {
+          "commodity": "ಬೆಳ್ಳುಳ್ಳಿ",
+          "variety": "ಬೆಳ್ಳುಳ್ಳಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 2.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 10000.0,
+          "max_rs": 18000.0,
+          "modal_rs": 14000.0
+        },
+        {
+          "commodity": "ಹಸಿರು ಮೆಣಸಿನಕಾಯಿ",
+          "variety": "ಹಸಿರು ಮೆಣಸಿನಕಾಯಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 25.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2600.0,
+          "max_rs": 6000.0,
+          "modal_rs": 3500.0
+        },
+        {
+          "commodity": "ಹಸಿ ಶುಂಠಿ",
+          "variety": "ಹಸಿ ಶುಂಠಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 1.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 10000.0,
+          "max_rs": 14000.0,
+          "modal_rs": 12000.0
+        },
+        {
+          "commodity": "ನವಿಲುಕೋಸು",
+          "variety": "ನವಿಲುಕೋಸು",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 14.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 3000.0,
+          "max_rs": 4000.0,
+          "modal_rs": 3500.0
+        },
+        {
+          "commodity": "ಬೆಂಡೇಕಾಯಿ",
+          "variety": "ಬೆಂಡೆಕಾಯಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 6.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 1500.0,
+          "max_rs": 2000.0,
+          "modal_rs": 1750.0
+        },
+        {
+          "commodity": "ನಿಂಬೆಹಣ್ಣು",
+          "variety": "ನಿಂಬೆಹಣ್ಣು",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 12.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 5000.0,
+          "max_rs": 10000.0,
+          "modal_rs": 7500.0
+        },
+        {
+          "commodity": "ಈರುಳ್ಳಿ",
+          "variety": "ಈರುಳ್ಳಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 75.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2400.0,
+          "max_rs": 3600.0,
+          "modal_rs": 2800.0
+        },
+        {
+          "commodity": "ಆಲೂಗಡ್ಡೆ",
+          "variety": "ಸ್ಥಳೀಯ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 40.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 1700.0,
+          "max_rs": 2200.0,
+          "modal_rs": 1950.0
+        },
+        {
+          "commodity": "ಮುೂಲಂಗಿ",
+          "variety": "ಮೂಲಂಗಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 16.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2000.0,
+          "max_rs": 2600.0,
+          "modal_rs": 2300.0
+        },
+        {
+          "commodity": "ಹೀರೇಕಾಯಿ",
+          "variety": "ಹೀರೆಕಾಯಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 36.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 1500.0,
+          "max_rs": 2000.0,
+          "modal_rs": 1750.0
+        },
+        {
+          "commodity": "ಸಿಹಿ ಕುಂಬಳಕಾಯಿ",
+          "variety": "ಸಿಹಿಕುಂಬಳಕಾಯಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 1.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 600.0,
+          "max_rs": 1200.0,
+          "modal_rs": 900.0
+        },
+        {
+          "commodity": "ತೊಂಡೆಕಾಯಿ",
+          "variety": "ತೊಂಡೇಕಾಯಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 8.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 3000.0,
+          "max_rs": 4000.0,
+          "modal_rs": 3500.0
+        },
+        {
+          "commodity": "ಟೊಮ್ಯಾಟೊ",
+          "variety": "ಟೊಮ್ಯೂಟೊ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 287.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 400.0,
+          "max_rs": 1200.0,
+          "modal_rs": 800.0
+        }
+      ]
+    },
+    {
+      "city_name": "57]  ಮಾರುಕಟ್ಟೆ: ಸಂತೆಸರಗೂರು",
+      "commodities": [
+        {
+          "commodity": "ಬಾಳೆಕಾಯಿ",
+          "variety": "ಬಾಳೇಕಾಯಿ",
+          "grade": "ಚಿಕ್ಕದು",
+          "arrivals": 10.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 1660.0,
+          "max_rs": 1660.0,
+          "modal_rs": 1660.0
+        },
+        {
+          "commodity": "ಹತ್ತಿ",
+          "variety": "ಕಾಟನ್ -64",
+          "grade": "ಚಿಕ್ಕದು",
+          "arrivals": 28.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 9300.0,
+          "max_rs": 9350.0,
+          "modal_rs": 9300.0
+        },
+        {
+          "commodity": "ಹತ್ತಿ",
+          "variety": "ಡಿ.ಸಿ.ಹೆಚ್.",
+          "grade": "ಚಿಕ್ಕದು",
+          "arrivals": 207.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 11550.0,
+          "max_rs": 11550.0,
+          "modal_rs": 11550.0
+        },
+        {
+          "commodity": "ಹಸಿ ಶುಂಠಿ",
+          "variety": "ಹಸಿ ಶುಂಠಿ",
+          "grade": "ಚಿಕ್ಕದು",
+          "arrivals": 1192.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2800.0,
+          "max_rs": 2800.0,
+          "modal_rs": 2800.0
+        },
+        {
+          "commodity": "ಭತ್ತ",
+          "variety": "ಭತ್ತ-1",
+          "grade": "ಚಿಕ್ಕದು",
+          "arrivals": 345.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 3000.0,
+          "max_rs": 3300.0,
+          "modal_rs": 3000.0
+        },
+        {
+          "commodity": "ಅಕ್ಕಿ",
+          "variety": "ಐ.ಆರ್.20",
+          "grade": "ಚಿಕ್ಕದು",
+          "arrivals": 120.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2900.0,
+          "max_rs": 2900.0,
+          "modal_rs": 2900.0
+        }
+      ]
+    },
+    {
+      "city_name": "58]  ಮಾರುಕಟ್ಟೆ: ಸಿಂಧನೂರು",
+      "commodities": [
+        {
+          "commodity": "ನವಣೆ",
+          "variety": "ನವಣೆ ಹೈಬ್ರಿಡ್",
+          "grade": "ಸಾಮನ್ಯ",
+          "arrivals": 193.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 3400.0,
+          "max_rs": 3500.0,
+          "modal_rs": 3444.0
+        },
+        {
+          "commodity": "ಭತ್ತ",
+          "variety": "ಭತ್ತದ ಆರ್ಎನ್ಆರ್ ಹೊಸದು",
+          "grade": "ಸಾಮನ್ಯ",
+          "arrivals": 3000.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2600.0,
+          "max_rs": 3200.0,
+          "modal_rs": 2900.0
+        },
+        {
+          "commodity": "ಭತ್ತ",
+          "variety": "ಭತ್ತದ ಆರ್ಎನ್ಆರ್ ಹಳೆಯದು",
+          "grade": "ಸಾಮನ್ಯ",
+          "arrivals": 4644.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 3300.0,
+          "max_rs": 4000.0,
+          "modal_rs": 3700.0
+        },
+        {
+          "commodity": "ಅಕ್ಕಿ",
+          "variety": "ನುಚ್ಚಕ್ಕಿ",
+          "grade": "ಸಾಮನ್ಯ",
+          "arrivals": 110.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2600.0,
+          "max_rs": 2600.0,
+          "modal_rs": 2600.0
+        },
+        {
+          "commodity": "ಅಕ್ಕಿ",
+          "variety": "ಹಳೇ ಸೋನ ಮಸೂರಿ",
+          "grade": "ಸಾಮನ್ಯ",
+          "arrivals": 350.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2650.0,
+          "max_rs": 2650.0,
+          "modal_rs": 2650.0
+        },
+        {
+          "commodity": "ಸೂರ್ಯ ಕಾಂತಿ",
+          "variety": "ಸ್ಥಳೀಯ",
+          "grade": "ಸಾಮನ್ಯ",
+          "arrivals": 357.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 8300.0,
+          "max_rs": 8300.0,
+          "modal_rs": 8300.0
+        }
+      ]
+    },
+    {
+      "city_name": "59]  ಮಾರುಕಟ್ಟೆ: ಸಿದ್ಧಾಪುರ",
+      "commodities": [
+        {
+          "commodity": "ಅಡಿಕೆ",
+          "variety": "ಬಿಳೆ ಗೋಟು",
+          "grade": "ದೊಡ್ಡ್ಡದು",
+          "arrivals": 37.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 25699.0,
+          "max_rs": 31869.0,
+          "modal_rs": 29589.0
+        },
+        {
+          "commodity": "ಅಡಿಕೆ",
+          "variety": "ಚಾಲಿ",
+          "grade": "ದೊಡ್ಡ್ಡದು",
+          "arrivals": 188.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 40899.0,
+          "max_rs": 47219.0,
+          "modal_rs": 46399.0
+        },
+        {
+          "commodity": "ಅಡಿಕೆ",
+          "variety": "ಕೋಕ",
+          "grade": "ದೊಡ್ಡ್ಡದು",
+          "arrivals": 24.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 22169.0,
+          "max_rs": 32899.0,
+          "modal_rs": 27199.0
+        },
+        {
+          "commodity": "ಅಡಿಕೆ",
+          "variety": "ಕೆಂಪುಗೋಟು",
+          "grade": "ದೊಡ್ಡ್ಡದು",
+          "arrivals": 4.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 33219.0,
+          "max_rs": 34289.0,
+          "modal_rs": 33609.0
+        },
+        {
+          "commodity": "ಅಡಿಕೆ",
+          "variety": "ರಾಶಿ",
+          "grade": "ದೊಡ್ಡ್ಡದು",
+          "arrivals": 28.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 46899.0,
+          "max_rs": 51599.0,
+          "modal_rs": 50699.0
+        },
+        {
+          "commodity": "ಅಡಿಕೆ",
+          "variety": "ತಟ್ಟಿಬೆಟ್ಟೆ",
+          "grade": "ದೊಡ್ಡ್ಡದು",
+          "arrivals": 4.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 36869.0,
+          "max_rs": 43099.0,
+          "modal_rs": 42889.0
+        },
+        {
+          "commodity": "ಮೆಣಸು",
+          "variety": "ಕರಿಮೆಣಸು",
+          "grade": "ಚಿಕ್ಕದು",
+          "arrivals": 4.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 61189.0,
+          "max_rs": 66899.0,
+          "modal_rs": 65899.0
+        }
+      ]
+    },
+    {
+      "city_name": "60]  ಮಾರುಕಟ್ಟೆ: ಸಿರಸಿ",
+      "commodities": [
+        {
+          "commodity": "ಅಡಿಕೆ",
+          "variety": "ಬೆಟ್ಟೆ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 10.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 33099.0,
+          "max_rs": 49989.0,
+          "modal_rs": 40433.0
+        },
+        {
+          "commodity": "ಅಡಿಕೆ",
+          "variety": "ಬಿಳೆ ಗೋಟು",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 58.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 24506.0,
+          "max_rs": 35699.0,
+          "modal_rs": 30142.0
+        },
+        {
+          "commodity": "ಅಡಿಕೆ",
+          "variety": "ಚಾಲಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 407.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 42180.0,
+          "max_rs": 48399.0,
+          "modal_rs": 45089.0
+        },
+        {
+          "commodity": "ಅಡಿಕೆ",
+          "variety": "ಕೆಂಪುಗೋಟು",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 2.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 29599.0,
+          "max_rs": 35699.0,
+          "modal_rs": 33579.0
+        },
+        {
+          "commodity": "ಅಡಿಕೆ",
+          "variety": "ರಾಶಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 42.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 50599.0,
+          "max_rs": 52409.0,
+          "modal_rs": 51369.0
+        },
+        {
+          "commodity": "ಮೆಣಸು",
+          "variety": "ಕರಿಮೆಣಸು",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 13.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 66070.0,
+          "max_rs": 71576.0,
+          "modal_rs": 67800.0
+        }
+      ]
+    },
+    {
+      "city_name": "61]  ಮಾರುಕಟ್ಟೆ: ಸುಳ್ಯ",
+      "commodities": [
+        {
+          "commodity": "ಅಡಿಕೆ",
+          "variety": "ಕೋಕ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 860.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 20000.0,
+          "max_rs": 34000.0,
+          "modal_rs": 27000.0
+        },
+        {
+          "commodity": "ತೆಂಗಿನಕಾಯಿ",
+          "variety": "ತೆಂಗಿನಕಾಯಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 76400.0,
+          "units": "ಸಂಖ್ಯೆಗಳಲ್ಲಿ",
+          "min_rs": 19000.0,
+          "max_rs": 28000.0,
+          "modal_rs": 23500.0
+        },
+        {
+          "commodity": "ಮೆಣಸು",
+          "variety": "ಕರಿಮೆಣಸು",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 43.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 32000.0,
+          "max_rs": 67000.0,
+          "modal_rs": 50000.0
+        }
+      ]
+    },
+    {
+      "city_name": "62]  ಮಾರುಕಟ್ಟೆ: ಹರಪನಹಳ್ಳಿ",
+      "commodities": [
+        {
+          "commodity": "ರಾಗಿ",
+          "variety": "ಸ್ಥಳೀಯ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 603.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 3350.0,
+          "max_rs": 3375.0,
+          "modal_rs": 3360.0
+        }
+      ]
+    },
+    {
+      "city_name": "63]  ಮಾರುಕಟ್ಟೆ: ಹಿರಿಯೂರು",
+      "commodities": [
+        {
+          "commodity": "ಕಡಲೆಕಾಯಿ ಬೀಜ",
+          "variety": "ಕಡ್ಲೆಕಾಯಿ ಬೀಜ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 250.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 10192.0,
+          "max_rs": 10192.0,
+          "modal_rs": 10192.0
+        },
+        {
+          "commodity": "ರಾಗಿ",
+          "variety": "ಸ್ಥಳೀಯ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 160.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 3500.0,
+          "max_rs": 3500.0,
+          "modal_rs": 3500.0
+        }
+      ]
+    },
+    {
+      "city_name": "64]  ಮಾರುಕಟ್ಟೆ: ಹರಿಹರ",
+      "commodities": [
+        {
+          "commodity": "ತೆಂಗಿನಕಾಯಿ",
+          "variety": "ತೆಂಗಿನಕಾಯಿ",
+          "grade": "ಚಿಕ್ಕದು",
+          "arrivals": 25000.0,
+          "units": "ಸಂಖ್ಯೆಗಳಲ್ಲಿ",
+          "min_rs": 16000.0,
+          "max_rs": 16000.0,
+          "modal_rs": 16000.0
+        },
+        {
+          "commodity": "ಮೆಕ್ಕೆಜೋಳ",
+          "variety": "ಹೈಬ್ರಿಡ್ ಸ್ಥಳೀಯ",
+          "grade": "ಚಿಕ್ಕದು",
+          "arrivals": 836.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2615.0,
+          "max_rs": 2630.0,
+          "modal_rs": 2622.0
+        },
+        {
+          "commodity": "ಭತ್ತ",
+          "variety": "ಭತ್ತದ ಆರ್ಎನ್ಆರ್ ಹೊಸದು",
+          "grade": "ಚಿಕ್ಕದು",
+          "arrivals": 1360.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2257.0,
+          "max_rs": 2398.0,
+          "modal_rs": 2327.0
+        }
+      ]
+    },
+    {
+      "city_name": "65]  ಮಾರುಕಟ್ಟೆ: ಹಳಿಯಾಳ",
+      "commodities": [
+        {
+          "commodity": "ಭತ್ತ",
+          "variety": "ಸಾಧಾರಣ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 572.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2600.0,
+          "max_rs": 2600.0,
+          "modal_rs": 2600.0
+        }
+      ]
+    },
+    {
+      "city_name": "66]  ಮಾರುಕಟ್ಟೆ: ಹಾವೇರಿ",
+      "commodities": [
+        {
+          "commodity": "ಹತ್ತಿ",
+          "variety": "ಡಿ.ಸಿ.ಹೆಚ್.",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 300.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 9000.0,
+          "max_rs": 9000.0,
+          "modal_rs": 9000.0
+        },
+        {
+          "commodity": "ಹುರುಳಿ ಕಾಳು",
+          "variety": "ಹುರುಳಿಕಾಳು (ವೋಲ್)",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 314.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 4470.0,
+          "max_rs": 4500.0,
+          "modal_rs": 4480.0
+        },
+        {
+          "commodity": "ಅರಳೆ",
+          "variety": "ಹೈಬ್ರಿಡ್-44",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 164.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 16900.0,
+          "max_rs": 16900.0,
+          "modal_rs": 16900.0
+        },
+        {
+          "commodity": "ಮೆಕ್ಕೆಜೋಳ",
+          "variety": "ಸ್ಥಳೀಯ",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 3900.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2200.0,
+          "max_rs": 2300.0,
+          "modal_rs": 2280.0
+        },
+        {
+          "commodity": "ಅಕ್ಕಿ",
+          "variety": "ದಪ್ಪ",
+          "grade": "ದೊಡ್ಡ್ಡದು",
+          "arrivals": 374.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2350.0,
+          "max_rs": 2350.0,
+          "modal_rs": 2350.0
+        }
+      ]
+    },
+    {
+      "city_name": "67]  ಮಾರುಕಟ್ಟೆ: ಹುಣಸೂರು",
+      "commodities": [
+        {
+          "commodity": "ಹುರುಳಿಕಾಯಿ",
+          "variety": "ಬೀನ್ಸ್ (ವೋಲ್)",
+          "grade": "ಚಿಕ್ಕದು",
+          "arrivals": 20.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 4000.0,
+          "max_rs": 4000.0,
+          "modal_rs": 4000.0
+        }
+      ]
+    },
+    {
+      "city_name": "68]  ಮಾರುಕಟ್ಟೆ: ಹುಬ್ಬಳ್ಳಿ",
+      "commodities": [
+        {
+          "commodity": "ಕಡಲೆಕಾಳು",
+          "variety": "ಜವರಿ / ಸ್ಥಳಿಯ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 8.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2356.0,
+          "max_rs": 5109.0,
+          "modal_rs": 4910.0
+        },
+        {
+          "commodity": "ಉದ್ದಿನಕಾಳು",
+          "variety": "ಉದ್ದಿನ ಕಾಳು",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 1.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 6310.0,
+          "max_rs": 6310.0,
+          "modal_rs": 6310.0
+        },
+        {
+          "commodity": "ಹೆಸರುಕಾಳು",
+          "variety": "ಹೆಸರುಕಾಳು",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 35.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 5277.0,
+          "max_rs": 5377.0,
+          "modal_rs": 5280.0
+        },
+        {
+          "commodity": "ಜೋಳ",
+          "variety": "ಜೋಳ ಬಿಳಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 1.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2052.0,
+          "max_rs": 2052.0,
+          "modal_rs": 2052.0
+        },
+        {
+          "commodity": "ಈರುಳ್ಳಿ",
+          "variety": "ಪೂನ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 2290.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 1200.0,
+          "max_rs": 3400.0,
+          "modal_rs": 2100.0
+        },
+        {
+          "commodity": "ಆಲೂಗಡ್ಡೆ",
+          "variety": "ಆಲೂಗಡ್ಡೆ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 2100.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 1400.0,
+          "max_rs": 1900.0,
+          "modal_rs": 1500.0
+        },
+        {
+          "commodity": "ಸೋಯಾಬಿನ್",
+          "variety": "ಸೋಯಾಬಿನ್",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 5.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 7311.0,
+          "max_rs": 7311.0,
+          "modal_rs": 7311.0
+        }
+      ]
+    },
+    {
+      "city_name": "69]  ಮಾರುಕಟ್ಟೆ: ಹೊನ್ನಾಳಿ",
+      "commodities": [
+        {
+          "commodity": "ಅಡಿಕೆ",
+          "variety": "ಸಿಪ್ಪೆಗೋಟು",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 48.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 11000.0,
+          "max_rs": 12000.0,
+          "modal_rs": 11600.0
+        },
+        {
+          "commodity": "ಹುರುಳಿಕಾಯಿ",
+          "variety": "ಬೀನ್ಸ್ (ವೋಲ್)",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 20.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2000.0,
+          "max_rs": 2200.0,
+          "modal_rs": 2100.0
+        },
+        {
+          "commodity": "ಬೀಟ್ರೂಟ್",
+          "variety": "ಬೀಟ್ ರೂಟ್",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 30.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 1800.0,
+          "max_rs": 2000.0,
+          "modal_rs": 1900.0
+        },
+        {
+          "commodity": "ಬದನೆಕಾಯಿ",
+          "variety": "ಬದನೆಕಾಯಿ",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 25.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 500.0,
+          "max_rs": 700.0,
+          "modal_rs": 600.0
+        },
+        {
+          "commodity": "ಎಲೆಕೋಸು",
+          "variety": "ಎಲೆಕೋಸು",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 30.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 1200.0,
+          "max_rs": 1600.0,
+          "modal_rs": 1500.0
+        },
+        {
+          "commodity": "ಹೂಕೋಸು",
+          "variety": "ಹೂಕೋಸು",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 20.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2500.0,
+          "max_rs": 3000.0,
+          "modal_rs": 2800.0
+        },
+        {
+          "commodity": "ತೆಂಗಿನಕಾಯಿ",
+          "variety": "ತೆಂಗಿನಕಾಯಿ",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 11000.0,
+          "units": "ಸಂಖ್ಯೆಗಳಲ್ಲಿ",
+          "min_rs": 20000.0,
+          "max_rs": 20000.0,
+          "modal_rs": 20000.0
+        },
+        {
+          "commodity": "ಅಲಸಂದೆಕಾಯಿ",
+          "variety": "ಅಲಸಂದಿಕಾಯಿ",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 15.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2000.0,
+          "max_rs": 2400.0,
+          "modal_rs": 2200.0
+        },
+        {
+          "commodity": "ಸೌತೆಕಾಯಿ",
+          "variety": "ಸೌತೆಕಾಯಿ",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 25.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 1000.0,
+          "max_rs": 1200.0,
+          "modal_rs": 1100.0
+        },
+        {
+          "commodity": "ಹಸಿರು ಮೆಣಸಿನಕಾಯಿ",
+          "variety": "ಹಸಿರು ಮೆಣಸಿನಕಾಯಿ",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 30.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 1500.0,
+          "max_rs": 2000.0,
+          "modal_rs": 1800.0
+        },
+        {
+          "commodity": "ಬೆಂಡೇಕಾಯಿ",
+          "variety": "ಬೆಂಡೆಕಾಯಿ",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 20.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 1500.0,
+          "max_rs": 2000.0,
+          "modal_rs": 1800.0
+        },
+        {
+          "commodity": "ಮೆಕ್ಕೆಜೋಳ",
+          "variety": "ಸ್ಥಳೀಯ",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 1902.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2400.0,
+          "max_rs": 2600.0,
+          "modal_rs": 2520.0
+        },
+        {
+          "commodity": "ಅಕ್ಕಿ",
+          "variety": "ಐ.ಆರ್.64",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 1000.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2700.0,
+          "max_rs": 2700.0,
+          "modal_rs": 2700.0
+        },
+        {
+          "commodity": "ಹೀರೇಕಾಯಿ",
+          "variety": "ಹೀರೆಕಾಯಿ",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 20.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 1000.0,
+          "max_rs": 1500.0,
+          "modal_rs": 1400.0
+        }
+      ]
+    },
+    {
+      "city_name": "70]  ಮಾರುಕಟ್ಟೆ: ಹೊಳ್ಳಕೆರೆ",
+      "commodities": [
+        {
+          "commodity": "ಅಡಿಕೆ",
+          "variety": "ಇತರೆ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 1456.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 22000.0,
+          "max_rs": 27428.0,
+          "modal_rs": 24886.0
+        }
+      ]
+    },
+    {
+      "city_name": "71]  ಮಾರುಕಟ್ಟೆ: ಹೊಸಕೋಟೆ",
+      "commodities": [
+        {
+          "commodity": "ಬೀಟ್ರೂಟ್",
+          "variety": "ಬೀಟ್ ರೂಟ್",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 50.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 3600.0,
+          "max_rs": 3800.0,
+          "modal_rs": 3700.0
+        },
+        {
+          "commodity": "ಹೂಕೋಸು",
+          "variety": "ಹೂಕೋಸು",
+          "grade": "ಚಿಕ್ಕದು",
+          "arrivals": 40.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2900.0,
+          "max_rs": 3100.0,
+          "modal_rs": 3000.0
+        },
+        {
+          "commodity": "ಬೆಂಡೇಕಾಯಿ",
+          "variety": "ಬೆಂಡೆಕಾಯಿ",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 75.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 3400.0,
+          "max_rs": 3600.0,
+          "modal_rs": 3500.0
+        },
+        {
+          "commodity": "ಹಸಿ ಬಟಾಣಿ",
+          "variety": "ಹಸಿ ಬಟಾಣಿ",
+          "grade": "ಚಿಕ್ಕದು",
+          "arrivals": 10.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 4000.0,
+          "max_rs": 4200.0,
+          "modal_rs": 4100.0
+        },
+        {
+          "commodity": "ದಾಳಿಂಬೆ",
+          "variety": "ದಾಳಿಂಬೆ",
+          "grade": "ದೊಡ್ಡ್ಡದು",
+          "arrivals": 110.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 9000.0,
+          "max_rs": 9300.0,
+          "modal_rs": 9250.0
+        },
+        {
+          "commodity": "ಆಲೂಗಡ್ಡೆ",
+          "variety": "ಆಲೂಗಡ್ಡೆ",
+          "grade": "ಮದ್ಯಮ",
+          "arrivals": 64.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 1900.0,
+          "max_rs": 2200.0,
+          "modal_rs": 2100.0
+        }
+      ]
+    },
+    {
+      "city_name": "72]  ಮಾರುಕಟ್ಟೆ: ಹೊಸನಗರ",
+      "commodities": [
+        {
+          "commodity": "ಅಡಿಕೆ",
+          "variety": "ಕೆಂಪುಗೋಟು",
+          "grade": "ದೊಡ್ಡ್ಡದು",
+          "arrivals": 75.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 37789.0,
+          "max_rs": 42709.0,
+          "modal_rs": 39639.0
+        },
+        {
+          "commodity": "ಅಡಿಕೆ",
+          "variety": "ರಾಶಿ",
+          "grade": "ದೊಡ್ಡ್ಡದು",
+          "arrivals": 2522.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 44999.0,
+          "max_rs": 54299.0,
+          "modal_rs": 53200.0
+        }
+      ]
+    },
+    {
+      "city_name": "73]  ಮಾರುಕಟ್ಟೆ: ಹೊಸಪೇಟೆ",
+      "commodities": [
+        {
+          "commodity": "ಬದನೆಕಾಯಿ",
+          "variety": "ಬದನೆಕಾಯಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 30.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2800.0,
+          "max_rs": 3000.0,
+          "modal_rs": 2800.0
+        },
+        {
+          "commodity": "ಗೋರಿಕಾಯಿ",
+          "variety": "ಗೋರಿಕಾಯಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 20.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 3000.0,
+          "max_rs": 3000.0,
+          "modal_rs": 3000.0
+        },
+        {
+          "commodity": "ಎಲೆಕೋಸು",
+          "variety": "ಎಲೆಕೋಸು",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 55.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 1200.0,
+          "max_rs": 1200.0,
+          "modal_rs": 1200.0
+        },
+        {
+          "commodity": "ಸೌತೆಕಾಯಿ",
+          "variety": "ಸೌತೆಕಾಯಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 30.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 1600.0,
+          "max_rs": 1800.0,
+          "modal_rs": 1800.0
+        },
+        {
+          "commodity": "ಹಸಿರು ಮೆಣಸಿನಕಾಯಿ",
+          "variety": "ಹಸಿರು ಮೆಣಸಿನಕಾಯಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 32.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 1600.0,
+          "max_rs": 2200.0,
+          "modal_rs": 2000.0
+        },
+        {
+          "commodity": "ಬೆಂಡೇಕಾಯಿ",
+          "variety": "ಬೆಂಡೆಕಾಯಿ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 40.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 2500.0,
+          "max_rs": 3000.0,
+          "modal_rs": 2800.0
+        },
+        {
+          "commodity": "ಈರುಳ್ಳಿ",
+          "variety": "ಸ್ಥಳೀಯ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 39.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 1200.0,
+          "max_rs": 1800.0,
+          "modal_rs": 1600.0
+        },
+        {
+          "commodity": "ಆಲೂಗಡ್ಡೆ",
+          "variety": "ಆಲೂಗಡ್ಡೆ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 31.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 1200.0,
+          "max_rs": 1400.0,
+          "modal_rs": 1400.0
+        },
+        {
+          "commodity": "ಟೊಮ್ಯಾಟೊ",
+          "variety": "ಟೊಮ್ಯೂಟೊ",
+          "grade": "ಸರಾಸರಿ",
+          "arrivals": 41.0,
+          "units": "ಕ್ವಿಂಟಲ್",
+          "min_rs": 1200.0,
+          "max_rs": 1500.0,
+          "modal_rs": 1200.0
+        }
+      ]
+    }
+  ]
+}
