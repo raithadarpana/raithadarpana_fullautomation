@@ -1,14 +1,16 @@
 pub mod data;
+pub mod dictionary;
 pub mod render;
+pub mod scrape;
+pub mod storage;
+pub mod templates;
+pub mod ui;
 
 use anyhow::Result;
-use clap::Parser;
 use chrono::Local;
-use headless_chrome::Browser;
-use std::{env, fs, path::PathBuf};
+use clap::Parser;
 
-use data::{AgriculturalReport, parse_agricultural_report};
-use render::{render_html_to_image};
+use dictionary::{Dictionary, Language};
 
 #[derive(Parser, Debug)]
 #[command(name = "Raitha Darpana Content Creator")]
@@ -17,121 +19,114 @@ struct Args {
     /// Language to use (kannada or english)
     #[arg(short, long, default_value = "kannada")]
     language: String,
+
+    /// Run without launching the interactive UI (suitable for cron/automation).
+    #[arg(long)]
+    headless: bool,
+
+    /// Comma-separated city names (English) to render; omit for all cities.
+    /// Only used in headless mode.
+    #[arg(long)]
+    cities: Option<String>,
+
+    /// Date to scrape, in dd/mm/yyyy. Defaults to today. Only used in headless mode.
+    #[arg(long)]
+    date: Option<String>,
 }
 
 #[tokio::main]
 async fn main() -> Result<()> {
-    env_logger::init();
-    
+    init_logging()?;
+
     let args = Args::parse();
-    let today = Local::now().format("%d/%m/%Y").to_string();
-    
-    let report = scrape_agriculture_data(&today, &args.language).await?;
-    let json = serde_json::to_string_pretty(&report)?;
-    let json_file_name = "report.json";
 
-    fs::write(json_file_name, &json)?;
-    
-    let mut json_path: PathBuf = env::current_dir()?;
-    json_path.push(json_file_name);
+    if args.headless {
+        run_headless(&args).await
+    } else {
+        ui::run_ui().await
+    }
+}
 
-    print!("Extracted JSON to: {}\n", json_path.display());
-    // Fill HTML template with table data and render to image
-    render_html_to_image(&report).await?;
-    
+/// Logs are written to `rd_media/rd.log` (appended across runs) rather
+/// than stderr. This matters especially in UI mode, which takes over
+/// the terminal with an alternate screen -- stderr output there would
+/// either be invisible or corrupt the display. Set `RUST_LOG` (e.g.
+/// `RUST_LOG=info` or `RUST_LOG=debug`) to control verbosity; defaults
+/// to `info` if unset.
+fn init_logging() -> Result<()> {
+    std::fs::create_dir_all(storage::RD_MEDIA_ROOT)?;
+    let log_path = std::path::Path::new(storage::RD_MEDIA_ROOT).join("rd.log");
+    let log_file = std::fs::OpenOptions::new()
+        .create(true)
+        .append(true)
+        .open(&log_path)?;
+
+    env_logger::Builder::from_env(env_logger::Env::default().default_filter_or("info"))
+        .target(env_logger::Target::Pipe(Box::new(log_file)))
+        .format_timestamp_secs()
+        .init();
+
+    log::info!("=== raitha_darpana started, logging to {} ===", log_path.display());
     Ok(())
 }
 
-async fn scrape_agriculture_data(date: &str, language: &str) -> Result<AgriculturalReport> {
-    // Determine base URL based on language
-    let base_url = match language.to_lowercase().as_str() {
-        "kannada" => "https://krama.karnataka.gov.in/Kannada",
-        "english" => "https://krama.karnataka.gov.in/Reports",
-        other => anyhow::bail!("Unsupported language: {}. Use 'kannada' or 'english'", other),
+async fn run_headless(args: &Args) -> Result<()> {
+    let lang = Language::from_str(&args.language).ok_or_else(|| {
+        anyhow::anyhow!("Unsupported language: {}. Use 'kannada' or 'english'", args.language)
+    })?;
+
+    let dict = Dictionary::load();
+
+    let (date_ddmmyyyy, date_ymd) = match &args.date {
+        Some(d) => {
+            // Expect dd/mm/yyyy; derive YYYYMMDD for storage.
+            let parts: Vec<&str> = d.split('/').collect();
+            if parts.len() != 3 {
+                anyhow::bail!("Invalid --date format, expected dd/mm/yyyy");
+            }
+            let ymd = format!("{}{}{}", parts[2], parts[1], parts[0]);
+            (d.clone(), ymd)
+        }
+        None => {
+            let today = Local::now();
+            (today.format("%d/%m/%Y").to_string(), today.format("%Y%m%d").to_string())
+        }
     };
 
-    // Launch Chrome
-    let browser = Browser::default()?;
-    let tab = browser.new_tab()?;
-    
-     // Step 1: Navigate to reports page with dynamic language
-    let navigate_url = format!("{}/Main_rep", base_url);
-    tab.navigate_to(&navigate_url)?;
-    std::thread::sleep(std::time::Duration::from_secs(2));
-    
-    // Step 2: Fill date input
-    tab.evaluate(
-        &format!(
-            r#"document.getElementById('_ctl0_MainContent_TxtDate').value = '{}'"#,
-            date
-        ),
-        false,
-    )?;
-    
-    // Step 2: Select radio button
-    tab.evaluate(
-        r#"document.getElementById('_ctl0_MainContent_RadBtnSel_1').click()"#,
-        false,
-    )?;
-    
-    // Step 3: Click submit button
-    tab.evaluate(
-        r#"document.getElementById('_ctl0_MainContent_BtnRep').click()"#,
-        false,
-    )?;
-    
-    // Step 4: Wait for page load to MaraketsRep
-    wait_for_url(&tab, "MaraketsRep")?;
-    
-    // Step 5: Select checkbox and click button
-    tab.evaluate(
-    r#"document.querySelector('[id^="_ctl0_MainContent_ChkAll"]').checked = true"#,
-    false,
-    )?;
+    let report = scrape::scrape_agriculture_data(&date_ddmmyyyy, lang).await?;
 
-    
-    tab.evaluate(
-        r#"document.getElementById('_ctl0_MainContent_BtnRep').click()"#,
-        false,
-    )?;
-    
-    // Step 6: Wait for page load to DailyMar
-    wait_for_url(&tab, "DailyMar")?;
-    std::thread::sleep(std::time::Duration::from_secs(5));
-    
-    // Step 7: Extract table data - fallback to div > table if printtable id doesn't exist
-    let table_html = tab.evaluate(
-        r#"
-        var table = document.getElementById('printtable') || document.querySelector('#divprint table');
-        table ? table.outerHTML : '<p>No table found</p>';
-        "#,
-        false,
-    )?;
+    let json_path = storage::write_report_json(&date_ymd, &report)?;
+    println!("Extracted JSON to: {}", json_path.display());
 
-    let html_string = table_html.value.unwrap().as_str().unwrap().to_string();
+    let cities_filter: Option<Vec<String>> = args.cities.as_ref().map(|s| {
+        s.split(',')
+            .map(|c| c.trim().to_string())
+            .filter(|c| !c.is_empty())
+            .collect()
+    });
+    let filter_slice = cities_filter.as_deref();
 
-    // Parse HTML into structured data
-    let report = parse_agricultural_report(&html_string)?;
-    
-    log::info!("Report Date: {}", report.report_date);
-    log::info!("Total Cities: {}", report.cities.len());
-    
-    for city in &report.cities {
-        log::info!("City: {} - Commodities: {}", city.city_name, city.commodities.len());
-    }
-    
-    Ok(report)
-    
-}
+    let outcome = render::render_report_images(&report, &date_ymd, &dict, lang, filter_slice).await?;
 
-
-fn wait_for_url(tab: &headless_chrome::Tab, target: &str) -> Result<()> {
-    for _ in 0..30 {
-        let url = tab.get_url();
-        if url.contains(target) {
-            return Ok(());
+    if outcome.written.is_empty() {
+        println!("No images were rendered.");
+        if !outcome.skipped_cities.is_empty() {
+            println!("The following cities were found in the report but did not match your --cities filter:");
+            for (scraped, resolved) in &outcome.skipped_cities {
+                println!("  - scraped: '{}' -> resolved: '{}'", scraped, resolved);
+            }
+            println!("Check that --cities values match the resolved English name above (case-insensitive).");
+        } else {
+            println!("The report itself contained no cities. Check the JSON output for details.");
         }
-        std::thread::sleep(std::time::Duration::from_millis(500));
+    } else {
+        for path in &outcome.written {
+            println!("Rendered: {}", path.display());
+        }
+        if !outcome.skipped_cities.is_empty() {
+            println!("Skipped {} cities not matching the filter.", outcome.skipped_cities.len());
+        }
     }
-    anyhow::bail!("Timeout waiting for URL containing: {}", target)
+
+    Ok(())
 }

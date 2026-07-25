@@ -1,130 +1,171 @@
-use crate::data::AgriculturalReport;
+use crate::data::{AgriculturalReport, CityMarketData};
+use crate::dictionary::{Dictionary, Language};
+use crate::storage;
+use crate::templates::{self, INSTAGRAM_HEIGHT, INSTAGRAM_WIDTH, YOUTUBE_HEIGHT, YOUTUBE_WIDTH};
 use anyhow::Result;
 use base64::Engine;
-use chrono::Local;
 use headless_chrome::{
-    Browser,
-    LaunchOptions,
     protocol::cdp::Page::{self, CaptureScreenshotFormatOption},
+    Browser, LaunchOptions,
 };
-use std::{env, fs, path::PathBuf};
+use std::fs;
+use std::path::PathBuf;
 
-pub async fn render_html_to_image(report: &AgriculturalReport) -> Result<()> {
-    // Build HTML table rows dynamically from parsed data
-    let mut table_rows = String::new();
-    
+/// Renders Instagram (4:5) and YouTube (16:9) cover images for every
+/// city in the report, storing them under `rd_media/YYYYMMDD/city_name/`.
+///
+/// `date_ymd` should be in `YYYYMMDD` format and is used both for the
+/// output folder and the filename suffix. `cities_filter`, if provided
+/// and non-empty, restricts rendering to matching English city names.
+/// Diagnostics for a render pass: which cities were rendered vs skipped,
+/// and why -- so a filter mismatch produces a visible explanation
+/// instead of silently writing nothing.
+#[derive(Debug, Default)]
+pub struct RenderOutcome {
+    pub written: Vec<PathBuf>,
+    pub rendered_cities: Vec<String>,
+    pub skipped_cities: Vec<(String, String)>, // (scraped_name, resolved_english_name)
+}
+
+pub async fn render_report_images(
+    report: &AgriculturalReport,
+    date_ymd: &str,
+    dict: &Dictionary,
+    lang: Language,
+    cities_filter: Option<&[String]>,
+) -> Result<RenderOutcome> {
+    let launch_options = LaunchOptions::default_builder()
+        .window_size(Some((INSTAGRAM_WIDTH.max(YOUTUBE_WIDTH), INSTAGRAM_HEIGHT.max(YOUTUBE_HEIGHT))))
+        .build()
+        .unwrap();
+    let browser = Browser::new(launch_options)?;
+    let mut outcome = RenderOutcome::default();
+
     for city in &report.cities {
-        table_rows.push_str(&format!(
-            "<tr><td colspan='8' style='font-weight: bold; background-color: #f0f0f0; padding: 10px;'>{}</td></tr>",
-            escape_html(&city.city_name)
-        ));
-        
-        for commodity in &city.commodities {
-            table_rows.push_str(&format!(
-                "<tr><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td></tr>",
-                escape_html(&commodity.commodity),
-                escape_html(&commodity.variety),
-                escape_html(&commodity.grade),
-                commodity.arrivals,
-                escape_html(&commodity.units),
-                commodity.min_rs,
-                commodity.max_rs,
-                commodity.modal_rs,
-            ));
-        }
-    }
-    
-    let html_template = format!(
-        r#"
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <style>
-        body {{ font-family: Arial, sans-serif; margin: 20px; }}
-        h1 {{ color: #006600; }}
-        .date {{ color: #666; margin-bottom: 20px; }}
-        table {{ border-collapse: collapse; width: 100%; margin-top: 20px; }}
-        th, td {{ border: 1px solid #ddd; padding: 8px; text-align: left; }}
-        th {{ background-color: #4CAF50; color: white; font-weight: bold; }}
-        td {{ font-size: 12pt; }}
-    </style>
-</head>
-<body>
-    <h1>ಉತ್ಪನ್ನವಾರು ದೈನಂದಿನ ವರದಿ (Daily Agricultural Report)</h1>
-    <div class="date">Report Date: {}</div>
-    
-    <table border="1">
-        <thead>
-            <tr>
-                <th>Commodity</th>
-                <th>Variety</th>
-                <th>Grade</th>
-                <th>Arrivals</th>
-                <th>Units</th>
-                <th>Min Price</th>
-                <th>Max Price</th>
-                <th>Modal Price</th>
-            </tr>
-        </thead>
-        <tbody>
-            {}
-        </tbody>
-    </table>
-</body>
-</html>
-"#,
-        report.report_date,
-        table_rows
-    );
-    
-    fs::write("report.html", &html_template)?;
-    
-    // Use headless-chrome to render and take screenshot
-    let browser = Browser::new(LaunchOptions::default_builder().build().unwrap())?;
-    let tab = browser.new_tab()?;
-    
-    let url = format!("file://{}/report.html", std::env::current_dir()?.display());
-    tab.navigate_to(&url)?;
+        let english_name = storage::resolve_english_city_name(dict, &city.city_name);
 
-    // The generated report is a local document, so do not wait for selectors
-    // from the source site. Waiting for the report table also ensures that the
-    // document has been parsed before its bounds are requested.
-    let viewport = tab
-        .wait_for_element("table")?
-        .get_box_model()?
-        .margin_viewport();
-    
-    // `Tab::capture_screenshot` in headless-chrome 1.0.22 does not expose
-    // Chrome's `captureBeyondViewport` option, so it can return a viewport
-    // image with blank space for content below the fold. Call the CDP method
-    // directly and explicitly capture the complete clipped region.
+        if let Some(filter) = cities_filter {
+            if !filter.is_empty()
+                && !filter
+                    .iter()
+                    .any(|f| f.trim().eq_ignore_ascii_case(english_name.trim()))
+            {
+                log::info!(
+                    "Skipping city '{}' (resolved: '{}') - not in filter {:?}",
+                    city.city_name,
+                    english_name,
+                    filter
+                );
+                outcome
+                    .skipped_cities
+                    .push((city.city_name.clone(), english_name));
+                continue;
+            }
+        }
+
+        log::info!("Rendering images for city '{}' -> '{}'", city.city_name, english_name);
+        outcome.rendered_cities.push(english_name.clone());
+
+        let ig_path = render_city_variant(
+            &browser,
+            city,
+            &report.report_date,
+            date_ymd,
+            &english_name,
+            dict,
+            lang,
+            Variant::Instagram,
+        )?;
+        outcome.written.push(ig_path);
+
+        let yt_path = render_city_variant(
+            &browser,
+            city,
+            &report.report_date,
+            date_ymd,
+            &english_name,
+            dict,
+            lang,
+            Variant::YouTube,
+        )?;
+        outcome.written.push(yt_path);
+    }
+
+    Ok(outcome)
+}
+
+enum Variant {
+    Instagram,
+    YouTube,
+}
+
+fn render_city_variant(
+    browser: &Browser,
+    city: &CityMarketData,
+    report_date: &str,
+    date_ymd: &str,
+    english_city_name: &str,
+    dict: &Dictionary,
+    lang: Language,
+    variant: Variant,
+) -> Result<PathBuf> {
+    let (html, width, height, out_path) = match variant {
+        Variant::Instagram => (
+            templates::instagram_html(city, report_date, dict, lang),
+            INSTAGRAM_WIDTH,
+            INSTAGRAM_HEIGHT,
+            storage::instagram_image_path(date_ymd, english_city_name)?,
+        ),
+        Variant::YouTube => (
+            templates::youtube_html(city, report_date, dict, lang),
+            YOUTUBE_WIDTH,
+            YOUTUBE_HEIGHT,
+            storage::youtube_image_path(date_ymd, english_city_name)?,
+        ),
+    };
+
+    // Save the rendered HTML into rd_media alongside the images, both so
+    // it can be inspected for debugging and so it serves as the actual
+    // source file navigated to (avoiding any separate temp-file path
+    // issues). Written next to the image it corresponds to.
+    let html_path = out_path.with_extension("html");
+    fs::write(&html_path, &html)
+        .map_err(|e| anyhow::anyhow!("Failed to write debug HTML to {}: {}", html_path.display(), e))?;
+
+    let tab = browser.new_tab()?;
+    let canonical_html_path = html_path
+        .canonicalize()
+        .map_err(|e| anyhow::anyhow!("Failed to resolve path {}: {}", html_path.display(), e))?;
+    let url = format!("file://{}", canonical_html_path.display());
+    log::info!("Navigating to {} (city: {})", url, english_city_name);
+    tab.navigate_to(&url)
+        .map_err(|e| anyhow::anyhow!("Navigate failed for '{}' (path: {}): {}", url, canonical_html_path.display(), e))?;
+    tab.wait_for_element("table")
+        .map_err(|e| anyhow::anyhow!("Failed waiting for table element in {}: {}", url, e))?;
+
+    // The CDP clip region below crops to the exact target dimensions,
+    // regardless of the browser window's actual size, so an explicit
+    // window resize isn't required for correct output dimensions.
+    let clip = Page::Viewport {
+        x: 0.0,
+        y: 0.0,
+        width: width as f64,
+        height: height as f64,
+        scale: 1.0,
+    };
+
     let screenshot = tab.call_method(Page::CaptureScreenshot {
         format: Some(CaptureScreenshotFormatOption::Png),
         quality: None,
-        clip: Some(viewport),
+        clip: Some(clip),
         from_surface: Some(true),
         capture_beyond_viewport: Some(true),
         optimize_for_speed: None,
     })?;
     let png_data = base64::engine::general_purpose::STANDARD.decode(screenshot.data)?;
-    
-    let filename = format!("agriculture_report_{}.png", Local::now().format("%Y%m%d_%H%M%S"));
-    fs::write(&filename, png_data)?;
-    
-    let mut png_path: PathBuf = env::current_dir()?;
-    png_path.push(filename);
 
-    println!("Screenshot saved to: {}", png_path.display());
-    
-    Ok(())
-}
+    fs::write(&out_path, png_data)
+        .map_err(|e| anyhow::anyhow!("Failed to write image to {}: {}", out_path.display(), e))?;
 
-// Helper function to escape HTML special characters
-fn escape_html(s: &str) -> String {
-    s.replace("&", "&amp;")
-        .replace("<", "&lt;")
-        .replace(">", "&gt;")
-        .replace("\"", "&quot;")
-        .replace("'", "&#39;")
+    Ok(out_path)
 }
