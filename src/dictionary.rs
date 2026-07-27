@@ -372,6 +372,8 @@ pub fn common_terms() -> HashMap<&'static str, (&'static str, &'static str)> {
     m.insert("subscribe", ("Subscribe", "ಚಂದಾದಾರರಾಗಿ"));
     m.insert("title", ("Daily Agricultural Report", "ಉತ್ಪನ್ನವಾರು ದೈನಂದಿನ ವರದಿ"));
     m.insert("all_cities", ("All Cities", "ಎಲ್ಲಾ ನಗರಗಳು"));
+    m.insert("follow_instagram", ("Follow us on Instagram", "ಇನ್‌ಸ್ಟಾಗ್ರಾಮ್‌ನಲ್ಲಿ ಫಾಲೋ ಮಾಡಿ"));
+    m.insert("watch_on_youtube", ("Watch on YouTube", "ಯೂಟ್ಯೂಬ್‌ನಲ್ಲಿ ವೀಕ್ಷಿಸಿ"));
     m
 }
 

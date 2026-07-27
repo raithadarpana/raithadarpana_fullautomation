@@ -17,7 +17,6 @@ use ratatui::{
     widgets::{Block, Borders, List, ListItem, ListState, Paragraph},
     Frame, Terminal,
 };
-use ratatui_image::{picker::Picker, protocol::StatefulProtocol, StatefulImage};
 use std::io;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -48,7 +47,6 @@ struct AppState {
     selected_cities: Vec<usize>, // indices into city_names (excluding "All")
 
     status_lines: Vec<String>,
-    preview: Option<StatefulProtocol>,
 }
 
 impl AppState {
@@ -74,7 +72,6 @@ impl AppState {
             city_list_state,
             selected_cities: Vec::new(),
             status_lines: Vec::new(),
-            preview: None,
         }
     }
 }
@@ -102,11 +99,10 @@ pub async fn run_ui() -> Result<()> {
     let backend = CrosstermBackend::new(stdout);
     let mut terminal = Terminal::new(backend)?;
 
-    let picker = Picker::from_query_stdio().ok();
     let mut app = AppState::new();
     let dict = Dictionary::load();
 
-    let result = run_event_loop(&mut terminal, &mut app, &dict, picker).await;
+    let result = run_event_loop(&mut terminal, &mut app, &dict).await;
 
     disable_raw_mode()?;
     execute!(terminal.backend_mut(), LeaveAlternateScreen)?;
@@ -119,7 +115,6 @@ async fn run_event_loop(
     terminal: &mut Terminal<CrosstermBackend<io::Stdout>>,
     app: &mut AppState,
     dict: &Dictionary,
-    mut picker: Option<Picker>,
 ) -> Result<()> {
     loop {
         terminal.draw(|f| draw_ui(f, app))?;
@@ -147,7 +142,7 @@ async fn run_event_loop(
                     KeyCode::Enter => {
                         advance_step(app, dict).await?;
                         if app.step == Step::Running {
-                            run_pipeline(app, dict, &mut picker).await?;
+                            run_pipeline(app, dict).await?;
                             app.step = Step::Done;
                         }
                     }
@@ -222,7 +217,6 @@ async fn advance_step(app: &mut AppState, dict: &Dictionary) -> Result<()> {
 async fn run_pipeline(
     app: &mut AppState,
     dict: &Dictionary,
-    picker: &mut Option<Picker>,
 ) -> Result<()> {
     let lang = app.lang_options[app.lang_idx];
     let date_choice = app.date_options[app.date_idx];
@@ -261,14 +255,6 @@ async fn run_pipeline(
         for (scraped, resolved) in outcome.skipped_cities.iter().take(10) {
             app.status_lines
                 .push(format!("  skipped: '{}' -> '{}'", scraped, resolved));
-        }
-    }
-
-    // Load the first rendered image as a live preview, if a terminal
-    // graphics protocol (kitty/iterm2/sixel) is available.
-    if let (Some(picker), Some(first)) = (picker.as_mut(), outcome.written.first()) {
-        if let Ok(dyn_img) = image::open(first) {
-            app.preview = Some(picker.new_resize_protocol(dyn_img));
         }
     }
 
@@ -372,19 +358,5 @@ fn draw_status(f: &mut Frame, app: &AppState, area: Rect, header: &str) {
 }
 
 fn draw_done(f: &mut Frame, app: &mut AppState, area: Rect) {
-    let chunks = Layout::default()
-        .direction(Direction::Horizontal)
-        .constraints([Constraint::Percentage(50), Constraint::Percentage(50)])
-        .split(area);
-
-    draw_status(f, app, chunks[0], "Done. Press any key to exit.");
-
-    if let Some(proto) = app.preview.as_mut() {
-        let image_widget = StatefulImage::default();
-        f.render_stateful_widget(image_widget, chunks[1], proto);
-    } else {
-        let p = Paragraph::new("No preview available (terminal graphics protocol not detected).")
-            .block(Block::default().borders(Borders::ALL).title("Preview"));
-        f.render_widget(p, chunks[1]);
-    }
+    draw_status(f, app, area, "Done. Press any key to exit.");
 }

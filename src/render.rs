@@ -1,3 +1,4 @@
+use crate::assets::BrandingAssets;
 use crate::data::{AgriculturalReport, CityMarketData};
 use crate::dictionary::{Dictionary, Language};
 use crate::storage;
@@ -41,6 +42,11 @@ pub async fn render_report_images(
     let browser = Browser::new(launch_options)?;
     let mut outcome = RenderOutcome::default();
 
+    // Loaded once per run (not per city) since the logo/background files
+    // don't change mid-run and reading + base64-encoding them is a bit of
+    // work worth avoiding on every iteration.
+    let branding = BrandingAssets::load();
+
     for city in &report.cities {
         let english_name = storage::resolve_english_city_name(dict, &city.city_name);
 
@@ -74,6 +80,7 @@ pub async fn render_report_images(
             &english_name,
             dict,
             lang,
+            &branding,
             Variant::Instagram,
         )?;
         outcome.written.push(ig_path);
@@ -86,6 +93,7 @@ pub async fn render_report_images(
             &english_name,
             dict,
             lang,
+            &branding,
             Variant::YouTube,
         )?;
         outcome.written.push(yt_path);
@@ -99,6 +107,60 @@ enum Variant {
     YouTube,
 }
 
+/// Converts a canonicalized filesystem path into a `file://` URL that
+/// Chrome (via headless_chrome/CDP) will accept.
+///
+/// Two things `Path::display()` doesn't handle correctly here:
+///
+/// 1. On Windows, `canonicalize()` returns a "verbatim" path prefixed
+///    with `\\?\` (e.g. `\\?\D:\Projects\...`) and using backslashes.
+///    Chrome's URL parser doesn't understand that prefix and rejects the
+///    navigation outright ("Cannot navigate to invalid URL"). The prefix
+///    must be stripped and backslashes converted to forward slashes.
+/// 2. City names (and therefore folder/file names) are often non-ASCII
+///    (Kannada script). A raw `file://` URL isn't allowed to contain
+///    those bytes unescaped, so each path segment is percent-encoded.
+fn path_to_file_url(path: &std::path::Path) -> Result<String> {
+    let mut path_str = path.to_string_lossy().to_string();
+
+    // Strip the Windows verbatim-path prefix, if present.
+    if let Some(stripped) = path_str.strip_prefix(r"\\?\") {
+        path_str = stripped.to_string();
+    }
+
+    // Normalize to forward slashes (no-op on Unix).
+    let path_str = path_str.replace('\\', "/");
+
+    let encoded_segments: Vec<String> = path_str.split('/').map(percent_encode_segment).collect();
+    let encoded_path = encoded_segments.join("/");
+
+    // On Windows the normalized path looks like "D:/Projects/..." and
+    // needs a leading slash to form a valid `file:///D:/...` URL. On
+    // Unix it already starts with "/", so plain "file://" is correct.
+    if encoded_path.len() >= 2 && encoded_path.as_bytes()[1] == b':' {
+        Ok(format!("file:///{}", encoded_path))
+    } else {
+        Ok(format!("file://{}", encoded_path))
+    }
+}
+
+/// Percent-encodes a single path segment for use in a `file://` URL.
+/// Keeps URL-safe ASCII characters as-is (including `:` and `.`, needed
+/// for Windows drive letters and file extensions) and escapes everything
+/// else, including non-ASCII UTF-8 bytes.
+fn percent_encode_segment(segment: &str) -> String {
+    let mut out = String::with_capacity(segment.len());
+    for byte in segment.bytes() {
+        match byte {
+            b'A'..=b'Z' | b'a'..=b'z' | b'0'..=b'9' | b'-' | b'_' | b'.' | b'~' | b':' => {
+                out.push(byte as char)
+            }
+            _ => out.push_str(&format!("%{:02X}", byte)),
+        }
+    }
+    out
+}
+
 fn render_city_variant(
     browser: &Browser,
     city: &CityMarketData,
@@ -107,11 +169,12 @@ fn render_city_variant(
     english_city_name: &str,
     dict: &Dictionary,
     lang: Language,
+    branding: &BrandingAssets,
     variant: Variant,
 ) -> Result<PathBuf> {
     let (html, width, height, out_path) = match variant {
         Variant::Instagram => (
-            templates::instagram_html(city, report_date, dict, lang),
+            templates::instagram_html(city, report_date, dict, lang, branding),
             INSTAGRAM_WIDTH,
             INSTAGRAM_HEIGHT,
             storage::instagram_image_path(date_ymd, english_city_name)?,
@@ -136,7 +199,7 @@ fn render_city_variant(
     let canonical_html_path = html_path
         .canonicalize()
         .map_err(|e| anyhow::anyhow!("Failed to resolve path {}: {}", html_path.display(), e))?;
-    let url = format!("file://{}", canonical_html_path.display());
+    let url = path_to_file_url(&canonical_html_path)?;
     log::info!("Navigating to {} (city: {})", url, english_city_name);
     tab.navigate_to(&url)
         .map_err(|e| anyhow::anyhow!("Navigate failed for '{}' (path: {}): {}", url, canonical_html_path.display(), e))?;
