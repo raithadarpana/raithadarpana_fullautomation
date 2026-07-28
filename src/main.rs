@@ -94,7 +94,9 @@ async fn run_headless(args: &Args) -> Result<()> {
         }
     };
 
+    println!("Fetching and scraping market report for {}...", date_ddmmyyyy);
     let report = scrape::scrape_agriculture_data(&date_ddmmyyyy, lang).await?;
+    println!("Scrape complete: {} cities found.", report.cities.len());
 
     let json_path = storage::write_report_json(&date_ymd, &report)?;
     println!("Extracted JSON to: {}", json_path.display());
@@ -107,7 +109,10 @@ async fn run_headless(args: &Args) -> Result<()> {
     });
     let filter_slice = cities_filter.as_deref();
 
-    let outcome = render::render_report_images(&report, &date_ymd, &dict, lang, filter_slice).await?;
+    let outcome = render::render_report_images(&report, &date_ymd, &dict, lang, filter_slice, |msg| {
+        println!("{}", msg);
+    })
+    .await?;
 
     if outcome.written.is_empty() {
         println!("No images were rendered.");

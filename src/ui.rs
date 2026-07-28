@@ -1,3 +1,4 @@
+use crate::data::AgriculturalReport;
 use crate::dictionary::{Dictionary, Language};
 use crate::scrape;
 use crate::storage;
@@ -29,6 +30,7 @@ enum DateChoice {
 enum Step {
     Language,
     Date,
+    FetchingCities,
     City,
     Running,
     Done,
@@ -47,6 +49,13 @@ struct AppState {
     selected_cities: Vec<usize>, // indices into city_names (excluding "All")
 
     status_lines: Vec<String>,
+
+    // Populated once the data fetch (post-date-selection) completes, and
+    // reused for rendering so we never scrape the same date/language
+    // twice in one wizard run.
+    report: Option<AgriculturalReport>,
+    date_ddmmyyyy: String,
+    date_ymd: String,
 }
 
 impl AppState {
@@ -72,6 +81,9 @@ impl AppState {
             city_list_state,
             selected_cities: Vec::new(),
             status_lines: Vec::new(),
+            report: None,
+            date_ddmmyyyy: String::new(),
+            date_ymd: String::new(),
         }
     }
 }
@@ -139,13 +151,23 @@ async fn run_event_loop(
                     KeyCode::Up => move_selection(app, -1),
                     KeyCode::Down => move_selection(app, 1),
                     KeyCode::Char(' ') if app.step == Step::City => toggle_city_selection(app),
-                    KeyCode::Enter => {
-                        advance_step(app, dict).await?;
-                        if app.step == Step::Running {
-                            run_pipeline(app, dict).await?;
+                    KeyCode::Enter => match app.step {
+                        Step::Language => {
+                            app.step = Step::Date;
+                        }
+                        Step::Date => {
+                            app.step = Step::FetchingCities;
+                            terminal.draw(|f| draw_ui(f, app))?;
+                            fetch_cities(terminal, app, dict).await?;
+                        }
+                        Step::City => {
+                            app.step = Step::Running;
+                            terminal.draw(|f| draw_ui(f, app))?;
+                            run_pipeline(terminal, app, dict).await?;
                             app.step = Step::Done;
                         }
-                    }
+                        _ => {}
+                    },
                     _ => {}
                 }
             }
@@ -192,48 +214,99 @@ fn toggle_city_selection(app: &mut AppState) {
     }
 }
 
-/// Advances the wizard to the next step. When moving from Date -> City,
-/// populates the city list (English names only, per spec).
-async fn advance_step(app: &mut AppState, dict: &Dictionary) -> Result<()> {
-    match app.step {
-        Step::Language => {
-            app.step = Step::Date;
-        }
-        Step::Date => {
-            let mut names = vec!["All".to_string()];
-            names.extend(dict.all_city_names(Language::English));
-            app.city_names = names;
-            app.city_list_state.select(Some(0));
-            app.step = Step::City;
-        }
-        Step::City => {
-            app.step = Step::Running;
-        }
-        _ => {}
-    }
+/// Pushes a status line and immediately redraws the terminal so the
+/// person sees progress as each stage happens, rather than a frozen
+/// screen while a long-running scrape/render blocks the event loop.
+fn push_status(
+    terminal: &mut Terminal<CrosstermBackend<io::Stdout>>,
+    app: &mut AppState,
+    msg: String,
+) -> Result<()> {
+    log::info!("{}", msg);
+    app.status_lines.push(msg);
+    terminal.draw(|f| draw_ui(f, app))?;
     Ok(())
 }
 
-async fn run_pipeline(
+/// Runs after the date is selected: fetches and scrapes the report for
+/// that date/language, then narrows the city list down to only the
+/// cities actually present in the fetched data (rather than every city
+/// the dictionary knows about) before handing off to the City step. The
+/// fetched report is cached on `AppState` so `run_pipeline` doesn't need
+/// to scrape a second time.
+async fn fetch_cities(
+    terminal: &mut Terminal<CrosstermBackend<io::Stdout>>,
     app: &mut AppState,
     dict: &Dictionary,
 ) -> Result<()> {
     let lang = app.lang_options[app.lang_idx];
     let date_choice = app.date_options[app.date_idx];
     let (date_ddmmyyyy, date_ymd) = resolve_date_ddmmyyyy(date_choice);
+    app.date_ddmmyyyy = date_ddmmyyyy.clone();
+    app.date_ymd = date_ymd;
 
-    app.status_lines.push(format!("Scraping report for {}...", date_ddmmyyyy));
+    push_status(
+        terminal,
+        app,
+        format!("Fetching market report for {}...", date_ddmmyyyy),
+    )?;
 
-    let report = match scrape::scrape_agriculture_data(&date_ddmmyyyy, lang).await {
-        Ok(r) => r,
+    match scrape::scrape_agriculture_data(&date_ddmmyyyy, lang).await {
+        Ok(report) => {
+            push_status(
+                terminal,
+                app,
+                format!(
+                    "Fetched data for {} city/cities. Preparing selection...",
+                    report.cities.len()
+                ),
+            )?;
+
+            // Only cities actually present in the fetched report are
+            // offered, deduplicated and resolved to their canonical
+            // English name (used downstream as the render filter).
+            let mut names = vec!["All".to_string()];
+            let mut seen = std::collections::HashSet::new();
+            for city in &report.cities {
+                let english = storage::resolve_english_city_name(dict, &city.city_name);
+                if seen.insert(english.clone()) {
+                    names.push(english);
+                }
+            }
+
+            app.city_names = names;
+            app.city_list_state.select(Some(0));
+            app.selected_cities.clear();
+            app.report = Some(report);
+            app.step = Step::City;
+        }
         Err(e) => {
-            app.status_lines.push(format!("Scrape failed: {}", e));
+            push_status(terminal, app, format!("Fetch failed: {}", e))?;
+            app.step = Step::Date;
+        }
+    }
+
+    Ok(())
+}
+
+async fn run_pipeline(
+    terminal: &mut Terminal<CrosstermBackend<io::Stdout>>,
+    app: &mut AppState,
+    dict: &Dictionary,
+) -> Result<()> {
+    let lang = app.lang_options[app.lang_idx];
+    let date_ymd = app.date_ymd.clone();
+
+    let report = match app.report.clone() {
+        Some(r) => r,
+        None => {
+            push_status(terminal, app, "No data was fetched; aborting.".to_string())?;
             return Ok(());
         }
     };
 
     let json_path = storage::write_report_json(&date_ymd, &report)?;
-    app.status_lines.push(format!("Saved JSON: {}", json_path.display()));
+    push_status(terminal, app, format!("Saved JSON: {}", json_path.display()))?;
 
     let cities_filter: Vec<String> = app
         .selected_cities
@@ -246,20 +319,41 @@ async fn run_pipeline(
         Some(cities_filter.as_slice())
     };
 
-    let outcome = render::render_report_images(&report, &date_ymd, dict, lang, filter_opt).await?;
-    app.status_lines
-        .push(format!("Rendered {} image(s).", outcome.written.len()));
+    // A progress closure that pushes a status line and redraws the
+    // terminal for every stage of the render (browser launch, then each
+    // city/variant) so the person sees live feedback instead of a
+    // frozen screen while headless_chrome works.
+    let progress = |msg: &str| {
+        app.status_lines.push(msg.to_string());
+        let _ = terminal.draw(|f| draw_ui(f, app));
+    };
+
+    let outcome =
+        render::render_report_images(&report, &date_ymd, dict, lang, filter_opt, progress).await?;
+
+    push_status(
+        terminal,
+        app,
+        format!("Rendered {} image(s).", outcome.written.len()),
+    )?;
 
     if outcome.written.is_empty() {
-        app.status_lines.push("No images rendered - check city filter.".to_string());
+        push_status(
+            terminal,
+            app,
+            "No images rendered - check city filter.".to_string(),
+        )?;
         for (scraped, resolved) in outcome.skipped_cities.iter().take(10) {
-            app.status_lines
-                .push(format!("  skipped: '{}' -> '{}'", scraped, resolved));
+            push_status(
+                terminal,
+                app,
+                format!("  skipped: '{}' -> '{}'", scraped, resolved),
+            )?;
         }
     }
 
     for p in &outcome.written {
-        app.status_lines.push(format!("Wrote: {}", p.display()));
+        push_status(terminal, app, format!("Wrote: {}", p.display()))?;
     }
 
     Ok(())
@@ -282,8 +376,9 @@ fn draw_ui(f: &mut Frame, app: &mut AppState) {
     match app.step {
         Step::Language => draw_language_step(f, app, chunks[1]),
         Step::Date => draw_date_step(f, app, chunks[1]),
+        Step::FetchingCities => draw_status(f, app, chunks[1], "Fetching data..."),
         Step::City => draw_city_step(f, app, chunks[1]),
-        Step::Running => draw_status(f, app, chunks[1], "Running..."),
+        Step::Running => draw_status(f, app, chunks[1], "Rendering..."),
         Step::Done => draw_done(f, app, chunks[1]),
     }
 }

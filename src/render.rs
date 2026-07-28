@@ -34,7 +34,9 @@ pub async fn render_report_images(
     dict: &Dictionary,
     lang: Language,
     cities_filter: Option<&[String]>,
+    mut on_progress: impl FnMut(&str),
 ) -> Result<RenderOutcome> {
+    on_progress("Launching renderer...");
     let launch_options = LaunchOptions::default_builder()
         .window_size(Some((INSTAGRAM_WIDTH.max(YOUTUBE_WIDTH), INSTAGRAM_HEIGHT.max(YOUTUBE_HEIGHT))))
         .build()
@@ -42,7 +44,7 @@ pub async fn render_report_images(
     let browser = Browser::new(launch_options)?;
     let mut outcome = RenderOutcome::default();
 
-    // Loaded once per run (not per city) since the logo/background files
+    // Loaded once per run (not per city) since the background files
     // don't change mid-run and reading + base64-encoding them is a bit of
     // work worth avoiding on every iteration.
     let branding = BrandingAssets::load();
@@ -72,6 +74,7 @@ pub async fn render_report_images(
         log::info!("Rendering images for city '{}' -> '{}'", city.city_name, english_name);
         outcome.rendered_cities.push(english_name.clone());
 
+        on_progress(&format!("Rendering {} (Instagram)...", english_name));
         let ig_path = render_city_variant(
             &browser,
             city,
@@ -85,6 +88,7 @@ pub async fn render_report_images(
         )?;
         outcome.written.push(ig_path);
 
+        on_progress(&format!("Rendering {} (YouTube)...", english_name));
         let yt_path = render_city_variant(
             &browser,
             city,
@@ -99,6 +103,7 @@ pub async fn render_report_images(
         outcome.written.push(yt_path);
     }
 
+    on_progress("Render complete.");
     Ok(outcome)
 }
 
@@ -180,7 +185,7 @@ fn render_city_variant(
             storage::instagram_image_path(date_ymd, english_city_name)?,
         ),
         Variant::YouTube => (
-            templates::youtube_html(city, report_date, dict, lang),
+            templates::youtube_html(city, report_date, dict, lang, branding),
             YOUTUBE_WIDTH,
             YOUTUBE_HEIGHT,
             storage::youtube_image_path(date_ymd, english_city_name)?,

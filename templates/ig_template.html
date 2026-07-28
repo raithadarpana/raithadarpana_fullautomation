@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="kn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ರೈತ ದರ್ಪಣ - ಮಾರುಕಟ್ಟೆ ಬೆಲೆ ಮಾಹಿತಿ</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Kannada:wght@400;500;700;800&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Noto Sans Kannada',sans-serif;
+}
+
+body{
+    background:#0b2f0b;
+    display:flex;
+    justify-content:center;
+    padding:20px;
+}
+
+.container{
+    width:900px;
+    background:linear-gradient(#063b06,#052805);
+    color:#fff;
+    border-radius:20px;
+    overflow:hidden;
+    box-shadow:0 10px 30px rgba(0,0,0,.5);
+}
+
+.header{
+    display:flex;
+    align-items:center;
+    gap:25px;
+    padding:25px;
+}
+
+.logo{
+    width:250px;
+    height:250px;
+    background:#fff;
+    border-radius:50%;
+    border:6px solid #2d7c2d;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    color:#0d5a0d;
+    font-size:38px;
+    font-weight:bold;
+    text-align:center;
+    padding:20px;
+}
+
+.title{
+    flex:1;
+}
+
+.title h1{
+    font-size:60px;
+    line-height:1.1;
+    color:#fff;
+}
+
+.title h2{
+    font-size:58px;
+    color:#ffc400;
+}
+
+.info-bar{
+    display:flex;
+    justify-content:space-between;
+    margin:0 20px 20px;
+    gap:20px;
+}
+
+.date-label{
+    flex:1;
+    background:#215f17;
+    color:#fff;
+    padding:18px;
+    border-radius:12px;
+    font-size:28px;
+    font-weight:bold;
+}
+
+.date-box{
+    width:280px;
+    background:#fff;
+    color:#111;
+    font-size:40px;
+    font-weight:bold;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    border-radius:12px;
+}
+
+.market{
+    width:90%;
+    margin:0 auto 15px;
+    background:#d71e1e;
+    color:#fff;
+    text-align:center;
+    padding:15px;
+    border-radius:15px;
+    font-size:36px;
+    font-weight:bold;
+}
+
+table{
+    width:95%;
+    margin:0 auto 25px;
+    border-collapse:collapse;
+    background:#fff;
+    color:#222;
+}
+
+th{
+    background:#1c6d17;
+    color:#fff;
+    padding:14px;
+    border:1px solid #ddd;
+    font-size:20px;
+}
+
+td{
+    padding:12px;
+    border:1px solid #ddd;
+    text-align:center;
+    font-size:18px;
+}
+
+tbody tr:nth-child(even){
+    background:#f3fff0;
+}
+
+.footer{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:20px;
+}
+
+.subscribe{
+    background:#e61d1d;
+    color:#fff;
+    padding:15px 40px;
+    border-radius:50px;
+    font-size:30px;
+    font-weight:bold;
+}
+
+.note{
+    font-size:24px;
+    color:#ffe600;
+    font-weight:bold;
+}
+
+@media(max-width:768px){
+
+.header{
+flex-direction:column;
+text-align:center;
+}
+
+.title h1{
+font-size:38px;
+}
+
+.title h2{
+font-size:34px;
+}
+
+.logo{
+width:180px;
+height:180px;
+font-size:28px;
+}
+
+.info-bar{
+flex-direction:column;
+}
+
+.date-box{
+width:100%;
+}
+
+.market{
+font-size:26px;
+}
+
+table{
+display:block;
+overflow-x:auto;
+}
+
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<div class="header">
+
+<div class="logo">
+ರೈತ<br>ದರ್ಪಣ
+</div>
+
+<div class="title">
+<h1>ಮಾರುಕಟ್ಟೆ</h1>
+<h2>ಬೆಲೆ ಮಾಹಿತಿ</h2>
+</div>
+
+</div>
+
+<div class="info-bar">
+<div class="date-label">
+📅 ಇಂದಿನ ದಿನಾಂಕ ವರದಿ
+</div>
+
+<div class="date-box">
+25/07/2026
+</div>
+</div>
+
+<div class="market">
+📍 ಮಾರುಕಟ್ಟೆ : ರಾಮನಗರ
+</div>
+
+<table>
+
+<thead>
+<tr>
+<th>ಉತ್ಪನ್ನ</th>
+<th>ವೆರೈಟಿ</th>
+<th>ವರ್ಗ</th>
+<th>ಆಗಮನ (ಕ್ವಿಂಟಾಲ್)</th>
+<th>ಕನಿಷ್ಠ(₹)</th>
+<th>ಗರಿಷ್ಠ (₹)</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr>
+<td>ಅಲಸಂದೆಕಾಯಿ</td>
+<td>ಅಲಸಂದೆಕಾಯಿ</td>
+<td>ಸೋನೆ</td>
+<td>48 ಕ್ವಿಂಟಲ್</td>
+<td>3600</td>
+<td>4800</td>
+</tr>
+
+<tr>
+<td>ಮೂಲಂಗಿ</td>
+<td>ಬೀನ್ಸ್ (ಪೂಲ್)</td>
+<td>ಸೋನೆ</td>
+<td>16 ಕ್ವಿಂಟಲ್</td>
+<td>3000</td>
+<td>4400</td>
+</tr>
+
+<tr>
+<td>ಬೀಟ್ರೂಟ್</td>
+<td>ಬೀಟ್ ರೂಟ್</td>
+<td>ಸೋನೆ</td>
+<td>6 ಕ್ವಿಂಟಲ್</td>
+<td>3000</td>
+<td>3600</td>
+</tr>
+
+<tr>
+<td>ಹಾಗಲಕಾಯಿ</td>
+<td>ಹಾಗಲಕಾಯಿ</td>
+<td>ಸೋನೆ</td>
+<td>6 ಕ್ವಿಂಟಲ್</td>
+<td>3000</td>
+<td>4500</td>
+</tr>
+
+<tr>
+<td>ಸೊರೆಕಾಯಿ</td>
+<td>ಸೊರೆಕಾಯಿ</td>
+<td>ಸೋನೆ</td>
+<td>8 ಕ್ವಿಂಟಲ್</td>
+<td>1200</td>
+<td>1600</td>
+</tr>
+
+<tr>
+<td>ಬದನೆಕಾಯಿ</td>
+<td>ಬದನೆಕಾಯಿ</td>
+<td>ಸೋನೆ</td>
+<td>10 ಕ್ವಿಂಟಲ್</td>
+<td>2000</td>
+<td>3500</td>
+</tr>
+
+<tr>
+<td>ಬದನೆಕಾಯಿ</td>
+<td>ರೌಂಡ್</td>
+<td>ಸೋನೆ</td>
+<td>8 ಕ್ವಿಂಟಲ್</td>
+<td>1600</td>
+<td>2200</td>
+</tr>
+
+<tr>
+<td>ಎಲೆಕೋಸು</td>
+<td>ಎಲೆಕೋಸು</td>
+<td>ಸೋನೆ</td>
+<td>15 ಕ್ವಿಂಟಲ್</td>
+<td>2000</td>
+<td>2500</td>
+</tr>
+
+<tr>
+<td>ದಪ್ಪ ಮೆಣಸಿನಕಾಯಿ</td>
+<td>ದಪ್ಪ ಮೆಣಸಿನಕಾಯಿ</td>
+<td>ಸೋನೆ</td>
+<td>8 ಕ್ವಿಂಟಲ್</td>
+<td>4000</td>
+<td>6000</td>
+</tr>
+
+<tr>
+<td>ಕ್ಯಾರೆಟ್</td>
+<td>ಕ್ಯಾರೆಟ್</td>
+<td>ಸೋನೆ</td>
+<td>7 ಕ್ವಿಂಟಲ್</td>
+<td>4000</td>
+<td>6000</td>
+</tr>
+
+<tr>
+<td>ಹೂಕೋಸು</td>
+<td>ಹೂಕೋಸು</td>
+<td>ಸೋನೆ</td>
+<td>12 ಕ್ವಿಂಟಲ್</td>
+<td>1500</td>
+<td>2400</td>
+</tr>
+
+<tr>
+<td>ಬಜ್ಜಿ ಮೆಣಸಿನಕಾಯಿ</td>
+<td>ಬಜ್ಜಿ ಮೆಣಸಿನಕಾಯಿ</td>
+<td>ಸೋನೆ</td>
+<td>6 ಕ್ವಿಂಟಲ್</td>
+<td>4000</td>
+<td>6000</td>
+</tr>
+
+<tr>
+<td>ಸೌತೆಕಾಯಿ</td>
+<td>ಸೌತೆಕಾಯಿ</td>
+<td>ಸೋನೆ</td>
+<td>32 ಕ್ವಿಂಟಲ್</td>
+<td>2000</td>
+<td>2400</td>
+</tr>
+
+</tbody>
+
+</table>
+
+<div class="footer">
+
+<div class="note">
+📢 ಪ್ರತಿದಿನದ ತಾಜಾ ಮಾರುಕಟ್ಟೆ ಬೆಲೆ ಮಾಹಿತಿಗಾಗಿ ನಮ್ಮ ಚಾನೆಲ್ ಸಬ್ಸ್ಕ್ರೈಬ್ ಮಾಡಿ!
+</div>
+
+<div class="subscribe">
+SUBSCRIBE
+</div>
+
+</div>
+
+</div>
+
+</body>
+</html>

@@ -362,7 +362,7 @@ pub fn common_terms() -> HashMap<&'static str, (&'static str, &'static str)> {
     m.insert("commodity", ("Commodity", "ಸರಕು"));
     m.insert("variety", ("Variety", "ತಳಿ"));
     m.insert("grade", ("Grade", "ದರ್ಜೆ"));
-    m.insert("arrivals", ("Arrivals", "ಆವಕ"));
+    m.insert("arrivals", ("Arrivals", "ಆಗಮನ"));
     m.insert("units", ("Units", "ಘಟಕ"));
     m.insert("min_price", ("Min Price", "ಕನಿಷ್ಠ ಬೆಲೆ"));
     m.insert("max_price", ("Max Price", "ಗರಿಷ್ಠ ಬೆಲೆ"));

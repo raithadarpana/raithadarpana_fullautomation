@@ -1,13 +1,14 @@
 use base64::Engine;
 use std::path::{Path, PathBuf};
 
-/// Directory where branding assets (logo.png, background.png) are expected.
+/// Directory where branding assets (background_ig.png, background_yt.png)
+/// are expected.
 ///
 /// Resolved relative to the running binary's location (not the current
 /// working directory), so the compiled binary can be copied/deployed
 /// anywhere and the assets simply live alongside it in an `assets/`
-/// folder. Swapping in a new logo or background is just replacing the
-/// PNG on disk -- no recompilation needed, and the next run picks it up
+/// folder. Swapping in a new background is just replacing the PNG on
+/// disk -- no recompilation needed, and the next run picks it up
 /// automatically.
 ///
 /// Falls back to `./assets` (relative to CWD) if the binary's own
@@ -32,7 +33,7 @@ pub fn assets_dir() -> PathBuf {
     PathBuf::from("assets")
 }
 
-/// Branding images for the generated covers, loaded once per run and
+/// Branding backgrounds for the generated covers, loaded once per run and
 /// inlined as base64 data URIs.
 ///
 /// Data URIs (rather than a `file://` background or a relative `<img
@@ -42,21 +43,24 @@ pub fn assets_dir() -> PathBuf {
 /// location vs. asset location). Inlining the image bytes directly into
 /// the HTML sidesteps all of that -- the page is fully self-contained.
 ///
-/// Missing files are not a hard error: a logo or background you haven't
-/// added yet just doesn't render (see the CSS fallbacks in
-/// `templates.rs`), and a warning is logged so it's easy to notice.
+/// The logo and header text are baked directly into these background
+/// images, so there is no separate logo asset to load or overlay.
+///
+/// Missing files are not a hard error: a background you haven't added
+/// yet just doesn't render (see the CSS fallbacks in `templates.rs`),
+/// and a warning is logged so it's easy to notice.
 #[derive(Debug, Clone, Default)]
 pub struct BrandingAssets {
-    pub logo_data_uri: Option<String>,
-    pub background_data_uri: Option<String>,
+    pub background_ig_data_uri: Option<String>,
+    pub background_yt_data_uri: Option<String>,
 }
 
 impl BrandingAssets {
     pub fn load() -> Self {
         let dir = assets_dir();
         Self {
-            logo_data_uri: load_as_data_uri(&dir.join("logo.png")),
-            background_data_uri: load_as_data_uri(&dir.join("background.png")),
+            background_ig_data_uri: load_as_data_uri(&dir.join("background_ig.png")),
+            background_yt_data_uri: load_as_data_uri(&dir.join("background_yt.png")),
         }
     }
 }
