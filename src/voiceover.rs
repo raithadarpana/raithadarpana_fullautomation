@@ -1,8 +1,7 @@
-
 use crate::data::CommodityEntry;
+use crate::dictionary::Language;
 
 use edge_tts_rust::{Boundary, EdgeTtsClient, SpeakOptions};
-use std::fs;
 use std::path::{Path, PathBuf};
 use std::process::Command;
 use walkdir::WalkDir;
@@ -19,7 +18,7 @@ pub fn sanitize_filename(value: &str) -> String {
     sanitized.trim_matches('_').to_string()
 }
 
-fn find_background_music(folder_path: &Path) -> Option<PathBuf> {
+pub fn find_background_music(folder_path: &Path) -> Option<PathBuf> {
     let candidates = [
         "bg_music.mp3",
         "background.mp3",
@@ -74,23 +73,56 @@ pub fn generate_kannada_script(market: &str, date: &str, items: &[CommodityEntry
     script
 }
 
+pub fn generate_english_script(market: &str, date: &str, items: &[CommodityEntry]) -> String {
+    let mut script = format!(
+        "Hello viewers, welcome to Raitha Darpana market price update. Here is today's {} market commodity price report. Report date: {}. ",
+        market, date
+    );
+
+    for item in items {
+        script.push_str(&format!(
+            "{}: minimum price {} rupees, maximum price {} rupees. ",
+            item.commodity, item.min_rs, item.max_rs
+        ));
+    }
+
+    script.push_str("Subscribe to our Instagram and YouTube channels for daily accurate updates. Thank you!");
+    script
+}
+
+/// Generates the narration script for a city's commodities in the given
+/// language.
+pub fn generate_script(lang: Language, market: &str, date: &str, items: &[CommodityEntry]) -> String {
+    match lang {
+        Language::Kannada => generate_kannada_script(market, date, items),
+        Language::English => generate_english_script(market, date, items),
+    }
+}
+
+/// Returns a sensible default Edge TTS voice identity for the given
+/// language, used unless overridden by the `VOICE_ID` env var.
+pub fn default_voice_id(lang: Language) -> &'static str {
+    match lang {
+        Language::Kannada => "kn-IN-GaganNeural",
+        Language::English => "en-IN-PrabhatNeural",
+    }
+}
+
 pub async fn generate_audio_file(
     text: &str,
+    lang: Language,
     primary_output_path: &Path,
     mixed_output_path: &Path,
+    music_search_dir: &Path,
 ) -> Result<PathBuf, Box<dyn std::error::Error>> {
-    generate_edge_tts(text, primary_output_path).await?;
+    generate_edge_tts(text, lang, primary_output_path).await?;
 
-    if let Some(bg_path) = find_background_music(primary_output_path.parent().unwrap_or_else(|| Path::new("."))) {
+    if let Some(bg_path) = find_background_music(music_search_dir) {
         println!(
             "🎧 Found background music at {}. Mixing at 8% volume.",
             bg_path.display()
         );
         mix_audio_with_bg(primary_output_path, &bg_path, mixed_output_path)?;
-        // attempt to remove the temporary primary voice file to avoid duplicates
-        if let Err(e) = fs::remove_file(primary_output_path) {
-            eprintln!("⚠️ Warning: failed to remove temporary voice file {}: {}", primary_output_path.display(), e);
-        }
         Ok(mixed_output_path.to_path_buf())
     } else {
         println!("ℹ️ No background music file found. Using voice audio only.");
@@ -98,9 +130,9 @@ pub async fn generate_audio_file(
     }
 }
 
-async fn generate_edge_tts(text: &str, output_path: &Path) -> Result<(), Box<dyn std::error::Error>> {
+async fn generate_edge_tts(text: &str, lang: Language, output_path: &Path) -> Result<(), Box<dyn std::error::Error>> {
     let client = EdgeTtsClient::new()?;
-    let voice_identity = std::env::var("VOICE_ID").unwrap_or_else(|_| "kn-IN-GaganNeural".into());
+    let voice_identity = std::env::var("VOICE_ID").unwrap_or_else(|_| default_voice_id(lang).to_string());
 
     client
         .save(

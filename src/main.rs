@@ -13,8 +13,14 @@ pub mod voiceover;
 use anyhow::Result;
 use chrono::Local;
 use clap::Parser;
+use std::time::Duration;
 
 use dictionary::{Dictionary, Language};
+use render::{ForceFlags, VariantSelection};
+
+/// Maximum age of a cached report JSON before it's considered stale and
+/// re-scraped.
+const DATA_MAX_AGE: Duration = Duration::from_secs(4 * 60 * 60);
 
 #[derive(Parser, Debug)]
 #[command(name = "Raitha Darpana Content Creator")]
@@ -36,6 +42,34 @@ struct Args {
     /// Date to scrape, in dd/mm/yyyy. Defaults to today. Only used in headless mode.
     #[arg(long)]
     date: Option<String>,
+
+    /// Create the Instagram variant. If neither --ig nor --yt is given, both are created.
+    #[arg(long)]
+    ig: bool,
+
+    /// Create the YouTube variant. If neither --ig nor --yt is given, both are created.
+    #[arg(long)]
+    yt: bool,
+
+    /// Skip video creation; only generate cover images.
+    #[arg(long = "no-video")]
+    no_video: bool,
+
+    /// Force re-fetching data from the web even if a recent cached copy exists.
+    #[arg(long = "force-data")]
+    force_data: bool,
+
+    /// Force re-creating cover images even if they already exist on disk.
+    #[arg(long = "force-image")]
+    force_image: bool,
+
+    /// Force re-creating videos even if they already exist on disk. Overrides --no-video.
+    #[arg(long = "force-video")]
+    force_video: bool,
+
+    /// Force re-fetching data and re-creating images and videos. Overrides --no-video.
+    #[arg(long = "force-all")]
+    force_all: bool,
 }
 
 #[tokio::main]
@@ -97,12 +131,50 @@ async fn run_headless(args: &Args) -> Result<()> {
         }
     };
 
-    println!("Fetching and scraping market report for {}...", date_ddmmyyyy);
-    let report = scrape::scrape_agriculture_data(&date_ddmmyyyy, lang).await?;
-    println!("Scrape complete: {} cities found.", report.cities.len());
+    // Variant selection: if neither --ig nor --yt given, both are produced.
+    let variants = match (args.ig, args.yt) {
+        (true, false) => VariantSelection::InstagramOnly,
+        (false, true) => VariantSelection::YoutubeOnly,
+        _ => VariantSelection::Both,
+    };
 
-    let json_path = storage::write_report_json(&date_ymd, &report)?;
-    println!("Extracted JSON to: {}", json_path.display());
+    // force-all implies force-data, force-image, force-video.
+    let force_data = args.force_data || args.force_all;
+    let force_image = args.force_image || args.force_all;
+    let force_video = args.force_video || args.force_all;
+
+    // force-video / force-all override no-video.
+    let create_video = if force_video {
+        true
+    } else {
+        !args.no_video
+    };
+
+    let force = ForceFlags {
+        force_image,
+        force_video,
+    };
+
+    let needs_refresh = storage::needs_data_refresh(&date_ymd, lang, DATA_MAX_AGE, force_data)?;
+
+    let report = if needs_refresh {
+        println!("Fetching and scraping market report for {}...", date_ddmmyyyy);
+        let report = scrape::scrape_agriculture_data(&date_ddmmyyyy, lang).await?;
+        println!("Scrape complete: {} cities found.", report.cities.len());
+
+        // Data changed: clear all previously generated artifacts (HTML,
+        // images, videos, city folders) for this date so nothing stale
+        // from the old data lingers alongside the fresh report.
+        storage::clear_day_artifacts(&date_ymd, lang)?;
+
+        let json_path = storage::write_report_json(&date_ymd, lang, &report)?;
+        println!("Extracted JSON to: {}", json_path.display());
+        report
+    } else {
+        println!("Using cached data for {} ({})...", date_ddmmyyyy, args.language);
+        storage::read_report_json(&date_ymd, lang)?
+            .ok_or_else(|| anyhow::anyhow!("Expected cached report JSON but none was found"))?
+    };
 
     let cities_filter: Option<Vec<String>> = args.cities.as_ref().map(|s| {
         s.split(',')
@@ -112,25 +184,39 @@ async fn run_headless(args: &Args) -> Result<()> {
     });
     let filter_slice = cities_filter.as_deref();
 
-    let outcome = render::render_report_images(&report, &date_ymd, &dict, lang, filter_slice, |msg| {
-        println!("{}", msg);
-    }, true)
+    let outcome = render::render_report_images(
+        &report,
+        &date_ymd,
+        &dict,
+        lang,
+        filter_slice,
+        variants,
+        force,
+        create_video,
+        |msg| {
+            println!("{}", msg);
+        },
+        |event| {
+            println!("Ready: {:?} for {} -> {}", event.kind, event.city, event.path.display());
+        },
+    )
     .await?;
 
-    if outcome.written.is_empty() {
-        println!("No images were rendered.");
+    if outcome.written.is_empty() && outcome.videos_written.is_empty() {
+        println!("No new images or videos were rendered.");
         if !outcome.skipped_cities.is_empty() {
             println!("The following cities were found in the report but did not match your --cities filter:");
             for (scraped, resolved) in &outcome.skipped_cities {
                 println!("  - scraped: '{}' -> resolved: '{}'", scraped, resolved);
             }
             println!("Check that --cities values match the resolved English name above (case-insensitive).");
-        } else {
-            println!("The report itself contained no cities. Check the JSON output for details.");
         }
     } else {
         for path in &outcome.written {
             println!("Rendered: {}", path.display());
+        }
+        for path in &outcome.videos_written {
+            println!("Video: {}", path.display());
         }
         if !outcome.skipped_cities.is_empty() {
             println!("Skipped {} cities not matching the filter.", outcome.skipped_cities.len());

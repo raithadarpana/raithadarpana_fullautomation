@@ -1,457 +1,722 @@
+//! Web UI for the interactive (non-headless) mode.
+//!
+//! Replaces the previous ratatui terminal UI with a local web server: the
+//! person picks language, date, and cities in a browser, watches progress
+//! and generated media stream in live, and can preview/playback results
+//! without restarting the application.
+
 use crate::data::AgriculturalReport;
 use crate::dictionary::{Dictionary, Language};
+use crate::render::{self, ForceFlags, MediaKind, VariantSelection};
 use crate::scrape;
 use crate::storage;
-use crate::render;
-use anyhow::Result;
-use chrono::{Duration as ChronoDuration, Local};
-use crossterm::{
-    event::{self, Event, KeyCode, KeyEventKind},
-    execute,
-    terminal::{disable_raw_mode, enable_raw_mode, EnterAlternateScreen, LeaveAlternateScreen},
-};
-use ratatui::{
-    backend::CrosstermBackend,
-    layout::{Constraint, Direction, Layout, Rect},
-    style::{Color, Modifier, Style},
-    text::{Line, Span},
-    widgets::{Block, Borders, List, ListItem, ListState, Paragraph},
-    Frame, Terminal,
-};
-use std::io;
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
-enum DateChoice {
-    Today,
-    PastNDays(u32), // 1..=7 days ago
+use anyhow::Result;
+use axum::{
+    extract::{Path as AxPath, State},
+    http::StatusCode,
+    response::{Html, IntoResponse, Json},
+    routing::{get, post},
+    Router,
+};
+use serde::{Deserialize, Serialize};
+use std::collections::HashMap;
+use std::sync::Arc;
+use tokio::sync::Mutex;
+use tower_http::cors::CorsLayer;
+use tower_http::services::ServeDir;
+use uuid::Uuid;
+
+/// Shared application state for the web UI server.
+struct AppState {
+    dict: Dictionary,
+    jobs: Mutex<HashMap<String, Job>>,
+    /// Cached reports keyed by "YYYYMMDD-lang" so switching between
+    /// screens (or re-rendering) doesn't require re-scraping.
+    reports: Mutex<HashMap<String, AgriculturalReport>>,
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
-enum Step {
-    Language,
-    Date,
-    FetchingCities,
-    City,
+/// A single piece of media as sent to the frontend, already resolved to
+/// a `/media/...` URL.
+#[derive(Debug, Clone, Serialize)]
+struct MediaItem {
+    city: String,
+    kind: String, // "ig_image" | "yt_image" | "ig_video" | "yt_video"
+    url: String,
+}
+
+/// A single pipeline run's live progress state, polled by the frontend.
+#[derive(Debug, Clone, Serialize, Default)]
+struct Job {
+    status: JobStatusRepr,
+    messages: Vec<String>,
+    /// Media items in the order they became available, for streaming.
+    media: Vec<MediaItem>,
+    error: Option<String>,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize)]
+#[serde(rename_all = "snake_case")]
+enum JobStatusRepr {
     Running,
     Done,
+    Failed,
 }
 
-struct AppState {
-    step: Step,
-    lang_idx: usize,
-    lang_options: Vec<Language>,
+impl Default for JobStatusRepr {
+    fn default() -> Self {
+        JobStatusRepr::Running
+    }
+}
 
-    date_idx: usize,
-    date_options: Vec<DateChoice>,
+/// Entrypoint for the interactive UI mode: starts a local web server and
+/// opens it in the person's default browser.
+pub async fn run_ui() -> Result<()> {
+    let dict = Dictionary::load();
+    let state = Arc::new(AppState {
+        dict,
+        jobs: Mutex::new(HashMap::new()),
+        reports: Mutex::new(HashMap::new()),
+    });
 
-    city_names: Vec<String>, // "All" + english city names
-    city_list_state: ListState,
-    selected_cities: Vec<usize>, // indices into city_names (excluding "All")
+    std::fs::create_dir_all(storage::RD_MEDIA_ROOT)?;
 
-    status_lines: Vec<String>,
+    let app = Router::new()
+        .route("/", get(index_page))
+        .route("/api/fetch", post(fetch_data))
+        .route("/api/render", post(start_render))
+        .route("/api/jobs/:job_id", get(job_status))
+        .nest_service("/media", ServeDir::new(storage::RD_MEDIA_ROOT))
+        .layer(CorsLayer::permissive())
+        .with_state(state);
 
-    // Populated once the data fetch (post-date-selection) completes, and
-    // reused for rendering so we never scrape the same date/language
-    // twice in one wizard run.
-    report: Option<AgriculturalReport>,
-    date_ddmmyyyy: String,
+    let listener = tokio::net::TcpListener::bind("127.0.0.1:0").await?;
+    let addr = listener.local_addr()?;
+    let url = format!("http://{}", addr);
+
+    println!("Raitha Darpana web UI running at {}", url);
+    log::info!("Web UI listening on {}", url);
+
+    // Best-effort: if a browser can't be opened (headless server, no
+    // display, etc.), the person can still copy the printed URL.
+    if let Err(e) = open::that(&url) {
+        log::warn!("Could not auto-open browser: {}", e);
+        println!("Open this URL in your browser: {}", url);
+    }
+
+    axum::serve(listener, app).await?;
+    Ok(())
+}
+
+async fn index_page() -> Html<&'static str> {
+    Html(INDEX_HTML)
+}
+
+#[derive(Debug, Deserialize)]
+struct FetchRequest {
+    language: String,
+    /// dd/mm/yyyy
+    date: String,
+}
+
+#[derive(Debug, Serialize)]
+struct FetchResponse {
+    report_date: String,
+    cities: Vec<String>,
     date_ymd: String,
 }
 
-impl AppState {
-    fn new() -> Self {
-        let mut city_list_state = ListState::default();
-        city_list_state.select(Some(0));
-        AppState {
-            step: Step::Language,
-            lang_idx: 0,
-            lang_options: vec![Language::Kannada, Language::English],
-            date_idx: 0,
-            date_options: vec![
-                DateChoice::Today,
-                DateChoice::PastNDays(1),
-                DateChoice::PastNDays(2),
-                DateChoice::PastNDays(3),
-                DateChoice::PastNDays(4),
-                DateChoice::PastNDays(5),
-                DateChoice::PastNDays(6),
-                DateChoice::PastNDays(7),
-            ],
-            city_names: vec!["All".to_string()],
-            city_list_state,
-            selected_cities: Vec::new(),
-            status_lines: Vec::new(),
-            report: None,
-            date_ddmmyyyy: String::new(),
-            date_ymd: String::new(),
-        }
+fn report_cache_key(date_ymd: &str, lang: Language) -> String {
+    format!("{}-{}", date_ymd, storage::lang_short(lang))
+}
+
+/// Fetches (or reuses cached) report data for a date/language and returns
+/// the resolved city list actually present in that report, so the person
+/// can pick from cities that exist in the data rather than the full
+/// dictionary.
+async fn fetch_data(
+    State(state): State<Arc<AppState>>,
+    Json(req): Json<FetchRequest>,
+) -> Result<Json<FetchResponse>, (StatusCode, String)> {
+    let lang = Language::from_str(&req.language)
+        .ok_or_else(|| (StatusCode::BAD_REQUEST, "Invalid language".to_string()))?;
+
+    let parts: Vec<&str> = req.date.split('/').collect();
+    if parts.len() != 3 {
+        return Err((StatusCode::BAD_REQUEST, "Invalid date, expected dd/mm/yyyy".to_string()));
     }
-}
+    let date_ymd = format!("{}{}{}", parts[2], parts[1], parts[0]);
 
-fn date_label(choice: DateChoice) -> String {
-    match choice {
-        DateChoice::Today => "Today".to_string(),
-        DateChoice::PastNDays(n) => format!("{} day(s) ago", n),
-    }
-}
+    let needs_refresh = storage::needs_data_refresh(&date_ymd, lang, std::time::Duration::from_secs(4 * 60 * 60), false)
+        .map_err(|e| (StatusCode::INTERNAL_SERVER_ERROR, e.to_string()))?;
 
-fn resolve_date_ddmmyyyy(choice: DateChoice) -> (String, String) {
-    let target = match choice {
-        DateChoice::Today => Local::now().date_naive(),
-        DateChoice::PastNDays(n) => Local::now().date_naive() - ChronoDuration::days(n as i64),
-    };
-    (target.format("%d/%m/%Y").to_string(), target.format("%Y%m%d").to_string())
-}
-
-/// Entrypoint for the interactive UI mode.
-pub async fn run_ui() -> Result<()> {
-    enable_raw_mode()?;
-    let mut stdout = io::stdout();
-    execute!(stdout, EnterAlternateScreen)?;
-    let backend = CrosstermBackend::new(stdout);
-    let mut terminal = Terminal::new(backend)?;
-
-    let mut app = AppState::new();
-    let dict = Dictionary::load();
-
-    let result = run_event_loop(&mut terminal, &mut app, &dict).await;
-
-    disable_raw_mode()?;
-    execute!(terminal.backend_mut(), LeaveAlternateScreen)?;
-    terminal.show_cursor()?;
-
-    result
-}
-
-async fn run_event_loop(
-    terminal: &mut Terminal<CrosstermBackend<io::Stdout>>,
-    app: &mut AppState,
-    dict: &Dictionary,
-) -> Result<()> {
-    loop {
-        terminal.draw(|f| draw_ui(f, app))?;
-
-        if app.step == Step::Done {
-            // Wait for a final keypress before exiting.
-            if let Event::Key(key) = event::read()? {
-                if key.kind == KeyEventKind::Press {
-                    break;
-                }
-            }
-            continue;
-        }
-
-        if event::poll(std::time::Duration::from_millis(200))? {
-            if let Event::Key(key) = event::read()? {
-                if key.kind != KeyEventKind::Press {
-                    continue;
-                }
-                match key.code {
-                    KeyCode::Char('q') | KeyCode::Esc => break,
-                    KeyCode::Up => move_selection(app, -1),
-                    KeyCode::Down => move_selection(app, 1),
-                    KeyCode::Char(' ') if app.step == Step::City => toggle_city_selection(app),
-                    KeyCode::Enter => match app.step {
-                        Step::Language => {
-                            app.step = Step::Date;
-                        }
-                        Step::Date => {
-                            app.step = Step::FetchingCities;
-                            terminal.draw(|f| draw_ui(f, app))?;
-                            fetch_cities(terminal, app, dict).await?;
-                        }
-                        Step::City => {
-                            app.step = Step::Running;
-                            terminal.draw(|f| draw_ui(f, app))?;
-                            run_pipeline(terminal, app, dict).await?;
-                            app.step = Step::Done;
-                        }
-                        _ => {}
-                    },
-                    _ => {}
-                }
-            }
-        }
-    }
-    Ok(())
-}
-
-fn move_selection(app: &mut AppState, delta: i32) {
-    match app.step {
-        Step::Language => {
-            let len = app.lang_options.len() as i32;
-            app.lang_idx = (((app.lang_idx as i32 + delta) % len + len) % len) as usize;
-        }
-        Step::Date => {
-            let len = app.date_options.len() as i32;
-            app.date_idx = (((app.date_idx as i32 + delta) % len + len) % len) as usize;
-        }
-        Step::City => {
-            let len = app.city_names.len() as i32;
-            if len == 0 {
-                return;
-            }
-            let current = app.city_list_state.selected().unwrap_or(0) as i32;
-            let next = (((current + delta) % len + len) % len) as usize;
-            app.city_list_state.select(Some(next));
-        }
-        _ => {}
-    }
-}
-
-fn toggle_city_selection(app: &mut AppState) {
-    if let Some(idx) = app.city_list_state.selected() {
-        if idx == 0 {
-            // "All" toggles/clears everything else.
-            app.selected_cities.clear();
-            return;
-        }
-        if let Some(pos) = app.selected_cities.iter().position(|&i| i == idx) {
-            app.selected_cities.remove(pos);
-        } else {
-            app.selected_cities.push(idx);
-        }
-    }
-}
-
-/// Pushes a status line and immediately redraws the terminal so the
-/// person sees progress as each stage happens, rather than a frozen
-/// screen while a long-running scrape/render blocks the event loop.
-fn push_status(
-    terminal: &mut Terminal<CrosstermBackend<io::Stdout>>,
-    app: &mut AppState,
-    msg: String,
-) -> Result<()> {
-    log::info!("{}", msg);
-    app.status_lines.push(msg);
-    terminal.draw(|f| draw_ui(f, app))?;
-    Ok(())
-}
-
-/// Runs after the date is selected: fetches and scrapes the report for
-/// that date/language, then narrows the city list down to only the
-/// cities actually present in the fetched data (rather than every city
-/// the dictionary knows about) before handing off to the City step. The
-/// fetched report is cached on `AppState` so `run_pipeline` doesn't need
-/// to scrape a second time.
-async fn fetch_cities(
-    terminal: &mut Terminal<CrosstermBackend<io::Stdout>>,
-    app: &mut AppState,
-    dict: &Dictionary,
-) -> Result<()> {
-    let lang = app.lang_options[app.lang_idx];
-    let date_choice = app.date_options[app.date_idx];
-    let (date_ddmmyyyy, date_ymd) = resolve_date_ddmmyyyy(date_choice);
-    app.date_ddmmyyyy = date_ddmmyyyy.clone();
-    app.date_ymd = date_ymd;
-
-    push_status(
-        terminal,
-        app,
-        format!("Fetching market report for {}...", date_ddmmyyyy),
-    )?;
-
-    match scrape::scrape_agriculture_data(&date_ddmmyyyy, lang).await {
-        Ok(report) => {
-            push_status(
-                terminal,
-                app,
-                format!(
-                    "Fetched data for {} city/cities. Preparing selection...",
-                    report.cities.len()
-                ),
-            )?;
-
-            // Only cities actually present in the fetched report are
-            // offered, deduplicated and resolved to their canonical
-            // English name (used downstream as the render filter).
-            let mut names = vec!["All".to_string()];
-            let mut seen = std::collections::HashSet::new();
-            for city in &report.cities {
-                let english = storage::resolve_english_city_name(dict, &city.city_name);
-                if seen.insert(english.clone()) {
-                    names.push(english);
-                }
-            }
-
-            app.city_names = names;
-            app.city_list_state.select(Some(0));
-            app.selected_cities.clear();
-            app.report = Some(report);
-            app.step = Step::City;
-        }
-        Err(e) => {
-            push_status(terminal, app, format!("Fetch failed: {}", e))?;
-            app.step = Step::Date;
-        }
-    }
-
-    Ok(())
-}
-
-async fn run_pipeline(
-    terminal: &mut Terminal<CrosstermBackend<io::Stdout>>,
-    app: &mut AppState,
-    dict: &Dictionary,
-) -> Result<()> {
-    let lang = app.lang_options[app.lang_idx];
-    let date_ymd = app.date_ymd.clone();
-
-    let report = match app.report.clone() {
-        Some(r) => r,
-        None => {
-            push_status(terminal, app, "No data was fetched; aborting.".to_string())?;
-            return Ok(());
-        }
+    let report = if needs_refresh {
+        let report = scrape::scrape_agriculture_data(&req.date, lang)
+            .await
+            .map_err(|e| (StatusCode::INTERNAL_SERVER_ERROR, format!("Scrape failed: {}", e)))?;
+        storage::clear_day_artifacts(&date_ymd, lang).map_err(|e| (StatusCode::INTERNAL_SERVER_ERROR, e.to_string()))?;
+        storage::write_report_json(&date_ymd, lang, &report)
+            .map_err(|e| (StatusCode::INTERNAL_SERVER_ERROR, e.to_string()))?;
+        report
+    } else {
+        storage::read_report_json(&date_ymd, lang)
+            .map_err(|e| (StatusCode::INTERNAL_SERVER_ERROR, e.to_string()))?
+            .ok_or_else(|| (StatusCode::INTERNAL_SERVER_ERROR, "Missing cached report".to_string()))?
     };
 
-    let json_path = storage::write_report_json(&date_ymd, &report)?;
-    push_status(terminal, app, format!("Saved JSON: {}", json_path.display()))?;
+    let mut seen = std::collections::HashSet::new();
+    let mut cities = Vec::new();
+    for city in &report.cities {
+        let english = storage::resolve_english_city_name(&state.dict, &city.city_name);
+        if seen.insert(english.clone()) {
+            cities.push(english);
+        }
+    }
+    cities.sort();
 
-    let cities_filter: Vec<String> = app
-        .selected_cities
-        .iter()
-        .filter_map(|&i| app.city_names.get(i).cloned())
-        .collect();
-    let filter_opt = if cities_filter.is_empty() {
+    let response = FetchResponse {
+        report_date: report.report_date.clone(),
+        cities,
+        date_ymd: date_ymd.clone(),
+    };
+
+    state
+        .reports
+        .lock()
+        .await
+        .insert(report_cache_key(&date_ymd, lang), report);
+
+    Ok(Json(response))
+}
+
+#[derive(Debug, Deserialize)]
+struct RenderRequest {
+    language: String,
+    date_ymd: String,
+    /// Empty = all cities.
+    cities: Vec<String>,
+    ig: bool,
+    yt: bool,
+    no_video: bool,
+    force_data: bool,
+    force_image: bool,
+    force_video: bool,
+    force_all: bool,
+}
+
+#[derive(Debug, Serialize)]
+struct RenderStartResponse {
+    job_id: String,
+}
+
+async fn start_render(
+    State(state): State<Arc<AppState>>,
+    Json(req): Json<RenderRequest>,
+) -> Result<Json<RenderStartResponse>, (StatusCode, String)> {
+    let lang = Language::from_str(&req.language)
+        .ok_or_else(|| (StatusCode::BAD_REQUEST, "Invalid language".to_string()))?;
+
+    let job_id = Uuid::new_v4().to_string();
+    state.jobs.lock().await.insert(job_id.clone(), Job::default());
+
+    let state_clone = state.clone();
+    let job_id_clone = job_id.clone();
+    tokio::spawn(async move {
+        if let Err(e) = run_pipeline_job(state_clone.clone(), job_id_clone.clone(), lang, req).await {
+            let mut jobs = state_clone.jobs.lock().await;
+            if let Some(job) = jobs.get_mut(&job_id_clone) {
+                job.status = JobStatusRepr::Failed;
+                job.error = Some(e.to_string());
+            }
+        }
+    });
+
+    Ok(Json(RenderStartResponse { job_id }))
+}
+
+async fn run_pipeline_job(
+    state: Arc<AppState>,
+    job_id: String,
+    lang: Language,
+    req: RenderRequest,
+) -> Result<()> {
+    let date_ymd = req.date_ymd.clone();
+
+    let force_data = req.force_data || req.force_all;
+    let force_image = req.force_image || req.force_all;
+    let force_video = req.force_video || req.force_all;
+    let create_video = if force_video { true } else { !req.no_video };
+
+    let variants = match (req.ig, req.yt) {
+        (true, false) => VariantSelection::InstagramOnly,
+        (false, true) => VariantSelection::YoutubeOnly,
+        _ => VariantSelection::Both,
+    };
+
+    let needs_refresh = storage::needs_data_refresh(&date_ymd, lang, std::time::Duration::from_secs(4 * 60 * 60), force_data)?;
+
+    let cache_key = report_cache_key(&date_ymd, lang);
+    let cached = state.reports.lock().await.get(&cache_key).cloned();
+
+    let report = if needs_refresh || cached.is_none() {
+        push_message(&state, &job_id, "Fetching fresh data...".to_string()).await;
+        // Reconstruct dd/mm/yyyy from YYYYMMDD for the scraper.
+        let y = &date_ymd[0..4];
+        let m = &date_ymd[4..6];
+        let d = &date_ymd[6..8];
+        let date_ddmmyyyy = format!("{}/{}/{}", d, m, y);
+
+        let report = scrape::scrape_agriculture_data(&date_ddmmyyyy, lang).await?;
+        storage::clear_day_artifacts(&date_ymd, lang)?;
+        storage::write_report_json(&date_ymd, lang, &report)?;
+        state.reports.lock().await.insert(cache_key, report.clone());
+        report
+    } else {
+        cached.unwrap()
+    };
+
+    let cities_filter: Option<Vec<String>> = if req.cities.is_empty() {
         None
     } else {
-        Some(cities_filter.as_slice())
+        Some(req.cities.clone())
+    };
+    let filter_slice = cities_filter.as_deref();
+
+    let force = ForceFlags {
+        force_image,
+        force_video,
     };
 
-    // A progress closure that pushes a status line and redraws the
-    // terminal for every stage of the render (browser launch, then each
-    // city/variant) so the person sees live feedback instead of a
-    // frozen screen while headless_chrome works.
-    let progress = |msg: &str| {
-        app.status_lines.push(msg.to_string());
-        let _ = terminal.draw(|f| draw_ui(f, app));
+    let state_for_progress = state.clone();
+    let job_id_for_progress = job_id.clone();
+    let progress = move |msg: &str| {
+        let state = state_for_progress.clone();
+        let job_id = job_id_for_progress.clone();
+        let msg = msg.to_string();
+        // The render pipeline's progress callback is synchronous; spawn a
+        // task to append to shared state without blocking rendering.
+        tokio::spawn(async move {
+            push_message(&state, &job_id, msg).await;
+        });
     };
 
-    let outcome =
-        render::render_report_images(&report, &date_ymd, dict, lang, filter_opt, progress, true).await?;
+    let state_for_media = state.clone();
+    let job_id_for_media = job_id.clone();
+    let on_media = move |event: render::MediaEvent| {
+        let state = state_for_media.clone();
+        let job_id = job_id_for_media.clone();
+        tokio::spawn(async move {
+            push_media(&state, &job_id, event).await;
+        });
+    };
 
-    push_status(
-        terminal,
-        app,
-        format!("Rendered {} image(s).", outcome.written.len()),
-    )?;
+    render::render_report_images(
+        &report,
+        &date_ymd,
+        &state.dict,
+        lang,
+        filter_slice,
+        variants,
+        force,
+        create_video,
+        progress,
+        on_media,
+    )
+    .await?;
 
-    if outcome.written.is_empty() {
-        push_status(
-            terminal,
-            app,
-            "No images rendered - check city filter.".to_string(),
-        )?;
-        for (scraped, resolved) in outcome.skipped_cities.iter().take(10) {
-            push_status(
-                terminal,
-                app,
-                format!("  skipped: '{}' -> '{}'", scraped, resolved),
-            )?;
-        }
-    }
-
-    for p in &outcome.written {
-        push_status(terminal, app, format!("Wrote: {}", p.display()))?;
+    let mut jobs = state.jobs.lock().await;
+    if let Some(job) = jobs.get_mut(&job_id) {
+        job.status = JobStatusRepr::Done;
+        job.messages.push("Pipeline complete.".to_string());
     }
 
     Ok(())
 }
 
-fn draw_ui(f: &mut Frame, app: &mut AppState) {
-    let size = f.area();
-    let chunks = Layout::default()
-        .direction(Direction::Vertical)
-        .constraints([Constraint::Length(3), Constraint::Min(0)])
-        .split(size);
-
-    let title = Paragraph::new(Line::from(vec![Span::styled(
-        "Raitha Darpana - Content Creator",
-        Style::default().add_modifier(Modifier::BOLD).fg(Color::Green),
-    )]))
-    .block(Block::default().borders(Borders::ALL));
-    f.render_widget(title, chunks[0]);
-
-    match app.step {
-        Step::Language => draw_language_step(f, app, chunks[1]),
-        Step::Date => draw_date_step(f, app, chunks[1]),
-        Step::FetchingCities => draw_status(f, app, chunks[1], "Fetching data..."),
-        Step::City => draw_city_step(f, app, chunks[1]),
-        Step::Running => draw_status(f, app, chunks[1], "Rendering..."),
-        Step::Done => draw_done(f, app, chunks[1]),
+/// Converts an on-disk path under `rd_media/` into a `/media/...` URL the
+/// frontend can fetch/play directly.
+fn to_media_url(path: &std::path::Path) -> String {
+    let root = std::path::Path::new(storage::RD_MEDIA_ROOT);
+    match path.strip_prefix(root) {
+        Ok(rel) => format!("/media/{}", rel.to_string_lossy().replace('\\', "/")),
+        Err(_) => path.to_string_lossy().to_string(),
     }
 }
 
-fn draw_language_step(f: &mut Frame, app: &AppState, area: Rect) {
-    let items: Vec<ListItem> = app
-        .lang_options
-        .iter()
-        .enumerate()
-        .map(|(i, l)| {
-            let marker = if i == app.lang_idx { "> " } else { "  " };
-            ListItem::new(format!("{}{}", marker, l.as_str()))
-        })
-        .collect();
-    let list = List::new(items).block(
-        Block::default()
-            .borders(Borders::ALL)
-            .title("Select Language (Up/Down, Enter)"),
-    );
-    f.render_widget(list, area);
+fn media_kind_str(kind: MediaKind) -> &'static str {
+    match kind {
+        MediaKind::InstagramImage => "ig_image",
+        MediaKind::YoutubeImage => "yt_image",
+        MediaKind::InstagramVideo => "ig_video",
+        MediaKind::YoutubeVideo => "yt_video",
+    }
 }
 
-fn draw_date_step(f: &mut Frame, app: &AppState, area: Rect) {
-    let items: Vec<ListItem> = app
-        .date_options
-        .iter()
-        .enumerate()
-        .map(|(i, d)| {
-            let marker = if i == app.date_idx { "> " } else { "  " };
-            ListItem::new(format!("{}{}", marker, date_label(*d)))
-        })
-        .collect();
-    let list = List::new(items).block(
-        Block::default()
-            .borders(Borders::ALL)
-            .title("Select Date (Up/Down, Enter)"),
-    );
-    f.render_widget(list, area);
+async fn push_message(state: &Arc<AppState>, job_id: &str, msg: String) {
+    log::info!("[job {}] {}", job_id, msg);
+    let mut jobs = state.jobs.lock().await;
+    if let Some(job) = jobs.get_mut(job_id) {
+        job.messages.push(msg);
+    }
 }
 
-fn draw_city_step(f: &mut Frame, app: &mut AppState, area: Rect) {
-    let selected = app.selected_cities.clone();
-    let items: Vec<ListItem> = app
-        .city_names
-        .iter()
-        .enumerate()
-        .map(|(i, name)| {
-            let checked = if i == 0 {
-                selected.is_empty()
-            } else {
-                selected.contains(&i)
-            };
-            let box_char = if checked { "[x]" } else { "[ ]" };
-            ListItem::new(format!("{} {}", box_char, name))
-        })
-        .collect();
-    let list = List::new(items)
-        .block(
-            Block::default()
-                .borders(Borders::ALL)
-                .title("Select City (Up/Down, Space to toggle, Enter to confirm)"),
-        )
-        .highlight_style(Style::default().add_modifier(Modifier::REVERSED));
-    f.render_stateful_widget(list, area, &mut app.city_list_state);
+async fn push_media(state: &Arc<AppState>, job_id: &str, event: render::MediaEvent) {
+    let item = MediaItem {
+        city: event.city,
+        kind: media_kind_str(event.kind).to_string(),
+        url: to_media_url(&event.path),
+    };
+    let mut jobs = state.jobs.lock().await;
+    if let Some(job) = jobs.get_mut(job_id) {
+        job.media.push(item);
+    }
 }
 
-fn draw_status(f: &mut Frame, app: &AppState, area: Rect, header: &str) {
-    let mut lines: Vec<Line> = vec![Line::from(header.to_string())];
-    lines.extend(app.status_lines.iter().map(|s| Line::from(s.clone())));
-    let p = Paragraph::new(lines).block(Block::default().borders(Borders::ALL).title("Status"));
-    f.render_widget(p, area);
+async fn job_status(
+    State(state): State<Arc<AppState>>,
+    AxPath(job_id): AxPath<String>,
+) -> impl IntoResponse {
+    let jobs = state.jobs.lock().await;
+    match jobs.get(&job_id) {
+        Some(job) => Json(job.clone()).into_response(),
+        None => (StatusCode::NOT_FOUND, "Job not found").into_response(),
+    }
 }
 
-fn draw_done(f: &mut Frame, app: &mut AppState, area: Rect) {
-    draw_status(f, app, area, "Done. Press any key to exit.");
+const INDEX_HTML: &str = r#"<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Raitha Darpana - Content Creator</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    font-family: -apple-system, Segoe UI, Roboto, sans-serif;
+    margin: 0; padding: 0; background: #f2f5f2; color: #1a1a1a;
+    display: flex; height: 100vh; overflow: hidden;
+  }
+  h1 { color: #1c5c2e; font-size: 1.3rem; margin: 0 0 1rem 0; }
+  fieldset { border: 1px solid #cfe0d0; border-radius: 8px; margin-bottom: 1rem; padding: 0.8rem; }
+  legend { font-weight: 600; color: #1c5c2e; padding: 0 0.5rem; font-size: 0.9rem; }
+  label { display: inline-flex; align-items: center; gap: 0.3rem; margin-right: 1rem; font-size: 0.9rem; }
+  select, input[type=date], input[type=text] { padding: 0.4rem; border-radius: 6px; border: 1px solid #ccc; font-size: 0.9rem; }
+  button { background: #1c5c2e; color: white; border: none; padding: 0.5rem 1rem; border-radius: 6px; cursor: pointer; font-size: 0.9rem; }
+  button.secondary { background: #6b8f70; }
+  button:hover { filter: brightness(1.1); }
+  button:disabled { background: #999; cursor: not-allowed; }
+
+  #leftPanel {
+    width: 380px; min-width: 340px; padding: 1rem; overflow-y: auto;
+    background: #fff; border-right: 1px solid #dfe8df;
+  }
+  #rightPanel {
+    flex: 1; padding: 1rem; overflow-y: auto;
+  }
+
+  .row { display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center; margin-bottom: 0.5rem; }
+
+  #citySearch { width: 100%; margin-bottom: 0.5rem; }
+  #cityControls { display: flex; gap: 0.5rem; margin-bottom: 0.5rem; }
+  #cityControls button { flex: 1; font-size: 0.8rem; padding: 0.35rem; }
+  #cityList { max-height: 220px; overflow-y: auto; border: 1px solid #ddd; border-radius: 6px; padding: 0.4rem; background: #fafcfa; }
+  #cityList label { display: flex; margin: 0.15rem 0; font-size: 0.85rem; }
+  #cityCount { font-size: 0.8rem; color: #557; margin-bottom: 0.4rem; }
+
+  #log {
+    background: #10241a; color: #b6f2c9; font-family: monospace; padding: 0.7rem;
+    border-radius: 8px; height: 180px; overflow-y: auto; white-space: pre-wrap; font-size: 0.78rem;
+  }
+
+  .city-section { margin-bottom: 1.5rem; }
+  .city-section h3 { margin: 0 0 0.5rem 0; color: #1c5c2e; border-bottom: 1px solid #dfe8df; padding-bottom: 0.3rem; }
+  .media-row { display: flex; gap: 0.8rem; flex-wrap: wrap; }
+  .media-card {
+    background: white; padding: 0.4rem; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    display: flex; flex-direction: column; align-items: center; gap: 0.3rem;
+  }
+  .media-card img, .media-card video { max-height: 260px; max-width: 260px; width: auto; border-radius: 6px; border: 1px solid #ddd; object-fit: contain; }
+  .media-card .label { font-size: 0.75rem; color: #557; }
+
+  #runBtn { width: 100%; padding: 0.7rem; font-size: 1rem; margin-top: 0.5rem; }
+</style>
+</head>
+<body>
+
+<div id="leftPanel">
+  <h1>Raitha Darpana</h1>
+
+  <fieldset>
+    <legend>1. Language &amp; Date</legend>
+    <div class="row">
+      <label>Language:
+        <select id="language">
+          <option value="kannada">Kannada</option>
+          <option value="english">English</option>
+        </select>
+      </label>
+    </div>
+    <div class="row">
+      <label>Date: <input type="date" id="date"></label>
+    </div>
+    <div class="row">
+      <button id="fetchBtn">Fetch data</button>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend>2. Cities</legend>
+    <input type="text" id="citySearch" placeholder="Search cities...">
+    <div id="cityControls">
+      <button type="button" class="secondary" id="selectAllBtn">Select all</button>
+      <button type="button" class="secondary" id="deselectAllBtn">Deselect all</button>
+    </div>
+    <div id="cityCount">Fetch data first to see available cities.</div>
+    <div id="cityList"></div>
+  </fieldset>
+
+  <fieldset>
+    <legend>3. Options</legend>
+    <div class="row">
+      <label><input type="checkbox" id="ig"> Instagram only</label>
+      <label><input type="checkbox" id="yt"> YouTube only</label>
+    </div>
+    <div class="row">
+      <label><input type="checkbox" id="noVideo"> No video (images only)</label>
+    </div>
+    <div class="row">
+      <label><input type="checkbox" id="forceData"> Force re-fetch data</label>
+    </div>
+    <div class="row">
+      <label><input type="checkbox" id="forceImage"> Force re-create images</label>
+    </div>
+    <div class="row">
+      <label><input type="checkbox" id="forceVideo"> Force re-create videos</label>
+    </div>
+    <div class="row">
+      <label><input type="checkbox" id="forceAll"> Force all</label>
+    </div>
+  </fieldset>
+
+  <button id="runBtn" disabled>Run pipeline</button>
+
+  <h3 style="margin-top:1rem;">Progress</h3>
+  <div id="log"></div>
+</div>
+
+<div id="rightPanel">
+  <div id="output"></div>
+</div>
+
+<script>
+let dateYmd = null;
+let allCities = [];
+
+document.getElementById('date').valueAsDate = new Date();
+
+function ddmmyyyy(dateStr) {
+  const [y, m, d] = dateStr.split('-');
+  return `${d}/${m}/${y}`;
 }
+
+function renderCityList(filterText) {
+  const cityList = document.getElementById('cityList');
+  const prevChecked = new Set(
+    Array.from(cityList.querySelectorAll('input:checked')).map(cb => cb.value)
+  );
+  cityList.innerHTML = '';
+  const filtered = allCities.filter(c => c.toLowerCase().includes(filterText.toLowerCase()));
+  filtered.forEach(city => {
+    const label = document.createElement('label');
+    const cb = document.createElement('input');
+    cb.type = 'checkbox';
+    cb.value = city;
+    cb.checked = prevChecked.has(city);
+    label.appendChild(cb);
+    label.appendChild(document.createTextNode(city));
+    cityList.appendChild(label);
+  });
+  updateCityCount();
+}
+
+function updateCityCount() {
+  const total = allCities.length;
+  const selected = document.querySelectorAll('#cityList input:checked').length;
+  const visible = document.querySelectorAll('#cityList input').length;
+  document.getElementById('cityCount').textContent =
+    `${selected} of ${total} selected (${visible} shown)`;
+}
+
+document.getElementById('citySearch').addEventListener('input', (e) => {
+  renderCityList(e.target.value);
+});
+
+document.getElementById('selectAllBtn').addEventListener('click', () => {
+  document.querySelectorAll('#cityList input').forEach(cb => cb.checked = true);
+  updateCityCount();
+});
+
+document.getElementById('deselectAllBtn').addEventListener('click', () => {
+  document.querySelectorAll('#cityList input').forEach(cb => cb.checked = false);
+  updateCityCount();
+});
+
+document.getElementById('cityList').addEventListener('change', updateCityCount);
+
+document.getElementById('fetchBtn').addEventListener('click', async () => {
+  const language = document.getElementById('language').value;
+  const dateVal = document.getElementById('date').value;
+  if (!dateVal) { alert('Pick a date'); return; }
+  const date = ddmmyyyy(dateVal);
+
+  const btn = document.getElementById('fetchBtn');
+  btn.disabled = true;
+  btn.textContent = 'Fetching...';
+  try {
+    const resp = await fetch('/api/fetch', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({ language, date })
+    });
+    if (!resp.ok) throw new Error(await resp.text());
+    const data = await resp.json();
+    dateYmd = data.date_ymd;
+    allCities = data.cities;
+    document.getElementById('citySearch').value = '';
+    renderCityList('');
+
+    document.getElementById('runBtn').disabled = false;
+  } catch (e) {
+    alert('Fetch failed: ' + e.message);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Fetch data';
+  }
+});
+
+document.getElementById('runBtn').addEventListener('click', async () => {
+  if (!dateYmd) { alert('Fetch data first'); return; }
+
+  const cities = Array.from(document.querySelectorAll('#cityList input:checked')).map(cb => cb.value);
+  if (cities.length === 0) { alert('Select at least one city'); return; }
+  const allSelected = cities.length === allCities.length;
+
+  const body = {
+    language: document.getElementById('language').value,
+    date_ymd: dateYmd,
+    cities: allSelected ? [] : cities,
+    ig: document.getElementById('ig').checked,
+    yt: document.getElementById('yt').checked,
+    no_video: document.getElementById('noVideo').checked,
+    force_data: document.getElementById('forceData').checked,
+    force_image: document.getElementById('forceImage').checked,
+    force_video: document.getElementById('forceVideo').checked,
+    force_all: document.getElementById('forceAll').checked
+  };
+
+  const runBtn = document.getElementById('runBtn');
+  runBtn.disabled = true;
+  runBtn.textContent = 'Running...';
+  document.getElementById('log').textContent = '';
+  document.getElementById('output').innerHTML = '';
+
+  try {
+    const resp = await fetch('/api/render', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(body)
+    });
+    if (!resp.ok) throw new Error(await resp.text());
+    const { job_id } = await resp.json();
+    pollJob(job_id);
+  } catch (e) {
+    alert('Failed to start: ' + e.message);
+    runBtn.disabled = false;
+    runBtn.textContent = 'Run pipeline';
+  }
+});
+
+const cityMediaSections = new Map(); // city -> DOM row element
+const renderedMediaKeys = new Set(); // `${city}:${kind}` already rendered
+
+const KIND_LABELS = {
+  ig_image: 'Instagram (image)',
+  yt_image: 'YouTube (image)',
+  ig_video: 'Instagram (video)',
+  yt_video: 'YouTube (video)'
+};
+
+function getOrCreateCitySection(city) {
+  if (cityMediaSections.has(city)) return cityMediaSections.get(city);
+
+  const section = document.createElement('div');
+  section.className = 'city-section';
+  const heading = document.createElement('h3');
+  heading.textContent = city;
+  const row = document.createElement('div');
+  row.className = 'media-row';
+  section.appendChild(heading);
+  section.appendChild(row);
+  document.getElementById('output').appendChild(section);
+
+  cityMediaSections.set(city, row);
+  return row;
+}
+
+function appendMediaItem(item) {
+  const key = `${item.city}:${item.kind}`;
+  if (renderedMediaKeys.has(key)) return;
+  renderedMediaKeys.add(key);
+
+  const row = getOrCreateCitySection(item.city);
+  const card = document.createElement('div');
+  card.className = 'media-card';
+
+  if (item.kind === 'ig_image' || item.kind === 'yt_image') {
+    const img = document.createElement('img');
+    img.src = item.url;
+    card.appendChild(img);
+  } else {
+    const vid = document.createElement('video');
+    vid.src = item.url;
+    vid.controls = true;
+    card.appendChild(vid);
+  }
+
+  const label = document.createElement('div');
+  label.className = 'label';
+  label.textContent = KIND_LABELS[item.kind] || item.kind;
+  card.appendChild(label);
+
+  row.appendChild(card);
+}
+
+function pollJob(jobId) {
+  const logEl = document.getElementById('log');
+  cityMediaSections.clear();
+  renderedMediaKeys.clear();
+
+  const interval = setInterval(async () => {
+    const resp = await fetch('/api/jobs/' + jobId);
+    if (!resp.ok) { clearInterval(interval); return; }
+    const job = await resp.json();
+    logEl.textContent = job.messages.join('\n');
+    logEl.scrollTop = logEl.scrollHeight;
+
+    job.media.forEach(appendMediaItem);
+
+    if (job.status === 'done' || job.status === 'failed') {
+      clearInterval(interval);
+      const runBtn = document.getElementById('runBtn');
+      runBtn.disabled = false;
+      runBtn.textContent = 'Run pipeline';
+
+      if (job.status === 'failed') {
+        alert('Pipeline failed: ' + (job.error || 'unknown error'));
+      }
+    }
+  }, 600);
+}
+</script>
+</body>
+</html>
+"#;

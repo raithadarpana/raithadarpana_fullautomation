@@ -1,8 +1,10 @@
-use crate::assets::BrandingAssets;
+use crate::assets::{self, BrandingAssets};
 use crate::data::{AgriculturalReport, CityMarketData};
 use crate::dictionary::{Dictionary, Language};
 use crate::storage;
 use crate::templates::{self, INSTAGRAM_HEIGHT, INSTAGRAM_WIDTH, YOUTUBE_HEIGHT, YOUTUBE_WIDTH};
+use crate::video;
+use crate::voiceover;
 
 use anyhow::Result;
 use base64::Engine;
@@ -12,6 +14,49 @@ use headless_chrome::{
 };
 use std::fs;
 use std::path::PathBuf;
+
+/// Which cover variant(s) to produce for each city.
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum VariantSelection {
+    Both,
+    InstagramOnly,
+    YoutubeOnly,
+}
+
+impl VariantSelection {
+    pub fn wants_instagram(&self) -> bool {
+        matches!(self, VariantSelection::Both | VariantSelection::InstagramOnly)
+    }
+    pub fn wants_youtube(&self) -> bool {
+        matches!(self, VariantSelection::Both | VariantSelection::YoutubeOnly)
+    }
+}
+
+/// Flags controlling when existing artifacts are regenerated. Mirrors the
+/// CLI's `--force-*` flags (see `main.rs`).
+#[derive(Debug, Clone, Copy, Default)]
+pub struct ForceFlags {
+    pub force_image: bool,
+    pub force_video: bool,
+}
+
+/// Kind of media artifact just produced, for streaming progress to a UI.
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum MediaKind {
+    InstagramImage,
+    YoutubeImage,
+    InstagramVideo,
+    YoutubeVideo,
+}
+
+/// A single piece of media as soon as it's ready on disk, so a UI can
+/// display it immediately rather than waiting for the whole pipeline.
+#[derive(Debug, Clone)]
+pub struct MediaEvent {
+    pub city: String,
+    pub kind: MediaKind,
+    pub path: PathBuf,
+}
 
 /// Renders Instagram (4:5) and YouTube (16:9) cover images for every
 /// city in the report, storing them under `rd_media/YYYYMMDD/city_name/`.
@@ -27,16 +72,21 @@ pub struct RenderOutcome {
     pub written: Vec<PathBuf>,
     pub rendered_cities: Vec<String>,
     pub skipped_cities: Vec<(String, String)>, // (scraped_name, resolved_english_name)
+    pub videos_written: Vec<PathBuf>,
 }
 
+#[allow(clippy::too_many_arguments)]
 pub async fn render_report_images(
     report: &AgriculturalReport,
     date_ymd: &str,
     dict: &Dictionary,
     lang: Language,
     cities_filter: Option<&[String]>,
-    mut on_progress: impl FnMut(&str),
+    variants: VariantSelection,
+    force: ForceFlags,
     create_video: bool,
+    mut on_progress: impl FnMut(&str),
+    mut on_media: impl FnMut(MediaEvent),
 ) -> Result<RenderOutcome> {
     on_progress("Launching renderer...");
     let launch_options = LaunchOptions::default_builder()
@@ -76,43 +126,206 @@ pub async fn render_report_images(
         log::info!("Rendering images for city '{}' -> '{}'", city.city_name, english_name);
         outcome.rendered_cities.push(english_name.clone());
 
-        on_progress(&format!("Rendering {} (Instagram)...", english_name));
-        let ig_path = render_city_variant(
-            &browser,
-            city,
-            &report.report_date,
-            date_ymd,
-            &english_name,
-            dict,
-            lang,
-            &branding,
-            Variant::Instagram,
-        )?;
-        outcome.written.push(ig_path);
+        let mut ig_path_opt: Option<PathBuf> = None;
+        let mut yt_path_opt: Option<PathBuf> = None;
 
-        on_progress(&format!("Rendering {} (YouTube)...", english_name));
-        let yt_path = render_city_variant(
-            &browser,
-            city,
-            &report.report_date,
-            date_ymd,
-            &english_name,
-            dict,
-            lang,
-            &branding,
-            Variant::YouTube,
-        )?;
-        outcome.written.push(yt_path);
-    }
+        if variants.wants_instagram() {
+            let ig_path = storage::instagram_image_path(date_ymd, &english_name, lang)?;
+            if force.force_image || !ig_path.exists() {
+                on_progress(&format!("Rendering {} (Instagram)...", english_name));
+                let written = render_city_variant(
+                    &browser,
+                    city,
+                    &report.report_date,
+                    date_ymd,
+                    &english_name,
+                    dict,
+                    lang,
+                    &branding,
+                    Variant::Instagram,
+                )?;
+                outcome.written.push(written.clone());
+                on_media(MediaEvent {
+                    city: english_name.clone(),
+                    kind: MediaKind::InstagramImage,
+                    path: written.clone(),
+                });
+                ig_path_opt = Some(written);
+            } else {
+                on_progress(&format!("{} (Instagram) already exists, skipping.", english_name));
+                on_media(MediaEvent {
+                    city: english_name.clone(),
+                    kind: MediaKind::InstagramImage,
+                    path: ig_path.clone(),
+                });
+                ig_path_opt = Some(ig_path);
+            }
+        }
 
-    if create_video {
-        //TODO: call generate_kannada_script, generate_audio_file, and generate_video
-        //Keep writing to outcome the messages
-        println!("Video creation implementation pending.")
+        if variants.wants_youtube() {
+            let yt_path = storage::youtube_image_path(date_ymd, &english_name, lang)?;
+            if force.force_image || !yt_path.exists() {
+                on_progress(&format!("Rendering {} (YouTube)...", english_name));
+                let written = render_city_variant(
+                    &browser,
+                    city,
+                    &report.report_date,
+                    date_ymd,
+                    &english_name,
+                    dict,
+                    lang,
+                    &branding,
+                    Variant::YouTube,
+                )?;
+                outcome.written.push(written.clone());
+                on_media(MediaEvent {
+                    city: english_name.clone(),
+                    kind: MediaKind::YoutubeImage,
+                    path: written.clone(),
+                });
+                yt_path_opt = Some(written);
+            } else {
+                on_progress(&format!("{} (YouTube) already exists, skipping.", english_name));
+                on_media(MediaEvent {
+                    city: english_name.clone(),
+                    kind: MediaKind::YoutubeImage,
+                    path: yt_path.clone(),
+                });
+                yt_path_opt = Some(yt_path);
+            }
+        }
+
+        if create_video {
+            match generate_city_video_assets(
+                city,
+                &report.report_date,
+                date_ymd,
+                &english_name,
+                lang,
+                variants,
+                force,
+                ig_path_opt.as_deref(),
+                yt_path_opt.as_deref(),
+                &mut on_progress,
+                &mut on_media,
+            )
+            .await
+            {
+                Ok(mut videos) => outcome.videos_written.append(&mut videos),
+                Err(e) => {
+                    log::error!("Video generation failed for '{}': {}", english_name, e);
+                    on_progress(&format!("Video generation failed for {}: {}", english_name, e));
+                }
+            }
+        }
     }
 
     on_progress("Render complete.");
     Ok(outcome)
+}
+
+/// Generates the voiceover, mixed audio, and video(s) for a single city,
+/// honoring `force.force_video` to control regeneration. Requires the
+/// corresponding cover image(s) to already exist on disk (either just
+/// rendered above, or from a prior run).
+#[allow(clippy::too_many_arguments)]
+async fn generate_city_video_assets(
+    city: &CityMarketData,
+    report_date: &str,
+    date_ymd: &str,
+    english_city_name: &str,
+    lang: Language,
+    variants: VariantSelection,
+    force: ForceFlags,
+    ig_image_path: Option<&std::path::Path>,
+    yt_image_path: Option<&std::path::Path>,
+    on_progress: &mut impl FnMut(&str),
+    on_media: &mut impl FnMut(MediaEvent),
+) -> Result<Vec<PathBuf>> {
+    let mut written_videos = Vec::new();
+
+    let ig_video_path = storage::instagram_video_path(date_ymd, english_city_name, lang)?;
+    let yt_video_path = storage::youtube_video_path(date_ymd, english_city_name, lang)?;
+
+    let need_ig_video = variants.wants_instagram() && (force.force_video || !ig_video_path.exists());
+    let need_yt_video = variants.wants_youtube() && (force.force_video || !yt_video_path.exists());
+
+    if !need_ig_video && !need_yt_video {
+        on_progress(&format!("{}: videos already exist, skipping.", english_city_name));
+        if variants.wants_instagram() && ig_video_path.exists() {
+            on_media(MediaEvent {
+                city: english_city_name.to_string(),
+                kind: MediaKind::InstagramVideo,
+                path: ig_video_path,
+            });
+        }
+        if variants.wants_youtube() && yt_video_path.exists() {
+            on_media(MediaEvent {
+                city: english_city_name.to_string(),
+                kind: MediaKind::YoutubeVideo,
+                path: yt_video_path,
+            });
+        }
+        return Ok(written_videos);
+    }
+
+    // Voiceover + mixed audio are shared between the Instagram and
+    // YouTube video variants, so generate them once per city.
+    let voice_path = storage::voice_audio_path(date_ymd, english_city_name, lang)?;
+    let mixed_path = storage::mixed_audio_path(date_ymd, english_city_name, lang)?;
+
+    let audio_path = if force.force_video || (!voice_path.exists() && !mixed_path.exists()) {
+        on_progress(&format!("Generating voiceover for {}...", english_city_name));
+        let script = voiceover::generate_script(lang, english_city_name, report_date, &city.commodities);
+        let assets_dir = assets::assets_dir();
+        voiceover::generate_audio_file(&script, lang, &voice_path, &mixed_path, &assets_dir)
+            .await
+            .map_err(|e| anyhow::anyhow!("Voiceover generation failed: {}", e))?
+    } else if mixed_path.exists() {
+        mixed_path.clone()
+    } else {
+        voice_path.clone()
+    };
+
+    if need_ig_video {
+        if let Some(image_path) = ig_image_path {
+            on_progress(&format!("Generating Instagram video for {}...", english_city_name));
+            video::generate_video(image_path, &audio_path, &ig_video_path, true)
+                .map_err(|e| anyhow::anyhow!("Instagram video generation failed: {}", e))?;
+            on_media(MediaEvent {
+                city: english_city_name.to_string(),
+                kind: MediaKind::InstagramVideo,
+                path: ig_video_path.clone(),
+            });
+            written_videos.push(ig_video_path);
+        } else {
+            log::warn!(
+                "Skipping Instagram video for '{}': cover image unavailable.",
+                english_city_name
+            );
+        }
+    }
+
+    if need_yt_video {
+        if let Some(image_path) = yt_image_path {
+            on_progress(&format!("Generating YouTube video for {}...", english_city_name));
+            video::generate_video(image_path, &audio_path, &yt_video_path, false)
+                .map_err(|e| anyhow::anyhow!("YouTube video generation failed: {}", e))?;
+            on_media(MediaEvent {
+                city: english_city_name.to_string(),
+                kind: MediaKind::YoutubeVideo,
+                path: yt_video_path.clone(),
+            });
+            written_videos.push(yt_video_path);
+        } else {
+            log::warn!(
+                "Skipping YouTube video for '{}': cover image unavailable.",
+                english_city_name
+            );
+        }
+    }
+
+    Ok(written_videos)
 }
 
 enum Variant {
@@ -190,13 +403,13 @@ fn render_city_variant(
             templates::instagram_html(city, report_date, dict, lang, branding),
             INSTAGRAM_WIDTH,
             INSTAGRAM_HEIGHT,
-            storage::instagram_image_path(date_ymd, english_city_name)?,
+            storage::instagram_image_path(date_ymd, english_city_name, lang)?,
         ),
         Variant::YouTube => (
             templates::youtube_html(city, report_date, dict, lang, branding),
             YOUTUBE_WIDTH,
             YOUTUBE_HEIGHT,
-            storage::youtube_image_path(date_ymd, english_city_name)?,
+            storage::youtube_image_path(date_ymd, english_city_name, lang)?,
         ),
     };
 
