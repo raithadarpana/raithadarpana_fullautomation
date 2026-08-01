@@ -3,6 +3,7 @@ use crate::data::{AgriculturalReport, CityMarketData};
 use crate::dictionary::{Dictionary, Language};
 use crate::storage;
 use crate::templates::{self, INSTAGRAM_HEIGHT, INSTAGRAM_WIDTH, YOUTUBE_HEIGHT, YOUTUBE_WIDTH};
+
 use anyhow::Result;
 use base64::Engine;
 use headless_chrome::{
@@ -35,6 +36,7 @@ pub async fn render_report_images(
     lang: Language,
     cities_filter: Option<&[String]>,
     mut on_progress: impl FnMut(&str),
+    create_video: bool,
 ) -> Result<RenderOutcome> {
     on_progress("Launching renderer...");
     let launch_options = LaunchOptions::default_builder()
@@ -101,6 +103,12 @@ pub async fn render_report_images(
             Variant::YouTube,
         )?;
         outcome.written.push(yt_path);
+    }
+
+    if create_video {
+        //TODO: call generate_kannada_script, generate_audio_file, and generate_video
+        //Keep writing to outcome the messages
+        println!("Video creation implementation pending.")
     }
 
     on_progress("Render complete.");

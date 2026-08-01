@@ -6,6 +6,9 @@ pub mod scrape;
 pub mod storage;
 pub mod templates;
 pub mod ui;
+pub mod video;
+pub mod voiceover;
+
 
 use anyhow::Result;
 use chrono::Local;
@@ -111,7 +114,7 @@ async fn run_headless(args: &Args) -> Result<()> {
 
     let outcome = render::render_report_images(&report, &date_ymd, &dict, lang, filter_slice, |msg| {
         println!("{}", msg);
-    })
+    }, true)
     .await?;
 
     if outcome.written.is_empty() {

@@ -329,7 +329,7 @@ async fn run_pipeline(
     };
 
     let outcome =
-        render::render_report_images(&report, &date_ymd, dict, lang, filter_opt, progress).await?;
+        render::render_report_images(&report, &date_ymd, dict, lang, filter_opt, progress, true).await?;
 
     push_status(
         terminal,
