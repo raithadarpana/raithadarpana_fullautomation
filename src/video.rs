@@ -13,7 +13,7 @@ pub fn generate_video(
     }
 
     let (width, height) = if is_portrait { (1080, 1920) } else { (1920, 1080) };
-    let ffmpeg_path = if cfg!(windows) { "ffmpeg.exe" } else { "ffmpeg" };
+    let ffmpeg_path = crate::ffdeps::ffmpeg_path();
     let filter_complex = format!(
         "[0:v]scale={}:{}:force_original_aspect_ratio=decrease,pad={}:{}:(ow-iw)/2:(oh-ih)/2,setsar=1,setpts=PTS/1.2[v];[1:a]atempo=1.2[a]",
         width, height, width, height

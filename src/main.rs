@@ -1,6 +1,7 @@
 pub mod assets;
 pub mod data;
 pub mod dictionary;
+pub mod ffdeps;
 pub mod render;
 pub mod scrape;
 pub mod storage;
@@ -105,10 +106,75 @@ async fn main() -> Result<()> {
     let args = Args::parse();
 
     if args.headless {
+        ensure_ffmpeg_available_cli().await?;
         run_headless(&args).await
     } else {
+        // In UI mode the dependency check/prompt happens in the browser
+        // (see ui.rs), since the person may not be watching the terminal.
         ui::run_ui().await
     }
+}
+
+/// Checks for ffmpeg/ffprobe before running the headless CLI pipeline.
+/// If either is missing, prompts on stdin/stdout for the person to
+/// either install it themselves and restart, or approve an automatic
+/// download to `rd_media/bin/`.
+async fn ensure_ffmpeg_available_cli() -> Result<()> {
+    use std::io::Write;
+
+    let status = ffdeps::check_status();
+    if status.all_available() {
+        return Ok(());
+    }
+
+    let missing: Vec<&str> = [
+        (!status.ffmpeg_available).then_some("ffmpeg"),
+        (!status.ffprobe_available).then_some("ffprobe"),
+    ]
+    .into_iter()
+    .flatten()
+    .collect();
+
+    println!(
+        "\n⚠️  {} not found on your PATH. Video generation requires it.",
+        missing.join(" and ")
+    );
+
+    if !ffdeps::download_supported() {
+        anyhow::bail!(
+            "No pre-built ffmpeg is available for your platform/architecture. \
+             Please install ffmpeg and ffprobe manually, add them to your PATH, and restart."
+        );
+    }
+
+    println!("You can either:");
+    println!("  1. Install ffmpeg/ffprobe yourself, add them to PATH, and restart this app.");
+    println!("  2. Let this app automatically download them now (to rd_media/bin/).");
+    print!("Auto-download ffmpeg and ffprobe now? [y/N]: ");
+    std::io::stdout().flush().ok();
+
+    let mut answer = String::new();
+    std::io::stdin().read_line(&mut answer)?;
+    let approved = matches!(answer.trim().to_lowercase().as_str(), "y" | "yes");
+
+    if !approved {
+        anyhow::bail!(
+            "ffmpeg/ffprobe are required to continue. Install them and add to PATH, then restart, \
+             or re-run and approve the auto-download."
+        );
+    }
+
+    ffdeps::download_ffmpeg(|msg| println!("{}", msg))
+        .await
+        .map_err(|e| anyhow::anyhow!("Failed to download ffmpeg: {}", e))?;
+
+    let status = ffdeps::check_status();
+    if !status.all_available() {
+        anyhow::bail!("ffmpeg/ffprobe still not available after download attempt.");
+    }
+
+    println!("✅ ffmpeg and ffprobe are ready.\n");
+    Ok(())
 }
 
 /// Logs are written to `rd_media/rd.log` (appended across runs) rather

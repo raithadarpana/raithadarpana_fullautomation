@@ -29,7 +29,11 @@ fn escape_html(s: &str) -> String {
 
 /// Returns this city's commodities sorted by arrivals quantity
 /// (descending), capped at `MAX_COMMODITIES_SHOWN` entries.
-fn top_commodities(city: &CityMarketData) -> Vec<&CommodityEntry> {
+///
+/// `pub(crate)` so `voiceover.rs` can use the exact same
+/// filtered+ordered list when generating narration scripts, keeping the
+/// voiceover in sync with what's shown in the rendered cover images.
+pub(crate) fn top_commodities(city: &CityMarketData) -> Vec<&CommodityEntry> {
     let mut items: Vec<&CommodityEntry> = city.commodities.iter().collect();
     items.sort_by(|a, b| {
         b.arrivals

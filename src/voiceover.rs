@@ -227,7 +227,7 @@ async fn generate_edge_tts(
 
 /// Returns the duration of a media file in seconds, via `ffprobe`.
 fn probe_duration_secs(path: &Path) -> Result<f64, Box<dyn std::error::Error>> {
-    let ffprobe_path = if cfg!(windows) { "ffprobe.exe" } else { "ffprobe" };
+    let ffprobe_path = crate::ffdeps::ffprobe_path();
     let output = Command::new(ffprobe_path)
         .arg("-v")
         .arg("error")
@@ -269,7 +269,7 @@ fn mix_audio_with_bg(
     output_path: &Path,
     voice_settings: &VoiceSettings,
 ) -> Result<(), Box<dyn std::error::Error>> {
-    let ffmpeg_path = if cfg!(windows) { "ffmpeg.exe" } else { "ffmpeg" };
+    let ffmpeg_path = crate::ffdeps::ffmpeg_path();
 
     let padding_secs = voice_settings.padding_secs.unwrap_or(DEFAULT_BG_MUSIC_BUFFER_SECS);
     let bg_volume = voice_settings.bg_music_volume.unwrap_or(DEFAULT_BG_MUSIC_VOLUME);
