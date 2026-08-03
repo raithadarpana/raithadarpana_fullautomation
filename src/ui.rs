@@ -212,6 +212,10 @@ struct RenderRequest {
     volume: Option<String>,
     /// Signed Hz value, e.g. "+0Hz". Empty/None = default.
     pitch: Option<String>,
+    /// Background music volume as a fraction (0.0-1.0). None = default (0.08).
+    bg_music_volume: Option<f64>,
+    /// Silence padding in seconds added before/after the voiceover. None = default (3).
+    padding_secs: Option<f64>,
 }
 
 #[derive(Debug, Serialize)]
@@ -303,6 +307,8 @@ async fn run_pipeline_job(
         rate: non_empty(&req.rate),
         volume: non_empty(&req.volume),
         pitch: non_empty(&req.pitch),
+        bg_music_volume: req.bg_music_volume,
+        padding_secs: req.padding_secs,
     };
 
     let state_for_progress = state.clone();
@@ -433,7 +439,7 @@ const INDEX_HTML: &str = r#"<!DOCTYPE html>
   button:disabled { background: #999; cursor: not-allowed; }
 
   #leftPanel {
-    width: 620px; min-width: 560px; padding: 1rem; overflow-y: auto;
+    width: 560px; min-width: 480px; padding: 1rem; overflow-y: auto;
     background: #fff; border-right: 1px solid #dfe8df;
   }
   #rightPanel {
@@ -441,17 +447,29 @@ const INDEX_HTML: &str = r#"<!DOCTYPE html>
   }
 
   .row { display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center; margin-bottom: 0.5rem; }
-  .optionsGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem 1rem; }
+  .optionsGrid { display: grid; grid-template-columns: 1fr; gap: 0.7rem 1rem; }
   .optionsGrid .field { display: flex; flex-direction: column; gap: 0.2rem; }
   .optionsGrid .field label { margin-right: 0; font-weight: 600; font-size: 0.8rem; color: #3a5a3f; }
   .optionsGrid .field select, .optionsGrid .field input[type=text] { width: 100%; }
   .hint { font-size: 0.75rem; color: #789; margin-top: 0.15rem; }
 
+  .voiceOptionsGrid { display: grid; grid-template-columns: 1fr auto; gap: 0.7rem 1rem; }
+  .voiceOptionsGrid .field { display: flex; flex-direction: column; gap: 0.2rem; }
+  .voiceOptionsGrid .field label { margin-right: 0; font-weight: 600; font-size: 0.8rem; color: #3a5a3f; }
+  .voiceOptionsGrid .field select, .optionsGrid .field input[type=text] { width: 100%; }
+
+  .topRow { display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center; }
+  .topRow label { margin-right: 0.3rem; }
+  .topRow button { white-space: nowrap; }
+
+  .sideBySide { display: flex; gap: 0.8rem; align-items: flex-start; }
+  .sideBySide fieldset { flex: 1; min-width: 0; margin-bottom: 1rem; }
+
   #citySearch { width: 100%; margin-bottom: 0.5rem; }
-  #cityControls { display: flex; gap: 0.5rem; margin-bottom: 0.5rem; }
-  #cityControls button { flex: 1; font-size: 0.8rem; padding: 0.35rem; }
-  #cityList { max-height: 180px; overflow-y: auto; border: 1px solid #ddd; border-radius: 6px; padding: 0.4rem; background: #fafcfa; }
-  #cityList label { display: flex; margin: 0.15rem 0; font-size: 0.85rem; }
+  #cityControls { display: flex; align-items: center; margin-bottom: 0.5rem; }
+  #cityControls label { margin-right: 0; font-size: 0.85rem; font-weight: 600; }
+  #cityList { height: 120px; overflow-y: auto; border: 1px solid #ddd; border-radius: 6px; padding: 0.4rem; background: #fafcfa; }
+  #cityList label { display: flex; margin: 0.15rem 0; font-size: 0.85rem; margin-right: 0; }
   #cityCount { font-size: 0.8rem; color: #557; margin-bottom: 0.4rem; }
 
   #status {
@@ -459,71 +477,92 @@ const INDEX_HTML: &str = r#"<!DOCTYPE html>
     border-radius: 8px; font-size: 0.82rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
   }
 
-  .city-section { margin-bottom: 1.5rem; }
-  .city-section h3 { margin: 0 0 0.5rem 0; color: #1c5c2e; border-bottom: 1px solid #dfe8df; padding-bottom: 0.3rem; }
-  .media-row { display: flex; gap: 0.8rem; flex-wrap: wrap; }
-  .media-card {
-    background: white; padding: 0.4rem; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.08);
-    display: flex; flex-direction: column; align-items: center; gap: 0.3rem;
+  .city-section { margin-top: 2.5rem; }
+  .city-header {
+    display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
+    border-bottom: 1px solid #dfe8df; padding-bottom: 0.3rem; margin-bottom: 0.5rem;
   }
-  .media-card img { height: 260px; width: auto; max-width: 100%; border-radius: 6px; border: 1px solid #ddd; object-fit: contain; }
-  .media-card video { max-height: 260px; max-width: 260px; width: auto; border-radius: 6px; border: 1px solid #ddd; object-fit: contain; }
-  .media-card audio { width: 260px; }
-  .media-card .label { font-size: 0.75rem; color: #557; }
+  .city-header h3 { margin: 0; color: #1c5c2e; }
+  .city-header .audio-slot { display: flex; align-items: center; gap: 0.3rem; }
+  .city-header .audio-slot .label { font-size: 0.7rem; color: #557; }
+  .city-header audio { height: 30px; width: 225px; margin-right: 1.5rem;}
+
+  .media-row { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+  .media-card {
+    background: white; padding: 0.3rem; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    display: flex; flex-direction: column; align-items: center; gap: 0.2rem;
+  }
+  .media-card img {
+    height: 130px; width: auto; max-width: 100%; border-radius: 6px; border: 1px solid #ddd;
+    object-fit: contain; cursor: zoom-in;
+  }
+  .media-card video { max-height: 130px; width: auto; border-radius: 6px; border: 1px solid #ddd; object-fit: contain; }
+  .media-card .label { font-size: 0.7rem; color: #557; }
 
   #runBtn { width: 100%; padding: 0.7rem; font-size: 1rem; margin-top: 0.5rem; }
+
+  #imageModalOverlay {
+    display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.75);
+    z-index: 1000; align-items: center; justify-content: center;
+  }
+  #imageModalOverlay.open { display: flex; }
+  #imageModalOverlay img {
+    max-width: 92vw; max-height: 92vh; border-radius: 8px; box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+  }
+  #imageModalClose {
+    position: absolute; top: 1.2rem; right: 1.5rem; background: white; color: #1a1a1a;
+    border: none; width: 2.2rem; height: 2.2rem; border-radius: 50%; font-size: 1.1rem;
+    cursor: pointer; line-height: 1;
+  }
 </style>
 </head>
 <body>
 
 <div id="leftPanel">
-  <h1>Raitha Darpana</h1>
+  <h1>Raitha Darpana Media Creator</h1>
 
   <fieldset>
-    <legend>1. Language &amp; Date</legend>
-    <div class="row">
+    <legend>1. Language, Date &amp; Fetch</legend>
+    <div class="topRow">
       <label>Language:
         <select id="language">
           <option value="kannada">Kannada</option>
           <option value="english">English</option>
         </select>
       </label>
-    </div>
-    <div class="row">
       <label>Date: <input type="date" id="date"></label>
-    </div>
-    <div class="row">
       <button id="fetchBtn">Fetch data</button>
     </div>
   </fieldset>
 
-  <fieldset>
-    <legend>2. Cities</legend>
-    <input type="text" id="citySearch" placeholder="Search cities...">
-    <div id="cityControls">
-      <button type="button" class="secondary" id="selectAllBtn">Select all</button>
-      <button type="button" class="secondary" id="deselectAllBtn">Deselect all</button>
-    </div>
-    <div id="cityCount">Fetch data first to see available cities.</div>
-    <div id="cityList"></div>
-  </fieldset>
+  <div class="sideBySide">
+    <fieldset>
+      <legend>2. Cities</legend>
+      <input type="text" id="citySearch" placeholder="Search cities...">
+      <div id="cityControls">
+        <label><input type="checkbox" id="allCitiesCb"> All</label>
+      </div>
+      <div id="cityCount">Fetch data first to see available cities.</div>
+      <div id="cityList"></div>
+    </fieldset>
+
+    <fieldset>
+      <legend>3. Options</legend>
+      <div class="optionsGrid">
+        <label><input type="checkbox" id="ig"> Instagram only</label>
+        <label><input type="checkbox" id="yt"> YouTube only</label>
+        <label><input type="checkbox" id="noVideo"> No video (images only)</label>
+        <label><input type="checkbox" id="forceData"> Force re-fetch data</label>
+        <label><input type="checkbox" id="forceImage"> Force re-create images</label>
+        <label><input type="checkbox" id="forceVideo"> Force re-create videos</label>
+        <label><input type="checkbox" id="forceAll"> Force all</label>
+      </div>
+    </fieldset>
+  </div>
 
   <fieldset>
-    <legend>3. Options</legend>
-    <div class="optionsGrid">
-      <label><input type="checkbox" id="ig"> Instagram only</label>
-      <label><input type="checkbox" id="yt"> YouTube only</label>
-      <label><input type="checkbox" id="noVideo"> No video (images only)</label>
-      <label><input type="checkbox" id="forceData"> Force re-fetch data</label>
-      <label><input type="checkbox" id="forceImage"> Force re-create images</label>
-      <label><input type="checkbox" id="forceVideo"> Force re-create videos</label>
-      <label><input type="checkbox" id="forceAll"> Force all</label>
-    </div>
-  </fieldset>
-
-  <fieldset>
-    <legend>4. Voice settings</legend>
-    <div class="optionsGrid">
+    <legend>4. Voice and Audio settings</legend>
+    <div class="voiceOptionsGrid">
       <div class="field">
         <label for="voice">Speaker</label>
         <select id="voice">
@@ -536,7 +575,7 @@ const INDEX_HTML: &str = r#"<!DOCTYPE html>
         <div class="hint">Signed %, e.g. +20% or -10%</div>
       </div>
       <div class="field">
-        <label for="volume">Volume</label>
+        <label for="volume">Voice volume</label>
         <input type="text" id="volume" placeholder="+0%">
         <div class="hint">Signed %, e.g. +0% or -5%</div>
       </div>
@@ -544,6 +583,16 @@ const INDEX_HTML: &str = r#"<!DOCTYPE html>
         <label for="pitch">Pitch</label>
         <input type="text" id="pitch" placeholder="+0Hz">
         <div class="hint">Signed Hz, e.g. +0Hz or -20Hz</div>
+      </div>
+      <div class="field">
+        <label for="bgMusicVolume">Background music volume (%)</label>
+        <input type="text" id="bgMusicVolume" placeholder="8">
+        <div class="hint">0-100, default 8</div>
+      </div>
+      <div class="field">
+        <label for="paddingSecs">Padding (seconds)</label>
+        <input type="text" id="paddingSecs" placeholder="3">
+        <div class="hint">Silence before/after voiceover, default 3</div>
       </div>
     </div>
   </fieldset>
@@ -556,6 +605,11 @@ const INDEX_HTML: &str = r#"<!DOCTYPE html>
 
 <div id="rightPanel">
   <div id="output"></div>
+</div>
+
+<div id="imageModalOverlay">
+  <button id="imageModalClose" aria-label="Close">&times;</button>
+  <img id="imageModalImg" src="" alt="">
 </div>
 
 <script>
@@ -605,6 +659,25 @@ function ddmmyyyy(dateStr) {
   return `${d}/${m}/${y}`;
 }
 
+// Reads a percentage-valued input (0-100) and converts to a 0.0-1.0
+// fraction for the backend. Returns null (use default) if empty/invalid.
+function parsePercentField(id) {
+  const raw = document.getElementById(id).value.trim();
+  if (raw === '') return null;
+  const n = parseFloat(raw);
+  if (isNaN(n)) return null;
+  return n / 100.0;
+}
+
+// Reads a plain numeric input. Returns null (use default) if empty/invalid.
+function parseNumberField(id) {
+  const raw = document.getElementById(id).value.trim();
+  if (raw === '') return null;
+  const n = parseFloat(raw);
+  if (isNaN(n)) return null;
+  return n;
+}
+
 function renderCityList(filterText) {
   const cityList = document.getElementById('cityList');
   cityList.innerHTML = '';
@@ -620,6 +693,7 @@ function renderCityList(filterText) {
     cityList.appendChild(label);
   });
   updateCityCount();
+  syncAllCitiesCheckbox();
 }
 
 function updateCityCount() {
@@ -630,22 +704,39 @@ function updateCityCount() {
     `${selected} of ${total} selected (${visible} shown)`;
 }
 
+// Keeps the "All" checkbox in sync with whether every known city is
+// currently selected (checked, unchecked, or indeterminate when it's a
+// partial selection).
+function syncAllCitiesCheckbox() {
+  const allCb = document.getElementById('allCitiesCb');
+  if (allCities.length === 0) {
+    allCb.checked = false;
+    allCb.indeterminate = false;
+    return;
+  }
+  if (selectedCities.size === allCities.length) {
+    allCb.checked = true;
+    allCb.indeterminate = false;
+  } else if (selectedCities.size === 0) {
+    allCb.checked = false;
+    allCb.indeterminate = false;
+  } else {
+    allCb.checked = false;
+    allCb.indeterminate = true;
+  }
+}
+
 document.getElementById('citySearch').addEventListener('input', (e) => {
   renderCityList(e.target.value);
 });
 
-document.getElementById('selectAllBtn').addEventListener('click', () => {
-  document.querySelectorAll('#cityList input').forEach(cb => {
-    cb.checked = true;
-    selectedCities.add(cb.value);
-  });
-  updateCityCount();
-});
-
-document.getElementById('deselectAllBtn').addEventListener('click', () => {
-  document.querySelectorAll('#cityList input').forEach(cb => cb.checked = false);
-  selectedCities.clear();
-  updateCityCount();
+document.getElementById('allCitiesCb').addEventListener('change', (e) => {
+  if (e.target.checked) {
+    allCities.forEach(c => selectedCities.add(c));
+  } else {
+    selectedCities.clear();
+  }
+  renderCityList(document.getElementById('citySearch').value);
 });
 
 document.getElementById('cityList').addEventListener('change', (e) => {
@@ -655,6 +746,7 @@ document.getElementById('cityList').addEventListener('change', (e) => {
     else selectedCities.delete(cb.value);
   }
   updateCityCount();
+  syncAllCitiesCheckbox();
 });
 
 document.getElementById('fetchBtn').addEventListener('click', async () => {
@@ -710,7 +802,9 @@ document.getElementById('runBtn').addEventListener('click', async () => {
     voice: document.getElementById('voice').value || null,
     rate: document.getElementById('rate').value || null,
     volume: document.getElementById('volume').value || null,
-    pitch: document.getElementById('pitch').value || null
+    pitch: document.getElementById('pitch').value || null,
+    bg_music_volume: parsePercentField('bgMusicVolume'),
+    padding_secs: parseNumberField('paddingSecs')
   };
 
   const runBtn = document.getElementById('runBtn');
@@ -743,45 +837,85 @@ const KIND_LABELS = {
   yt_image: 'YouTube (image)',
   ig_video: 'Instagram (video)',
   yt_video: 'YouTube (video)',
-  voice_audio: 'Voiceover (audio)',
-  mixed_audio: 'Mixed audio (voice + music)'
+  voice_audio: 'Voiceover',
+  mixed_audio: 'Mixed Audio'
 };
 
+// Returns { headerAudioSlot, detailsRow } for a city, creating the
+// section (header row with city name + audio, details row with
+// images/videos) on first use.
 function getOrCreateCitySection(city) {
   if (cityMediaSections.has(city)) return cityMediaSections.get(city);
 
   const section = document.createElement('div');
   section.className = 'city-section';
+
+  const header = document.createElement('div');
+  header.className = 'city-header';
   const heading = document.createElement('h3');
   heading.textContent = city;
-  const row = document.createElement('div');
-  row.className = 'media-row';
-  section.appendChild(heading);
-  section.appendChild(row);
+  header.appendChild(heading);
+
+  const detailsRow = document.createElement('div');
+  detailsRow.className = 'media-row';
+
+  section.appendChild(header);
+  section.appendChild(detailsRow);
   document.getElementById('output').appendChild(section);
 
-  cityMediaSections.set(city, row);
-  return row;
+  const refs = { header, detailsRow };
+  cityMediaSections.set(city, refs);
+  return refs;
 }
+
+function openImageModal(src) {
+  document.getElementById('imageModalImg').src = src;
+  document.getElementById('imageModalOverlay').classList.add('open');
+}
+
+function closeImageModal() {
+  document.getElementById('imageModalOverlay').classList.remove('open');
+  document.getElementById('imageModalImg').src = '';
+}
+
+document.getElementById('imageModalClose').addEventListener('click', closeImageModal);
+document.getElementById('imageModalOverlay').addEventListener('click', (e) => {
+  // Only close when clicking the transparent overlay itself, not the image.
+  if (e.target === document.getElementById('imageModalOverlay')) closeImageModal();
+});
 
 function appendMediaItem(item) {
   const key = `${item.city}:${item.kind}`;
   if (renderedMediaKeys.has(key)) return;
   renderedMediaKeys.add(key);
 
-  const row = getOrCreateCitySection(item.city);
+  const { header, detailsRow } = getOrCreateCitySection(item.city);
+
+  // Voice narration and mixed audio go in the header row, next to the
+  // city name, instead of taking up a separate card in the details row.
+  if (item.kind === 'voice_audio' || item.kind === 'mixed_audio') {
+    const slot = document.createElement('div');
+    slot.className = 'audio-slot';
+    const label = document.createElement('div');
+    label.className = 'label';
+    label.textContent = KIND_LABELS[item.kind] || item.kind;
+    const audio = document.createElement('audio');
+    audio.src = item.url;
+    audio.controls = true;
+    slot.appendChild(label);
+    slot.appendChild(audio);
+    header.appendChild(slot);
+    return;
+  }
+
   const card = document.createElement('div');
   card.className = 'media-card';
 
   if (item.kind === 'ig_image' || item.kind === 'yt_image') {
     const img = document.createElement('img');
     img.src = item.url;
+    img.addEventListener('click', () => openImageModal(item.url));
     card.appendChild(img);
-  } else if (item.kind === 'voice_audio' || item.kind === 'mixed_audio') {
-    const audio = document.createElement('audio');
-    audio.src = item.url;
-    audio.controls = true;
-    card.appendChild(audio);
   } else {
     const vid = document.createElement('video');
     vid.src = item.url;
@@ -794,7 +928,7 @@ function appendMediaItem(item) {
   label.textContent = KIND_LABELS[item.kind] || item.kind;
   card.appendChild(label);
 
-  row.appendChild(card);
+  detailsRow.appendChild(card);
 }
 
 function pollJob(jobId) {

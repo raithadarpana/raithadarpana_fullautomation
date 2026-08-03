@@ -6,21 +6,32 @@ use std::path::{Path, PathBuf};
 use std::process::Command;
 use walkdir::WalkDir;
 
-/// Silence padding added before and after the voiceover when mixing in
-/// background music, in seconds.
-const BG_MUSIC_BUFFER_SECS: f64 = 3.0;
+/// Default silence padding added before and after the voiceover when
+/// mixing in background music, in seconds. Overridable via
+/// `VoiceSettings.padding_secs`.
+const DEFAULT_BG_MUSIC_BUFFER_SECS: f64 = 3.0;
+
+/// Default background music volume (as a fraction, e.g. 0.08 = 8%) used
+/// when mixing with the voiceover. Overridable via
+/// `VoiceSettings.bg_music_volume`.
+const DEFAULT_BG_MUSIC_VOLUME: f64 = 0.08;
 
 /// User-configurable overrides for Edge TTS voice generation, mirroring
 /// `edge_tts_rust::SpeakOptions` fields that are safe to expose to the
 /// web UI. `voice` is a speaker identity (e.g. "kn-IN-GaganNeural");
 /// `rate`/`volume` are signed percentages ("+10%", "-5%"); `pitch` is a
-/// signed Hz value ("+0Hz").
-#[derive(Debug, Clone, PartialEq, Eq)]
+/// signed Hz value ("+0Hz"). `bg_music_volume` is a fraction (0.0-1.0,
+/// default 0.08 = 8%) applied to the background music track when mixed
+/// with the voiceover; `padding_secs` is the silence padding (seconds,
+/// default 3.0) added before and after the voiceover in the mixed track.
+#[derive(Debug, Clone, PartialEq)]
 pub struct VoiceSettings {
     pub voice: Option<String>,
     pub rate: Option<String>,
     pub volume: Option<String>,
     pub pitch: Option<String>,
+    pub bg_music_volume: Option<f64>,
+    pub padding_secs: Option<f64>,
 }
 
 impl Default for VoiceSettings {
@@ -30,6 +41,8 @@ impl Default for VoiceSettings {
             rate: None,
             volume: None,
             pitch: None,
+            bg_music_volume: None,
+            padding_secs: None,
         }
     }
 }
@@ -162,11 +175,13 @@ pub async fn generate_audio_file(
     generate_edge_tts(text, lang, primary_output_path, voice_settings).await?;
 
     if let Some(bg_path) = find_background_music(music_search_dir) {
+        let bg_volume = voice_settings.bg_music_volume.unwrap_or(DEFAULT_BG_MUSIC_VOLUME);
         println!(
-            "🎧 Found background music at {}. Mixing at 8% volume.",
-            bg_path.display()
+            "🎧 Found background music at {}. Mixing at {:.0}% volume.",
+            bg_path.display(),
+            bg_volume * 100.0
         );
-        mix_audio_with_bg(primary_output_path, &bg_path, mixed_output_path)?;
+        mix_audio_with_bg(primary_output_path, &bg_path, mixed_output_path, voice_settings)?;
         Ok(mixed_output_path.to_path_buf())
     } else {
         println!("ℹ️ No background music file found. Using voice audio only.");
@@ -252,11 +267,15 @@ fn mix_audio_with_bg(
     voice_path: &Path,
     bg_path: &Path,
     output_path: &Path,
+    voice_settings: &VoiceSettings,
 ) -> Result<(), Box<dyn std::error::Error>> {
     let ffmpeg_path = if cfg!(windows) { "ffmpeg.exe" } else { "ffmpeg" };
 
+    let padding_secs = voice_settings.padding_secs.unwrap_or(DEFAULT_BG_MUSIC_BUFFER_SECS);
+    let bg_volume = voice_settings.bg_music_volume.unwrap_or(DEFAULT_BG_MUSIC_VOLUME);
+
     let voice_secs = probe_duration_secs(voice_path)?;
-    let total_secs = BG_MUSIC_BUFFER_SECS + voice_secs + BG_MUSIC_BUFFER_SECS;
+    let total_secs = padding_secs + voice_secs + padding_secs;
 
     // [0:a] voice delayed by the lead-in buffer (in ms), then padded with
     // silence at the tail so it reaches the full target length.
@@ -264,14 +283,15 @@ fn mix_audio_with_bg(
     // target length -- `-stream_loop -1` on the input handles the
     // "loop continuously until long enough" requirement regardless of
     // how short the source music file is.
-    let delay_ms = (BG_MUSIC_BUFFER_SECS * 1000.0).round() as i64;
+    let delay_ms = (padding_secs * 1000.0).round() as i64;
     let filter = format!(
         "[0:a]adelay={delay}|{delay},apad=whole_dur={total}[voice];\
-         [1:a]atrim=0:{total},asetpts=PTS-STARTPTS,volume=0.12[bg];\
+         [1:a]atrim=0:{total},asetpts=PTS-STARTPTS,volume={bg_volume}[bg];\
          [voice][bg]amix=inputs=2:dropout_transition=0:normalize=0,\
          atrim=0:{total},asetpts=PTS-STARTPTS[aout]",
         delay = delay_ms,
         total = total_secs,
+        bg_volume = bg_volume,
     );
 
     let output = Command::new(ffmpeg_path)

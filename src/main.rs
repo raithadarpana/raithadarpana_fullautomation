@@ -70,6 +70,32 @@ struct Args {
     /// Force re-fetching data and re-creating images and videos. Overrides --no-video.
     #[arg(long = "force-all")]
     force_all: bool,
+
+    /// TTS voice identity to use (e.g. "kn-IN-GaganNeural"). Defaults to
+    /// a sensible per-language voice if omitted.
+    #[arg(long)]
+    voice: Option<String>,
+
+    /// Speech rate as a signed percentage, e.g. "+20%" or "-10%".
+    #[arg(long)]
+    rate: Option<String>,
+
+    /// Speech volume as a signed percentage, e.g. "+0%" or "-5%".
+    #[arg(long)]
+    volume: Option<String>,
+
+    /// Speech pitch as a signed Hz value, e.g. "+0Hz" or "-20Hz".
+    #[arg(long)]
+    pitch: Option<String>,
+
+    /// Background music volume as a fraction (0.0-1.0). Default: 0.08 (8%).
+    #[arg(long = "bg-music-volume")]
+    bg_music_volume: Option<f64>,
+
+    /// Silence padding (seconds) added before and after the voiceover
+    /// when mixed with background music. Default: 3.
+    #[arg(long = "padding-secs")]
+    padding_secs: Option<f64>,
 }
 
 #[tokio::main]
@@ -184,7 +210,14 @@ async fn run_headless(args: &Args) -> Result<()> {
     });
     let filter_slice = cities_filter.as_deref();
 
-    let voice_settings = render::voiceover_settings_default();
+    let voice_settings = render::VoiceSettings {
+        voice: args.voice.clone(),
+        rate: args.rate.clone(),
+        volume: args.volume.clone(),
+        pitch: args.pitch.clone(),
+        bg_music_volume: args.bg_music_volume,
+        padding_secs: args.padding_secs,
+    };
 
     let outcome = render::render_report_images(
         &report,

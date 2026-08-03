@@ -11,8 +11,9 @@ use anyhow::Result;
 use base64::Engine;
 use headless_chrome::{
     protocol::cdp::Page::{self, CaptureScreenshotFormatOption},
-    Browser, LaunchOptions,
+    Browser, LaunchOptions, Tab,
 };
+use std::sync::Arc;
 use std::fs;
 use std::path::PathBuf;
 
@@ -104,6 +105,17 @@ pub async fn render_report_images(
         .build()
         .unwrap();
     let browser = Browser::new(launch_options)?;
+    // Reuse a single tab for every image across every city, rather than
+    // opening a new tab per render. Previously each Instagram/YouTube
+    // image opened its own tab via `browser.new_tab()` and never closed
+    // it (closing a tab in headless Chrome can itself hang until
+    // timeout, see rust-headless-chrome#434). Left-open tabs piled up
+    // across cities and, after enough of them, the underlying Chrome
+    // connection would drop entirely -- surfacing as "Unable to make
+    // method calls because underlying connection is closed" partway
+    // through the second (or later) city. Navigating a single long-lived
+    // tab to each new HTML file avoids the tab buildup altogether.
+    let tab = browser.new_tab()?;
     let mut outcome = RenderOutcome::default();
 
     // Loaded once per run (not per city) since the background files
@@ -144,7 +156,7 @@ pub async fn render_report_images(
             if force.force_image || !ig_path.exists() {
                 on_progress(&format!("Rendering {} (Instagram)...", english_name));
                 let written = render_city_variant(
-                    &browser,
+                    &tab,
                     city,
                     &report.report_date,
                     date_ymd,
@@ -177,7 +189,7 @@ pub async fn render_report_images(
             if force.force_image || !yt_path.exists() {
                 on_progress(&format!("Rendering {} (YouTube)...", english_name));
                 let written = render_city_variant(
-                    &browser,
+                    &tab,
                     city,
                     &report.report_date,
                     date_ymd,
@@ -431,7 +443,7 @@ fn percent_encode_segment(segment: &str) -> String {
 }
 
 fn render_city_variant(
-    browser: &Browser,
+    tab: &Arc<Tab>,
     city: &CityMarketData,
     report_date: &str,
     date_ymd: &str,
@@ -464,7 +476,6 @@ fn render_city_variant(
     fs::write(&html_path, &html)
         .map_err(|e| anyhow::anyhow!("Failed to write debug HTML to {}: {}", html_path.display(), e))?;
 
-    let tab = browser.new_tab()?;
     let canonical_html_path = html_path
         .canonicalize()
         .map_err(|e| anyhow::anyhow!("Failed to resolve path {}: {}", html_path.display(), e))?;
