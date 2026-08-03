@@ -5,6 +5,7 @@ use crate::storage;
 use crate::templates::{self, INSTAGRAM_HEIGHT, INSTAGRAM_WIDTH, YOUTUBE_HEIGHT, YOUTUBE_WIDTH};
 use crate::video;
 use crate::voiceover;
+pub use crate::voiceover::VoiceSettings;
 
 use anyhow::Result;
 use base64::Engine;
@@ -14,6 +15,12 @@ use headless_chrome::{
 };
 use std::fs;
 use std::path::PathBuf;
+
+/// Convenience default for callers (e.g. the headless CLI) that don't
+/// need to customize TTS voice/rate/volume/pitch.
+pub fn voiceover_settings_default() -> VoiceSettings {
+    VoiceSettings::default()
+}
 
 /// Which cover variant(s) to produce for each city.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -47,6 +54,8 @@ pub enum MediaKind {
     YoutubeImage,
     InstagramVideo,
     YoutubeVideo,
+    VoiceAudio,
+    MixedAudio,
 }
 
 /// A single piece of media as soon as it's ready on disk, so a UI can
@@ -85,6 +94,7 @@ pub async fn render_report_images(
     variants: VariantSelection,
     force: ForceFlags,
     create_video: bool,
+    voice_settings: &VoiceSettings,
     mut on_progress: impl FnMut(&str),
     mut on_media: impl FnMut(MediaEvent),
 ) -> Result<RenderOutcome> {
@@ -206,6 +216,7 @@ pub async fn render_report_images(
                 force,
                 ig_path_opt.as_deref(),
                 yt_path_opt.as_deref(),
+                voice_settings,
                 &mut on_progress,
                 &mut on_media,
             )
@@ -239,6 +250,7 @@ async fn generate_city_video_assets(
     force: ForceFlags,
     ig_image_path: Option<&std::path::Path>,
     yt_image_path: Option<&std::path::Path>,
+    voice_settings: &VoiceSettings,
     on_progress: &mut impl FnMut(&str),
     on_media: &mut impl FnMut(MediaEvent),
 ) -> Result<Vec<PathBuf>> {
@@ -266,6 +278,22 @@ async fn generate_city_video_assets(
                 path: yt_video_path,
             });
         }
+        let voice_path = storage::voice_audio_path(date_ymd, english_city_name, lang)?;
+        let mixed_path = storage::mixed_audio_path(date_ymd, english_city_name, lang)?;
+        if voice_path.exists() {
+            on_media(MediaEvent {
+                city: english_city_name.to_string(),
+                kind: MediaKind::VoiceAudio,
+                path: voice_path,
+            });
+        }
+        if mixed_path.exists() {
+            on_media(MediaEvent {
+                city: english_city_name.to_string(),
+                kind: MediaKind::MixedAudio,
+                path: mixed_path,
+            });
+        }
         return Ok(written_videos);
     }
 
@@ -278,9 +306,24 @@ async fn generate_city_video_assets(
         on_progress(&format!("Generating voiceover for {}...", english_city_name));
         let script = voiceover::generate_script(lang, english_city_name, report_date, &city.commodities);
         let assets_dir = assets::assets_dir();
-        voiceover::generate_audio_file(&script, lang, &voice_path, &mixed_path, &assets_dir)
+        let path = voiceover::generate_audio_file(&script, lang, &voice_path, &mixed_path, &assets_dir, voice_settings)
             .await
-            .map_err(|e| anyhow::anyhow!("Voiceover generation failed: {}", e))?
+            .map_err(|e| anyhow::anyhow!("Voiceover generation failed: {}", e))?;
+        if voice_path.exists() {
+            on_media(MediaEvent {
+                city: english_city_name.to_string(),
+                kind: MediaKind::VoiceAudio,
+                path: voice_path.clone(),
+            });
+        }
+        if mixed_path.exists() {
+            on_media(MediaEvent {
+                city: english_city_name.to_string(),
+                kind: MediaKind::MixedAudio,
+                path: mixed_path.clone(),
+            });
+        }
+        path
     } else if mixed_path.exists() {
         mixed_path.clone()
     } else {

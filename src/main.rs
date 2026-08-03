@@ -184,6 +184,8 @@ async fn run_headless(args: &Args) -> Result<()> {
     });
     let filter_slice = cities_filter.as_deref();
 
+    let voice_settings = render::voiceover_settings_default();
+
     let outcome = render::render_report_images(
         &report,
         &date_ymd,
@@ -193,6 +195,7 @@ async fn run_headless(args: &Args) -> Result<()> {
         variants,
         force,
         create_video,
+        &voice_settings,
         |msg| {
             println!("{}", msg);
         },

@@ -49,7 +49,9 @@ struct MediaItem {
 #[derive(Debug, Clone, Serialize, Default)]
 struct Job {
     status: JobStatusRepr,
-    messages: Vec<String>,
+    /// Latest progress message only, so the UI can show a single
+    /// overwriting status line instead of a scrolling log.
+    current_message: String,
     /// Media items in the order they became available, for streaming.
     media: Vec<MediaItem>,
     error: Option<String>,
@@ -202,6 +204,14 @@ struct RenderRequest {
     force_image: bool,
     force_video: bool,
     force_all: bool,
+    /// Empty = use the language default.
+    voice: Option<String>,
+    /// Signed percentage, e.g. "+20%". Empty/None = default.
+    rate: Option<String>,
+    /// Signed percentage, e.g. "+0%". Empty/None = default.
+    volume: Option<String>,
+    /// Signed Hz value, e.g. "+0Hz". Empty/None = default.
+    pitch: Option<String>,
 }
 
 #[derive(Debug, Serialize)]
@@ -287,16 +297,28 @@ async fn run_pipeline_job(
         force_video,
     };
 
+    let non_empty = |s: &Option<String>| s.as_ref().map(|v| v.trim()).filter(|v| !v.is_empty()).map(|v| v.to_string());
+    let voice_settings = render::VoiceSettings {
+        voice: non_empty(&req.voice),
+        rate: non_empty(&req.rate),
+        volume: non_empty(&req.volume),
+        pitch: non_empty(&req.pitch),
+    };
+
     let state_for_progress = state.clone();
     let job_id_for_progress = job_id.clone();
     let progress = move |msg: &str| {
         let state = state_for_progress.clone();
         let job_id = job_id_for_progress.clone();
         let msg = msg.to_string();
-        // The render pipeline's progress callback is synchronous; spawn a
-        // task to append to shared state without blocking rendering.
-        tokio::spawn(async move {
-            push_message(&state, &job_id, msg).await;
+        // Block on the (uncontended, in-memory) state update so messages
+        // are recorded in strict order and immediately, rather than
+        // racing the synchronous pipeline via a spawned task (which was
+        // causing the displayed progress to lag one step behind).
+        tokio::task::block_in_place(|| {
+            tokio::runtime::Handle::current().block_on(async {
+                push_message(&state, &job_id, msg).await;
+            });
         });
     };
 
@@ -305,8 +327,10 @@ async fn run_pipeline_job(
     let on_media = move |event: render::MediaEvent| {
         let state = state_for_media.clone();
         let job_id = job_id_for_media.clone();
-        tokio::spawn(async move {
-            push_media(&state, &job_id, event).await;
+        tokio::task::block_in_place(|| {
+            tokio::runtime::Handle::current().block_on(async {
+                push_media(&state, &job_id, event).await;
+            });
         });
     };
 
@@ -319,6 +343,7 @@ async fn run_pipeline_job(
         variants,
         force,
         create_video,
+        &voice_settings,
         progress,
         on_media,
     )
@@ -327,7 +352,7 @@ async fn run_pipeline_job(
     let mut jobs = state.jobs.lock().await;
     if let Some(job) = jobs.get_mut(&job_id) {
         job.status = JobStatusRepr::Done;
-        job.messages.push("Pipeline complete.".to_string());
+        job.current_message = "Pipeline complete.".to_string();
     }
 
     Ok(())
@@ -349,6 +374,8 @@ fn media_kind_str(kind: MediaKind) -> &'static str {
         MediaKind::YoutubeImage => "yt_image",
         MediaKind::InstagramVideo => "ig_video",
         MediaKind::YoutubeVideo => "yt_video",
+        MediaKind::VoiceAudio => "voice_audio",
+        MediaKind::MixedAudio => "mixed_audio",
     }
 }
 
@@ -356,7 +383,7 @@ async fn push_message(state: &Arc<AppState>, job_id: &str, msg: String) {
     log::info!("[job {}] {}", job_id, msg);
     let mut jobs = state.jobs.lock().await;
     if let Some(job) = jobs.get_mut(job_id) {
-        job.messages.push(msg);
+        job.current_message = msg;
     }
 }
 
@@ -406,7 +433,7 @@ const INDEX_HTML: &str = r#"<!DOCTYPE html>
   button:disabled { background: #999; cursor: not-allowed; }
 
   #leftPanel {
-    width: 380px; min-width: 340px; padding: 1rem; overflow-y: auto;
+    width: 620px; min-width: 560px; padding: 1rem; overflow-y: auto;
     background: #fff; border-right: 1px solid #dfe8df;
   }
   #rightPanel {
@@ -414,17 +441,22 @@ const INDEX_HTML: &str = r#"<!DOCTYPE html>
   }
 
   .row { display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center; margin-bottom: 0.5rem; }
+  .optionsGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem 1rem; }
+  .optionsGrid .field { display: flex; flex-direction: column; gap: 0.2rem; }
+  .optionsGrid .field label { margin-right: 0; font-weight: 600; font-size: 0.8rem; color: #3a5a3f; }
+  .optionsGrid .field select, .optionsGrid .field input[type=text] { width: 100%; }
+  .hint { font-size: 0.75rem; color: #789; margin-top: 0.15rem; }
 
   #citySearch { width: 100%; margin-bottom: 0.5rem; }
   #cityControls { display: flex; gap: 0.5rem; margin-bottom: 0.5rem; }
   #cityControls button { flex: 1; font-size: 0.8rem; padding: 0.35rem; }
-  #cityList { max-height: 220px; overflow-y: auto; border: 1px solid #ddd; border-radius: 6px; padding: 0.4rem; background: #fafcfa; }
+  #cityList { max-height: 180px; overflow-y: auto; border: 1px solid #ddd; border-radius: 6px; padding: 0.4rem; background: #fafcfa; }
   #cityList label { display: flex; margin: 0.15rem 0; font-size: 0.85rem; }
   #cityCount { font-size: 0.8rem; color: #557; margin-bottom: 0.4rem; }
 
-  #log {
-    background: #10241a; color: #b6f2c9; font-family: monospace; padding: 0.7rem;
-    border-radius: 8px; height: 180px; overflow-y: auto; white-space: pre-wrap; font-size: 0.78rem;
+  #status {
+    background: #10241a; color: #b6f2c9; font-family: monospace; padding: 0.6rem 0.8rem;
+    border-radius: 8px; font-size: 0.82rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
   }
 
   .city-section { margin-bottom: 1.5rem; }
@@ -434,7 +466,9 @@ const INDEX_HTML: &str = r#"<!DOCTYPE html>
     background: white; padding: 0.4rem; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.08);
     display: flex; flex-direction: column; align-items: center; gap: 0.3rem;
   }
-  .media-card img, .media-card video { max-height: 260px; max-width: 260px; width: auto; border-radius: 6px; border: 1px solid #ddd; object-fit: contain; }
+  .media-card img { height: 260px; width: auto; max-width: 100%; border-radius: 6px; border: 1px solid #ddd; object-fit: contain; }
+  .media-card video { max-height: 260px; max-width: 260px; width: auto; border-radius: 6px; border: 1px solid #ddd; object-fit: contain; }
+  .media-card audio { width: 260px; }
   .media-card .label { font-size: 0.75rem; color: #557; }
 
   #runBtn { width: 100%; padding: 0.7rem; font-size: 1rem; margin-top: 0.5rem; }
@@ -476,31 +510,48 @@ const INDEX_HTML: &str = r#"<!DOCTYPE html>
 
   <fieldset>
     <legend>3. Options</legend>
-    <div class="row">
+    <div class="optionsGrid">
       <label><input type="checkbox" id="ig"> Instagram only</label>
       <label><input type="checkbox" id="yt"> YouTube only</label>
-    </div>
-    <div class="row">
       <label><input type="checkbox" id="noVideo"> No video (images only)</label>
-    </div>
-    <div class="row">
       <label><input type="checkbox" id="forceData"> Force re-fetch data</label>
-    </div>
-    <div class="row">
       <label><input type="checkbox" id="forceImage"> Force re-create images</label>
-    </div>
-    <div class="row">
       <label><input type="checkbox" id="forceVideo"> Force re-create videos</label>
-    </div>
-    <div class="row">
       <label><input type="checkbox" id="forceAll"> Force all</label>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend>4. Voice settings</legend>
+    <div class="optionsGrid">
+      <div class="field">
+        <label for="voice">Speaker</label>
+        <select id="voice">
+          <option value="">Default</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="rate">Rate</label>
+        <input type="text" id="rate" placeholder="+20%">
+        <div class="hint">Signed %, e.g. +20% or -10%</div>
+      </div>
+      <div class="field">
+        <label for="volume">Volume</label>
+        <input type="text" id="volume" placeholder="+0%">
+        <div class="hint">Signed %, e.g. +0% or -5%</div>
+      </div>
+      <div class="field">
+        <label for="pitch">Pitch</label>
+        <input type="text" id="pitch" placeholder="+0Hz">
+        <div class="hint">Signed Hz, e.g. +0Hz or -20Hz</div>
+      </div>
     </div>
   </fieldset>
 
   <button id="runBtn" disabled>Run pipeline</button>
 
   <h3 style="margin-top:1rem;">Progress</h3>
-  <div id="log"></div>
+  <div id="status">Idle.</div>
 </div>
 
 <div id="rightPanel">
@@ -510,6 +561,42 @@ const INDEX_HTML: &str = r#"<!DOCTYPE html>
 <script>
 let dateYmd = null;
 let allCities = [];
+// Persists the set of selected cities across search re-renders, since
+// filtering the list removes non-matching checkboxes from the DOM
+// entirely (losing their checked state otherwise).
+let selectedCities = new Set();
+
+const VOICE_CHOICES = {
+  kannada: [
+    { id: 'kn-IN-GaganNeural', label: 'Gagan (Male)' },
+    { id: 'kn-IN-SapnaNeural', label: 'Sapna (Female)' }
+  ],
+  english: [
+    { id: 'en-IN-PrabhatNeural', label: 'Prabhat (Male)' },
+    { id: 'en-IN-NeerjaNeural', label: 'Neerja (Female)' }
+  ]
+};
+
+function populateVoiceChoices() {
+  const lang = document.getElementById('language').value;
+  const voiceSel = document.getElementById('voice');
+  const prevValue = voiceSel.value;
+  voiceSel.innerHTML = '<option value="">Default</option>';
+  (VOICE_CHOICES[lang] || []).forEach(v => {
+    const opt = document.createElement('option');
+    opt.value = v.id;
+    opt.textContent = v.label;
+    voiceSel.appendChild(opt);
+  });
+  // Keep the previous selection if it's still valid for the new
+  // language, otherwise fall back to Default.
+  if ((VOICE_CHOICES[lang] || []).some(v => v.id === prevValue)) {
+    voiceSel.value = prevValue;
+  }
+}
+
+document.getElementById('language').addEventListener('change', populateVoiceChoices);
+populateVoiceChoices();
 
 document.getElementById('date').valueAsDate = new Date();
 
@@ -520,9 +607,6 @@ function ddmmyyyy(dateStr) {
 
 function renderCityList(filterText) {
   const cityList = document.getElementById('cityList');
-  const prevChecked = new Set(
-    Array.from(cityList.querySelectorAll('input:checked')).map(cb => cb.value)
-  );
   cityList.innerHTML = '';
   const filtered = allCities.filter(c => c.toLowerCase().includes(filterText.toLowerCase()));
   filtered.forEach(city => {
@@ -530,7 +614,7 @@ function renderCityList(filterText) {
     const cb = document.createElement('input');
     cb.type = 'checkbox';
     cb.value = city;
-    cb.checked = prevChecked.has(city);
+    cb.checked = selectedCities.has(city);
     label.appendChild(cb);
     label.appendChild(document.createTextNode(city));
     cityList.appendChild(label);
@@ -540,7 +624,7 @@ function renderCityList(filterText) {
 
 function updateCityCount() {
   const total = allCities.length;
-  const selected = document.querySelectorAll('#cityList input:checked').length;
+  const selected = selectedCities.size;
   const visible = document.querySelectorAll('#cityList input').length;
   document.getElementById('cityCount').textContent =
     `${selected} of ${total} selected (${visible} shown)`;
@@ -551,16 +635,27 @@ document.getElementById('citySearch').addEventListener('input', (e) => {
 });
 
 document.getElementById('selectAllBtn').addEventListener('click', () => {
-  document.querySelectorAll('#cityList input').forEach(cb => cb.checked = true);
+  document.querySelectorAll('#cityList input').forEach(cb => {
+    cb.checked = true;
+    selectedCities.add(cb.value);
+  });
   updateCityCount();
 });
 
 document.getElementById('deselectAllBtn').addEventListener('click', () => {
   document.querySelectorAll('#cityList input').forEach(cb => cb.checked = false);
+  selectedCities.clear();
   updateCityCount();
 });
 
-document.getElementById('cityList').addEventListener('change', updateCityCount);
+document.getElementById('cityList').addEventListener('change', (e) => {
+  const cb = e.target;
+  if (cb && cb.type === 'checkbox') {
+    if (cb.checked) selectedCities.add(cb.value);
+    else selectedCities.delete(cb.value);
+  }
+  updateCityCount();
+});
 
 document.getElementById('fetchBtn').addEventListener('click', async () => {
   const language = document.getElementById('language').value;
@@ -581,6 +676,7 @@ document.getElementById('fetchBtn').addEventListener('click', async () => {
     const data = await resp.json();
     dateYmd = data.date_ymd;
     allCities = data.cities;
+    selectedCities.clear();
     document.getElementById('citySearch').value = '';
     renderCityList('');
 
@@ -596,7 +692,7 @@ document.getElementById('fetchBtn').addEventListener('click', async () => {
 document.getElementById('runBtn').addEventListener('click', async () => {
   if (!dateYmd) { alert('Fetch data first'); return; }
 
-  const cities = Array.from(document.querySelectorAll('#cityList input:checked')).map(cb => cb.value);
+  const cities = Array.from(selectedCities);
   if (cities.length === 0) { alert('Select at least one city'); return; }
   const allSelected = cities.length === allCities.length;
 
@@ -610,13 +706,17 @@ document.getElementById('runBtn').addEventListener('click', async () => {
     force_data: document.getElementById('forceData').checked,
     force_image: document.getElementById('forceImage').checked,
     force_video: document.getElementById('forceVideo').checked,
-    force_all: document.getElementById('forceAll').checked
+    force_all: document.getElementById('forceAll').checked,
+    voice: document.getElementById('voice').value || null,
+    rate: document.getElementById('rate').value || null,
+    volume: document.getElementById('volume').value || null,
+    pitch: document.getElementById('pitch').value || null
   };
 
   const runBtn = document.getElementById('runBtn');
   runBtn.disabled = true;
   runBtn.textContent = 'Running...';
-  document.getElementById('log').textContent = '';
+  document.getElementById('status').textContent = 'Starting...';
   document.getElementById('output').innerHTML = '';
 
   try {
@@ -642,7 +742,9 @@ const KIND_LABELS = {
   ig_image: 'Instagram (image)',
   yt_image: 'YouTube (image)',
   ig_video: 'Instagram (video)',
-  yt_video: 'YouTube (video)'
+  yt_video: 'YouTube (video)',
+  voice_audio: 'Voiceover (audio)',
+  mixed_audio: 'Mixed audio (voice + music)'
 };
 
 function getOrCreateCitySection(city) {
@@ -675,6 +777,11 @@ function appendMediaItem(item) {
     const img = document.createElement('img');
     img.src = item.url;
     card.appendChild(img);
+  } else if (item.kind === 'voice_audio' || item.kind === 'mixed_audio') {
+    const audio = document.createElement('audio');
+    audio.src = item.url;
+    audio.controls = true;
+    card.appendChild(audio);
   } else {
     const vid = document.createElement('video');
     vid.src = item.url;
@@ -691,7 +798,7 @@ function appendMediaItem(item) {
 }
 
 function pollJob(jobId) {
-  const logEl = document.getElementById('log');
+  const statusEl = document.getElementById('status');
   cityMediaSections.clear();
   renderedMediaKeys.clear();
 
@@ -699,8 +806,7 @@ function pollJob(jobId) {
     const resp = await fetch('/api/jobs/' + jobId);
     if (!resp.ok) { clearInterval(interval); return; }
     const job = await resp.json();
-    logEl.textContent = job.messages.join('\n');
-    logEl.scrollTop = logEl.scrollHeight;
+    statusEl.textContent = job.current_message || '...';
 
     job.media.forEach(appendMediaItem);
 
