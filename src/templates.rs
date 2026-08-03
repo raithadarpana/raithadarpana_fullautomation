@@ -71,8 +71,8 @@ fn ig_commodity_rows(city: &CityMarketData, dict: &Dictionary, lang: Language) -
             escape_html(&dict.grade_display(&c.grade, lang)),
             format_arrivals(c.arrivals),
             escape_html(&unit_label),
-            c.min_rs,
-            c.max_rs,
+            format_price_indian(c.min_rs),
+            format_price_indian(c.max_rs),
         ));
     }
     rows
@@ -93,6 +93,63 @@ fn format_arrivals(value: f64) -> String {
     } else {
         format!("{:.2}", value)
     }
+}
+
+/// Formats a price value using Indian-locale digit grouping (e.g.
+/// `20512` -> `"20,512"`, `1234567` -> `"12,34,567"`): the last 3 digits
+/// form one group, then remaining digits are grouped in pairs of 2.
+/// Negative values keep the leading `-`; fractional values keep up to 2
+/// decimal places (untouched by grouping).
+pub(crate) fn format_price_indian(value: f64) -> String {
+    let is_negative = value < 0.0;
+    let abs_value = value.abs();
+
+    let (int_part, frac_part) = if abs_value.fract() == 0.0 {
+        (format!("{}", abs_value as i64), String::new())
+    } else {
+        let formatted = format!("{:.2}", abs_value);
+        let mut parts = formatted.splitn(2, '.');
+        let int_part = parts.next().unwrap_or("0").to_string();
+        let frac_part = parts.next().unwrap_or("00").to_string();
+        (int_part, frac_part)
+    };
+
+    let grouped = group_indian_digits(&int_part);
+
+    let mut result = String::new();
+    if is_negative {
+        result.push('-');
+    }
+    result.push_str(&grouped);
+    if !frac_part.is_empty() {
+        result.push('.');
+        result.push_str(&frac_part);
+    }
+    result
+}
+
+/// Groups a plain digit string using Indian-locale comma placement:
+/// the last 3 digits are one group, remaining digits are grouped in
+/// pairs of 2 from the right.
+fn group_indian_digits(digits: &str) -> String {
+    if digits.len() <= 3 {
+        return digits.to_string();
+    }
+
+    let (head, tail) = digits.split_at(digits.len() - 3);
+    let mut head_groups: Vec<String> = Vec::new();
+    let mut remaining = head;
+    while remaining.len() > 2 {
+        let split_at = remaining.len() - 2;
+        head_groups.push(remaining[split_at..].to_string());
+        remaining = &remaining[..split_at];
+    }
+    if !remaining.is_empty() {
+        head_groups.push(remaining.to_string());
+    }
+    head_groups.reverse();
+
+    format!("{},{}", head_groups.join(","), tail)
 }
 
 /// Builds the branded Instagram (4:5) HTML cover for one city, based on

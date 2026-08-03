@@ -26,3 +26,4 @@ zip = "8.6.0"
 xz2 = "0.1.7"
 tar = "0.4.46"
 reqwest = { version = "0.13.4", features = ["stream"] }
+rustls = "0.23.43"

@@ -14,6 +14,7 @@ pub mod voiceover;
 use anyhow::Result;
 use chrono::Local;
 use clap::Parser;
+use rustls::crypto::{CryptoProvider, ring::default_provider};
 use std::time::Duration;
 
 use dictionary::{Dictionary, Language};
@@ -102,6 +103,8 @@ struct Args {
 #[tokio::main]
 async fn main() -> Result<()> {
     init_logging()?;
+    CryptoProvider::install_default(default_provider())
+        .map_err(|_| anyhow::anyhow!("default crypto provider already installed"))?;
 
     let args = Args::parse();
 

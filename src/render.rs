@@ -132,12 +132,12 @@ pub async fn render_report_images(
                     .iter()
                     .any(|f| f.trim().eq_ignore_ascii_case(english_name.trim()))
             {
-                log::info!(
-                    "Skipping city '{}' (resolved: '{}') - not in filter {:?}",
-                    city.city_name,
-                    english_name,
-                    filter
-                );
+                // log::info!(
+                //     "Skipping city '{}' (resolved: '{}') - not in filter {:?}",
+                //     city.city_name,
+                //     english_name,
+                //     filter
+                // );
                 outcome
                     .skipped_cities
                     .push((city.city_name.clone(), english_name));
@@ -316,7 +316,9 @@ async fn generate_city_video_assets(
 
     let audio_path = if force.force_video || (!voice_path.exists() && !mixed_path.exists()) {
         on_progress(&format!("Generating voiceover for {}...", english_city_name));
-        let script = voiceover::generate_script(lang, english_city_name, report_date, &city.commodities);
+        let top_items: Vec<crate::data::CommodityEntry> =
+            templates::top_commodities(city).into_iter().cloned().collect();
+        let script = voiceover::generate_script(lang, english_city_name, report_date, &top_items);
         let assets_dir = assets::assets_dir();
         let path = voiceover::generate_audio_file(&script, lang, &voice_path, &mixed_path, &assets_dir, voice_settings)
             .await

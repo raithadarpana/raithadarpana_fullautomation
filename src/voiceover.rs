@@ -1,5 +1,6 @@
 use crate::data::CommodityEntry;
 use crate::dictionary::Language;
+use crate::templates::format_price_indian;
 
 use edge_tts_rust::{Boundary, EdgeTtsClient, SpeakOptions};
 use std::path::{Path, PathBuf};
@@ -111,6 +112,137 @@ pub fn find_background_music(folder_path: &Path) -> Option<PathBuf> {
     None
 }
 
+fn convert_integer_to_kannada(mut num: i64) -> String {
+    if num == 0 {
+        return "ಶೂನ್ಯ".to_string();
+    }
+
+    let units = ["", "ಒಂದು", "ಎರಡು", "ಮೂರು", "ನಾಲ್ಕು",
+                 "ಐದು", "ಆರು", "ಏಳು", "ಎಂಟು", "ಒಂಬತ್ತು"];
+    
+    let tens = ["", "ಹತ್ತು", "ಇಪ್ಪತ್ತು", "ಮಪ್ಪತ್ತು", "ನಲವತ್ತು",
+                "ಐವತ್ತು", "ಅರವತ್ತು", "ಎಪ್ಪತ್ತು", "ಎಂಭತ್ತು", "ತೊಂಬತ್ತು"];
+    
+    let teens = ["ಹತ್ತು", "ಹನ್ನೊಂದು", "ಹನ್ನೆರಡು", "ಹದಿಮೂರು", "ಹದಿನಾಲ್ಕು",
+                 "ಹದಿನೈದು", "ಹದಿನಾರು", "ಹದಿನೇಳು", "ಹದಿನೆಂಟು", "ಹತ್ತೊಂಬತ್ತು"];
+    
+    let scales = ["", "ಸಾವಿರ", "ಲಕ್ಷ", "ಕೋಟಿ", "ಅರ್ಬುದ"];
+
+    let mut result = String::new();
+    let mut scale_idx = 0;
+
+    while num > 0 && scale_idx < scales.len() {
+        let chunk = num % 1000;
+        num /= 1000;
+
+        if chunk > 0 {
+            let mut chunk_str = convert_hundreds(chunk as i64, &units, &tens, &teens);
+            
+            // Add scale BEFORE the chunk, not after
+            if scale_idx > 0 {
+                chunk_str.push(' ');
+                chunk_str.push_str(scales[scale_idx]);
+            }
+            
+            if !result.is_empty() {
+                chunk_str.push(' ');
+                chunk_str.push_str(&result);
+            }
+            result = chunk_str;
+        }
+
+        scale_idx += 1;
+    }
+
+    result
+}
+
+fn convert_hundreds(num: i64, units: &[&str], tens: &[&str], teens: &[&str]) -> String {
+    let mut result = String::new();
+
+    let hundreds = num / 100;
+    if hundreds > 0 {
+        result.push_str(units[hundreds as usize]);
+        result.push_str(" ನೂರು");
+    }
+
+    let remainder = num % 100;
+    if remainder > 0 {
+        if !result.is_empty() {
+            result.push(' ');
+        }
+
+        if remainder < 10 {
+            result.push_str(units[remainder as usize]);
+        } else if remainder < 20 {
+            result.push_str(teens[remainder as usize - 10]);
+        } else {
+            let ten = remainder / 10;
+            let unit = remainder % 10;
+
+            result.push_str(tens[ten as usize]);
+            if unit > 0 {
+                result.push(' ');
+                result.push_str(units[unit as usize]);
+            }
+        }
+    }
+
+    result
+}
+
+fn convert_single_digit(digit: i64) -> String {
+    let digits = ["ಶೂನ್ಯ", "ಒಂದು", "ಎರಡು", "ಮೂರು", "ನಾಲ್ಕು",
+                  "ಐದು", "ಆರು", "ಏಳು", "ಎಂಟು", "ಒಂಬತ್ತು"];
+    digits[digit as usize].to_string()
+}
+
+fn number_to_kannada(value: f64) -> String {
+    if value.is_nan() {
+        return "ಸಂಖ್ಯೆ ಅಲ್ಲ".to_string();
+    }
+    if value.is_infinite() {
+        return if value.is_sign_positive() {
+            "ಅನಂತ".to_string()
+        } else {
+            "ಋಣ ಅನಂತ".to_string()
+        };
+    }
+
+    let is_negative = value < 0.0;
+    let abs_value = value.abs();
+
+    let integer_part = abs_value.trunc() as i64;
+    let decimal_part = abs_value.fract();
+
+    let mut result = String::new();
+
+    if is_negative {
+        result.push_str("ಋಣ ");
+    }
+
+    result.push_str(&convert_integer_to_kannada(integer_part));
+
+    if decimal_part > 1e-10 {
+        result.push_str(" ದಶಮಾಂಶ");
+
+        let decimal_str = format!("{:.15}", decimal_part);
+        if let Some(dot_pos) = decimal_str.find('.') {
+            let digits = &decimal_str[dot_pos + 1..];
+            for digit_char in digits.chars() {
+                if digit_char.is_ascii_digit() {
+                    let digit = digit_char.to_digit(10).unwrap() as i64;
+                    result.push(' ');
+                    result.push_str(&convert_single_digit(digit));
+                }
+            }
+        }
+    }
+
+    result.trim().to_string()
+}
+
+
 pub fn generate_kannada_script(market: &str, date: &str, items: &[CommodityEntry]) -> String {
     let mut script = format!(
         "ನಮಸ್ಕಾರ ವೀಕ್ಷಕರೇ, ರೈತ ದರ್ಪಣ ಮಾರುಕಟ್ಟೆ ಬೆಲೆಗಳ ಮಾಹಿತಿ ಚಾನೆಲ್‌ಗೆ ಸುಸ್ವಾಗತ. ಇಂದಿನ {} ಮಾರುಕಟ್ಟೆಯ ತರಕಾರಿ ಬೆಲೆಗಳ ಮಾಹಿತಿ ಇಲ್ಲಿದೆ. ವರದಿ ದಿನಾಂಕ: {}. ",
@@ -120,11 +252,14 @@ pub fn generate_kannada_script(market: &str, date: &str, items: &[CommodityEntry
     for item in items {
         script.push_str(&format!(
             "{}: ಕನಿಷ್ಠ ಬೆಲೆ {} ರೂಪಾಯಿ, ಗರಿಷ್ಠ ಬೆಲೆ {} ರೂಪಾಯಿ. ",
-            item.commodity, item.min_rs, item.max_rs
+            item.commodity,
+            number_to_kannada(item.min_rs),
+            number_to_kannada(item.max_rs)
         ));
     }
 
     script.push_str("ದಿನನಿತ್ಯದ ನಿಖರ ಮಾಹಿತಿಗಾಗಿ ನಮ್ಮ ಇನ್ಸ್ಟಾಗ್ರಾಮ್ ಮತ್ತು ಯೂಟ್ಯೂಬ್ ಚಾನೆಲ್‌ಗೆ ಸಬ್‌ಸ್ಕ್ರೈಬ್ ಆಗಿ. ಧನ್ಯವಾದಗಳು!");
+    log::info!("{}",script);
     script
 }
 
@@ -137,7 +272,9 @@ pub fn generate_english_script(market: &str, date: &str, items: &[CommodityEntry
     for item in items {
         script.push_str(&format!(
             "{}: minimum price {} rupees, maximum price {} rupees. ",
-            item.commodity, item.min_rs, item.max_rs
+            item.commodity,
+            format_price_indian(item.min_rs),
+            format_price_indian(item.max_rs)
         ));
     }
 
@@ -176,11 +313,11 @@ pub async fn generate_audio_file(
 
     if let Some(bg_path) = find_background_music(music_search_dir) {
         let bg_volume = voice_settings.bg_music_volume.unwrap_or(DEFAULT_BG_MUSIC_VOLUME);
-        println!(
+        log::info!("{}", format!(
             "🎧 Found background music at {}. Mixing at {:.0}% volume.",
             bg_path.display(),
             bg_volume * 100.0
-        );
+        ));
         mix_audio_with_bg(primary_output_path, &bg_path, mixed_output_path, voice_settings)?;
         Ok(mixed_output_path.to_path_buf())
     } else {

@@ -7,6 +7,7 @@
 
 use crate::data::AgriculturalReport;
 use crate::dictionary::{Dictionary, Language};
+use crate::ffdeps;
 use crate::render::{self, ForceFlags, MediaKind, VariantSelection};
 use crate::scrape;
 use crate::storage;
@@ -85,6 +86,8 @@ pub async fn run_ui() -> Result<()> {
 
     let app = Router::new()
         .route("/", get(index_page))
+        .route("/api/check-ffmpeg", get(check_ffmpeg))
+        .route("/api/download-ffmpeg", post(download_ffmpeg_handler))
         .route("/api/fetch", post(fetch_data))
         .route("/api/render", post(start_render))
         .route("/api/jobs/:job_id", get(job_status))
@@ -112,6 +115,52 @@ pub async fn run_ui() -> Result<()> {
 
 async fn index_page() -> Html<&'static str> {
     Html(INDEX_HTML)
+}
+
+#[derive(Debug, Serialize)]
+struct FfmpegStatusResponse {
+    ffmpeg_available: bool,
+    ffprobe_available: bool,
+    all_available: bool,
+    download_supported: bool,
+}
+
+/// Reports whether ffmpeg/ffprobe are currently usable, so the browser
+/// can show a confirmation dialog before any rendering is attempted.
+async fn check_ffmpeg() -> Json<FfmpegStatusResponse> {
+    let status = ffdeps::check_status();
+    Json(FfmpegStatusResponse {
+        ffmpeg_available: status.ffmpeg_available,
+        ffprobe_available: status.ffprobe_available,
+        all_available: status.all_available(),
+        download_supported: ffdeps::download_supported(),
+    })
+}
+
+/// Downloads ffmpeg/ffprobe into the app-managed directory, after the
+/// person has confirmed via the browser dialog. Streaming progress isn't
+/// wired up here (the whole download typically finishes in a few
+/// seconds to a couple of minutes); the frontend just shows a spinner
+/// until this call resolves.
+async fn download_ffmpeg_handler() -> Result<Json<FfmpegStatusResponse>, (StatusCode, String)> {
+    ffdeps::download_ffmpeg(|msg| log::info!("{}", msg))
+        .await
+        .map_err(|e| (StatusCode::INTERNAL_SERVER_ERROR, format!("Failed to download ffmpeg: {}", e)))?;
+
+    let status = ffdeps::check_status();
+    if !status.all_available() {
+        return Err((
+            StatusCode::INTERNAL_SERVER_ERROR,
+            "ffmpeg/ffprobe still not available after download attempt.".to_string(),
+        ));
+    }
+
+    Ok(Json(FfmpegStatusResponse {
+        ffmpeg_available: status.ffmpeg_available,
+        ffprobe_available: status.ffprobe_available,
+        all_available: status.all_available(),
+        download_supported: ffdeps::download_supported(),
+    }))
 }
 
 #[derive(Debug, Deserialize)]
@@ -514,9 +563,40 @@ const INDEX_HTML: &str = r#"<!DOCTYPE html>
     border: none; width: 2.2rem; height: 2.2rem; border-radius: 50%; font-size: 1.1rem;
     cursor: pointer; line-height: 1;
   }
+
+  #ffmpegModalOverlay {
+    display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.75);
+    z-index: 2000; align-items: center; justify-content: center;
+  }
+  #ffmpegModalOverlay.open { display: flex; }
+  #ffmpegModalBox {
+    background: white; color: #1a1a1a; border-radius: 8px; padding: 1.5rem;
+    max-width: 32rem; width: 90vw; box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+  }
+  #ffmpegModalBox h2 { margin-bottom: 0.75rem; font-size: 1.15rem; }
+  #ffmpegModalBox p { margin-bottom: 0.75rem; line-height: 1.4; }
+  #ffmpegModalActions { display: flex; gap: 0.75rem; margin-top: 1rem; justify-content: flex-end; }
+  #ffmpegModalStatus { margin-top: 0.75rem; font-style: italic; }
 </style>
 </head>
 <body>
+
+<div id="ffmpegModalOverlay">
+  <div id="ffmpegModalBox">
+    <h2>ffmpeg / ffprobe not found</h2>
+    <p id="ffmpegModalMessage">
+      This app needs <code>ffmpeg</code> and <code>ffprobe</code> to generate videos, but they weren't found on your system PATH.
+    </p>
+    <p>
+      You can install them yourself and restart this app, or let this app automatically download them now.
+    </p>
+    <div id="ffmpegModalStatus"></div>
+    <div id="ffmpegModalActions">
+      <button id="ffmpegManualBtn">I'll install it myself</button>
+      <button id="ffmpegDownloadBtn">Auto-download now</button>
+    </div>
+  </div>
+</div>
 
 <div id="leftPanel">
   <h1>Raitha Darpana Media Creator</h1>
@@ -613,6 +693,78 @@ const INDEX_HTML: &str = r#"<!DOCTYPE html>
 </div>
 
 <script>
+// Checks ffmpeg/ffprobe availability on load; if either is missing, shows
+// a confirmation dialog so the person can either install it themselves
+// and restart, or approve an automatic download to rd_media/bin/.
+async function checkFfmpegOnLoad() {
+  try {
+    const resp = await fetch('/api/check-ffmpeg');
+    if (!resp.ok) return;
+    const status = await resp.json();
+    if (!status.all_available) {
+      showFfmpegModal(status);
+    }
+  } catch (e) {
+    // Best-effort: if the check itself fails, don't block the UI --
+    // any real problem will surface when rendering is attempted.
+    console.warn('ffmpeg check failed:', e);
+  }
+}
+
+function showFfmpegModal(status) {
+  const overlay = document.getElementById('ffmpegModalOverlay');
+  const message = document.getElementById('ffmpegModalMessage');
+  const downloadBtn = document.getElementById('ffmpegDownloadBtn');
+  const statusEl = document.getElementById('ffmpegModalStatus');
+
+  const missing = [];
+  if (!status.ffmpeg_available) missing.push('ffmpeg');
+  if (!status.ffprobe_available) missing.push('ffprobe');
+  message.textContent = `${missing.join(' and ')} not found on your system PATH. Video generation requires ${missing.length > 1 ? 'them' : 'it'}.`;
+
+  if (!status.download_supported) {
+    downloadBtn.disabled = true;
+    downloadBtn.title = 'Auto-download is not available for your platform/architecture.';
+  }
+
+  statusEl.textContent = '';
+  overlay.classList.add('open');
+}
+
+function hideFfmpegModal() {
+  document.getElementById('ffmpegModalOverlay').classList.remove('open');
+}
+
+document.getElementById('ffmpegManualBtn').addEventListener('click', () => {
+  // The person will install ffmpeg/ffprobe themselves and restart the
+  // app; just close the dialog so they can keep looking at the page
+  // (rendering will still fail until they restart with ffmpeg on PATH).
+  hideFfmpegModal();
+});
+
+document.getElementById('ffmpegDownloadBtn').addEventListener('click', async () => {
+  const btn = document.getElementById('ffmpegDownloadBtn');
+  const manualBtn = document.getElementById('ffmpegManualBtn');
+  const statusEl = document.getElementById('ffmpegModalStatus');
+
+  btn.disabled = true;
+  manualBtn.disabled = true;
+  statusEl.textContent = 'Downloading ffmpeg and ffprobe... this may take a minute.';
+
+  try {
+    const resp = await fetch('/api/download-ffmpeg', { method: 'POST' });
+    if (!resp.ok) throw new Error(await resp.text());
+    statusEl.textContent = 'ffmpeg and ffprobe are ready.';
+    setTimeout(hideFfmpegModal, 800);
+  } catch (e) {
+    statusEl.textContent = 'Download failed: ' + e.message;
+    manualBtn.disabled = false;
+    btn.disabled = false;
+  }
+});
+
+checkFfmpegOnLoad();
+
 let dateYmd = null;
 let allCities = [];
 // Persists the set of selected cities across search re-renders, since
