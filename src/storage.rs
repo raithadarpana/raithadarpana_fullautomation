@@ -187,6 +187,19 @@ pub fn youtube_video_path(date_ymd: &str, english_city_name: &str, lang: Languag
     Ok(dir.join(format!("{}-{}-yt-{}.mp4", folder, date_ymd, lang_short(lang))))
 }
 
+/// Directory for the transient per-row screenshot frames used to build
+/// the animated (row-reveal) video for a city. Kept in its own `frames`
+/// subfolder, separate from the published cover images, since these are
+/// intermediate files the video is built from rather than a deliverable
+/// themselves.
+pub fn reveal_frames_dir(date_ymd: &str, english_city_name: &str, lang: Language, variant_tag: &str) -> Result<PathBuf> {
+    let dir = city_dir(date_ymd, english_city_name)?
+        .join("frames")
+        .join(format!("{}-{}", variant_tag, lang_short(lang)));
+    fs::create_dir_all(&dir)?;
+    Ok(dir)
+}
+
 /// Convenience: given a scraped (possibly non-English) city name, resolve
 /// the canonical English form via the dictionary before building paths.
 pub fn resolve_english_city_name(dict: &Dictionary, scraped_name: &str) -> String {

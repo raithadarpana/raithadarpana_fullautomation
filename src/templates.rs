@@ -78,6 +78,38 @@ fn ig_commodity_rows(city: &CityMarketData, dict: &Dictionary, lang: Language) -
     rows
 }
 
+/// Post-processes a rendered cover's HTML so only the header row plus the
+/// first `visible_rows` commodity rows are visible, leaving the rest of
+/// the page (background, header, footer, table position/size) untouched.
+///
+/// Used to capture one screenshot per "reveal step" for the animated
+/// video: `visibility:hidden` (rather than `display:none`) keeps the
+/// hidden rows occupying their layout space, so revealing a row never
+/// shifts the rows below it and the table doesn't jump around between
+/// frames.
+///
+/// The table markup wraps the header `<tr>` in its own `<thead>` and the
+/// commodity rows in a separate `<tbody>` (see `instagram_html`/
+/// `youtube_html`) -- `:nth-child` counts a row's position among its
+/// *own* parent's children, not across the whole table, so the header
+/// and body rows are numbered independently starting at 1 each. The
+/// selector below only ever targets `tbody` rows, so the header is
+/// always left alone.
+pub fn with_rows_revealed(html: &str, visible_rows: usize) -> String {
+    let hide_from = visible_rows + 1; // tbody rows are 1-indexed on their own
+    let style = format!("<style>table tbody tr:nth-child(n+{hide_from}){{visibility:hidden;}}</style></head>");
+    match html.find("</head>") {
+        Some(idx) => {
+            let mut out = String::with_capacity(html.len() + style.len());
+            out.push_str(&html[..idx]);
+            out.push_str(&style);
+            out.push_str(&html[idx + "</head>".len()..]);
+            out
+        }
+        None => html.to_string(),
+    }
+}
+
 /// `Language::as_str` returns full words ("kannada"/"english") for CLI
 /// parsing; the HTML `lang` attribute wants short codes instead.
 fn html_lang_code(lang: Language) -> &'static str {
@@ -282,6 +314,7 @@ td{{
     border:1px solid #ddd;
     text-align:center;
     font-size:18px;
+    font-weight: bold;
 }}
 
 tbody tr:nth-child(even){{
@@ -512,6 +545,7 @@ td{{
     border:1px solid #ddd;
     text-align:center;
     font-size:12px;
+    font-weight: bold;
 }}
 
 tbody tr:nth-child(even){{

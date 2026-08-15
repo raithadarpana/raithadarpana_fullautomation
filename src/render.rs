@@ -102,6 +102,20 @@ pub async fn render_report_images(
     on_progress("Launching renderer...");
     let launch_options = LaunchOptions::default_builder()
         .window_size(Some((INSTAGRAM_WIDTH.max(YOUTUBE_WIDTH), INSTAGRAM_HEIGHT.max(YOUTUBE_HEIGHT))))
+        // headless_chrome defaults `idle_browser_timeout` to 30 seconds:
+        // if the CDP websocket doesn't see *any* message for that long,
+        // the transport's read loop times out and tears the connection
+        // down (see rust-headless-chrome's Transport::new /
+        // ConnectionClosed). Between cities we don't touch the tab at
+        // all while generating the voiceover (network TTS call) and
+        // encoding the video (ffmpeg) -- both of which routinely take
+        // well over 30 seconds -- so by the time the second city's
+        // `navigate_to` runs, Chrome has already dropped the socket.
+        // That's the exact "Unable to make method calls because
+        // underlying connection is closed" error from the screenshot.
+        // A generous timeout (this run's browser is only ever used for
+        // rendering, never left idle by a human) avoids it entirely.
+        .idle_browser_timeout(std::time::Duration::from_secs(6 * 60 * 60))
         .build()
         .unwrap();
     let browser = Browser::new(launch_options)?;
@@ -111,10 +125,10 @@ pub async fn render_report_images(
     // it (closing a tab in headless Chrome can itself hang until
     // timeout, see rust-headless-chrome#434). Left-open tabs piled up
     // across cities and, after enough of them, the underlying Chrome
-    // connection would drop entirely -- surfacing as "Unable to make
-    // method calls because underlying connection is closed" partway
-    // through the second (or later) city. Navigating a single long-lived
-    // tab to each new HTML file avoids the tab buildup altogether.
+    // connection would drop entirely. Navigating a single long-lived
+    // tab to each new HTML file avoids the tab buildup altogether. (This
+    // alone wasn't sufficient -- see the idle_browser_timeout note
+    // above for the actual cause of the second-city failure.)
     let tab = browser.new_tab()?;
     let mut outcome = RenderOutcome::default();
 
@@ -219,11 +233,14 @@ pub async fn render_report_images(
 
         if create_video {
             match generate_city_video_assets(
+                &tab,
                 city,
                 &report.report_date,
                 date_ymd,
                 &english_name,
+                dict,
                 lang,
+                &branding,
                 variants,
                 force,
                 ig_path_opt.as_deref(),
@@ -253,11 +270,14 @@ pub async fn render_report_images(
 /// rendered above, or from a prior run).
 #[allow(clippy::too_many_arguments)]
 async fn generate_city_video_assets(
+    tab: &Arc<Tab>,
     city: &CityMarketData,
     report_date: &str,
     date_ymd: &str,
     english_city_name: &str,
+    dict: &Dictionary,
     lang: Language,
+    branding: &BrandingAssets,
     variants: VariantSelection,
     force: ForceFlags,
     ig_image_path: Option<&std::path::Path>,
@@ -314,11 +334,16 @@ async fn generate_city_video_assets(
     let voice_path = storage::voice_audio_path(date_ymd, english_city_name, lang)?;
     let mixed_path = storage::mixed_audio_path(date_ymd, english_city_name, lang)?;
 
+    let top_items: Vec<crate::data::CommodityEntry> =
+        templates::top_commodities(city).into_iter().cloned().collect();
+    // Segments (rather than the flat joined script) so the row-reveal
+    // animation below can line up each table row with the sentence that
+    // narrates it -- see `voiceover::row_reveal_offsets`.
+    let script_segments = voiceover::generate_script_segments(lang, english_city_name, report_date, &top_items);
+
     let audio_path = if force.force_video || (!voice_path.exists() && !mixed_path.exists()) {
         on_progress(&format!("Generating voiceover for {}...", english_city_name));
-        let top_items: Vec<crate::data::CommodityEntry> =
-            templates::top_commodities(city).into_iter().cloned().collect();
-        let script = voiceover::generate_script(lang, english_city_name, report_date, &top_items);
+        let script = script_segments.joined();
         let assets_dir = assets::assets_dir();
         let path = voiceover::generate_audio_file(&script, lang, &voice_path, &mixed_path, &assets_dir, voice_settings)
             .await
@@ -344,11 +369,40 @@ async fn generate_city_video_assets(
         voice_path.clone()
     };
 
+    // Row-reveal timings, shared by both variants: when (in seconds,
+    // against the un-sped-up audio) each row should appear on screen.
+    let audio_duration = voiceover::audio_duration_secs(&audio_path)
+        .map_err(|e| anyhow::anyhow!("Failed to read voiceover duration for {}: {}", english_city_name, e))?;
+    let reveal_offsets = voiceover::row_reveal_offsets(&script_segments, audio_duration);
+
     if need_ig_video {
         if let Some(image_path) = ig_image_path {
             on_progress(&format!("Generating Instagram video for {}...", english_city_name));
-            video::generate_video(image_path, &audio_path, &ig_video_path, true)
-                .map_err(|e| anyhow::anyhow!("Instagram video generation failed: {}", e))?;
+            let animated = render_reveal_frames(
+                tab,
+                city,
+                report_date,
+                date_ymd,
+                english_city_name,
+                dict,
+                lang,
+                branding,
+                Variant::Instagram,
+                &reveal_offsets,
+            )
+            .and_then(|frames| {
+                video::generate_animated_video(&frames, &audio_path, &ig_video_path, true)
+                    .map_err(|e| anyhow::anyhow!("{}", e))
+            });
+            if let Err(e) = animated {
+                log::warn!(
+                    "Animated Instagram video failed for '{}', falling back to a static-image video: {}",
+                    english_city_name,
+                    e
+                );
+                video::generate_video(image_path, &audio_path, &ig_video_path, true)
+                    .map_err(|e| anyhow::anyhow!("Instagram video generation failed: {}", e))?;
+            }
             on_media(MediaEvent {
                 city: english_city_name.to_string(),
                 kind: MediaKind::InstagramVideo,
@@ -366,8 +420,31 @@ async fn generate_city_video_assets(
     if need_yt_video {
         if let Some(image_path) = yt_image_path {
             on_progress(&format!("Generating YouTube video for {}...", english_city_name));
-            video::generate_video(image_path, &audio_path, &yt_video_path, false)
-                .map_err(|e| anyhow::anyhow!("YouTube video generation failed: {}", e))?;
+            let animated = render_reveal_frames(
+                tab,
+                city,
+                report_date,
+                date_ymd,
+                english_city_name,
+                dict,
+                lang,
+                branding,
+                Variant::YouTube,
+                &reveal_offsets,
+            )
+            .and_then(|frames| {
+                video::generate_animated_video(&frames, &audio_path, &yt_video_path, false)
+                    .map_err(|e| anyhow::anyhow!("{}", e))
+            });
+            if let Err(e) = animated {
+                log::warn!(
+                    "Animated YouTube video failed for '{}', falling back to a static-image video: {}",
+                    english_city_name,
+                    e
+                );
+                video::generate_video(image_path, &audio_path, &yt_video_path, false)
+                    .map_err(|e| anyhow::anyhow!("YouTube video generation failed: {}", e))?;
+            }
             on_media(MediaEvent {
                 city: english_city_name.to_string(),
                 kind: MediaKind::YoutubeVideo,
@@ -442,6 +519,103 @@ fn percent_encode_segment(segment: &str) -> String {
         }
     }
     out
+}
+
+/// Renders one screenshot per row-reveal step (0 rows shown, 1 row,
+/// 2 rows, ... all rows) for a single variant, reusing the same
+/// long-lived `tab` as the static covers. Returns a `RevealFrame` per
+/// step, timed against `reveal_offsets` (see
+/// `voiceover::row_reveal_offsets`) so the caller can hand them straight
+/// to `video::generate_animated_video`.
+#[allow(clippy::too_many_arguments)]
+fn render_reveal_frames(
+    tab: &Arc<Tab>,
+    city: &CityMarketData,
+    report_date: &str,
+    date_ymd: &str,
+    english_city_name: &str,
+    dict: &Dictionary,
+    lang: Language,
+    branding: &BrandingAssets,
+    variant: Variant,
+    reveal_offsets: &[f64],
+) -> Result<Vec<video::RevealFrame>> {
+    let (html, width, height, variant_tag) = match variant {
+        Variant::Instagram => (
+            templates::instagram_html(city, report_date, dict, lang, branding),
+            INSTAGRAM_WIDTH,
+            INSTAGRAM_HEIGHT,
+            "ig",
+        ),
+        Variant::YouTube => (
+            templates::youtube_html(city, report_date, dict, lang, branding),
+            YOUTUBE_WIDTH,
+            YOUTUBE_HEIGHT,
+            "yt",
+        ),
+    };
+
+    let num_rows = templates::top_commodities(city).len();
+    // One frame per reveal step (0..=num_rows); `reveal_offsets` has
+    // num_rows+2 entries (0.0, one per row, then the total duration), so
+    // there's exactly one interval per frame.
+    if reveal_offsets.len() != num_rows + 2 {
+        return Err(anyhow::anyhow!(
+            "reveal offsets ({}) don't match row count ({}) for '{}'",
+            reveal_offsets.len(),
+            num_rows,
+            english_city_name
+        ));
+    }
+
+    let frames_dir = storage::reveal_frames_dir(date_ymd, english_city_name, lang, variant_tag)?;
+    // Built fresh per-iteration below (rather than once and cloned) since
+    // the generated CDP `Viewport` type isn't guaranteed to derive
+    // `Clone` -- it's cheap enough that it doesn't matter.
+    let make_clip = |w: u32, h: u32| Page::Viewport {
+        x: 0.0,
+        y: 0.0,
+        width: w as f64,
+        height: h as f64,
+        scale: 1.0,
+    };
+
+    let mut frames = Vec::with_capacity(num_rows + 1);
+    for step in 0..=num_rows {
+        let step_html = templates::with_rows_revealed(&html, step);
+        let html_path = frames_dir.join(format!("frame_{:02}.html", step));
+        fs::write(&html_path, &step_html)
+            .map_err(|e| anyhow::anyhow!("Failed to write frame HTML to {}: {}", html_path.display(), e))?;
+        let canonical_html_path = html_path
+            .canonicalize()
+            .map_err(|e| anyhow::anyhow!("Failed to resolve path {}: {}", html_path.display(), e))?;
+        let url = path_to_file_url(&canonical_html_path)?;
+        tab.navigate_to(&url)
+            .map_err(|e| anyhow::anyhow!("Navigate failed for frame {} ('{}'): {}", step, url, e))?;
+        tab.wait_for_element("table")
+            .map_err(|e| anyhow::anyhow!("Failed waiting for table element in frame {} ({}): {}", step, url, e))?;
+
+        let screenshot = tab.call_method(Page::CaptureScreenshot {
+            format: Some(CaptureScreenshotFormatOption::Png),
+            quality: None,
+            clip: Some(make_clip(width, height)),
+            from_surface: Some(true),
+            capture_beyond_viewport: Some(true),
+            optimize_for_speed: None,
+        })?;
+        let png_data = base64::engine::general_purpose::STANDARD.decode(screenshot.data)?;
+        let frame_path = frames_dir.join(format!("frame_{:02}.png", step));
+        fs::write(&frame_path, png_data)
+            .map_err(|e| anyhow::anyhow!("Failed to write frame image to {}: {}", frame_path.display(), e))?;
+
+        frames.push(video::RevealFrame {
+            path: frame_path,
+            start_secs: reveal_offsets[step],
+            end_secs: reveal_offsets[step + 1],
+        });
+    }
+
+    Ok(frames)
 }
 
 fn render_city_variant(

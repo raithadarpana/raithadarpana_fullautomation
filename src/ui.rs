@@ -56,6 +56,14 @@ struct Job {
     /// Media items in the order they became available, for streaming.
     media: Vec<MediaItem>,
     error: Option<String>,
+    /// Per-city failures (voiceover/video generation, etc.) that the
+    /// pipeline recovers from and keeps going after -- these used to
+    /// only ever appear in `current_message` for a moment before being
+    /// overwritten by the next progress update (typically the final
+    /// "Pipeline complete."), so a failed video looked identical to a
+    /// successful image-only run. Kept for the life of the job so the
+    /// UI can show them even after the run finishes.
+    warnings: Vec<String>,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize)]
@@ -438,7 +446,18 @@ async fn push_message(state: &Arc<AppState>, job_id: &str, msg: String) {
     log::info!("[job {}] {}", job_id, msg);
     let mut jobs = state.jobs.lock().await;
     if let Some(job) = jobs.get_mut(job_id) {
-        job.current_message = msg;
+        job.current_message = msg.clone();
+        // Recoverable per-city failures (voiceover/video generation)
+        // are reported through this same progress channel as plain
+        // messages -- e.g. "Video generation failed for X: ...". Those
+        // used to vanish the moment the next progress message (often
+        // just "Render complete.") overwrote `current_message`. Keep a
+        // standing copy so the UI can still show them once the run
+        // finishes, instead of a failed video looking identical to a
+        // successful images-only run.
+        if msg.to_lowercase().contains("failed") {
+            job.warnings.push(msg);
+        }
     }
 }
 
@@ -1093,6 +1112,10 @@ function pollJob(jobId) {
     if (!resp.ok) { clearInterval(interval); return; }
     const job = await resp.json();
     statusEl.textContent = job.current_message || '...';
+    if (job.warnings && job.warnings.length) {
+      statusEl.textContent += ' \u26A0\uFE0F ' + job.warnings.length + ' warning(s) -- see below.';
+    }
+    renderWarnings(job.warnings || []);
 
     job.media.forEach(appendMediaItem);
 
@@ -1104,9 +1127,26 @@ function pollJob(jobId) {
 
       if (job.status === 'failed') {
         alert('Pipeline failed: ' + (job.error || 'unknown error'));
+      } else if (job.warnings && job.warnings.length) {
+        alert('Pipeline finished, but ' + job.warnings.length + ' item(s) failed:\n\n' + job.warnings.join('\n'));
       }
     }
   }, 600);
+}
+
+function renderWarnings(warnings) {
+  let box = document.getElementById('warningsBox');
+  if (!warnings.length) {
+    if (box) box.remove();
+    return;
+  }
+  if (!box) {
+    box = document.createElement('div');
+    box.id = 'warningsBox';
+    box.style.cssText = 'margin-top:0.75rem;padding:0.75rem;border:1px solid #c0392b;background:#fdecea;color:#7a1f14;border-radius:6px;font-size:0.85rem;white-space:pre-wrap;';
+    document.getElementById('status').insertAdjacentElement('afterend', box);
+  }
+  box.textContent = '\u26A0\uFE0F ' + warnings.length + ' item(s) failed during this run:\n' + warnings.join('\n');
 }
 </script>
 </body>

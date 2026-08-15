@@ -15,14 +15,14 @@ const DEFAULT_BG_MUSIC_BUFFER_SECS: f64 = 3.0;
 /// Default background music volume (as a fraction, e.g. 0.08 = 8%) used
 /// when mixing with the voiceover. Overridable via
 /// `VoiceSettings.bg_music_volume`.
-const DEFAULT_BG_MUSIC_VOLUME: f64 = 0.08;
+const DEFAULT_BG_MUSIC_VOLUME: f64 = 0.06;
 
 /// User-configurable overrides for Edge TTS voice generation, mirroring
 /// `edge_tts_rust::SpeakOptions` fields that are safe to expose to the
 /// web UI. `voice` is a speaker identity (e.g. "kn-IN-GaganNeural");
 /// `rate`/`volume` are signed percentages ("+10%", "-5%"); `pitch` is a
 /// signed Hz value ("+0Hz"). `bg_music_volume` is a fraction (0.0-1.0,
-/// default 0.08 = 8%) applied to the background music track when mixed
+/// default 0.06 = 6%) applied to the background music track when mixed
 /// with the voiceover; `padding_secs` is the silence padding (seconds,
 /// default 3.0) added before and after the voiceover in the mixed track.
 #[derive(Debug, Clone, PartialEq)]
@@ -120,11 +120,22 @@ fn convert_integer_to_kannada(mut num: i64) -> String {
     let units = ["", "ಒಂದು", "ಎರಡು", "ಮೂರು", "ನಾಲ್ಕು",
                  "ಐದು", "ಆರು", "ಏಳು", "ಎಂಟು", "ಒಂಬತ್ತು"];
     
-    let tens = ["", "ಹತ್ತು", "ಇಪ್ಪತ್ತು", "ಮಪ್ಪತ್ತು", "ನಲವತ್ತು",
+    let tens = ["", "ಹತ್ತು", "ಇಪ್ಪತ್ತು", "ಮೂವತ್ತು", "ನಲವತ್ತು",
                 "ಐವತ್ತು", "ಅರವತ್ತು", "ಎಪ್ಪತ್ತು", "ಎಂಭತ್ತು", "ತೊಂಬತ್ತು"];
     
     let teens = ["ಹತ್ತು", "ಹನ್ನೊಂದು", "ಹನ್ನೆರಡು", "ಹದಿಮೂರು", "ಹದಿನಾಲ್ಕು",
                  "ಹದಿನೈದು", "ಹದಿನಾರು", "ಹದಿನೇಳು", "ಹದಿನೆಂಟು", "ಹತ್ತೊಂಬತ್ತು"];
+    let hundreds = ["",
+    "ನೂರು",
+    "ಇನ್ನೂರು",
+    "ಮುನ್ನೂರು",
+    "ನಾನೂರು",
+    "ಐನೂರು",
+    "ಆರುನೂರು",
+    "ಏಳುನೂರು",
+    "ಎಂಟುನೂರು",
+    "ಒಂಬೈನೂರು",
+];
     
     let scales = ["", "ಸಾವಿರ", "ಲಕ್ಷ", "ಕೋಟಿ", "ಅರ್ಬುದ"];
 
@@ -243,43 +254,147 @@ fn number_to_kannada(value: f64) -> String {
 }
 
 
-pub fn generate_kannada_script(market: &str, date: &str, items: &[CommodityEntry]) -> String {
-    let mut script = format!(
+/// A narration script split into its three parts: the fixed intro (read
+/// while no commodity rows are shown yet), one sentence per commodity
+/// (in the same order as the table rows, so `items[i]` narrates the same
+/// row that `templates::top_commodities` puts at position `i`), and the
+/// fixed outro (read once every row is visible).
+///
+/// This is what lets the video pipeline estimate, per row, roughly when
+/// during the audio that row's sentence is spoken -- see
+/// `render::generate_city_video_assets` / `row_reveal_timings`. There's
+/// no per-word timestamp from the TTS engine here, so timing is
+/// approximated by each part's share of total word count; that's close
+/// enough to look "animated in sync" without needing exact timestamps.
+pub struct ScriptSegments {
+    pub intro: String,
+    pub items: Vec<String>,
+    pub outro: String,
+}
+
+impl ScriptSegments {
+    /// Concatenates the parts back into the single narration string that
+    /// gets sent to the TTS engine (identical to the old `generate_script`
+    /// output).
+    pub fn joined(&self) -> String {
+        let mut script = self.intro.clone();
+        for item in &self.items {
+            script.push_str(item);
+        }
+        script.push_str(&self.outro);
+        script
+    }
+}
+
+fn word_count(s: &str) -> usize {
+    s.split_whitespace().count().max(1)
+}
+
+pub fn generate_script_segments(
+    lang: Language,
+    market: &str,
+    date: &str,
+    items: &[CommodityEntry],
+) -> ScriptSegments {
+    match lang {
+        Language::Kannada => kannada_script_segments(market, date, items),
+        Language::English => english_script_segments(market, date, items),
+    }
+}
+
+pub fn kannada_script_segments(market: &str, date: &str, items: &[CommodityEntry]) -> ScriptSegments {
+    let intro = format!(
         "ನಮಸ್ಕಾರ ವೀಕ್ಷಕರೇ, ರೈತ ದರ್ಪಣ ಮಾರುಕಟ್ಟೆ ಬೆಲೆಗಳ ಮಾಹಿತಿ ಚಾನೆಲ್‌ಗೆ ಸುಸ್ವಾಗತ. ಇಂದಿನ {} ಮಾರುಕಟ್ಟೆಯ ತರಕಾರಿ ಬೆಲೆಗಳ ಮಾಹಿತಿ ಇಲ್ಲಿದೆ. ವರದಿ ದಿನಾಂಕ: {}. ",
         market, date
     );
 
-    for item in items {
-        script.push_str(&format!(
+  let item_sentences: Vec<String> = items
+    .iter()
+    .map(|item| {
+        let commodity_variety = if item.commodity.trim().eq_ignore_ascii_case(item.variety.trim()) {
+            format!("{}", item.commodity)
+        } else {
+            format!("{}, ತಳಿ {}", item.commodity, item.variety)
+        };
+
+        format!(
             "{}: ಕನಿಷ್ಠ ಬೆಲೆ {} ರೂಪಾಯಿ, ಗರಿಷ್ಠ ಬೆಲೆ {} ರೂಪಾಯಿ. ",
-            item.commodity,
+            commodity_variety,
             number_to_kannada(item.min_rs),
             number_to_kannada(item.max_rs)
-        ));
-    }
+        )
+    })
+    .collect();
 
-    script.push_str("ದಿನನಿತ್ಯದ ನಿಖರ ಮಾಹಿತಿಗಾಗಿ ನಮ್ಮ ಇನ್ಸ್ಟಾಗ್ರಾಮ್ ಮತ್ತು ಯೂಟ್ಯೂಬ್ ಚಾನೆಲ್‌ಗೆ ಸಬ್‌ಸ್ಕ್ರೈಬ್ ಆಗಿ. ಧನ್ಯವಾದಗಳು!");
-    log::info!("{}",script);
-    script
+    let outro = "ದಿನನಿತ್ಯದ ನಿಖರ ಮಾಹಿತಿಗಾಗಿ ನಮ್ಮ ಇನ್ಸ್ಟಾಗ್ರಾಮ್ ಮತ್ತು ಯೂಟ್ಯೂಬ್ ಚಾನೆಲ್‌ಗೆ ಸಬ್‌ಸ್ಕ್ರೈಬ್ ಆಗಿ. ಧನ್ಯವಾದಗಳು!".to_string();
+
+    let segments = ScriptSegments {
+        intro,
+        items: item_sentences,
+        outro,
+    };
+    log::info!("{}", segments.joined());
+    segments
 }
 
-pub fn generate_english_script(market: &str, date: &str, items: &[CommodityEntry]) -> String {
-    let mut script = format!(
+pub fn english_script_segments(market: &str, date: &str, items: &[CommodityEntry]) -> ScriptSegments {
+    let intro = format!(
         "Hello viewers, welcome to Raitha Darpana market price update. Here is today's {} market commodity price report. Report date: {}. ",
         market, date
     );
 
-    for item in items {
-        script.push_str(&format!(
-            "{}: minimum price {} rupees, maximum price {} rupees. ",
-            item.commodity,
-            format_price_indian(item.min_rs),
-            format_price_indian(item.max_rs)
-        ));
-    }
+    let item_sentences: Vec<String> = items
+        .iter()
+        .map(|item| {
+            format!(
+                "{}: minimum price {} rupees, maximum price {} rupees. ",
+                item.commodity,
+                format_price_indian(item.min_rs),
+                format_price_indian(item.max_rs)
+            )
+        })
+        .collect();
 
-    script.push_str("Subscribe to our Instagram and YouTube channels for daily accurate updates. Thank you!");
-    script
+    let outro = "Subscribe to our Instagram and YouTube channels for daily accurate updates. Thank you!".to_string();
+
+    ScriptSegments {
+        intro,
+        items: item_sentences,
+        outro,
+    }
+}
+
+/// Cumulative time offsets (seconds, from the start of `audio_path`) at
+/// which each additional row should become visible, followed by the
+/// total audio duration. `offsets[0]` is always `0.0` (no rows visible
+/// yet, intro playing); `offsets[i]` (for `1..=items.len()`) is when row
+/// `i` should appear; the final element is the full audio length (used
+/// as the end time for the "all rows visible" frame). Length is always
+/// `items.len() + 2`.
+pub fn row_reveal_offsets(segments: &ScriptSegments, total_audio_secs: f64) -> Vec<f64> {
+    let intro_w = word_count(&segments.intro);
+    let item_w: Vec<usize> = segments.items.iter().map(|s| word_count(s)).collect();
+    let outro_w = word_count(&segments.outro);
+    let total_w: usize = intro_w + item_w.iter().sum::<usize>() + outro_w;
+    let total_w = total_w.max(1) as f64;
+
+    let mut offsets = Vec::with_capacity(segments.items.len() + 2);
+    let mut cumulative_w = intro_w as f64;
+    offsets.push(0.0);
+    for w in &item_w {
+        offsets.push((cumulative_w / total_w) * total_audio_secs);
+        cumulative_w += *w as f64;
+    }
+    offsets.push(total_audio_secs);
+    offsets
+}
+
+pub fn generate_kannada_script(market: &str, date: &str, items: &[CommodityEntry]) -> String {
+    kannada_script_segments(market, date, items).joined()
+}
+
+pub fn generate_english_script(market: &str, date: &str, items: &[CommodityEntry]) -> String {
+    english_script_segments(market, date, items).joined()
 }
 
 /// Generates the narration script for a city's commodities in the given
@@ -339,7 +454,7 @@ async fn generate_edge_tts(
         .or_else(|| std::env::var("VOICE_ID").ok())
         .unwrap_or_else(|| default_voice_id(lang).to_string());
 
-    let rate = voice_settings.rate.clone().unwrap_or_else(|| "+20%".to_string());
+    let rate = voice_settings.rate.clone().unwrap_or_else(|| "+10%".to_string());
     let volume = voice_settings.volume.clone().unwrap_or_else(|| "+0%".to_string());
     let pitch = voice_settings.pitch.clone().unwrap_or_else(|| "+0Hz".to_string());
 
@@ -360,6 +475,13 @@ async fn generate_edge_tts(
         .await?;
 
     Ok(())
+}
+
+/// Public wrapper around `probe_duration_secs`, for callers (the video
+/// pipeline) that need to know an already-generated audio file's length
+/// -- e.g. to time the row-reveal animation against it.
+pub fn audio_duration_secs(path: &Path) -> Result<f64, Box<dyn std::error::Error>> {
+    probe_duration_secs(path)
 }
 
 /// Returns the duration of a media file in seconds, via `ffprobe`.

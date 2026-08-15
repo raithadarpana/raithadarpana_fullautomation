@@ -1,0 +1,908 @@
+diff --git a/src/render.rs b/src/render.rs
+index 6e82de6..4376b5e 100755
+--- a/src/render.rs
++++ b/src/render.rs
+@@ -102,6 +102,20 @@ pub async fn render_report_images(
+     on_progress("Launching renderer...");
+     let launch_options = LaunchOptions::default_builder()
+         .window_size(Some((INSTAGRAM_WIDTH.max(YOUTUBE_WIDTH), INSTAGRAM_HEIGHT.max(YOUTUBE_HEIGHT))))
++        // headless_chrome defaults `idle_browser_timeout` to 30 seconds:
++        // if the CDP websocket doesn't see *any* message for that long,
++        // the transport's read loop times out and tears the connection
++        // down (see rust-headless-chrome's Transport::new /
++        // ConnectionClosed). Between cities we don't touch the tab at
++        // all while generating the voiceover (network TTS call) and
++        // encoding the video (ffmpeg) -- both of which routinely take
++        // well over 30 seconds -- so by the time the second city's
++        // `navigate_to` runs, Chrome has already dropped the socket.
++        // That's the exact "Unable to make method calls because
++        // underlying connection is closed" error from the screenshot.
++        // A generous timeout (this run's browser is only ever used for
++        // rendering, never left idle by a human) avoids it entirely.
++        .idle_browser_timeout(std::time::Duration::from_secs(6 * 60 * 60))
+         .build()
+         .unwrap();
+     let browser = Browser::new(launch_options)?;
+@@ -111,10 +125,10 @@ pub async fn render_report_images(
+     // it (closing a tab in headless Chrome can itself hang until
+     // timeout, see rust-headless-chrome#434). Left-open tabs piled up
+     // across cities and, after enough of them, the underlying Chrome
+-    // connection would drop entirely -- surfacing as "Unable to make
+-    // method calls because underlying connection is closed" partway
+-    // through the second (or later) city. Navigating a single long-lived
+-    // tab to each new HTML file avoids the tab buildup altogether.
++    // connection would drop entirely. Navigating a single long-lived
++    // tab to each new HTML file avoids the tab buildup altogether. (This
++    // alone wasn't sufficient -- see the idle_browser_timeout note
++    // above for the actual cause of the second-city failure.)
+     let tab = browser.new_tab()?;
+     let mut outcome = RenderOutcome::default();
+ 
+@@ -219,11 +233,14 @@ pub async fn render_report_images(
+ 
+         if create_video {
+             match generate_city_video_assets(
++                &tab,
+                 city,
+                 &report.report_date,
+                 date_ymd,
+                 &english_name,
++                dict,
+                 lang,
++                &branding,
+                 variants,
+                 force,
+                 ig_path_opt.as_deref(),
+@@ -253,11 +270,14 @@ pub async fn render_report_images(
+ /// rendered above, or from a prior run).
+ #[allow(clippy::too_many_arguments)]
+ async fn generate_city_video_assets(
++    tab: &Arc<Tab>,
+     city: &CityMarketData,
+     report_date: &str,
+     date_ymd: &str,
+     english_city_name: &str,
++    dict: &Dictionary,
+     lang: Language,
++    branding: &BrandingAssets,
+     variants: VariantSelection,
+     force: ForceFlags,
+     ig_image_path: Option<&std::path::Path>,
+@@ -314,11 +334,16 @@ async fn generate_city_video_assets(
+     let voice_path = storage::voice_audio_path(date_ymd, english_city_name, lang)?;
+     let mixed_path = storage::mixed_audio_path(date_ymd, english_city_name, lang)?;
+ 
++    let top_items: Vec<crate::data::CommodityEntry> =
++        templates::top_commodities(city).into_iter().cloned().collect();
++    // Segments (rather than the flat joined script) so the row-reveal
++    // animation below can line up each table row with the sentence that
++    // narrates it -- see `voiceover::row_reveal_offsets`.
++    let script_segments = voiceover::generate_script_segments(lang, english_city_name, report_date, &top_items);
++
+     let audio_path = if force.force_video || (!voice_path.exists() && !mixed_path.exists()) {
+         on_progress(&format!("Generating voiceover for {}...", english_city_name));
+-        let top_items: Vec<crate::data::CommodityEntry> =
+-            templates::top_commodities(city).into_iter().cloned().collect();
+-        let script = voiceover::generate_script(lang, english_city_name, report_date, &top_items);
++        let script = script_segments.joined();
+         let assets_dir = assets::assets_dir();
+         let path = voiceover::generate_audio_file(&script, lang, &voice_path, &mixed_path, &assets_dir, voice_settings)
+             .await
+@@ -344,11 +369,40 @@ async fn generate_city_video_assets(
+         voice_path.clone()
+     };
+ 
++    // Row-reveal timings, shared by both variants: when (in seconds,
++    // against the un-sped-up audio) each row should appear on screen.
++    let audio_duration = voiceover::audio_duration_secs(&audio_path)
++        .map_err(|e| anyhow::anyhow!("Failed to read voiceover duration for {}: {}", english_city_name, e))?;
++    let reveal_offsets = voiceover::row_reveal_offsets(&script_segments, audio_duration);
++
+     if need_ig_video {
+         if let Some(image_path) = ig_image_path {
+             on_progress(&format!("Generating Instagram video for {}...", english_city_name));
+-            video::generate_video(image_path, &audio_path, &ig_video_path, true)
+-                .map_err(|e| anyhow::anyhow!("Instagram video generation failed: {}", e))?;
++            let animated = render_reveal_frames(
++                tab,
++                city,
++                report_date,
++                date_ymd,
++                english_city_name,
++                dict,
++                lang,
++                branding,
++                Variant::Instagram,
++                &reveal_offsets,
++            )
++            .and_then(|frames| {
++                video::generate_animated_video(&frames, &audio_path, &ig_video_path, true)
++                    .map_err(|e| anyhow::anyhow!("{}", e))
++            });
++            if let Err(e) = animated {
++                log::warn!(
++                    "Animated Instagram video failed for '{}', falling back to a static-image video: {}",
++                    english_city_name,
++                    e
++                );
++                video::generate_video(image_path, &audio_path, &ig_video_path, true)
++                    .map_err(|e| anyhow::anyhow!("Instagram video generation failed: {}", e))?;
++            }
+             on_media(MediaEvent {
+                 city: english_city_name.to_string(),
+                 kind: MediaKind::InstagramVideo,
+@@ -366,8 +420,31 @@ async fn generate_city_video_assets(
+     if need_yt_video {
+         if let Some(image_path) = yt_image_path {
+             on_progress(&format!("Generating YouTube video for {}...", english_city_name));
+-            video::generate_video(image_path, &audio_path, &yt_video_path, false)
+-                .map_err(|e| anyhow::anyhow!("YouTube video generation failed: {}", e))?;
++            let animated = render_reveal_frames(
++                tab,
++                city,
++                report_date,
++                date_ymd,
++                english_city_name,
++                dict,
++                lang,
++                branding,
++                Variant::YouTube,
++                &reveal_offsets,
++            )
++            .and_then(|frames| {
++                video::generate_animated_video(&frames, &audio_path, &yt_video_path, false)
++                    .map_err(|e| anyhow::anyhow!("{}", e))
++            });
++            if let Err(e) = animated {
++                log::warn!(
++                    "Animated YouTube video failed for '{}', falling back to a static-image video: {}",
++                    english_city_name,
++                    e
++                );
++                video::generate_video(image_path, &audio_path, &yt_video_path, false)
++                    .map_err(|e| anyhow::anyhow!("YouTube video generation failed: {}", e))?;
++            }
+             on_media(MediaEvent {
+                 city: english_city_name.to_string(),
+                 kind: MediaKind::YoutubeVideo,
+@@ -444,6 +521,103 @@ fn percent_encode_segment(segment: &str) -> String {
+     out
+ }
+ 
++/// Renders one screenshot per row-reveal step (0 rows shown, 1 row,
++/// 2 rows, ... all rows) for a single variant, reusing the same
++/// long-lived `tab` as the static covers. Returns a `RevealFrame` per
++/// step, timed against `reveal_offsets` (see
++/// `voiceover::row_reveal_offsets`) so the caller can hand them straight
++/// to `video::generate_animated_video`.
++#[allow(clippy::too_many_arguments)]
++fn render_reveal_frames(
++    tab: &Arc<Tab>,
++    city: &CityMarketData,
++    report_date: &str,
++    date_ymd: &str,
++    english_city_name: &str,
++    dict: &Dictionary,
++    lang: Language,
++    branding: &BrandingAssets,
++    variant: Variant,
++    reveal_offsets: &[f64],
++) -> Result<Vec<video::RevealFrame>> {
++    let (html, width, height, variant_tag) = match variant {
++        Variant::Instagram => (
++            templates::instagram_html(city, report_date, dict, lang, branding),
++            INSTAGRAM_WIDTH,
++            INSTAGRAM_HEIGHT,
++            "ig",
++        ),
++        Variant::YouTube => (
++            templates::youtube_html(city, report_date, dict, lang, branding),
++            YOUTUBE_WIDTH,
++            YOUTUBE_HEIGHT,
++            "yt",
++        ),
++    };
++
++    let num_rows = templates::top_commodities(city).len();
++    // One frame per reveal step (0..=num_rows); `reveal_offsets` has
++    // num_rows+2 entries (0.0, one per row, then the total duration), so
++    // there's exactly one interval per frame.
++    if reveal_offsets.len() != num_rows + 2 {
++        return Err(anyhow::anyhow!(
++            "reveal offsets ({}) don't match row count ({}) for '{}'",
++            reveal_offsets.len(),
++            num_rows,
++            english_city_name
++        ));
++    }
++
++    let frames_dir = storage::reveal_frames_dir(date_ymd, english_city_name, lang, variant_tag)?;
++    // Built fresh per-iteration below (rather than once and cloned) since
++    // the generated CDP `Viewport` type isn't guaranteed to derive
++    // `Clone` -- it's cheap enough that it doesn't matter.
++    let make_clip = |w: u32, h: u32| Page::Viewport {
++        x: 0.0,
++        y: 0.0,
++        width: w as f64,
++        height: h as f64,
++        scale: 1.0,
++    };
++
++    let mut frames = Vec::with_capacity(num_rows + 1);
++    for step in 0..=num_rows {
++        let step_html = templates::with_rows_revealed(&html, step);
++        let html_path = frames_dir.join(format!("frame_{:02}.html", step));
++        fs::write(&html_path, &step_html)
++            .map_err(|e| anyhow::anyhow!("Failed to write frame HTML to {}: {}", html_path.display(), e))?;
++        let canonical_html_path = html_path
++            .canonicalize()
++            .map_err(|e| anyhow::anyhow!("Failed to resolve path {}: {}", html_path.display(), e))?;
++        let url = path_to_file_url(&canonical_html_path)?;
++        tab.navigate_to(&url)
++            .map_err(|e| anyhow::anyhow!("Navigate failed for frame {} ('{}'): {}", step, url, e))?;
++        tab.wait_for_element("table")
++            .map_err(|e| anyhow::anyhow!("Failed waiting for table element in frame {} ({}): {}", step, url, e))?;
++
++        let screenshot = tab.call_method(Page::CaptureScreenshot {
++            format: Some(CaptureScreenshotFormatOption::Png),
++            quality: None,
++            clip: Some(make_clip(width, height)),
++            from_surface: Some(true),
++            capture_beyond_viewport: Some(true),
++            optimize_for_speed: None,
++        })?;
++        let png_data = base64::engine::general_purpose::STANDARD.decode(screenshot.data)?;
++        let frame_path = frames_dir.join(format!("frame_{:02}.png", step));
++        fs::write(&frame_path, png_data)
++            .map_err(|e| anyhow::anyhow!("Failed to write frame image to {}: {}", frame_path.display(), e))?;
++
++        frames.push(video::RevealFrame {
++            path: frame_path,
++            start_secs: reveal_offsets[step],
++            end_secs: reveal_offsets[step + 1],
++        });
++    }
++
++    Ok(frames)
++}
++
+ fn render_city_variant(
+     tab: &Arc<Tab>,
+     city: &CityMarketData,
+diff --git a/src/scrape.rs b/src/scrape.rs
+index 4bd207a..8bf25ec 100755
+--- a/src/scrape.rs
++++ b/src/scrape.rs
+@@ -1,7 +1,9 @@
+ use crate::data::{parse_agricultural_report, AgriculturalReport};
+ use crate::dictionary::Language;
+ use anyhow::Result;
++use headless_chrome::protocol::cdp::types::Event;
+ use headless_chrome::{Browser, Tab};
++use std::sync::{Arc, Mutex};
+ 
+ /// Scrapes the agricultural market report for a given date (dd/mm/yyyy)
+ /// and language from the Karnataka government site.
+@@ -14,9 +16,37 @@ pub async fn scrape_agriculture_data(date_ddmmyyyy: &str, lang: Language) -> Res
+     let browser = Browser::default()?;
+     let tab = browser.new_tab()?;
+ 
++    // The site is an ASP.NET WebForms app that validates the submitted
++    // date with a plain JS `alert(...)` (e.g. "no data available",
++    // "invalid date", weekends/holidays) instead of showing inline
++    // errors. Headless Chrome has no UI to dismiss that alert, so the
++    // page just hangs forever waiting for it -- which surfaced as a
++    // generic "Timeout waiting for URL containing: MaraketsRep", with no
++    // hint that a dialog was actually the cause. This listener captures
++    // the dialog's message and auto-accepts it (as if a user clicked
++    // "OK"), so the page can proceed (or at least tell us why it didn't).
++    let dialog_message: Arc<Mutex<Option<String>>> = Arc::new(Mutex::new(None));
++    {
++        let tab_for_dialog = tab.clone();
++        let dialog_message = dialog_message.clone();
++        tab.add_event_listener(Arc::new(move |event: &Event| {
++            if let Event::PageJavascriptDialogOpening(ev) = event {
++                *dialog_message.lock().unwrap() = Some(ev.params.message.clone());
++                log::warn!("Site raised a JS dialog: {}", ev.params.message);
++                let dialog = tab_for_dialog.get_dialog();
++                let _ = dialog.accept(None);
++            }
++        }))?;
++    }
++
+     let navigate_url = format!("{}/Main_rep", base_url);
+     tab.navigate_to(&navigate_url)?;
+-    std::thread::sleep(std::time::Duration::from_secs(2));
++    // Confirm the form has actually loaded rather than guessing with a
++    // fixed sleep -- a slow response (or the site being down) used to
++    // silently proceed into the `evaluate` calls below with elements
++    // that don't exist yet.
++    tab.wait_for_element("#_ctl0_MainContent_TxtDate")
++        .map_err(|e| anyhow::anyhow!("Report form never loaded at {}: {}", navigate_url, e))?;
+ 
+     tab.evaluate(
+         &format!(
+@@ -36,7 +66,7 @@ pub async fn scrape_agriculture_data(date_ddmmyyyy: &str, lang: Language) -> Res
+         false,
+     )?;
+ 
+-    wait_for_url(&tab, "MaraketsRep")?;
++    wait_for_url(&tab, "MaraketsRep", &dialog_message, date_ddmmyyyy)?;
+ 
+     tab.evaluate(
+         r#"document.querySelector('[id^="_ctl0_MainContent_ChkAll"]').checked = true"#,
+@@ -48,7 +78,7 @@ pub async fn scrape_agriculture_data(date_ddmmyyyy: &str, lang: Language) -> Res
+         false,
+     )?;
+ 
+-    wait_for_url(&tab, "DailyMar")?;
++    wait_for_url(&tab, "DailyMar", &dialog_message, date_ddmmyyyy)?;
+     std::thread::sleep(std::time::Duration::from_secs(5));
+ 
+     let table_html = tab.evaluate(
+@@ -71,13 +101,30 @@ pub async fn scrape_agriculture_data(date_ddmmyyyy: &str, lang: Language) -> Res
+     Ok(report)
+ }
+ 
+-fn wait_for_url(tab: &Tab, target: &str) -> Result<()> {
++fn wait_for_url(tab: &Tab, target: &str, dialog_message: &Arc<Mutex<Option<String>>>, date_ddmmyyyy: &str) -> Result<()> {
+     for _ in 0..30 {
+         let url = tab.get_url();
+         if url.contains(target) {
+             return Ok(());
+         }
++        // Surface a site-raised dialog immediately rather than waiting
++        // out the full timeout first -- it's already been auto-accepted
++        // by the listener above, so waiting further would just time out
++        // on a page that's never going to navigate.
++        if let Some(msg) = dialog_message.lock().unwrap().clone() {
++            anyhow::bail!(
++                "Site rejected date {}: \"{}\" (a JS dialog fired instead of navigating to a page containing '{}'). This usually means no market report exists for that date (weekend/holiday) or the date format the site expects has changed.",
++                date_ddmmyyyy,
++                msg,
++                target
++            );
++        }
+         std::thread::sleep(std::time::Duration::from_millis(500));
+     }
+-    anyhow::bail!("Timeout waiting for URL containing: {}", target)
++    anyhow::bail!(
++        "Timeout waiting for URL containing: {} (date: {}, ended up at: {})",
++        target,
++        date_ddmmyyyy,
++        tab.get_url()
++    )
+ }
+diff --git a/src/storage.rs b/src/storage.rs
+index 9f04ba8..dab4a96 100755
+--- a/src/storage.rs
++++ b/src/storage.rs
+@@ -187,6 +187,19 @@ pub fn youtube_video_path(date_ymd: &str, english_city_name: &str, lang: Languag
+     Ok(dir.join(format!("{}-{}-yt-{}.mp4", folder, date_ymd, lang_short(lang))))
+ }
+ 
++/// Directory for the transient per-row screenshot frames used to build
++/// the animated (row-reveal) video for a city. Kept in its own `frames`
++/// subfolder, separate from the published cover images, since these are
++/// intermediate files the video is built from rather than a deliverable
++/// themselves.
++pub fn reveal_frames_dir(date_ymd: &str, english_city_name: &str, lang: Language, variant_tag: &str) -> Result<PathBuf> {
++    let dir = city_dir(date_ymd, english_city_name)?
++        .join("frames")
++        .join(format!("{}-{}", variant_tag, lang_short(lang)));
++    fs::create_dir_all(&dir)?;
++    Ok(dir)
++}
++
+ /// Convenience: given a scraped (possibly non-English) city name, resolve
+ /// the canonical English form via the dictionary before building paths.
+ pub fn resolve_english_city_name(dict: &Dictionary, scraped_name: &str) -> String {
+diff --git a/src/templates.rs b/src/templates.rs
+index 7250f7f..48dc0dd 100755
+--- a/src/templates.rs
++++ b/src/templates.rs
+@@ -78,6 +78,38 @@ fn ig_commodity_rows(city: &CityMarketData, dict: &Dictionary, lang: Language) -
+     rows
+ }
+ 
++/// Post-processes a rendered cover's HTML so only the header row plus the
++/// first `visible_rows` commodity rows are visible, leaving the rest of
++/// the page (background, header, footer, table position/size) untouched.
++///
++/// Used to capture one screenshot per "reveal step" for the animated
++/// video: `visibility:hidden` (rather than `display:none`) keeps the
++/// hidden rows occupying their layout space, so revealing a row never
++/// shifts the rows below it and the table doesn't jump around between
++/// frames.
++///
++/// The table markup wraps the header `<tr>` in its own `<thead>` and the
++/// commodity rows in a separate `<tbody>` (see `instagram_html`/
++/// `youtube_html`) -- `:nth-child` counts a row's position among its
++/// *own* parent's children, not across the whole table, so the header
++/// and body rows are numbered independently starting at 1 each. The
++/// selector below only ever targets `tbody` rows, so the header is
++/// always left alone.
++pub fn with_rows_revealed(html: &str, visible_rows: usize) -> String {
++    let hide_from = visible_rows + 1; // tbody rows are 1-indexed on their own
++    let style = format!("<style>table tbody tr:nth-child(n+{hide_from}){{visibility:hidden;}}</style></head>");
++    match html.find("</head>") {
++        Some(idx) => {
++            let mut out = String::with_capacity(html.len() + style.len());
++            out.push_str(&html[..idx]);
++            out.push_str(&style);
++            out.push_str(&html[idx + "</head>".len()..]);
++            out
++        }
++        None => html.to_string(),
++    }
++}
++
+ /// `Language::as_str` returns full words ("kannada"/"english") for CLI
+ /// parsing; the HTML `lang` attribute wants short codes instead.
+ fn html_lang_code(lang: Language) -> &'static str {
+diff --git a/src/ui.rs b/src/ui.rs
+index dda4262..4823a92 100755
+--- a/src/ui.rs
++++ b/src/ui.rs
+@@ -56,6 +56,14 @@ struct Job {
+     /// Media items in the order they became available, for streaming.
+     media: Vec<MediaItem>,
+     error: Option<String>,
++    /// Per-city failures (voiceover/video generation, etc.) that the
++    /// pipeline recovers from and keeps going after -- these used to
++    /// only ever appear in `current_message` for a moment before being
++    /// overwritten by the next progress update (typically the final
++    /// "Pipeline complete."), so a failed video looked identical to a
++    /// successful image-only run. Kept for the life of the job so the
++    /// UI can show them even after the run finishes.
++    warnings: Vec<String>,
+ }
+ 
+ #[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize)]
+@@ -438,7 +446,18 @@ async fn push_message(state: &Arc<AppState>, job_id: &str, msg: String) {
+     log::info!("[job {}] {}", job_id, msg);
+     let mut jobs = state.jobs.lock().await;
+     if let Some(job) = jobs.get_mut(job_id) {
+-        job.current_message = msg;
++        job.current_message = msg.clone();
++        // Recoverable per-city failures (voiceover/video generation)
++        // are reported through this same progress channel as plain
++        // messages -- e.g. "Video generation failed for X: ...". Those
++        // used to vanish the moment the next progress message (often
++        // just "Render complete.") overwrote `current_message`. Keep a
++        // standing copy so the UI can still show them once the run
++        // finishes, instead of a failed video looking identical to a
++        // successful images-only run.
++        if msg.to_lowercase().contains("failed") {
++            job.warnings.push(msg);
++        }
+     }
+ }
+ 
+@@ -1093,6 +1112,10 @@ function pollJob(jobId) {
+     if (!resp.ok) { clearInterval(interval); return; }
+     const job = await resp.json();
+     statusEl.textContent = job.current_message || '...';
++    if (job.warnings && job.warnings.length) {
++      statusEl.textContent += ' \u26A0\uFE0F ' + job.warnings.length + ' warning(s) -- see below.';
++    }
++    renderWarnings(job.warnings || []);
+ 
+     job.media.forEach(appendMediaItem);
+ 
+@@ -1104,10 +1127,27 @@ function pollJob(jobId) {
+ 
+       if (job.status === 'failed') {
+         alert('Pipeline failed: ' + (job.error || 'unknown error'));
++      } else if (job.warnings && job.warnings.length) {
++        alert('Pipeline finished, but ' + job.warnings.length + ' item(s) failed:\n\n' + job.warnings.join('\n'));
+       }
+     }
+   }, 600);
+ }
++
++function renderWarnings(warnings) {
++  let box = document.getElementById('warningsBox');
++  if (!warnings.length) {
++    if (box) box.remove();
++    return;
++  }
++  if (!box) {
++    box = document.createElement('div');
++    box.id = 'warningsBox';
++    box.style.cssText = 'margin-top:0.75rem;padding:0.75rem;border:1px solid #c0392b;background:#fdecea;color:#7a1f14;border-radius:6px;font-size:0.85rem;white-space:pre-wrap;';
++    document.getElementById('status').insertAdjacentElement('afterend', box);
++  }
++  box.textContent = '\u26A0\uFE0F ' + warnings.length + ' item(s) failed during this run:\n' + warnings.join('\n');
++}
+ </script>
+ </body>
+ </html>
+diff --git a/src/video.rs b/src/video.rs
+index ecbb72b..11ec18e 100755
+--- a/src/video.rs
++++ b/src/video.rs
+@@ -1,6 +1,198 @@
++use std::fs;
+ use std::path::Path;
+ use std::process::Command;
+ 
++/// Speed multiplier applied to both the still-image video and (in
++/// `generate_video`) the audio track. Kept as a constant so the animated
++/// path (`generate_animated_video`) can scale its frame timings by the
++/// same factor and stay in sync with the sped-up audio.
++const PLAYBACK_SPEED: f64 = 1.2;
++
++/// One frame of the row-reveal animation: a screenshot with `path`
++/// stays on screen from `start_secs` to `end_secs` (both measured
++/// against the *original*, not-yet-sped-up, audio timeline).
++pub struct RevealFrame {
++    pub path: std::path::PathBuf,
++    pub start_secs: f64,
++    pub end_secs: f64,
++}
++
++/// Builds a video where each cover-image frame (one per revealed table
++/// row) is shown for the portion of the narration that talks about that
++/// row, instead of holding a single static image for the whole clip.
++/// `frames` must be in display order and cover the whole timeline (i.e.
++/// `frames[0].start_secs == 0.0` and consecutive frames share their
++/// start/end boundary) -- see `voiceover::row_reveal_offsets`, which is
++/// what produces them.
++///
++/// Implementation note: an earlier version fed the still images straight
++/// into ffmpeg's `concat` *demuxer* with per-file `duration` directives,
++/// which is a commonly recommended "slideshow from images" recipe -- but
++/// in practice, once the concatenated stream is routed through a filter
++/// graph for re-encoding (as it is here, for scale/pad/fps), the
++/// per-image `duration` metadata is unreliable and can silently collapse
++/// to effectively one frame held for the whole output, which is exactly
++/// the "just shows the full table the whole time" symptom this was
++/// rewritten to fix. This version instead renders each frame into its
++/// own short silent .mp4 (via `-loop 1 -t <duration>`, which is a
++/// reliable, well-supported ffmpeg feature) and concatenates those
++/// *videos* -- concatenating same-codec video files via the concat
++/// demuxer is the case it's actually designed for and doesn't have this
++/// failure mode -- before muxing in the audio track as a final step.
++pub fn generate_animated_video(
++    frames: &[RevealFrame],
++    audio_path: &Path,
++    output_path: &Path,
++    is_portrait: bool,
++) -> Result<(), Box<dyn std::error::Error>> {
++    if frames.is_empty() {
++        return Err("generate_animated_video called with no frames".into());
++    }
++    for frame in frames {
++        if !frame.path.exists() {
++            return Err(format!("Frame image not found at: {}", frame.path.display()).into());
++        }
++    }
++
++    let (width, height) = if is_portrait { (1080, 1920) } else { (1920, 1080) };
++    let ffmpeg_path = crate::ffdeps::ffmpeg_path();
++    let work_dir = output_path
++        .parent()
++        .map(|p| p.to_path_buf())
++        .unwrap_or_else(|| std::path::PathBuf::from("."));
++    let segment_stem = output_path
++        .file_stem()
++        .map(|s| s.to_string_lossy().to_string())
++        .unwrap_or_else(|| "segment".to_string());
++
++    let vf = format!(
++        "scale={}:{}:force_original_aspect_ratio=decrease,pad={}:{}:(ow-iw)/2:(oh-ih)/2,setsar=1",
++        width, height, width, height
++    );
++
++    // Pass 1: one silent .mp4 per frame, held for its (speed-adjusted)
++    // duration. Each uses identical codec/pixel format/resolution so the
++    // concat step below can just as easily stream-copy them together.
++    let mut segment_paths = Vec::with_capacity(frames.len());
++    for (i, frame) in frames.iter().enumerate() {
++        let duration = ((frame.end_secs - frame.start_secs) / PLAYBACK_SPEED).max(0.05);
++        let segment_path = work_dir.join(format!("{}.seg{:02}.mp4", segment_stem, i));
++
++        let output = Command::new(&ffmpeg_path)
++            .arg("-y")
++            .arg("-loop")
++            .arg("1")
++            .arg("-t")
++            .arg(format!("{:.6}", duration))
++            .arg("-i")
++            .arg(&frame.path)
++            .arg("-vf")
++            .arg(&vf)
++            .arg("-r")
++            .arg("25")
++            .arg("-c:v")
++            .arg("libx264")
++            .arg("-pix_fmt")
++            .arg("yuv420p")
++            .arg("-an")
++            .arg(&segment_path)
++            .output()?;
++
++        if !output.status.success() {
++            let _ = fs::remove_file(&segment_path);
++            for p in &segment_paths {
++                let _ = fs::remove_file(p);
++            }
++            return Err(format!(
++                "ffmpeg failed rendering reveal frame {} ({}): {}",
++                i,
++                frame.path.display(),
++                String::from_utf8_lossy(&output.stderr)
++            )
++            .into());
++        }
++        segment_paths.push(segment_path);
++    }
++
++    // Pass 2: concatenate the (now genuinely same-codec) video segments.
++    // This is the concat demuxer's actual well-supported use case, so a
++    // plain `-c copy` here is fast and reliable.
++    let concat_list_path = work_dir.join(format!("{}.segments.txt", segment_stem));
++    let mut list = String::new();
++    for segment_path in &segment_paths {
++        let path_str = segment_path.to_string_lossy().replace('\\', "/");
++        list.push_str(&format!("file '{}'\n", path_str));
++    }
++    fs::write(&concat_list_path, list)?;
++
++    let silent_video_path = work_dir.join(format!("{}.silent.mp4", segment_stem));
++    let concat_output = Command::new(&ffmpeg_path)
++        .arg("-y")
++        .arg("-f")
++        .arg("concat")
++        .arg("-safe")
++        .arg("0")
++        .arg("-i")
++        .arg(&concat_list_path)
++        .arg("-c")
++        .arg("copy")
++        .arg(&silent_video_path)
++        .output()?;
++
++    let cleanup = |extra: &[&std::path::Path]| {
++        for p in &segment_paths {
++            let _ = fs::remove_file(p);
++        }
++        let _ = fs::remove_file(&concat_list_path);
++        for p in extra {
++            let _ = fs::remove_file(p);
++        }
++    };
++
++    if !concat_output.status.success() {
++        cleanup(&[&silent_video_path]);
++        return Err(format!(
++            "ffmpeg failed concatenating reveal-frame segments: {}",
++            String::from_utf8_lossy(&concat_output.stderr)
++        )
++        .into());
++    }
++
++    // Pass 3: mux in the narration audio, sped up to match the frame
++    // timings above (which were already divided by PLAYBACK_SPEED).
++    let mux_output = Command::new(&ffmpeg_path)
++        .arg("-y")
++        .arg("-i")
++        .arg(&silent_video_path)
++        .arg("-i")
++        .arg(audio_path)
++        .arg("-filter:a")
++        .arg(format!("atempo={}", PLAYBACK_SPEED))
++        .arg("-c:v")
++        .arg("copy")
++        .arg("-c:a")
++        .arg("aac")
++        .arg("-b:a")
++        .arg("192k")
++        .arg("-shortest")
++        .arg("-movflags")
++        .arg("+faststart")
++        .arg(output_path)
++        .output()?;
++
++    cleanup(&[&silent_video_path]);
++
++    if !mux_output.status.success() {
++        return Err(format!(
++            "ffmpeg failed muxing audio into the animated video: {}",
++            String::from_utf8_lossy(&mux_output.stderr)
++        )
++        .into());
++    }
++
++    Ok(())
++}
++
+ pub fn generate_video(
+     png_path: &Path,
+     audio_path: &Path,
+diff --git a/src/voiceover.rs b/src/voiceover.rs
+index a6e5a43..773ca69 100755
+--- a/src/voiceover.rs
++++ b/src/voiceover.rs
+@@ -243,43 +243,141 @@ fn number_to_kannada(value: f64) -> String {
+ }
+ 
+ 
+-pub fn generate_kannada_script(market: &str, date: &str, items: &[CommodityEntry]) -> String {
+-    let mut script = format!(
++/// A narration script split into its three parts: the fixed intro (read
++/// while no commodity rows are shown yet), one sentence per commodity
++/// (in the same order as the table rows, so `items[i]` narrates the same
++/// row that `templates::top_commodities` puts at position `i`), and the
++/// fixed outro (read once every row is visible).
++///
++/// This is what lets the video pipeline estimate, per row, roughly when
++/// during the audio that row's sentence is spoken -- see
++/// `render::generate_city_video_assets` / `row_reveal_timings`. There's
++/// no per-word timestamp from the TTS engine here, so timing is
++/// approximated by each part's share of total word count; that's close
++/// enough to look "animated in sync" without needing exact timestamps.
++pub struct ScriptSegments {
++    pub intro: String,
++    pub items: Vec<String>,
++    pub outro: String,
++}
++
++impl ScriptSegments {
++    /// Concatenates the parts back into the single narration string that
++    /// gets sent to the TTS engine (identical to the old `generate_script`
++    /// output).
++    pub fn joined(&self) -> String {
++        let mut script = self.intro.clone();
++        for item in &self.items {
++            script.push_str(item);
++        }
++        script.push_str(&self.outro);
++        script
++    }
++}
++
++fn word_count(s: &str) -> usize {
++    s.split_whitespace().count().max(1)
++}
++
++pub fn generate_script_segments(
++    lang: Language,
++    market: &str,
++    date: &str,
++    items: &[CommodityEntry],
++) -> ScriptSegments {
++    match lang {
++        Language::Kannada => kannada_script_segments(market, date, items),
++        Language::English => english_script_segments(market, date, items),
++    }
++}
++
++pub fn kannada_script_segments(market: &str, date: &str, items: &[CommodityEntry]) -> ScriptSegments {
++    let intro = format!(
+         "ನಮಸ್ಕಾರ ವೀಕ್ಷಕರೇ, ರೈತ ದರ್ಪಣ ಮಾರುಕಟ್ಟೆ ಬೆಲೆಗಳ ಮಾಹಿತಿ ಚಾನೆಲ್‌ಗೆ ಸುಸ್ವಾಗತ. ಇಂದಿನ {} ಮಾರುಕಟ್ಟೆಯ ತರಕಾರಿ ಬೆಲೆಗಳ ಮಾಹಿತಿ ಇಲ್ಲಿದೆ. ವರದಿ ದಿನಾಂಕ: {}. ",
+         market, date
+     );
+ 
+-    for item in items {
+-        script.push_str(&format!(
+-            "{}: ಕನಿಷ್ಠ ಬೆಲೆ {} ರೂಪಾಯಿ, ಗರಿಷ್ಠ ಬೆಲೆ {} ರೂಪಾಯಿ. ",
+-            item.commodity,
+-            number_to_kannada(item.min_rs),
+-            number_to_kannada(item.max_rs)
+-        ));
+-    }
+-
+-    script.push_str("ದಿನನಿತ್ಯದ ನಿಖರ ಮಾಹಿತಿಗಾಗಿ ನಮ್ಮ ಇನ್ಸ್ಟಾಗ್ರಾಮ್ ಮತ್ತು ಯೂಟ್ಯೂಬ್ ಚಾನೆಲ್‌ಗೆ ಸಬ್‌ಸ್ಕ್ರೈಬ್ ಆಗಿ. ಧನ್ಯವಾದಗಳು!");
+-    log::info!("{}",script);
+-    script
++    let item_sentences: Vec<String> = items
++        .iter()
++        .map(|item| {
++            format!(
++                "{}: ಕನಿಷ್ಠ ಬೆಲೆ {} ರೂಪಾಯಿ, ಗರಿಷ್ಠ ಬೆಲೆ {} ರೂಪಾಯಿ. ",
++                item.commodity,
++                number_to_kannada(item.min_rs),
++                number_to_kannada(item.max_rs)
++            )
++        })
++        .collect();
++
++    let outro = "ದಿನನಿತ್ಯದ ನಿಖರ ಮಾಹಿತಿಗಾಗಿ ನಮ್ಮ ಇನ್ಸ್ಟಾಗ್ರಾಮ್ ಮತ್ತು ಯೂಟ್ಯೂಬ್ ಚಾನೆಲ್‌ಗೆ ಸಬ್‌ಸ್ಕ್ರೈಬ್ ಆಗಿ. ಧನ್ಯವಾದಗಳು!".to_string();
++
++    let segments = ScriptSegments {
++        intro,
++        items: item_sentences,
++        outro,
++    };
++    log::info!("{}", segments.joined());
++    segments
+ }
+ 
+-pub fn generate_english_script(market: &str, date: &str, items: &[CommodityEntry]) -> String {
+-    let mut script = format!(
++pub fn english_script_segments(market: &str, date: &str, items: &[CommodityEntry]) -> ScriptSegments {
++    let intro = format!(
+         "Hello viewers, welcome to Raitha Darpana market price update. Here is today's {} market commodity price report. Report date: {}. ",
+         market, date
+     );
+ 
+-    for item in items {
+-        script.push_str(&format!(
+-            "{}: minimum price {} rupees, maximum price {} rupees. ",
+-            item.commodity,
+-            format_price_indian(item.min_rs),
+-            format_price_indian(item.max_rs)
+-        ));
++    let item_sentences: Vec<String> = items
++        .iter()
++        .map(|item| {
++            format!(
++                "{}: minimum price {} rupees, maximum price {} rupees. ",
++                item.commodity,
++                format_price_indian(item.min_rs),
++                format_price_indian(item.max_rs)
++            )
++        })
++        .collect();
++
++    let outro = "Subscribe to our Instagram and YouTube channels for daily accurate updates. Thank you!".to_string();
++
++    ScriptSegments {
++        intro,
++        items: item_sentences,
++        outro,
++    }
++}
++
++/// Cumulative time offsets (seconds, from the start of `audio_path`) at
++/// which each additional row should become visible, followed by the
++/// total audio duration. `offsets[0]` is always `0.0` (no rows visible
++/// yet, intro playing); `offsets[i]` (for `1..=items.len()`) is when row
++/// `i` should appear; the final element is the full audio length (used
++/// as the end time for the "all rows visible" frame). Length is always
++/// `items.len() + 2`.
++pub fn row_reveal_offsets(segments: &ScriptSegments, total_audio_secs: f64) -> Vec<f64> {
++    let intro_w = word_count(&segments.intro);
++    let item_w: Vec<usize> = segments.items.iter().map(|s| word_count(s)).collect();
++    let outro_w = word_count(&segments.outro);
++    let total_w: usize = intro_w + item_w.iter().sum::<usize>() + outro_w;
++    let total_w = total_w.max(1) as f64;
++
++    let mut offsets = Vec::with_capacity(segments.items.len() + 2);
++    let mut cumulative_w = intro_w as f64;
++    offsets.push(0.0);
++    for w in &item_w {
++        offsets.push((cumulative_w / total_w) * total_audio_secs);
++        cumulative_w += *w as f64;
+     }
++    offsets.push(total_audio_secs);
++    offsets
++}
+ 
+-    script.push_str("Subscribe to our Instagram and YouTube channels for daily accurate updates. Thank you!");
+-    script
++pub fn generate_kannada_script(market: &str, date: &str, items: &[CommodityEntry]) -> String {
++    kannada_script_segments(market, date, items).joined()
++}
++
++pub fn generate_english_script(market: &str, date: &str, items: &[CommodityEntry]) -> String {
++    english_script_segments(market, date, items).joined()
+ }
+ 
+ /// Generates the narration script for a city's commodities in the given
+@@ -362,6 +460,13 @@ async fn generate_edge_tts(
+     Ok(())
+ }
+ 
++/// Public wrapper around `probe_duration_secs`, for callers (the video
++/// pipeline) that need to know an already-generated audio file's length
++/// -- e.g. to time the row-reveal animation against it.
++pub fn audio_duration_secs(path: &Path) -> Result<f64, Box<dyn std::error::Error>> {
++    probe_duration_secs(path)
++}
++
+ /// Returns the duration of a media file in seconds, via `ffprobe`.
+ fn probe_duration_secs(path: &Path) -> Result<f64, Box<dyn std::error::Error>> {
+     let ffprobe_path = crate::ffdeps::ffprobe_path();
