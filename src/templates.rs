@@ -271,7 +271,7 @@ body{{
 
 .date-box{{
     color:#f3e80b;
-    font-size:55px;
+    font-size:80px;
     font-weight:900;
     display:flex;
     justify-content:center;
@@ -283,7 +283,7 @@ body{{
 .market{{
     width:90%;
     margin:0 auto 15px;
-    background:#d71e1e;
+    background:#d71e1e94;
     color:#fff;
     text-align:center;
     padding:15px;
@@ -504,7 +504,7 @@ body{{
 
 .date-box{{
     color:#f3e80b;
-    font-size:26px;
+    font-size:50px;
     font-weight:900;
     display:flex;
     justify-content:center;
@@ -515,12 +515,12 @@ body{{
 
 .market{{
     width:100%;
-    background:#d71e1e;
+    background:#d71e1eb3;
     color:#fff;
     text-align:center;
     padding:10px;
     border-radius:12px;
-    font-size:22px;
+    font-size:25px;
     font-weight:900;
 }}
 

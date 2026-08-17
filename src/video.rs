@@ -1,5 +1,5 @@
 use std::fs;
-use std::path::Path;
+use std::path::{Path, PathBuf};
 use std::process::Command;
 
 /// Speed multiplier applied to both the still-image video and (in
@@ -39,6 +39,17 @@ pub struct RevealFrame {
 /// *videos* -- concatenating same-codec video files via the concat
 /// demuxer is the case it's actually designed for and doesn't have this
 /// failure mode -- before muxing in the audio track as a final step.
+fn normalize_for_ffmpeg(path: &Path) -> Result<PathBuf, Box<dyn std::error::Error>> {
+    if path.is_absolute() {
+        return Ok(path.to_path_buf());
+    }
+    let absolute = std::env::current_dir()?.join(path);
+    match absolute.canonicalize() {
+        Ok(canon) => Ok(canon),
+        Err(_) => Ok(absolute),
+    }
+}
+
 pub fn generate_animated_video(
     frames: &[RevealFrame],
     audio_path: &Path,
@@ -48,19 +59,23 @@ pub fn generate_animated_video(
     if frames.is_empty() {
         return Err("generate_animated_video called with no frames".into());
     }
+
+    let absolute_output_path = normalize_for_ffmpeg(output_path)?;
+    let absolute_audio_path = normalize_for_ffmpeg(audio_path)?;
     for frame in frames {
-        if !frame.path.exists() {
-            return Err(format!("Frame image not found at: {}", frame.path.display()).into());
+        let absolute_frame = normalize_for_ffmpeg(&frame.path)?;
+        if !absolute_frame.exists() {
+            return Err(format!("Frame image not found at: {}", absolute_frame.display()).into());
         }
     }
 
     let (width, height) = if is_portrait { (1080, 1920) } else { (1920, 1080) };
     let ffmpeg_path = crate::ffdeps::ffmpeg_path();
-    let work_dir = output_path
+    let work_dir = absolute_output_path
         .parent()
         .map(|p| p.to_path_buf())
-        .unwrap_or_else(|| std::path::PathBuf::from("."));
-    let segment_stem = output_path
+        .unwrap_or_else(|| std::env::current_dir().unwrap_or_else(|_| std::path::PathBuf::from(".")));
+    let segment_stem = absolute_output_path
         .file_stem()
         .map(|s| s.to_string_lossy().to_string())
         .unwrap_or_else(|| "segment".to_string());
@@ -77,6 +92,7 @@ pub fn generate_animated_video(
     for (i, frame) in frames.iter().enumerate() {
         let duration = ((frame.end_secs - frame.start_secs) / PLAYBACK_SPEED).max(0.05);
         let segment_path = work_dir.join(format!("{}.seg{:02}.mp4", segment_stem, i));
+        let frame_input = normalize_for_ffmpeg(&frame.path)?;
 
         let output = Command::new(&ffmpeg_path)
             .arg("-y")
@@ -85,7 +101,7 @@ pub fn generate_animated_video(
             .arg("-t")
             .arg(format!("{:.6}", duration))
             .arg("-i")
-            .arg(&frame.path)
+            .arg(&frame_input)
             .arg("-vf")
             .arg(&vf)
             .arg("-r")
@@ -165,7 +181,7 @@ pub fn generate_animated_video(
         .arg("-i")
         .arg(&silent_video_path)
         .arg("-i")
-        .arg(audio_path)
+        .arg(&absolute_audio_path)
         .arg("-filter:a")
         .arg(format!("atempo={}", PLAYBACK_SPEED))
         .arg("-c:v")
@@ -177,7 +193,7 @@ pub fn generate_animated_video(
         .arg("-shortest")
         .arg("-movflags")
         .arg("+faststart")
-        .arg(output_path)
+        .arg(&absolute_output_path)
         .output()?;
 
     cleanup(&[&silent_video_path]);
@@ -191,6 +207,37 @@ pub fn generate_animated_video(
     }
 
     Ok(())
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use std::fs;
+    use std::time::{SystemTime, UNIX_EPOCH};
+
+    #[test]
+    fn normalize_for_ffmpeg_keeps_relative_paths_absolute() {
+        let temp_dir = std::env::temp_dir().join(format!(
+            "raitha-darpana-ffmpeg-path-{}",
+            SystemTime::now().duration_since(UNIX_EPOCH).unwrap().as_nanos()
+        ));
+        fs::create_dir_all(&temp_dir).unwrap();
+        let file = temp_dir.join("sample.txt");
+        fs::write(&file, "hello").unwrap();
+
+        let cwd = std::env::current_dir().unwrap();
+        std::env::set_current_dir(&temp_dir).unwrap();
+
+        let relative = Path::new("sample.txt");
+        let absolute = normalize_for_ffmpeg(relative).unwrap();
+
+        assert!(absolute.is_absolute());
+        assert_eq!(absolute, file.canonicalize().unwrap());
+
+        std::env::set_current_dir(cwd).unwrap();
+        let _ = fs::remove_file(file);
+        let _ = fs::remove_dir_all(temp_dir);
+    }
 }
 
 pub fn generate_video(

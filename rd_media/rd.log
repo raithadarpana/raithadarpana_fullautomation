@@ -1450,3 +1450,127 @@
 [2026-08-15T16:40:05Z INFO  headless_chrome::browser::tab] finished tab's event handling loop
 [2026-08-15T16:40:05Z INFO  headless_chrome::browser::transport] dropping transport
 [2026-08-15T16:40:05Z INFO  headless_chrome::browser::transport::web_socket_connection] dropping websocket connection
+[2026-08-15T17:42:05Z INFO  raitha_darpana] === raitha_darpana started, logging to rd_media\rd.log ===
+[2026-08-15T17:42:07Z INFO  headless_chrome::browser::process] Launching Chrome binary at C:\Program Files\Google\Chrome\Application\chrome.exe
+[2026-08-15T17:42:07Z INFO  headless_chrome::browser::process] Started Chrome. PID: 12460
+[2026-08-15T17:42:09Z INFO  headless_chrome::browser::tab] Navigating a tab to https://krama.karnataka.gov.in/Kannada/Main_rep
+[2026-08-15T17:42:18Z INFO  raitha_darpana::scrape] Report Date: 14/08/2026
+[2026-08-15T17:42:18Z INFO  raitha_darpana::scrape] Total Cities: 77
+[2026-08-15T17:42:18Z INFO  raitha_darpana::scrape] City: 1]  ಮಾರುಕಟ್ಟೆ: ಅರಸೀಕೆರೆ - Commodities: 4
+[2026-08-15T17:42:18Z INFO  raitha_darpana::scrape] City: 2]  ಮಾರುಕಟ್ಟೆ: ಕೆ.ಅರ್ .ಪೇಟೆ - Commodities: 8
+[2026-08-15T17:42:18Z INFO  raitha_darpana::scrape] City: 3]  ಮಾರುಕಟ್ಟೆ: ಕಂಪ್ಲಿ - Commodities: 3
+[2026-08-15T17:42:18Z INFO  raitha_darpana::scrape] City: 4]  ಮಾರುಕಟ್ಟೆ: ಕಡೂರು - Commodities: 6
+[2026-08-15T17:42:18Z INFO  raitha_darpana::scrape] City: 5]  ಮಾರುಕಟ್ಟೆ: ಕಲ್ಫಗಟಗಿ - Commodities: 3
+[2026-08-15T17:42:18Z INFO  raitha_darpana::scrape] City: 6]  ಮಾರುಕಟ್ಟೆ: ಕಲಬುರಗಿ - Commodities: 23
+[2026-08-15T17:42:18Z INFO  raitha_darpana::scrape] City: 7]  ಮಾರುಕಟ್ಟೆ: ಕುಂದಾಪುರ - Commodities: 1
+[2026-08-15T17:42:18Z INFO  raitha_darpana::scrape] City: 8]  ಮಾರುಕಟ್ಟೆ: ಕುಡಚಿ - Commodities: 1
+[2026-08-15T17:42:18Z INFO  raitha_darpana::scrape] City: 9]  ಮಾರುಕಟ್ಟೆ: ಕುಮುಟ - Commodities: 5
+[2026-08-15T17:42:18Z INFO  raitha_darpana::scrape] City: 10]  ಮಾರುಕಟ್ಟೆ: ಕೊಟ್ಟೂರು - Commodities: 3
+[2026-08-15T17:42:18Z INFO  raitha_darpana::scrape] City: 11]  ಮಾರುಕಟ್ಟೆ: ಗಂಗಾವತಿ - Commodities: 6
+[2026-08-15T17:42:18Z INFO  raitha_darpana::scrape] City: 12]  ಮಾರುಕಟ್ಟೆ: ಗದಗ್ - Commodities: 12
+[2026-08-15T17:42:18Z INFO  raitha_darpana::scrape] City: 13]  ಮಾರುಕಟ್ಟೆ: ಗುಂಡ್ಲುಪೇಟೆ - Commodities: 8
+[2026-08-15T17:42:18Z INFO  raitha_darpana::scrape] City: 14]  ಮಾರುಕಟ್ಟೆ: ಗೋಣಿಕೊಪ್ಪಲ್ - Commodities: 1
+[2026-08-15T17:42:18Z INFO  raitha_darpana::scrape] City: 15]  ಮಾರುಕಟ್ಟೆ: ಚಿಂತಾಮಣಿ - Commodities: 13
+[2026-08-15T17:42:18Z INFO  raitha_darpana::scrape] City: 16]  ಮಾರುಕಟ್ಟೆ: ಚಿಕ್ಕಮಂಗಳೂರು - Commodities: 13
+[2026-08-15T17:42:18Z INFO  raitha_darpana::scrape] City: 17]  ಮಾರುಕಟ್ಟೆ: ಚನ್ನಪಟ್ಟಣ - Commodities: 7
+[2026-08-15T17:42:18Z INFO  raitha_darpana::scrape] City: 18]  ಮಾರುಕಟ್ಟೆ: ಚಾಮರಾಜನಗರ - Commodities: 16
+[2026-08-15T17:42:18Z INFO  raitha_darpana::scrape] City: 19]  ಮಾರುಕಟ್ಟೆ: ತಿಪಟೂರು - Commodities: 1
+[2026-08-15T17:42:18Z INFO  raitha_darpana::scrape] City: 20]  ಮಾರುಕಟ್ಟೆ: ತಾಳಿಕೋಟೆ - Commodities: 2
+[2026-08-15T17:42:18Z INFO  raitha_darpana::scrape] City: 21]  ಮಾರುಕಟ್ಟೆ: ತೀರ್ಥಹಳ್ಳಿ - Commodities: 3
+[2026-08-15T17:42:18Z INFO  raitha_darpana::scrape] City: 22]  ಮಾರುಕಟ್ಟೆ: ದಾವಣಗೆರೆ - Commodities: 45
+[2026-08-15T17:42:18Z INFO  raitha_darpana::scrape] City: 23]  ಮಾರುಕಟ್ಟೆ: ದೊಡ್ಡಬಳ್ಳಾಪುರ - Commodities: 16
+[2026-08-15T17:42:18Z INFO  raitha_darpana::scrape] City: 24]  ಮಾರುಕಟ್ಟೆ: ನಿಪ್ಪಾಣಿ - Commodities: 3
+[2026-08-15T17:42:18Z INFO  raitha_darpana::scrape] City: 25]  ಮಾರುಕಟ್ಟೆ: ನರಗುಂದ - Commodities: 3
+[2026-08-15T17:42:18Z INFO  raitha_darpana::scrape] City: 26]  ಮಾರುಕಟ್ಟೆ: ಪಾ೦ಡವಪುರ - Commodities: 1
+[2026-08-15T17:42:18Z INFO  raitha_darpana::scrape] City: 27]  ಮಾರುಕಟ್ಟೆ: ಪುತ್ತೂರು - Commodities: 3
+[2026-08-15T17:42:18Z INFO  raitha_darpana::scrape] City: 28]  ಮಾರುಕಟ್ಟೆ: ಬೆಂಗಳೂರು - Commodities: 40
+[2026-08-15T17:42:18Z INFO  raitha_darpana::scrape] City: 29]  ಮಾರುಕಟ್ಟೆ: ಬಂಗಾರಪೇಟೆ - Commodities: 18
+[2026-08-15T17:42:18Z INFO  raitha_darpana::scrape] City: 30]  ಮಾರುಕಟ್ಟೆ: ಬಂಟ್ವಾಳ - Commodities: 5
+[2026-08-15T17:42:18Z INFO  raitha_darpana::scrape] City: 31]  ಮಾರುಕಟ್ಟೆ: ಬಿನ್ನಿಮಿಲ್ - Commodities: 47
+[2026-08-15T17:42:18Z INFO  raitha_darpana::scrape] City: 32]  ಮಾರುಕಟ್ಟೆ: ಬ್ಯಾಡಗಿ - Commodities: 3
+[2026-08-15T17:42:18Z INFO  raitha_darpana::scrape] City: 33]  ಮಾರುಕಟ್ಟೆ: ಬೆಳ್ತಂಗಡಿ - Commodities: 1
+[2026-08-15T17:42:18Z INFO  raitha_darpana::scrape] City: 34]  ಮಾರುಕಟ್ಟೆ: ಬಳ್ಳಾರಿ - Commodities: 6
+[2026-08-15T17:42:18Z INFO  raitha_darpana::scrape] City: 35]  ಮಾರುಕಟ್ಟೆ: ಬಸವಕಲ್ಯಾಣ - Commodities: 7
+[2026-08-15T17:42:18Z INFO  raitha_darpana::scrape] City: 36]  ಮಾರುಕಟ್ಟೆ: ಬಾಗೆಪಲ್ಲಿ - Commodities: 1
+[2026-08-15T17:42:18Z INFO  raitha_darpana::scrape] City: 37]  ಮಾರುಕಟ್ಟೆ: ಬಾಗಲಕೋಟೆ - Commodities: 3
+[2026-08-15T17:42:18Z INFO  raitha_darpana::scrape] City: 38]  ಮಾರುಕಟ್ಟೆ: ಬೀದರ್ - Commodities: 9
+[2026-08-15T17:42:18Z INFO  raitha_darpana::scrape] City: 39]  ಮಾರುಕಟ್ಟೆ: ಬೇಲೂರು - Commodities: 1
+[2026-08-15T17:42:18Z INFO  raitha_darpana::scrape] City: 40]  ಮಾರುಕಟ್ಟೆ: ಬೈಲಹೊಂಗಲ - Commodities: 2
+[2026-08-15T17:42:18Z INFO  raitha_darpana::scrape] City: 41]  ಮಾರುಕಟ್ಟೆ: ಭದ್ರಾವತಿ - Commodities: 2
+[2026-08-15T17:42:18Z INFO  raitha_darpana::scrape] City: 42]  ಮಾರುಕಟ್ಟೆ: ಮಂಗಳೂರು - Commodities: 1
+[2026-08-15T17:42:18Z INFO  raitha_darpana::scrape] City: 43]  ಮಾರುಕಟ್ಟೆ: ಮಂಡ್ಯ - Commodities: 5
+[2026-08-15T17:42:18Z INFO  raitha_darpana::scrape] City: 44]  ಮಾರುಕಟ್ಟೆ: ಮಸ್ಕಿ - Commodities: 2
+[2026-08-15T17:42:18Z INFO  raitha_darpana::scrape] City: 45]  ಮಾರುಕಟ್ಟೆ: ಮಾನ್ವಿ - Commodities: 4
+[2026-08-15T17:42:18Z INFO  raitha_darpana::scrape] City: 46]  ಮಾರುಕಟ್ಟೆ: ಮಾಲೂರು - Commodities: 3
+[2026-08-15T17:42:18Z INFO  raitha_darpana::scrape] City: 47]  ಮಾರುಕಟ್ಟೆ: ಮುಂಡರಗಿ - Commodities: 3
+[2026-08-15T17:42:18Z INFO  raitha_darpana::scrape] City: 48]  ಮಾರುಕಟ್ಟೆ: ಮುಳಬಾಗಿಲು - Commodities: 5
+[2026-08-15T17:42:18Z INFO  raitha_darpana::scrape] City: 49]  ಮಾರುಕಟ್ಟೆ: ಮೂಡಿಗೆರೆ - Commodities: 1
+[2026-08-15T17:42:18Z INFO  raitha_darpana::scrape] City: 50]  ಮಾರುಕಟ್ಟೆ: ಯಲ್ಲಾಪೂರ - Commodities: 8
+[2026-08-15T17:42:18Z INFO  raitha_darpana::scrape] City: 51]  ಮಾರುಕಟ್ಟೆ: ಯಾದಗಿರಿ - Commodities: 2
+[2026-08-15T17:42:18Z INFO  raitha_darpana::scrape] City: 52]  ಮಾರುಕಟ್ಟೆ: ರಾಣೆಬೆನ್ನೂರು - Commodities: 8
+[2026-08-15T17:42:18Z INFO  raitha_darpana::scrape] City: 53]  ಮಾರುಕಟ್ಟೆ: ರಾಮದುರ್ಗ - Commodities: 2
+[2026-08-15T17:42:18Z INFO  raitha_darpana::scrape] City: 54]  ಮಾರುಕಟ್ಟೆ: ರಾಮನಗರ - Commodities: 22
+[2026-08-15T17:42:18Z INFO  raitha_darpana::scrape] City: 55]  ಮಾರುಕಟ್ಟೆ: ರಾಯಚೂರು - Commodities: 3
+[2026-08-15T17:42:18Z INFO  raitha_darpana::scrape] City: 56]  ಮಾರುಕಟ್ಟೆ: ರೋಣ - Commodities: 3
+[2026-08-15T17:42:18Z INFO  raitha_darpana::scrape] City: 57]  ಮಾರುಕಟ್ಟೆ: ಲಿಂಗಸುಗೂರು - Commodities: 4
+[2026-08-15T17:42:18Z INFO  raitha_darpana::scrape] City: 58]  ಮಾರುಕಟ್ಟೆ: ಲಕ್ಷ್ಮೇಶ್ವರ - Commodities: 13
+[2026-08-15T17:42:18Z INFO  raitha_darpana::scrape] City: 59]  ಮಾರುಕಟ್ಟೆ: ವಿಜಯಾಪುರ - Commodities: 9
+[2026-08-15T17:42:18Z INFO  raitha_darpana::scrape] City: 60]  ಮಾರುಕಟ್ಟೆ: ಶಿಕಾರಿಪುರ - Commodities: 3
+[2026-08-15T17:42:18Z INFO  raitha_darpana::scrape] City: 61]  ಮಾರುಕಟ್ಟೆ: ಶಿವಮೊಗ್ಗ - Commodities: 23
+[2026-08-15T17:42:18Z INFO  raitha_darpana::scrape] City: 62]  ಮಾರುಕಟ್ಟೆ: ಸಿಂಧನೂರು - Commodities: 4
+[2026-08-15T17:42:18Z INFO  raitha_darpana::scrape] City: 63]  ಮಾರುಕಟ್ಟೆ: ಸಿದ್ಧಾಪುರ - Commodities: 7
+[2026-08-15T17:42:18Z INFO  raitha_darpana::scrape] City: 64]  ಮಾರುಕಟ್ಟೆ: ಸಿರಸಿ - Commodities: 6
+[2026-08-15T17:42:18Z INFO  raitha_darpana::scrape] City: 65]  ಮಾರುಕಟ್ಟೆ: ಸಿರುಗುಪ್ಪ - Commodities: 2
+[2026-08-15T17:42:18Z INFO  raitha_darpana::scrape] City: 66]  ಮಾರುಕಟ್ಟೆ: ಸುಳ್ಯ - Commodities: 4
+[2026-08-15T17:42:18Z INFO  raitha_darpana::scrape] City: 67]  ಮಾರುಕಟ್ಟೆ: ಹರಪನಹಳ್ಳಿ - Commodities: 1
+[2026-08-15T17:42:18Z INFO  raitha_darpana::scrape] City: 68]  ಮಾರುಕಟ್ಟೆ: ಹಿರಿಯೂರು - Commodities: 2
+[2026-08-15T17:42:18Z INFO  raitha_darpana::scrape] City: 69]  ಮಾರುಕಟ್ಟೆ: ಹರಿಹರ - Commodities: 3
+[2026-08-15T17:42:18Z INFO  raitha_darpana::scrape] City: 70]  ಮಾರುಕಟ್ಟೆ: ಹಿರೇಕೆರೂರು - Commodities: 1
+[2026-08-15T17:42:18Z INFO  raitha_darpana::scrape] City: 71]  ಮಾರುಕಟ್ಟೆ: ಹಳಿಯಾಳ - Commodities: 2
+[2026-08-15T17:42:18Z INFO  raitha_darpana::scrape] City: 72]  ಮಾರುಕಟ್ಟೆ: ಹಾನ್ ಗಲ್ - Commodities: 2
+[2026-08-15T17:42:18Z INFO  raitha_darpana::scrape] City: 73]  ಮಾರುಕಟ್ಟೆ: ಹಾವೇರಿ - Commodities: 1
+[2026-08-15T17:42:18Z INFO  raitha_darpana::scrape] City: 74]  ಮಾರುಕಟ್ಟೆ: ಹುಬ್ಬಳ್ಳಿ - Commodities: 10
+[2026-08-15T17:42:18Z INFO  raitha_darpana::scrape] City: 75]  ಮಾರುಕಟ್ಟೆ: ಹೊನ್ನಾಳಿ - Commodities: 12
+[2026-08-15T17:42:18Z INFO  raitha_darpana::scrape] City: 76]  ಮಾರುಕಟ್ಟೆ: ಹೊನ್ನಾವರ - Commodities: 2
+[2026-08-15T17:42:18Z INFO  raitha_darpana::scrape] City: 77]  ಮಾರುಕಟ್ಟೆ: ಹೊಳ್ಳಕೆರೆ - Commodities: 3
+[2026-08-15T17:42:18Z INFO  headless_chrome::browser] Dropping browser
+[2026-08-15T17:42:18Z INFO  headless_chrome::browser::process] Killing Chrome. PID: 12460
+[2026-08-15T17:42:18Z INFO  headless_chrome::browser::transport] Transport incoming message loop loop received shutdown message
+[2026-08-15T17:42:18Z INFO  headless_chrome::browser::transport] Shutting down message handling loop
+[2026-08-15T17:42:18Z INFO  headless_chrome::browser] Browser event loop received shutdown message
+[2026-08-15T17:42:18Z INFO  headless_chrome::browser] Finished browser's event handling loop
+[2026-08-15T17:42:18Z INFO  headless_chrome::browser::transport::web_socket_connection] Sending shutdown message to message handling loop
+[2026-08-15T17:42:18Z INFO  headless_chrome::browser::transport] cleared listeners, I think
+[2026-08-15T17:42:18Z INFO  headless_chrome::browser::tab] finished tab's event handling loop
+[2026-08-15T17:42:18Z INFO  headless_chrome::browser::tab] finished tab's event handling loop
+[2026-08-15T17:42:18Z INFO  headless_chrome::browser::process] Launching Chrome binary at C:\Program Files\Google\Chrome\Application\chrome.exe
+[2026-08-15T17:42:18Z INFO  headless_chrome::browser::process] Started Chrome. PID: 21364
+[2026-08-15T17:42:20Z INFO  raitha_darpana::render] Rendering images for city '54]  ಮಾರುಕಟ್ಟೆ: ರಾಮನಗರ' -> 'ರಾಮನಗರ'
+[2026-08-15T17:42:20Z INFO  raitha_darpana::render] Navigating to file:///D:/Projects/uiraitah_darpana/raitha_darpana/rd_media/20260814/%E0%B2%B0%E0%B2%BE%E0%B2%AE%E0%B2%A8%E0%B2%97%E0%B2%B0/%E0%B2%B0%E0%B2%BE%E0%B2%AE%E0%B2%A8%E0%B2%97%E0%B2%B0-20260814-ig-kan.html (city: ರಾಮನಗರ)
+[2026-08-15T17:42:20Z INFO  headless_chrome::browser::tab] Navigating a tab to file:///D:/Projects/uiraitah_darpana/raitha_darpana/rd_media/20260814/%E0%B2%B0%E0%B2%BE%E0%B2%AE%E0%B2%A8%E0%B2%97%E0%B2%B0/%E0%B2%B0%E0%B2%BE%E0%B2%AE%E0%B2%A8%E0%B2%97%E0%B2%B0-20260814-ig-kan.html
+[2026-08-15T17:42:22Z INFO  raitha_darpana::voiceover] ನಮಸ್ಕಾರ ವೀಕ್ಷಕರೇ, ರೈತ ದರ್ಪಣ ಮಾರುಕಟ್ಟೆ ಬೆಲೆಗಳ ಮಾಹಿತಿ ಚಾನೆಲ್‌ಗೆ ಸುಸ್ವಾಗತ. ಇಂದಿನ ರಾಮನಗರ ಮಾರುಕಟ್ಟೆಯ ತರಕಾರಿ ಬೆಲೆಗಳ ಮಾಹಿತಿ ಇಲ್ಲಿದೆ. ವರದಿ ದಿನಾಂಕ: 14/08/2026. ಟೊಮ್ಯಾಟೊ, ತಳಿ ಟೊಮ್ಯೂಟೊ: ಕನಿಷ್ಠ ಬೆಲೆ ಎಂಟು ನೂರು ರೂಪಾಯಿ, ಗರಿಷ್ಠ ಬೆಲೆ ಒಂದು ಸಾವಿರ ಐದು ನೂರು ರೂಪಾಯಿ. ಸೌತೆಕಾಯಿ: ಕನಿಷ್ಠ ಬೆಲೆ ಒಂದು ಸಾವಿರ ಎಂಟು ನೂರು ರೂಪಾಯಿ, ಗರಿಷ್ಠ ಬೆಲೆ ಎರಡು ಸಾವಿರ ಎರಡು ನೂರು ರೂಪಾಯಿ. ಎಲೆಕೋಸು: ಕನಿಷ್ಠ ಬೆಲೆ ಒಂದು ಸಾವಿರ ರೂಪಾಯಿ, ಗರಿಷ್ಠ ಬೆಲೆ ಒಂದು ಸಾವಿರ ಆರು ನೂರು ರೂಪಾಯಿ. ಹೂಕೋಸು: ಕನಿಷ್ಠ ಬೆಲೆ ಒಂದು ಸಾವಿರ ನಾಲ್ಕು ನೂರು ರೂಪಾಯಿ, ಗರಿಷ್ಠ ಬೆಲೆ ಎರಡು ಸಾವಿರ ನಾಲ್ಕು ನೂರು ರೂಪಾಯಿ. ಹಸಿರು ಮೆಣಸಿನಕಾಯಿ: ಕನಿಷ್ಠ ಬೆಲೆ ನಾಲ್ಕು ಸಾವಿರ ರೂಪಾಯಿ, ಗರಿಷ್ಠ ಬೆಲೆ ಆರು ಸಾವಿರ ರೂಪಾಯಿ. ಬದನೆಕಾಯಿ: ಕನಿಷ್ಠ ಬೆಲೆ ಎರಡು ಸಾವಿರ ನಾಲ್ಕು ನೂರು ರೂಪಾಯಿ, ಗರಿಷ್ಠ ಬೆಲೆ ನಾಲ್ಕು ಸಾವಿರ ರೂಪಾಯಿ. ಹೀರೇಕಾಯಿ, ತಳಿ ಹೀರೆಕಾಯಿ: ಕನಿಷ್ಠ ಬೆಲೆ ಎರಡು ಸಾವಿರ ಎರಡು ನೂರು ರೂಪಾಯಿ, ಗರಿಷ್ಠ ಬೆಲೆ ಮೂರು ಸಾವಿರ ರೂಪಾಯಿ. ಹುರುಳಿಕಾಯಿ, ತಳಿ ಬೀನ್ಸ್ (ವೋಲ್): ಕನಿಷ್ಠ ಬೆಲೆ ನಾಲ್ಕು ಸಾವಿರ ರೂಪಾಯಿ, ಗರಿಷ್ಠ ಬೆಲೆ ಆರು ಸಾವಿರ ರೂಪಾಯಿ. ನವಿಲುಕೋಸು: ಕನಿಷ್ಠ ಬೆಲೆ ಮೂರು ಸಾವಿರ ರೂಪಾಯಿ, ಗರಿಷ್ಠ ಬೆಲೆ ನಾಲ್ಕು ಸಾವಿರ ರೂಪಾಯಿ. ಪಡವಲಕಾಯಿ: ಕನಿಷ್ಠ ಬೆಲೆ ಒಂದು ಸಾವಿರ ಆರು ನೂರು ರೂಪಾಯಿ, ಗರಿಷ್ಠ ಬೆಲೆ ಎರಡು ಸಾವಿರ ಮೂರು ನೂರು ರೂಪಾಯಿ. ದಿನನಿತ್ಯದ ನಿಖರ ಮಾಹಿತಿಗಾಗಿ ನಮ್ಮ ಇನ್ಸ್ಟಾಗ್ರಾಮ್ ಮತ್ತು ಯೂಟ್ಯೂಬ್ ಚಾನೆಲ್‌ಗೆ ಸಬ್‌ಸ್ಕ್ರೈಬ್ ಆಗಿ. ಧನ್ಯವಾದಗಳು!
+[2026-08-15T17:42:24Z INFO  raitha_darpana::voiceover] 🎧 Found background music at assets\bg_music.mp3. Mixing at 6% volume.
+[2026-08-15T17:42:25Z INFO  headless_chrome::browser::tab] Navigating a tab to file:///D:/Projects/uiraitah_darpana/raitha_darpana/rd_media/20260814/%E0%B2%B0%E0%B2%BE%E0%B2%AE%E0%B2%A8%E0%B2%97%E0%B2%B0/frames/ig-kan/frame_00.html
+[2026-08-15T17:42:26Z INFO  headless_chrome::browser::tab] Navigating a tab to file:///D:/Projects/uiraitah_darpana/raitha_darpana/rd_media/20260814/%E0%B2%B0%E0%B2%BE%E0%B2%AE%E0%B2%A8%E0%B2%97%E0%B2%B0/frames/ig-kan/frame_01.html
+[2026-08-15T17:42:27Z INFO  headless_chrome::browser::tab] Navigating a tab to file:///D:/Projects/uiraitah_darpana/raitha_darpana/rd_media/20260814/%E0%B2%B0%E0%B2%BE%E0%B2%AE%E0%B2%A8%E0%B2%97%E0%B2%B0/frames/ig-kan/frame_02.html
+[2026-08-15T17:42:28Z INFO  headless_chrome::browser::tab] Navigating a tab to file:///D:/Projects/uiraitah_darpana/raitha_darpana/rd_media/20260814/%E0%B2%B0%E0%B2%BE%E0%B2%AE%E0%B2%A8%E0%B2%97%E0%B2%B0/frames/ig-kan/frame_03.html
+[2026-08-15T17:42:29Z INFO  headless_chrome::browser::tab] Navigating a tab to file:///D:/Projects/uiraitah_darpana/raitha_darpana/rd_media/20260814/%E0%B2%B0%E0%B2%BE%E0%B2%AE%E0%B2%A8%E0%B2%97%E0%B2%B0/frames/ig-kan/frame_04.html
+[2026-08-15T17:42:31Z INFO  headless_chrome::browser::tab] Navigating a tab to file:///D:/Projects/uiraitah_darpana/raitha_darpana/rd_media/20260814/%E0%B2%B0%E0%B2%BE%E0%B2%AE%E0%B2%A8%E0%B2%97%E0%B2%B0/frames/ig-kan/frame_05.html
+[2026-08-15T17:42:32Z INFO  headless_chrome::browser::tab] Navigating a tab to file:///D:/Projects/uiraitah_darpana/raitha_darpana/rd_media/20260814/%E0%B2%B0%E0%B2%BE%E0%B2%AE%E0%B2%A8%E0%B2%97%E0%B2%B0/frames/ig-kan/frame_06.html
+[2026-08-15T17:42:33Z INFO  headless_chrome::browser::tab] Navigating a tab to file:///D:/Projects/uiraitah_darpana/raitha_darpana/rd_media/20260814/%E0%B2%B0%E0%B2%BE%E0%B2%AE%E0%B2%A8%E0%B2%97%E0%B2%B0/frames/ig-kan/frame_07.html
+[2026-08-15T17:42:35Z INFO  headless_chrome::browser::tab] Navigating a tab to file:///D:/Projects/uiraitah_darpana/raitha_darpana/rd_media/20260814/%E0%B2%B0%E0%B2%BE%E0%B2%AE%E0%B2%A8%E0%B2%97%E0%B2%B0/frames/ig-kan/frame_08.html
+[2026-08-15T17:42:36Z INFO  headless_chrome::browser::tab] Navigating a tab to file:///D:/Projects/uiraitah_darpana/raitha_darpana/rd_media/20260814/%E0%B2%B0%E0%B2%BE%E0%B2%AE%E0%B2%A8%E0%B2%97%E0%B2%B0/frames/ig-kan/frame_09.html
+[2026-08-15T17:42:37Z INFO  headless_chrome::browser::tab] Navigating a tab to file:///D:/Projects/uiraitah_darpana/raitha_darpana/rd_media/20260814/%E0%B2%B0%E0%B2%BE%E0%B2%AE%E0%B2%A8%E0%B2%97%E0%B2%B0/frames/ig-kan/frame_10.html
+[2026-08-15T17:43:31Z INFO  headless_chrome::browser] Dropping browser
+[2026-08-15T17:43:31Z INFO  headless_chrome::browser::process] Killing Chrome. PID: 21364
+[2026-08-15T17:43:31Z INFO  headless_chrome::browser] Browser event loop received shutdown message
+[2026-08-15T17:43:31Z INFO  headless_chrome::browser] Finished browser's event handling loop
+[2026-08-15T17:43:31Z INFO  headless_chrome::browser::transport] Transport incoming message loop loop received shutdown message
+[2026-08-15T17:43:31Z INFO  headless_chrome::browser::transport] Shutting down message handling loop
+[2026-08-15T17:43:31Z INFO  headless_chrome::browser::transport] cleared listeners, I think
+[2026-08-15T17:43:31Z INFO  headless_chrome::browser::transport::web_socket_connection] Sending shutdown message to message handling loop
+[2026-08-15T17:43:31Z WARN  headless_chrome::browser::transport::web_socket_connection] Couldn't send message to transport loop telling it to shut down
+[2026-08-15T17:43:31Z INFO  headless_chrome::browser::tab] finished tab's event handling loop
+[2026-08-15T17:43:31Z INFO  headless_chrome::browser::tab] finished tab's event handling loop
+[2026-08-15T17:43:31Z INFO  headless_chrome::browser::transport] dropping transport
+[2026-08-15T17:43:31Z INFO  headless_chrome::browser::transport::web_socket_connection] dropping websocket connection

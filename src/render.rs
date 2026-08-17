@@ -607,9 +607,12 @@ fn render_reveal_frames(
         let frame_path = frames_dir.join(format!("frame_{:02}.png", step));
         fs::write(&frame_path, png_data)
             .map_err(|e| anyhow::anyhow!("Failed to write frame image to {}: {}", frame_path.display(), e))?;
+        let absolute_frame_path = frame_path
+            .canonicalize()
+            .unwrap_or_else(|_| frame_path.clone());
 
         frames.push(video::RevealFrame {
-            path: frame_path,
+            path: absolute_frame_path,
             start_secs: reveal_offsets[step],
             end_secs: reveal_offsets[step + 1],
         });
