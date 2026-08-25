@@ -10,6 +10,7 @@ use crate::dictionary::{Dictionary, Language};
 use crate::ffdeps;
 use crate::render::{self, ForceFlags, MediaKind, VariantSelection};
 use crate::scrape;
+use crate::social;
 use crate::storage;
 
 use anyhow::Result;
@@ -22,7 +23,9 @@ use axum::{
 };
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
+use std::path::PathBuf;
 use std::sync::Arc;
+use std::sync::Mutex as StdMutex;
 use tokio::sync::Mutex;
 use tower_http::cors::CorsLayer;
 use tower_http::services::ServeDir;
@@ -261,6 +264,14 @@ struct RenderRequest {
     force_image: bool,
     force_video: bool,
     force_all: bool,
+    #[serde(default)]
+    upload_instagram: bool,
+    #[serde(default)]
+    upload_youtube: bool,
+    /// Public HTTPS base URL under which this machine's rd_media/
+    /// directory is reachable. Required when upload_instagram is set.
+    #[serde(default)]
+    public_media_base_url: Option<String>,
     /// Empty = use the language default.
     voice: Option<String>,
     /// Signed percentage, e.g. "+20%". Empty/None = default.
@@ -316,9 +327,37 @@ async fn run_pipeline_job(
     let force_data = req.force_data || req.force_all;
     let force_image = req.force_image || req.force_all;
     let force_video = req.force_video || req.force_all;
-    let create_video = if force_video { true } else { !req.no_video };
 
-    let variants = match (req.ig, req.yt) {
+    let publish_flags = crate::social::PublishFlags {
+        instagram: req.upload_instagram,
+        youtube: req.upload_youtube,
+    };
+    let create_video = if force_video || publish_flags.any() { true } else { !req.no_video };
+
+    // Fail fast, before spending time scraping/rendering, if publishing
+    // was requested but its credentials aren't configured, or (for
+    // Instagram specifically) no public media base URL was given.
+    if publish_flags.any() {
+        crate::social::build_social_config(publish_flags)?;
+    }
+    let public_media_base_url = req
+        .public_media_base_url
+        .clone()
+        .filter(|v| !v.trim().is_empty())
+        .or_else(|| std::env::var("SOCIAL_PUBLIC_MEDIA_BASE_URL").ok().filter(|v| !v.trim().is_empty()));
+    if publish_flags.instagram && public_media_base_url.is_none() {
+        anyhow::bail!(
+            "Instagram upload requires a public media base URL (or SOCIAL_PUBLIC_MEDIA_BASE_URL): \
+             the Instagram Graph API fetches Reel videos from a public HTTPS URL, not a local file."
+        );
+    }
+
+    // variants: an upload flag implies its corresponding video variant
+    // must be generated even if the person only checked "Instagram
+    // only"/"YouTube only" for the other platform.
+    let want_ig = req.ig || req.upload_instagram;
+    let want_yt = req.yt || req.upload_youtube;
+    let variants = match (want_ig, want_yt) {
         (true, false) => VariantSelection::InstagramOnly,
         (false, true) => VariantSelection::YoutubeOnly,
         _ => VariantSelection::Both,
@@ -387,9 +426,31 @@ async fn run_pipeline_job(
 
     let state_for_media = state.clone();
     let job_id_for_media = job_id.clone();
+    let city_videos: Arc<StdMutex<HashMap<String, (Option<PathBuf>, Option<PathBuf>)>>> =
+        Arc::new(StdMutex::new(HashMap::new()));
+    let city_videos_for_media = city_videos.clone();
     let on_media = move |event: render::MediaEvent| {
         let state = state_for_media.clone();
         let job_id = job_id_for_media.clone();
+        match event.kind {
+            MediaKind::InstagramVideo => {
+                city_videos_for_media
+                    .lock()
+                    .unwrap()
+                    .entry(event.city.clone())
+                    .or_default()
+                    .0 = Some(event.path.clone());
+            }
+            MediaKind::YoutubeVideo => {
+                city_videos_for_media
+                    .lock()
+                    .unwrap()
+                    .entry(event.city.clone())
+                    .or_default()
+                    .1 = Some(event.path.clone());
+            }
+            _ => {}
+        }
         tokio::task::block_in_place(|| {
             tokio::runtime::Handle::current().block_on(async {
                 push_media(&state, &job_id, event).await;
@@ -411,6 +472,30 @@ async fn run_pipeline_job(
         on_media,
     )
     .await?;
+
+    if publish_flags.any() {
+        push_message(&state, &job_id, "Publishing...".to_string()).await;
+        let snapshot = city_videos.lock().unwrap().clone();
+        let state_for_publish = state.clone();
+        let job_id_for_publish = job_id.clone();
+        social::publish_all_cities(
+            publish_flags,
+            &date_ymd,
+            &state.dict,
+            &snapshot,
+            public_media_base_url.as_deref(),
+            move |msg| {
+                let state = state_for_publish.clone();
+                let job_id = job_id_for_publish.clone();
+                tokio::task::block_in_place(|| {
+                    tokio::runtime::Handle::current().block_on(async {
+                        push_message(&state, &job_id, msg).await;
+                    });
+                });
+            },
+        )
+        .await?;
+    }
 
     let mut jobs = state.jobs.lock().await;
     if let Some(job) = jobs.get_mut(&job_id) {
@@ -658,6 +743,19 @@ const INDEX_HTML: &str = r#"<!DOCTYPE html>
       </div>
     </fieldset>
   </div>
+
+  <fieldset>
+    <legend>3b. Publish after generating</legend>
+    <div class="optionsGrid">
+      <label><input type="checkbox" id="uploadInstagram"> Upload to Instagram (Reel)</label>
+      <label><input type="checkbox" id="uploadYoutube"> Upload to YouTube</label>
+    </div>
+    <div class="field" style="margin-top:0.5rem;">
+      <label for="publicMediaBaseUrl">Public media base URL (required for Instagram)</label>
+      <input type="text" id="publicMediaBaseUrl" placeholder="https://media.example.com">
+      <div class="hint">Instagram fetches the Reel from a public HTTPS URL, not a local file. Point this at wherever rd_media/ is publicly hosted. Not needed for YouTube-only uploads.</div>
+    </div>
+  </fieldset>
 
   <fieldset>
     <legend>4. Voice and Audio settings</legend>
@@ -959,6 +1057,11 @@ document.getElementById('runBtn').addEventListener('click', async () => {
   if (cities.length === 0) { alert('Select at least one city'); return; }
   const allSelected = cities.length === allCities.length;
 
+  if (document.getElementById('uploadInstagram').checked && !document.getElementById('publicMediaBaseUrl').value.trim()) {
+    alert('Instagram upload requires a public media base URL (Instagram fetches the video from a public HTTPS URL).');
+    return;
+  }
+
   const body = {
     language: document.getElementById('language').value,
     date_ymd: dateYmd,
@@ -970,6 +1073,9 @@ document.getElementById('runBtn').addEventListener('click', async () => {
     force_image: document.getElementById('forceImage').checked,
     force_video: document.getElementById('forceVideo').checked,
     force_all: document.getElementById('forceAll').checked,
+    upload_instagram: document.getElementById('uploadInstagram').checked,
+    upload_youtube: document.getElementById('uploadYoutube').checked,
+    public_media_base_url: document.getElementById('publicMediaBaseUrl').value || null,
     voice: document.getElementById('voice').value || null,
     rate: document.getElementById('rate').value || null,
     volume: document.getElementById('volume').value || null,

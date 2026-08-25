@@ -4,20 +4,16 @@
 //! existing generation pipeline continues to work identically whether
 //! or not publishing is enabled.
 
-#[path = "Caption.rs"]
 pub mod caption;
-#[path = "Config.rs"]
-pub mod config;
-#[path = "Instagram.rs"]
 pub mod instagram;
-#[path = "Metadata.rs"]
 pub mod metadata;
-#[path = "Youtube.rs"]
 pub mod youtube;
 
 use crate::config::SocialConfig;
+use crate::dictionary::{self, Dictionary, Language};
 use anyhow::Result;
-use std::path::Path;
+use std::collections::HashMap;
+use std::path::{Path, PathBuf};
 
 /// Which platforms to publish to for a given run. Mirrors
 /// `render::VariantSelection` but is intentionally a separate type:
@@ -33,6 +29,104 @@ impl PublishFlags {
     pub fn any(&self) -> bool {
         self.instagram || self.youtube
     }
+}
+
+/// Loads only the config needed for the platforms actually requested
+/// (e.g. a run with only `instagram: true` never requires YouTube
+/// credentials to be set). Returns a clear, specific error naming the
+/// exact missing environment variable rather than a generic failure.
+/// Shared by every caller (CLI and web UI) so both surfaces fail in
+/// exactly the same way for the same missing config.
+pub fn build_social_config(flags: PublishFlags) -> Result<SocialConfig> {
+    let instagram = if flags.instagram {
+        Some(crate::config::load_instagram_config()?)
+    } else {
+        None
+    };
+    let youtube = if flags.youtube {
+        Some(crate::config::load_youtube_config()?)
+    } else {
+        None
+    };
+    Ok(SocialConfig { instagram, youtube })
+}
+
+/// Builds the public URL for a locally-generated video, given a base
+/// URL under which the operator has made `rd_media/` reachable (e.g. a
+/// reverse proxy or CDN). Mirrors the web UI's own `/media` mount (see
+/// `ui.rs`) so the same relative layout is reused rather than
+/// inventing a different one.
+pub fn build_public_media_url(base_url: &str, date_ymd: &str, english_city_name: &str, local_path: &Path) -> String {
+    let folder = dictionary::city_folder_name(english_city_name);
+    let filename = local_path.file_name().and_then(|f| f.to_str()).unwrap_or_default();
+    format!("{}/{}/{}/{}", base_url.trim_end_matches('/'), date_ymd, folder, filename)
+}
+
+/// Publishes every city's already-generated video(s) to whichever
+/// platform(s) are requested, reporting each result (success or
+/// failure) through `on_message` as it happens rather than returning
+/// them all at the end -- this lets both the CLI (which prints
+/// immediately) and the web UI (which streams progress to the browser)
+/// show live per-city, per-platform status using the exact same
+/// publishing code path. One city/platform failing never stops the
+/// rest from being attempted.
+pub async fn publish_all_cities(
+    flags: PublishFlags,
+    date_ymd: &str,
+    dict: &Dictionary,
+    city_videos: &HashMap<String, (Option<PathBuf>, Option<PathBuf>)>,
+    public_media_base_url: Option<&str>,
+    mut on_message: impl FnMut(String),
+) -> Result<()> {
+    if !flags.any() || city_videos.is_empty() {
+        return Ok(());
+    }
+
+    let config = build_social_config(flags)?;
+
+    for (english_city_name, (ig_path, yt_path)) in city_videos {
+        let market_kannada = dict.city_display(english_city_name, Language::Kannada);
+
+        let instagram_public_url = match (flags.instagram, ig_path, public_media_base_url) {
+            (true, Some(path), Some(base)) => Some(build_public_media_url(base, date_ymd, english_city_name, path)),
+            _ => None,
+        };
+
+        match publish_city(
+            &config,
+            flags,
+            date_ymd,
+            english_city_name,
+            &market_kannada,
+            ig_path.as_deref(),
+            yt_path.as_deref(),
+            instagram_public_url.as_deref(),
+        )
+        .await
+        {
+            Ok(outcome) => {
+                if let Some(result) = outcome.instagram {
+                    match result {
+                        Ok(media_id) => on_message(format!(
+                            "✓ Instagram Reel published for {english_city_name}. Instagram media ID: {media_id}"
+                        )),
+                        Err(e) => on_message(format!("✗ Instagram upload failed for {english_city_name}\nReason: {e}")),
+                    }
+                }
+                if let Some(result) = outcome.youtube {
+                    match result {
+                        Ok(video_id) => on_message(format!(
+                            "✓ YouTube video published (public) for {english_city_name}. YouTube video ID: {video_id}"
+                        )),
+                        Err(e) => on_message(format!("✗ YouTube upload failed for {english_city_name}\nReason: {e}")),
+                    }
+                }
+            }
+            Err(e) => on_message(format!("✗ Publishing failed for {english_city_name}\nReason: {e}")),
+        }
+    }
+
+    Ok(())
 }
 
 /// Outcome of attempting to publish one city's videos, for CLI

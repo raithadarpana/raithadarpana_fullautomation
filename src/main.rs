@@ -5,8 +5,6 @@ pub mod dictionary;
 pub mod ffdeps;
 pub mod render;
 pub mod scrape;
-#[path = "Social/mod.rs"]
-pub mod Social;
 pub mod social;
 pub mod storage;
 pub mod templates;
@@ -230,103 +228,28 @@ fn init_logging() -> Result<()> {
     Ok(())
 }
 
-/// Loads only the config needed for the platforms actually requested,
-/// so e.g. running with just `--upload-instagram` never requires
-/// YouTube credentials to be set. Returns a clear, specific error
-/// (naming the missing env var) rather than failing generically.
-fn build_social_config(flags: social::PublishFlags) -> Result<config::SocialConfig> {
-    let instagram = if flags.instagram {
-        Some(config::load_instagram_config()?)
-    } else {
-        None
-    };
-    let youtube = if flags.youtube {
-        Some(config::load_youtube_config()?)
-    } else {
-        None
-    };
-    Ok(config::SocialConfig { instagram, youtube })
-}
-
 /// Publishes every city's generated video(s) to the requested
-/// platform(s). Runs after generation is fully complete so a
-/// publishing failure never interrupts or corrupts the local
-/// image/video pipeline. Each city's Instagram and YouTube attempts
-/// are independent -- one failing never skips the other -- and every
-/// result (success or failure) is printed clearly.
+/// platform(s) via the shared `social::publish_all_cities`, printing
+/// each result as it streams in. Runs after generation is fully
+/// complete so a publishing failure never interrupts or corrupts the
+/// local image/video pipeline.
 async fn publish_generated_videos(
-    social_config: &config::SocialConfig,
     flags: social::PublishFlags,
     date_ymd: &str,
     dict: &Dictionary,
     city_videos: &std::collections::HashMap<String, (Option<std::path::PathBuf>, Option<std::path::PathBuf>)>,
     public_media_base_url: Option<&str>,
-) {
+) -> Result<()> {
     if city_videos.is_empty() {
         println!("\nNo generated videos to publish.");
-        return;
+        return Ok(());
     }
 
     println!("\nPublishing...");
-    for (english_city_name, (ig_path, yt_path)) in city_videos {
-        let market_kannada = dict.city_display(english_city_name, dictionary::Language::Kannada);
-        println!("\n{english_city_name}\n{}", "-".repeat(english_city_name.len()));
-
-        let instagram_public_url = match (flags.instagram, ig_path, public_media_base_url) {
-            (true, Some(path), Some(base)) => Some(build_public_media_url(base, date_ymd, english_city_name, path)),
-            _ => None,
-        };
-
-        match social::publish_city(
-            social_config,
-            flags,
-            date_ymd,
-            english_city_name,
-            &market_kannada,
-            ig_path.as_deref(),
-            yt_path.as_deref(),
-            instagram_public_url.as_deref(),
-        )
-        .await
-        {
-            Ok(outcome) => {
-                if let Some(result) = outcome.instagram {
-                    match result {
-                        Ok(media_id) => println!("✓ Instagram Reel published. Instagram media ID: {media_id}"),
-                        Err(e) => println!("✗ Instagram upload failed\nReason: {e}"),
-                    }
-                }
-                if let Some(result) = outcome.youtube {
-                    match result {
-                        Ok(video_id) => println!("✓ YouTube video published (public). YouTube video ID: {video_id}"),
-                        Err(e) => println!("✗ YouTube upload failed\nReason: {e}"),
-                    }
-                }
-            }
-            Err(e) => {
-                println!("✗ Publishing failed for {english_city_name}\nReason: {e}");
-            }
-        }
-    }
-}
-
-/// Builds the public URL for a locally-generated video, given a base
-/// URL under which the operator has made `rd_media/` reachable (e.g. a
-/// reverse proxy or CDN pointed at that directory). Mirrors the UI
-/// server's own `/media` mount (see `ui.rs`) so the same relative
-/// layout is reused rather than inventing a different one.
-fn build_public_media_url(
-    base_url: &str,
-    date_ymd: &str,
-    english_city_name: &str,
-    local_path: &std::path::Path,
-) -> String {
-    let folder = dictionary::city_folder_name(english_city_name);
-    let filename = local_path
-        .file_name()
-        .and_then(|f| f.to_str())
-        .unwrap_or_default();
-    format!("{}/{}/{}/{}", base_url.trim_end_matches('/'), date_ymd, folder, filename)
+    social::publish_all_cities(flags, date_ymd, dict, city_videos, public_media_base_url, |msg| {
+        println!("{msg}");
+    })
+    .await
 }
 
 async fn run_headless(args: &Args) -> Result<()> {
@@ -370,7 +293,7 @@ async fn run_headless(args: &Args) -> Result<()> {
 
     // Fail fast (before spending minutes scraping/rendering) if
     // publishing was requested but its credentials aren't configured.
-    let social_config = build_social_config(publish_flags)?;
+    social::build_social_config(publish_flags)?;
     let public_media_base_url = args
         .public_media_base_url
         .clone()
@@ -475,14 +398,13 @@ async fn run_headless(args: &Args) -> Result<()> {
 
     if publish_flags.any() {
         publish_generated_videos(
-            &social_config,
             publish_flags,
             &date_ymd,
             &dict,
             &city_videos,
             public_media_base_url.as_deref(),
         )
-        .await;
+        .await?;
     }
 
     if outcome.written.is_empty() && outcome.videos_written.is_empty() {

@@ -1574,3 +1574,644 @@
 [2026-08-15T17:43:31Z INFO  headless_chrome::browser::tab] finished tab's event handling loop
 [2026-08-15T17:43:31Z INFO  headless_chrome::browser::transport] dropping transport
 [2026-08-15T17:43:31Z INFO  headless_chrome::browser::transport::web_socket_connection] dropping websocket connection
+[2026-08-17T15:57:51Z INFO  raitha_darpana] === raitha_darpana started, logging to rd_media\rd.log ===
+[2026-08-17T15:57:51Z INFO  raitha_darpana::ui] Web UI listening on http://127.0.0.1:63077
+[2026-08-17T15:57:55Z INFO  headless_chrome::browser::process] Launching Chrome binary at C:\Program Files\Google\Chrome\Application\chrome.exe
+[2026-08-17T15:57:55Z INFO  headless_chrome::browser::process] Started Chrome. PID: 25260
+[2026-08-17T15:58:00Z INFO  headless_chrome::browser::tab] Navigating a tab to https://krama.karnataka.gov.in/Kannada/Main_rep
+[2026-08-17T15:58:16Z INFO  raitha_darpana::scrape] Report Date: 17/08/2026
+[2026-08-17T15:58:16Z INFO  raitha_darpana::scrape] Total Cities: 68
+[2026-08-17T15:58:16Z INFO  raitha_darpana::scrape] City: 1]  ಮಾರುಕಟ್ಟೆ: ಅರಸೀಕೆರೆ - Commodities: 21
+[2026-08-17T15:58:16Z INFO  raitha_darpana::scrape] City: 2]  ಮಾರುಕಟ್ಟೆ: ಕೆ.ಅರ್ .ಪೇಟೆ - Commodities: 3
+[2026-08-17T15:58:16Z INFO  raitha_darpana::scrape] City: 3]  ಮಾರುಕಟ್ಟೆ: ಕಂಪ್ಲಿ - Commodities: 2
+[2026-08-17T15:58:16Z INFO  raitha_darpana::scrape] City: 4]  ಮಾರುಕಟ್ಟೆ: ಕನಕಗಿರಿ - Commodities: 5
+[2026-08-17T15:58:16Z INFO  raitha_darpana::scrape] City: 5]  ಮಾರುಕಟ್ಟೆ: ಕುಡಚಿ - Commodities: 1
+[2026-08-17T15:58:16Z INFO  raitha_darpana::scrape] City: 6]  ಮಾರುಕಟ್ಟೆ: ಕುಮುಟ - Commodities: 1
+[2026-08-17T15:58:16Z INFO  raitha_darpana::scrape] City: 7]  ಮಾರುಕಟ್ಟೆ: ಕುಷ್ಟಗಿ - Commodities: 4
+[2026-08-17T15:58:16Z INFO  raitha_darpana::scrape] City: 8]  ಮಾರುಕಟ್ಟೆ: ಕೊಪ್ಪ - Commodities: 1
+[2026-08-17T15:58:16Z INFO  raitha_darpana::scrape] City: 9]  ಮಾರುಕಟ್ಟೆ: ಕೊಪ್ಪಳ - Commodities: 4
+[2026-08-17T15:58:16Z INFO  raitha_darpana::scrape] City: 10]  ಮಾರುಕಟ್ಟೆ: ಗಂಗಾವತಿ - Commodities: 7
+[2026-08-17T15:58:16Z INFO  raitha_darpana::scrape] City: 11]  ಮಾರುಕಟ್ಟೆ: ಗುಂಡ್ಲುಪೇಟೆ - Commodities: 10
+[2026-08-17T15:58:16Z INFO  raitha_darpana::scrape] City: 12]  ಮಾರುಕಟ್ಟೆ: ಗುಬ್ಬಿ - Commodities: 4
+[2026-08-17T15:58:16Z INFO  raitha_darpana::scrape] City: 13]  ಮಾರುಕಟ್ಟೆ: ಗೋಣಿಕೊಪ್ಪಲ್ - Commodities: 1
+[2026-08-17T15:58:16Z INFO  raitha_darpana::scrape] City: 14]  ಮಾರುಕಟ್ಟೆ: ಗೌರಿಬಿದನೂರು - Commodities: 19
+[2026-08-17T15:58:16Z INFO  raitha_darpana::scrape] City: 15]  ಮಾರುಕಟ್ಟೆ: ಚಿಂತಾಮಣಿ - Commodities: 13
+[2026-08-17T15:58:16Z INFO  raitha_darpana::scrape] City: 16]  ಮಾರುಕಟ್ಟೆ: ಚಿಕ್ಕಬಳ್ಳಾಪುರ - Commodities: 1
+[2026-08-17T15:58:16Z INFO  raitha_darpana::scrape] City: 17]  ಮಾರುಕಟ್ಟೆ: ಚನ್ನಗಿರಿ - Commodities: 2
+[2026-08-17T15:58:16Z INFO  raitha_darpana::scrape] City: 18]  ಮಾರುಕಟ್ಟೆ: ಚಳ್ಳಕೆರೆ - Commodities: 2
+[2026-08-17T15:58:16Z INFO  raitha_darpana::scrape] City: 19]  ಮಾರುಕಟ್ಟೆ: ಚಾಮರಾಜನಗರ - Commodities: 17
+[2026-08-17T15:58:16Z INFO  raitha_darpana::scrape] City: 20]  ಮಾರುಕಟ್ಟೆ: ತಿಪಟೂರು - Commodities: 1
+[2026-08-17T15:58:16Z INFO  raitha_darpana::scrape] City: 21]  ಮಾರುಕಟ್ಟೆ: ತರಿಕೆರೆ - Commodities: 1
+[2026-08-17T15:58:16Z INFO  raitha_darpana::scrape] City: 22]  ಮಾರುಕಟ್ಟೆ: ತಾಳಿಕೋಟೆ - Commodities: 4
+[2026-08-17T15:58:16Z INFO  raitha_darpana::scrape] City: 23]  ಮಾರುಕಟ್ಟೆ: ತೀರ್ಥಹಳ್ಳಿ - Commodities: 4
+[2026-08-17T15:58:16Z INFO  raitha_darpana::scrape] City: 24]  ಮಾರುಕಟ್ಟೆ: ತುರುವೇಕೆರೆ - Commodities: 1
+[2026-08-17T15:58:16Z INFO  raitha_darpana::scrape] City: 25]  ಮಾರುಕಟ್ಟೆ: ದಾವಣಗೆರೆ - Commodities: 15
+[2026-08-17T15:58:16Z INFO  raitha_darpana::scrape] City: 26]  ಮಾರುಕಟ್ಟೆ: ದೊಡ್ಡಬಳ್ಳಾಪುರ - Commodities: 20
+[2026-08-17T15:58:16Z INFO  raitha_darpana::scrape] City: 27]  ಮಾರುಕಟ್ಟೆ: ಪಿರಿಯಾಪಟ್ಟಣ - Commodities: 1
+[2026-08-17T15:58:16Z INFO  raitha_darpana::scrape] City: 28]  ಮಾರುಕಟ್ಟೆ: ಪಾ೦ಡವಪುರ - Commodities: 1
+[2026-08-17T15:58:16Z INFO  raitha_darpana::scrape] City: 29]  ಮಾರುಕಟ್ಟೆ: ಬೆಂಗಳೂರು - Commodities: 41
+[2026-08-17T15:58:16Z INFO  raitha_darpana::scrape] City: 30]  ಮಾರುಕಟ್ಟೆ: ಬಂಗಾರಪೇಟೆ - Commodities: 18
+[2026-08-17T15:58:16Z INFO  raitha_darpana::scrape] City: 31]  ಮಾರುಕಟ್ಟೆ: ಬಿನ್ನಿಮಿಲ್ - Commodities: 47
+[2026-08-17T15:58:16Z INFO  raitha_darpana::scrape] City: 32]  ಮಾರುಕಟ್ಟೆ: ಬೆಳಗಾವಿ - Commodities: 2
+[2026-08-17T15:58:16Z INFO  raitha_darpana::scrape] City: 33]  ಮಾರುಕಟ್ಟೆ: ಬಳ್ಳಾರಿ - Commodities: 5
+[2026-08-17T15:58:16Z INFO  raitha_darpana::scrape] City: 34]  ಮಾರುಕಟ್ಟೆ: ಬಾಗೆಪಲ್ಲಿ - Commodities: 14
+[2026-08-17T15:58:16Z INFO  raitha_darpana::scrape] City: 35]  ಮಾರುಕಟ್ಟೆ: ಬೈಲಹೊಂಗಲ - Commodities: 1
+[2026-08-17T15:58:16Z INFO  raitha_darpana::scrape] City: 36]  ಮಾರುಕಟ್ಟೆ: ಭದ್ರಾವತಿ - Commodities: 8
+[2026-08-17T15:58:16Z INFO  raitha_darpana::scrape] City: 37]  ಮಾರುಕಟ್ಟೆ: ಮಡಿಕೇರಿ - Commodities: 1
+[2026-08-17T15:58:16Z INFO  raitha_darpana::scrape] City: 38]  ಮಾರುಕಟ್ಟೆ: ಮಾನ್ವಿ - Commodities: 9
+[2026-08-17T15:58:16Z INFO  raitha_darpana::scrape] City: 39]  ಮಾರುಕಟ್ಟೆ: ಮಾಲೂರು - Commodities: 4
+[2026-08-17T15:58:16Z INFO  raitha_darpana::scrape] City: 40]  ಮಾರುಕಟ್ಟೆ: ಮುಳಬಾಗಿಲು - Commodities: 5
+[2026-08-17T15:58:16Z INFO  raitha_darpana::scrape] City: 41]  ಮಾರುಕಟ್ಟೆ: ಮೈಸೂರು - Commodities: 26
+[2026-08-17T15:58:16Z INFO  raitha_darpana::scrape] City: 42]  ಮಾರುಕಟ್ಟೆ: ಯಲ್ಬುರ್ಗ - Commodities: 5
+[2026-08-17T15:58:16Z INFO  raitha_darpana::scrape] City: 43]  ಮಾರುಕಟ್ಟೆ: ರಾಣೆಬೆನ್ನೂರು - Commodities: 6
+[2026-08-17T15:58:16Z INFO  raitha_darpana::scrape] City: 44]  ಮಾರುಕಟ್ಟೆ: ರಾಮದುರ್ಗ - Commodities: 1
+[2026-08-17T15:58:16Z INFO  raitha_darpana::scrape] City: 45]  ಮಾರುಕಟ್ಟೆ: ರಾಮನಗರ - Commodities: 22
+[2026-08-17T15:58:16Z INFO  raitha_darpana::scrape] City: 46]  ಮಾರುಕಟ್ಟೆ: ರಾಯಚೂರು - Commodities: 5
+[2026-08-17T15:58:16Z INFO  raitha_darpana::scrape] City: 47]  ಮಾರುಕಟ್ಟೆ: ರೋಣ - Commodities: 2
+[2026-08-17T15:58:16Z INFO  raitha_darpana::scrape] City: 48]  ಮಾರುಕಟ್ಟೆ: ಲಿಂಗಸುಗೂರು - Commodities: 4
+[2026-08-17T15:58:16Z INFO  raitha_darpana::scrape] City: 49]  ಮಾರುಕಟ್ಟೆ: ಲಕ್ಷ್ಮೇಶ್ವರ - Commodities: 13
+[2026-08-17T15:58:16Z INFO  raitha_darpana::scrape] City: 50]  ಮಾರುಕಟ್ಟೆ: ವಿಜಯಾಪುರ - Commodities: 9
+[2026-08-17T15:58:16Z INFO  raitha_darpana::scrape] City: 51]  ಮಾರುಕಟ್ಟೆ: ಶಿಕಾರಿಪುರ - Commodities: 4
+[2026-08-17T15:58:16Z INFO  raitha_darpana::scrape] City: 52]  ಮಾರುಕಟ್ಟೆ: ಶ್ರೀನಿವಾಸಪುರ - Commodities: 1
+[2026-08-17T15:58:16Z INFO  raitha_darpana::scrape] City: 53]  ಮಾರುಕಟ್ಟೆ: ಶ್ರೀರ೦ಗಪಟ್ಟಣ - Commodities: 2
+[2026-08-17T15:58:16Z INFO  raitha_darpana::scrape] City: 54]  ಮಾರುಕಟ್ಟೆ: ಶಿವಮೊಗ್ಗ - Commodities: 24
+[2026-08-17T15:58:16Z INFO  raitha_darpana::scrape] City: 55]  ಮಾರುಕಟ್ಟೆ: ಸಂಕೇಶ್ವರ - Commodities: 3
+[2026-08-17T15:58:16Z INFO  raitha_darpana::scrape] City: 56]  ಮಾರುಕಟ್ಟೆ: ಸಂತೆಸರಗೂರು - Commodities: 4
+[2026-08-17T15:58:16Z INFO  raitha_darpana::scrape] City: 57]  ಮಾರುಕಟ್ಟೆ: ಸಿಂಧನೂರು - Commodities: 10
+[2026-08-17T15:58:16Z INFO  raitha_darpana::scrape] City: 58]  ಮಾರುಕಟ್ಟೆ: ಸಾಗರ - Commodities: 7
+[2026-08-17T15:58:16Z INFO  raitha_darpana::scrape] City: 59]  ಮಾರುಕಟ್ಟೆ: ಹಡಗಲಿ - Commodities: 2
+[2026-08-17T15:58:16Z INFO  raitha_darpana::scrape] City: 60]  ಮಾರುಕಟ್ಟೆ: ಹಿರಿಯೂರು - Commodities: 1
+[2026-08-17T15:58:16Z INFO  raitha_darpana::scrape] City: 61]  ಮಾರುಕಟ್ಟೆ: ಹರಿಹರ - Commodities: 2
+[2026-08-17T15:58:16Z INFO  raitha_darpana::scrape] City: 62]  ಮಾರುಕಟ್ಟೆ: ಹಳಿಯಾಳ - Commodities: 1
+[2026-08-17T15:58:16Z INFO  raitha_darpana::scrape] City: 63]  ಮಾರುಕಟ್ಟೆ: ಹಾವೇರಿ - Commodities: 3
+[2026-08-17T15:58:16Z INFO  raitha_darpana::scrape] City: 64]  ಮಾರುಕಟ್ಟೆ: ಹುಣಸೂರು - Commodities: 2
+[2026-08-17T15:58:16Z INFO  raitha_darpana::scrape] City: 65]  ಮಾರುಕಟ್ಟೆ: ಹುಬ್ಬಳ್ಳಿ - Commodities: 12
+[2026-08-17T15:58:16Z INFO  raitha_darpana::scrape] City: 66]  ಮಾರುಕಟ್ಟೆ: ಹೊನ್ನಾಳಿ - Commodities: 15
+[2026-08-17T15:58:16Z INFO  raitha_darpana::scrape] City: 67]  ಮಾರುಕಟ್ಟೆ: ಹೊಳ್ಳಕೆರೆ - Commodities: 3
+[2026-08-17T15:58:16Z INFO  raitha_darpana::scrape] City: 68]  ಮಾರುಕಟ್ಟೆ: ಹೊಸದುರ್ಗ - Commodities: 6
+[2026-08-17T15:58:16Z INFO  headless_chrome::browser] Dropping browser
+[2026-08-17T15:58:16Z INFO  headless_chrome::browser] Browser event loop received shutdown message
+[2026-08-17T15:58:16Z INFO  headless_chrome::browser] Finished browser's event handling loop
+[2026-08-17T15:58:16Z INFO  headless_chrome::browser::process] Killing Chrome. PID: 25260
+[2026-08-17T15:58:16Z WARN  headless_chrome::browser::transport] Couldn't send browser an event: "DetachedFromTarget(DetachedFromTargetEvent { params: DetachedFromTargetEventParams { session_id: \"DA3E3ABD484C8F9FCEDD59B5D110646D\", target_id: Some(\"FC16174ADD278F9A195905D4283BF12F\") } })"
+    SendError { .. }
+[2026-08-17T15:58:16Z INFO  headless_chrome::browser::transport] Shutting down message handling loop
+[2026-08-17T15:58:16Z INFO  headless_chrome::browser::transport::web_socket_connection] Sending shutdown message to message handling loop
+[2026-08-17T15:58:16Z INFO  headless_chrome::browser::transport] cleared listeners, I think
+[2026-08-17T15:58:16Z INFO  headless_chrome::browser::tab] finished tab's event handling loop
+[2026-08-17T15:58:16Z INFO  headless_chrome::browser::tab] finished tab's event handling loop
+[2026-08-17T15:58:48Z INFO  raitha_darpana::ui] [job 2b381f37-af14-425d-a89f-e6989196f6ac] Launching renderer...
+[2026-08-17T15:58:48Z INFO  headless_chrome::browser::process] Launching Chrome binary at C:\Program Files\Google\Chrome\Application\chrome.exe
+[2026-08-17T15:58:48Z INFO  headless_chrome::browser::process] Started Chrome. PID: 45308
+[2026-08-17T15:58:50Z INFO  raitha_darpana::render] Rendering images for city '16]  ಮಾರುಕಟ್ಟೆ: ಚಿಕ್ಕಬಳ್ಳಾಪುರ' -> 'ಚಿಕ್ಕಬಳ್ಳಾಪುರ'
+[2026-08-17T15:58:50Z INFO  raitha_darpana::ui] [job 2b381f37-af14-425d-a89f-e6989196f6ac] Rendering ಚಿಕ್ಕಬಳ್ಳಾಪುರ (Instagram)...
+[2026-08-17T15:58:50Z INFO  raitha_darpana::render] Navigating to file:///D:/Projects/uiraitah_darpana/raitha_darpana/rd_media/20260817/%E0%B2%9A%E0%B2%BF%E0%B2%95%E0%B3%8D%E0%B2%95%E0%B2%AC%E0%B2%B3%E0%B3%8D%E0%B2%B3%E0%B2%BE%E0%B2%AA%E0%B3%81%E0%B2%B0/%E0%B2%9A%E0%B2%BF%E0%B2%95%E0%B3%8D%E0%B2%95%E0%B2%AC%E0%B2%B3%E0%B3%8D%E0%B2%B3%E0%B2%BE%E0%B2%AA%E0%B3%81%E0%B2%B0-20260817-ig-kan.html (city: ಚಿಕ್ಕಬಳ್ಳಾಪುರ)
+[2026-08-17T15:58:50Z INFO  headless_chrome::browser::tab] Navigating a tab to file:///D:/Projects/uiraitah_darpana/raitha_darpana/rd_media/20260817/%E0%B2%9A%E0%B2%BF%E0%B2%95%E0%B3%8D%E0%B2%95%E0%B2%AC%E0%B2%B3%E0%B3%8D%E0%B2%B3%E0%B2%BE%E0%B2%AA%E0%B3%81%E0%B2%B0/%E0%B2%9A%E0%B2%BF%E0%B2%95%E0%B3%8D%E0%B2%95%E0%B2%AC%E0%B2%B3%E0%B3%8D%E0%B2%B3%E0%B2%BE%E0%B2%AA%E0%B3%81%E0%B2%B0-20260817-ig-kan.html
+[2026-08-17T15:58:51Z INFO  raitha_darpana::ui] [job 2b381f37-af14-425d-a89f-e6989196f6ac] Rendering ಚಿಕ್ಕಬಳ್ಳಾಪುರ (YouTube)...
+[2026-08-17T15:58:51Z INFO  raitha_darpana::render] Navigating to file:///D:/Projects/uiraitah_darpana/raitha_darpana/rd_media/20260817/%E0%B2%9A%E0%B2%BF%E0%B2%95%E0%B3%8D%E0%B2%95%E0%B2%AC%E0%B2%B3%E0%B3%8D%E0%B2%B3%E0%B2%BE%E0%B2%AA%E0%B3%81%E0%B2%B0/%E0%B2%9A%E0%B2%BF%E0%B2%95%E0%B3%8D%E0%B2%95%E0%B2%AC%E0%B2%B3%E0%B3%8D%E0%B2%B3%E0%B2%BE%E0%B2%AA%E0%B3%81%E0%B2%B0-20260817-yt-kan.html (city: ಚಿಕ್ಕಬಳ್ಳಾಪುರ)
+[2026-08-17T15:58:51Z INFO  headless_chrome::browser::tab] Navigating a tab to file:///D:/Projects/uiraitah_darpana/raitha_darpana/rd_media/20260817/%E0%B2%9A%E0%B2%BF%E0%B2%95%E0%B3%8D%E0%B2%95%E0%B2%AC%E0%B2%B3%E0%B3%8D%E0%B2%B3%E0%B2%BE%E0%B2%AA%E0%B3%81%E0%B2%B0/%E0%B2%9A%E0%B2%BF%E0%B2%95%E0%B3%8D%E0%B2%95%E0%B2%AC%E0%B2%B3%E0%B3%8D%E0%B2%B3%E0%B2%BE%E0%B2%AA%E0%B3%81%E0%B2%B0-20260817-yt-kan.html
+[2026-08-17T15:58:53Z INFO  raitha_darpana::voiceover] ನಮಸ್ಕಾರ ವೀಕ್ಷಕರೇ, ರೈತ ದರ್ಪಣ ಮಾರುಕಟ್ಟೆ ಬೆಲೆಗಳ ಮಾಹಿತಿ ಚಾನೆಲ್‌ಗೆ ಸುಸ್ವಾಗತ. ಇಂದಿನ ಚಿಕ್ಕಬಳ್ಳಾಪುರ ಮಾರುಕಟ್ಟೆಯ ತರಕಾರಿ ಬೆಲೆಗಳ ಮಾಹಿತಿ ಇಲ್ಲಿದೆ. ವರದಿ ದಿನಾಂಕ: 17/08/2026. ಟೊಮ್ಯಾಟೊ, ತಳಿ ಟೊಮ್ಯೂಟೊ: ಕನಿಷ್ಠ ಬೆಲೆ ಮೂರು ನೂರು ಅರವತ್ತು ರೂಪಾಯಿ, ಗರಿಷ್ಠ ಬೆಲೆ ಒಂದು ಸಾವಿರ ಆರು ನೂರು ನಲವತ್ತು ಮೂರು ರೂಪಾಯಿ. ದಿನನಿತ್ಯದ ನಿಖರ ಮಾಹಿತಿಗಾಗಿ ನಮ್ಮ ಇನ್ಸ್ಟಾಗ್ರಾಮ್ ಮತ್ತು ಯೂಟ್ಯೂಬ್ ಚಾನೆಲ್‌ಗೆ ಸಬ್‌ಸ್ಕ್ರೈಬ್ ಆಗಿ. ಧನ್ಯವಾದಗಳು!
+[2026-08-17T15:58:53Z INFO  raitha_darpana::ui] [job 2b381f37-af14-425d-a89f-e6989196f6ac] Generating voiceover for ಚಿಕ್ಕಬಳ್ಳಾಪುರ...
+[2026-08-17T15:59:03Z INFO  raitha_darpana::voiceover] 🎧 Found background music at assets\bg_music.mp3. Mixing at 6% volume.
+[2026-08-17T15:59:04Z INFO  raitha_darpana::ui] [job 2b381f37-af14-425d-a89f-e6989196f6ac] Generating Instagram video for ಚಿಕ್ಕಬಳ್ಳಾಪುರ...
+[2026-08-17T15:59:04Z INFO  headless_chrome::browser::tab] Navigating a tab to file:///D:/Projects/uiraitah_darpana/raitha_darpana/rd_media/20260817/%E0%B2%9A%E0%B2%BF%E0%B2%95%E0%B3%8D%E0%B2%95%E0%B2%AC%E0%B2%B3%E0%B3%8D%E0%B2%B3%E0%B2%BE%E0%B2%AA%E0%B3%81%E0%B2%B0/frames/ig-kan/frame_00.html
+[2026-08-17T15:59:05Z INFO  headless_chrome::browser::tab] Navigating a tab to file:///D:/Projects/uiraitah_darpana/raitha_darpana/rd_media/20260817/%E0%B2%9A%E0%B2%BF%E0%B2%95%E0%B3%8D%E0%B2%95%E0%B2%AC%E0%B2%B3%E0%B3%8D%E0%B2%B3%E0%B2%BE%E0%B2%AA%E0%B3%81%E0%B2%B0/frames/ig-kan/frame_01.html
+[2026-08-17T15:59:28Z INFO  raitha_darpana::ui] [job 2b381f37-af14-425d-a89f-e6989196f6ac] Generating YouTube video for ಚಿಕ್ಕಬಳ್ಳಾಪುರ...
+[2026-08-17T15:59:28Z INFO  headless_chrome::browser::tab] Navigating a tab to file:///D:/Projects/uiraitah_darpana/raitha_darpana/rd_media/20260817/%E0%B2%9A%E0%B2%BF%E0%B2%95%E0%B3%8D%E0%B2%95%E0%B2%AC%E0%B2%B3%E0%B3%8D%E0%B2%B3%E0%B2%BE%E0%B2%AA%E0%B3%81%E0%B2%B0/frames/yt-kan/frame_00.html
+[2026-08-17T15:59:30Z INFO  headless_chrome::browser::tab] Navigating a tab to file:///D:/Projects/uiraitah_darpana/raitha_darpana/rd_media/20260817/%E0%B2%9A%E0%B2%BF%E0%B2%95%E0%B3%8D%E0%B2%95%E0%B2%AC%E0%B2%B3%E0%B3%8D%E0%B2%B3%E0%B2%BE%E0%B2%AA%E0%B3%81%E0%B2%B0/frames/yt-kan/frame_01.html
+[2026-08-17T15:59:51Z INFO  raitha_darpana::ui] [job 2b381f37-af14-425d-a89f-e6989196f6ac] Render complete.
+[2026-08-17T15:59:51Z INFO  headless_chrome::browser] Dropping browser
+[2026-08-17T15:59:51Z INFO  headless_chrome::browser::process] Killing Chrome. PID: 45308
+[2026-08-17T15:59:51Z INFO  headless_chrome::browser::transport] Transport incoming message loop loop received shutdown message
+[2026-08-17T15:59:51Z INFO  headless_chrome::browser::transport] Shutting down message handling loop
+[2026-08-17T15:59:51Z INFO  headless_chrome::browser] Browser event loop received shutdown message
+[2026-08-17T15:59:51Z INFO  headless_chrome::browser] Finished browser's event handling loop
+[2026-08-17T15:59:51Z INFO  headless_chrome::browser::transport::web_socket_connection] Sending shutdown message to message handling loop
+[2026-08-17T15:59:51Z INFO  headless_chrome::browser::transport] cleared listeners, I think
+[2026-08-17T15:59:51Z INFO  headless_chrome::browser::tab] finished tab's event handling loop
+[2026-08-17T15:59:51Z INFO  headless_chrome::browser::tab] finished tab's event handling loop
+[2026-08-17T15:59:51Z INFO  headless_chrome::browser::transport] dropping transport
+[2026-08-17T15:59:51Z INFO  headless_chrome::browser::transport::web_socket_connection] dropping websocket connection
+[2026-08-17T16:12:16Z INFO  raitha_darpana] === raitha_darpana started, logging to rd_media\rd.log ===
+[2026-08-17T16:13:10Z INFO  raitha_darpana] === raitha_darpana started, logging to rd_media\rd.log ===
+[2026-08-17T16:18:55Z INFO  raitha_darpana] === raitha_darpana started, logging to rd_media\rd.log ===
+[2026-08-17T16:18:55Z INFO  raitha_darpana::ui] Web UI listening on http://127.0.0.1:56010
+[2026-08-17T16:19:45Z INFO  raitha_darpana::ui] [job 120cae02-c950-4178-b518-21f792eb7ec2] Launching renderer...
+[2026-08-17T16:19:45Z INFO  headless_chrome::browser::process] Launching Chrome binary at C:\Program Files\Google\Chrome\Application\chrome.exe
+[2026-08-17T16:19:45Z INFO  headless_chrome::browser::process] Started Chrome. PID: 41760
+[2026-08-17T16:19:46Z INFO  raitha_darpana::render] Rendering images for city '37]  ಮಾರುಕಟ್ಟೆ: ಮಡಿಕೇರಿ' -> 'ಮಡಿಕೇರಿ'
+[2026-08-17T16:19:46Z INFO  raitha_darpana::ui] [job 120cae02-c950-4178-b518-21f792eb7ec2] Rendering ಮಡಿಕೇರಿ (Instagram)...
+[2026-08-17T16:19:46Z INFO  raitha_darpana::render] Navigating to file:///D:/Projects/uiraitah_darpana/raitha_darpana/rd_media/20260817/%E0%B2%AE%E0%B2%A1%E0%B2%BF%E0%B2%95%E0%B3%87%E0%B2%B0%E0%B2%BF/%E0%B2%AE%E0%B2%A1%E0%B2%BF%E0%B2%95%E0%B3%87%E0%B2%B0%E0%B2%BF-20260817-ig-kan.html (city: ಮಡಿಕೇರಿ)
+[2026-08-17T16:19:46Z INFO  headless_chrome::browser::tab] Navigating a tab to file:///D:/Projects/uiraitah_darpana/raitha_darpana/rd_media/20260817/%E0%B2%AE%E0%B2%A1%E0%B2%BF%E0%B2%95%E0%B3%87%E0%B2%B0%E0%B2%BF/%E0%B2%AE%E0%B2%A1%E0%B2%BF%E0%B2%95%E0%B3%87%E0%B2%B0%E0%B2%BF-20260817-ig-kan.html
+[2026-08-17T16:19:49Z INFO  raitha_darpana::ui] [job 120cae02-c950-4178-b518-21f792eb7ec2] Rendering ಮಡಿಕೇರಿ (YouTube)...
+[2026-08-17T16:19:49Z INFO  raitha_darpana::render] Navigating to file:///D:/Projects/uiraitah_darpana/raitha_darpana/rd_media/20260817/%E0%B2%AE%E0%B2%A1%E0%B2%BF%E0%B2%95%E0%B3%87%E0%B2%B0%E0%B2%BF/%E0%B2%AE%E0%B2%A1%E0%B2%BF%E0%B2%95%E0%B3%87%E0%B2%B0%E0%B2%BF-20260817-yt-kan.html (city: ಮಡಿಕೇರಿ)
+[2026-08-17T16:19:49Z INFO  headless_chrome::browser::tab] Navigating a tab to file:///D:/Projects/uiraitah_darpana/raitha_darpana/rd_media/20260817/%E0%B2%AE%E0%B2%A1%E0%B2%BF%E0%B2%95%E0%B3%87%E0%B2%B0%E0%B2%BF/%E0%B2%AE%E0%B2%A1%E0%B2%BF%E0%B2%95%E0%B3%87%E0%B2%B0%E0%B2%BF-20260817-yt-kan.html
+[2026-08-17T16:19:50Z INFO  raitha_darpana::voiceover] ನಮಸ್ಕಾರ ವೀಕ್ಷಕರೇ, ರೈತ ದರ್ಪಣ ಮಾರುಕಟ್ಟೆ ಬೆಲೆಗಳ ಮಾಹಿತಿ ಚಾನೆಲ್‌ಗೆ ಸುಸ್ವಾಗತ. ಇಂದಿನ ಮಡಿಕೇರಿ ಮಾರುಕಟ್ಟೆಯ ತರಕಾರಿ ಬೆಲೆಗಳ ಮಾಹಿತಿ ಇಲ್ಲಿದೆ. ವರದಿ ದಿನಾಂಕ: 17/08/2026. ಮೆಣಸು, ತಳಿ ಕರಿಮೆಣಸು: ಕನಿಷ್ಠ ಬೆಲೆ ನಲವತ್ತು ಮೂರು ಸಾವಿರ ಒಂದು ನೂರು ತೊಂಬತ್ತು ಎಂಟು ರೂಪಾಯಿ, ಗರಿಷ್ಠ ಬೆಲೆ ನಲವತ್ತು ಮೂರು ಸಾವಿರ ಒಂದು ನೂರು ತೊಂಬತ್ತು ಎಂಟು ರೂಪಾಯಿ. ದಿನನಿತ್ಯದ ನಿಖರ ಮಾಹಿತಿಗಾಗಿ ನಮ್ಮ ಇನ್ಸ್ಟಾಗ್ರಾಮ್ ಮತ್ತು ಯೂಟ್ಯೂಬ್ ಚಾನೆಲ್‌ಗೆ ಸಬ್‌ಸ್ಕ್ರೈಬ್ ಆಗಿ. ಧನ್ಯವಾದಗಳು!
+[2026-08-17T16:19:50Z INFO  raitha_darpana::ui] [job 120cae02-c950-4178-b518-21f792eb7ec2] Generating voiceover for ಮಡಿಕೇರಿ...
+[2026-08-17T16:20:00Z ERROR raitha_darpana::render] Video generation failed for 'ಮಡಿಕೇರಿ': Voiceover generation failed: unexpected websocket response: websocket connect timeout
+[2026-08-17T16:20:00Z INFO  raitha_darpana::ui] [job 120cae02-c950-4178-b518-21f792eb7ec2] Video generation failed for ಮಡಿಕೇರಿ: Voiceover generation failed: unexpected websocket response: websocket connect timeout
+[2026-08-17T16:20:00Z INFO  raitha_darpana::ui] [job 120cae02-c950-4178-b518-21f792eb7ec2] Render complete.
+[2026-08-17T16:20:00Z INFO  headless_chrome::browser] Dropping browser
+[2026-08-17T16:20:00Z INFO  headless_chrome::browser::process] Killing Chrome. PID: 41760
+[2026-08-17T16:20:00Z INFO  headless_chrome::browser::transport] Transport incoming message loop loop received shutdown message
+[2026-08-17T16:20:00Z INFO  headless_chrome::browser::transport] Shutting down message handling loop
+[2026-08-17T16:20:00Z INFO  headless_chrome::browser::transport::web_socket_connection] Sending shutdown message to message handling loop
+[2026-08-17T16:20:00Z INFO  headless_chrome::browser] Finished browser's event handling loop
+[2026-08-17T16:20:00Z INFO  headless_chrome::browser::transport] cleared listeners, I think
+[2026-08-17T16:20:00Z INFO  headless_chrome::browser::tab] finished tab's event handling loop
+[2026-08-17T16:20:00Z INFO  headless_chrome::browser::tab] finished tab's event handling loop
+[2026-08-17T16:20:01Z INFO  headless_chrome::browser::transport] dropping transport
+[2026-08-17T16:20:01Z INFO  headless_chrome::browser::transport::web_socket_connection] dropping websocket connection
+[2026-08-17T16:21:31Z INFO  raitha_darpana::ui] [job 10e180bc-cfe7-4fba-804d-0f9a04978157] Launching renderer...
+[2026-08-17T16:21:31Z INFO  headless_chrome::browser::process] Launching Chrome binary at C:\Program Files\Google\Chrome\Application\chrome.exe
+[2026-08-17T16:21:31Z INFO  headless_chrome::browser::process] Started Chrome. PID: 21052
+[2026-08-17T16:21:32Z INFO  raitha_darpana::render] Rendering images for city '37]  ಮಾರುಕಟ್ಟೆ: ಮಡಿಕೇರಿ' -> 'ಮಡಿಕೇರಿ'
+[2026-08-17T16:21:32Z INFO  raitha_darpana::ui] [job 10e180bc-cfe7-4fba-804d-0f9a04978157] ಮಡಿಕೇರಿ (Instagram) already exists, skipping.
+[2026-08-17T16:21:32Z INFO  raitha_darpana::ui] [job 10e180bc-cfe7-4fba-804d-0f9a04978157] ಮಡಿಕೇರಿ (YouTube) already exists, skipping.
+[2026-08-17T16:21:32Z INFO  raitha_darpana::voiceover] ನಮಸ್ಕಾರ ವೀಕ್ಷಕರೇ, ರೈತ ದರ್ಪಣ ಮಾರುಕಟ್ಟೆ ಬೆಲೆಗಳ ಮಾಹಿತಿ ಚಾನೆಲ್‌ಗೆ ಸುಸ್ವಾಗತ. ಇಂದಿನ ಮಡಿಕೇರಿ ಮಾರುಕಟ್ಟೆಯ ತರಕಾರಿ ಬೆಲೆಗಳ ಮಾಹಿತಿ ಇಲ್ಲಿದೆ. ವರದಿ ದಿನಾಂಕ: 17/08/2026. ಮೆಣಸು, ತಳಿ ಕರಿಮೆಣಸು: ಕನಿಷ್ಠ ಬೆಲೆ ನಲವತ್ತು ಮೂರು ಸಾವಿರ ಒಂದು ನೂರು ತೊಂಬತ್ತು ಎಂಟು ರೂಪಾಯಿ, ಗರಿಷ್ಠ ಬೆಲೆ ನಲವತ್ತು ಮೂರು ಸಾವಿರ ಒಂದು ನೂರು ತೊಂಬತ್ತು ಎಂಟು ರೂಪಾಯಿ. ದಿನನಿತ್ಯದ ನಿಖರ ಮಾಹಿತಿಗಾಗಿ ನಮ್ಮ ಇನ್ಸ್ಟಾಗ್ರಾಮ್ ಮತ್ತು ಯೂಟ್ಯೂಬ್ ಚಾನೆಲ್‌ಗೆ ಸಬ್‌ಸ್ಕ್ರೈಬ್ ಆಗಿ. ಧನ್ಯವಾದಗಳು!
+[2026-08-17T16:21:32Z INFO  raitha_darpana::ui] [job 10e180bc-cfe7-4fba-804d-0f9a04978157] Generating voiceover for ಮಡಿಕೇರಿ...
+[2026-08-17T16:21:42Z ERROR raitha_darpana::render] Video generation failed for 'ಮಡಿಕೇರಿ': Voiceover generation failed: unexpected websocket response: websocket connect timeout
+[2026-08-17T16:21:42Z INFO  raitha_darpana::ui] [job 10e180bc-cfe7-4fba-804d-0f9a04978157] Video generation failed for ಮಡಿಕೇರಿ: Voiceover generation failed: unexpected websocket response: websocket connect timeout
+[2026-08-17T16:21:42Z INFO  raitha_darpana::ui] [job 10e180bc-cfe7-4fba-804d-0f9a04978157] Render complete.
+[2026-08-17T16:21:42Z INFO  headless_chrome::browser] Dropping browser
+[2026-08-17T16:21:42Z INFO  headless_chrome::browser::process] Killing Chrome. PID: 21052
+[2026-08-17T16:21:42Z INFO  headless_chrome::browser::transport] Transport incoming message loop loop received shutdown message
+[2026-08-17T16:21:42Z INFO  headless_chrome::browser::transport] Shutting down message handling loop
+[2026-08-17T16:21:42Z INFO  headless_chrome::browser::transport] cleared listeners, I think
+[2026-08-17T16:21:42Z INFO  headless_chrome::browser::tab] finished tab's event handling loop
+[2026-08-17T16:21:42Z INFO  headless_chrome::browser] Finished browser's event handling loop
+[2026-08-17T16:21:42Z INFO  headless_chrome::browser::transport::web_socket_connection] Sending shutdown message to message handling loop
+[2026-08-17T16:21:42Z INFO  headless_chrome::browser::tab] finished tab's event handling loop
+[2026-08-17T16:21:42Z WARN  headless_chrome::browser::transport::web_socket_connection] Couldn't send message to transport loop telling it to shut down
+[2026-08-17T16:21:43Z INFO  headless_chrome::browser::transport] dropping transport
+[2026-08-17T16:21:43Z INFO  headless_chrome::browser::transport::web_socket_connection] dropping websocket connection
+[2026-08-17T17:29:27Z INFO  raitha_darpana] === raitha_darpana started, logging to rd_media\rd.log ===
+[2026-08-17T17:29:27Z INFO  raitha_darpana::ui] Web UI listening on http://127.0.0.1:56615
+[2026-08-17T17:29:55Z INFO  raitha_darpana::ui] [job 5884265f-00db-4d8a-99ab-43684ac8ba03] Launching renderer...
+[2026-08-17T17:29:55Z INFO  headless_chrome::browser::process] Launching Chrome binary at C:\Program Files\Google\Chrome\Application\chrome.exe
+[2026-08-17T17:29:55Z INFO  headless_chrome::browser::process] Started Chrome. PID: 11716
+[2026-08-17T17:29:56Z INFO  raitha_darpana::render] Rendering images for city '32]  ಮಾರುಕಟ್ಟೆ: ಬೆಳಗಾವಿ' -> 'BELAGAVI'
+[2026-08-17T17:29:56Z INFO  raitha_darpana::ui] [job 5884265f-00db-4d8a-99ab-43684ac8ba03] Rendering BELAGAVI (Instagram)...
+[2026-08-17T17:29:56Z INFO  raitha_darpana::render] Navigating to file:///D:/Projects/uiraitah_darpana/raitha_darpana/rd_media/20260817/BELAGAVI/BELAGAVI-20260817-ig-kan.html (city: BELAGAVI)
+[2026-08-17T17:29:56Z INFO  headless_chrome::browser::tab] Navigating a tab to file:///D:/Projects/uiraitah_darpana/raitha_darpana/rd_media/20260817/BELAGAVI/BELAGAVI-20260817-ig-kan.html
+[2026-08-17T17:29:58Z INFO  raitha_darpana::ui] [job 5884265f-00db-4d8a-99ab-43684ac8ba03] Rendering BELAGAVI (YouTube)...
+[2026-08-17T17:29:58Z INFO  raitha_darpana::render] Navigating to file:///D:/Projects/uiraitah_darpana/raitha_darpana/rd_media/20260817/BELAGAVI/BELAGAVI-20260817-yt-kan.html (city: BELAGAVI)
+[2026-08-17T17:29:58Z INFO  headless_chrome::browser::tab] Navigating a tab to file:///D:/Projects/uiraitah_darpana/raitha_darpana/rd_media/20260817/BELAGAVI/BELAGAVI-20260817-yt-kan.html
+[2026-08-17T17:29:59Z INFO  raitha_darpana::voiceover] ನಮಸ್ಕಾರ ವೀಕ್ಷಕರೇ, ರೈತ ದರ್ಪಣ ಮಾರುಕಟ್ಟೆ ಬೆಲೆಗಳ ಮಾಹಿತಿ ಚಾನೆಲ್‌ಗೆ ಸುಸ್ವಾಗತ. ಇಂದಿನ BELAGAVI ಮಾರುಕಟ್ಟೆಯ ತರಕಾರಿ ಬೆಲೆಗಳ ಮಾಹಿತಿ ಇಲ್ಲಿದೆ. ವರದಿ ದಿನಾಂಕ: 17/08/2026. ಈರುಳ್ಳಿ, ತಳಿ ಪುಸ-ಕೆಂಪು: ಕನಿಷ್ಠ ಬೆಲೆ ಎರಡು ಸಾವಿರ ರೂಪಾಯಿ, ಗರಿಷ್ಠ ಬೆಲೆ ನಾಲ್ಕು ಸಾವಿರ ರೂಪಾಯಿ. ಆಲೂಗಡ್ಡೆ, ತಳಿ ಸ್ಥಳೀಯ: ಕನಿಷ್ಠ ಬೆಲೆ ಒಂದು ಸಾವಿರ ರೂಪಾಯಿ, ಗರಿಷ್ಠ ಬೆಲೆ ಒಂದು ಸಾವಿರ ಎಂಟು ನೂರು ರೂಪಾಯಿ. ದಿನನಿತ್ಯದ ನಿಖರ ಮಾಹಿತಿಗಾಗಿ ನಮ್ಮ ಇನ್ಸ್ಟಾಗ್ರಾಮ್ ಮತ್ತು ಯೂಟ್ಯೂಬ್ ಚಾನೆಲ್‌ಗೆ ಸಬ್‌ಸ್ಕ್ರೈಬ್ ಆಗಿ. ಧನ್ಯವಾದಗಳು!
+[2026-08-17T17:29:59Z INFO  raitha_darpana::ui] [job 5884265f-00db-4d8a-99ab-43684ac8ba03] Generating voiceover for BELAGAVI...
+[2026-08-17T17:30:02Z INFO  raitha_darpana::voiceover] 🎧 Found background music at assets\bg_music.mp3. Mixing at 6% volume.
+[2026-08-17T17:30:03Z INFO  raitha_darpana::ui] [job 5884265f-00db-4d8a-99ab-43684ac8ba03] Generating Instagram video for BELAGAVI...
+[2026-08-17T17:30:03Z INFO  headless_chrome::browser::tab] Navigating a tab to file:///D:/Projects/uiraitah_darpana/raitha_darpana/rd_media/20260817/BELAGAVI/frames/ig-kan/frame_00.html
+[2026-08-17T17:30:04Z INFO  headless_chrome::browser::tab] Navigating a tab to file:///D:/Projects/uiraitah_darpana/raitha_darpana/rd_media/20260817/BELAGAVI/frames/ig-kan/frame_01.html
+[2026-08-17T17:30:06Z INFO  headless_chrome::browser::tab] Navigating a tab to file:///D:/Projects/uiraitah_darpana/raitha_darpana/rd_media/20260817/BELAGAVI/frames/ig-kan/frame_02.html
+[2026-08-17T17:30:40Z INFO  raitha_darpana::ui] [job 5884265f-00db-4d8a-99ab-43684ac8ba03] Generating YouTube video for BELAGAVI...
+[2026-08-17T17:30:40Z INFO  headless_chrome::browser::tab] Navigating a tab to file:///D:/Projects/uiraitah_darpana/raitha_darpana/rd_media/20260817/BELAGAVI/frames/yt-kan/frame_00.html
+[2026-08-17T17:30:42Z INFO  headless_chrome::browser::tab] Navigating a tab to file:///D:/Projects/uiraitah_darpana/raitha_darpana/rd_media/20260817/BELAGAVI/frames/yt-kan/frame_01.html
+[2026-08-17T17:30:43Z INFO  headless_chrome::browser::tab] Navigating a tab to file:///D:/Projects/uiraitah_darpana/raitha_darpana/rd_media/20260817/BELAGAVI/frames/yt-kan/frame_02.html
+[2026-08-17T17:31:11Z INFO  raitha_darpana::ui] [job 5884265f-00db-4d8a-99ab-43684ac8ba03] Render complete.
+[2026-08-17T17:31:11Z INFO  headless_chrome::browser] Dropping browser
+[2026-08-17T17:31:12Z INFO  headless_chrome::browser::process] Killing Chrome. PID: 11716
+[2026-08-17T17:31:12Z INFO  headless_chrome::browser::transport] Transport incoming message loop loop received shutdown message
+[2026-08-17T17:31:12Z INFO  headless_chrome::browser::transport] Shutting down message handling loop
+[2026-08-17T17:31:12Z INFO  headless_chrome::browser::transport] cleared listeners, I think
+[2026-08-17T17:31:12Z INFO  headless_chrome::browser::transport::web_socket_connection] Sending shutdown message to message handling loop
+[2026-08-17T17:31:12Z INFO  headless_chrome::browser] Finished browser's event handling loop
+[2026-08-17T17:31:12Z WARN  headless_chrome::browser::transport::web_socket_connection] Couldn't send message to transport loop telling it to shut down
+[2026-08-17T17:31:12Z INFO  headless_chrome::browser::tab] finished tab's event handling loop
+[2026-08-17T17:31:12Z INFO  headless_chrome::browser::tab] finished tab's event handling loop
+[2026-08-17T17:31:12Z INFO  headless_chrome::browser::transport] dropping transport
+[2026-08-17T17:31:12Z INFO  headless_chrome::browser::transport::web_socket_connection] dropping websocket connection
+[2026-08-17T17:31:44Z INFO  raitha_darpana::ui] [job 890e488a-4da8-4adc-82fd-e6f82be20fa1] Fetching fresh data...
+[2026-08-17T17:31:44Z INFO  headless_chrome::browser::process] Launching Chrome binary at C:\Program Files\Google\Chrome\Application\chrome.exe
+[2026-08-17T17:31:44Z INFO  headless_chrome::browser::process] Started Chrome. PID: 6068
+[2026-08-17T17:31:46Z INFO  headless_chrome::browser::tab] Navigating a tab to https://krama.karnataka.gov.in/Kannada/Main_rep
+[2026-08-17T17:31:54Z INFO  raitha_darpana::scrape] Report Date: 17/08/2026
+[2026-08-17T17:31:54Z INFO  raitha_darpana::scrape] Total Cities: 68
+[2026-08-17T17:31:54Z INFO  raitha_darpana::scrape] City: 1]  ಮಾರುಕಟ್ಟೆ: ಅರಸೀಕೆರೆ - Commodities: 21
+[2026-08-17T17:31:54Z INFO  raitha_darpana::scrape] City: 2]  ಮಾರುಕಟ್ಟೆ: ಕೆ.ಅರ್ .ಪೇಟೆ - Commodities: 3
+[2026-08-17T17:31:54Z INFO  raitha_darpana::scrape] City: 3]  ಮಾರುಕಟ್ಟೆ: ಕಂಪ್ಲಿ - Commodities: 2
+[2026-08-17T17:31:54Z INFO  raitha_darpana::scrape] City: 4]  ಮಾರುಕಟ್ಟೆ: ಕನಕಗಿರಿ - Commodities: 5
+[2026-08-17T17:31:54Z INFO  raitha_darpana::scrape] City: 5]  ಮಾರುಕಟ್ಟೆ: ಕುಡಚಿ - Commodities: 1
+[2026-08-17T17:31:54Z INFO  raitha_darpana::scrape] City: 6]  ಮಾರುಕಟ್ಟೆ: ಕುಮುಟ - Commodities: 1
+[2026-08-17T17:31:54Z INFO  raitha_darpana::scrape] City: 7]  ಮಾರುಕಟ್ಟೆ: ಕುಷ್ಟಗಿ - Commodities: 4
+[2026-08-17T17:31:54Z INFO  raitha_darpana::scrape] City: 8]  ಮಾರುಕಟ್ಟೆ: ಕೊಪ್ಪ - Commodities: 1
+[2026-08-17T17:31:54Z INFO  raitha_darpana::scrape] City: 9]  ಮಾರುಕಟ್ಟೆ: ಕೊಪ್ಪಳ - Commodities: 4
+[2026-08-17T17:31:54Z INFO  raitha_darpana::scrape] City: 10]  ಮಾರುಕಟ್ಟೆ: ಗಂಗಾವತಿ - Commodities: 7
+[2026-08-17T17:31:54Z INFO  raitha_darpana::scrape] City: 11]  ಮಾರುಕಟ್ಟೆ: ಗುಂಡ್ಲುಪೇಟೆ - Commodities: 10
+[2026-08-17T17:31:54Z INFO  raitha_darpana::scrape] City: 12]  ಮಾರುಕಟ್ಟೆ: ಗುಬ್ಬಿ - Commodities: 4
+[2026-08-17T17:31:54Z INFO  raitha_darpana::scrape] City: 13]  ಮಾರುಕಟ್ಟೆ: ಗೋಣಿಕೊಪ್ಪಲ್ - Commodities: 1
+[2026-08-17T17:31:54Z INFO  raitha_darpana::scrape] City: 14]  ಮಾರುಕಟ್ಟೆ: ಗೌರಿಬಿದನೂರು - Commodities: 19
+[2026-08-17T17:31:54Z INFO  raitha_darpana::scrape] City: 15]  ಮಾರುಕಟ್ಟೆ: ಚಿಂತಾಮಣಿ - Commodities: 13
+[2026-08-17T17:31:54Z INFO  raitha_darpana::scrape] City: 16]  ಮಾರುಕಟ್ಟೆ: ಚಿಕ್ಕಬಳ್ಳಾಪುರ - Commodities: 1
+[2026-08-17T17:31:54Z INFO  raitha_darpana::scrape] City: 17]  ಮಾರುಕಟ್ಟೆ: ಚನ್ನಗಿರಿ - Commodities: 2
+[2026-08-17T17:31:54Z INFO  raitha_darpana::scrape] City: 18]  ಮಾರುಕಟ್ಟೆ: ಚಳ್ಳಕೆರೆ - Commodities: 2
+[2026-08-17T17:31:54Z INFO  raitha_darpana::scrape] City: 19]  ಮಾರುಕಟ್ಟೆ: ಚಾಮರಾಜನಗರ - Commodities: 17
+[2026-08-17T17:31:54Z INFO  raitha_darpana::scrape] City: 20]  ಮಾರುಕಟ್ಟೆ: ತಿಪಟೂರು - Commodities: 1
+[2026-08-17T17:31:54Z INFO  raitha_darpana::scrape] City: 21]  ಮಾರುಕಟ್ಟೆ: ತರಿಕೆರೆ - Commodities: 1
+[2026-08-17T17:31:54Z INFO  raitha_darpana::scrape] City: 22]  ಮಾರುಕಟ್ಟೆ: ತಾಳಿಕೋಟೆ - Commodities: 4
+[2026-08-17T17:31:54Z INFO  raitha_darpana::scrape] City: 23]  ಮಾರುಕಟ್ಟೆ: ತೀರ್ಥಹಳ್ಳಿ - Commodities: 4
+[2026-08-17T17:31:54Z INFO  raitha_darpana::scrape] City: 24]  ಮಾರುಕಟ್ಟೆ: ತುರುವೇಕೆರೆ - Commodities: 1
+[2026-08-17T17:31:54Z INFO  raitha_darpana::scrape] City: 25]  ಮಾರುಕಟ್ಟೆ: ದಾವಣಗೆರೆ - Commodities: 15
+[2026-08-17T17:31:54Z INFO  raitha_darpana::scrape] City: 26]  ಮಾರುಕಟ್ಟೆ: ದೊಡ್ಡಬಳ್ಳಾಪುರ - Commodities: 20
+[2026-08-17T17:31:54Z INFO  raitha_darpana::scrape] City: 27]  ಮಾರುಕಟ್ಟೆ: ಪಿರಿಯಾಪಟ್ಟಣ - Commodities: 1
+[2026-08-17T17:31:54Z INFO  raitha_darpana::scrape] City: 28]  ಮಾರುಕಟ್ಟೆ: ಪಾ೦ಡವಪುರ - Commodities: 1
+[2026-08-17T17:31:54Z INFO  raitha_darpana::scrape] City: 29]  ಮಾರುಕಟ್ಟೆ: ಬೆಂಗಳೂರು - Commodities: 41
+[2026-08-17T17:31:54Z INFO  raitha_darpana::scrape] City: 30]  ಮಾರುಕಟ್ಟೆ: ಬಂಗಾರಪೇಟೆ - Commodities: 18
+[2026-08-17T17:31:54Z INFO  raitha_darpana::scrape] City: 31]  ಮಾರುಕಟ್ಟೆ: ಬಿನ್ನಿಮಿಲ್ - Commodities: 47
+[2026-08-17T17:31:54Z INFO  raitha_darpana::scrape] City: 32]  ಮಾರುಕಟ್ಟೆ: ಬೆಳಗಾವಿ - Commodities: 2
+[2026-08-17T17:31:54Z INFO  raitha_darpana::scrape] City: 33]  ಮಾರುಕಟ್ಟೆ: ಬಳ್ಳಾರಿ - Commodities: 5
+[2026-08-17T17:31:54Z INFO  raitha_darpana::scrape] City: 34]  ಮಾರುಕಟ್ಟೆ: ಬಾಗೆಪಲ್ಲಿ - Commodities: 14
+[2026-08-17T17:31:54Z INFO  raitha_darpana::scrape] City: 35]  ಮಾರುಕಟ್ಟೆ: ಬೈಲಹೊಂಗಲ - Commodities: 1
+[2026-08-17T17:31:54Z INFO  raitha_darpana::scrape] City: 36]  ಮಾರುಕಟ್ಟೆ: ಭದ್ರಾವತಿ - Commodities: 8
+[2026-08-17T17:31:54Z INFO  raitha_darpana::scrape] City: 37]  ಮಾರುಕಟ್ಟೆ: ಮಡಿಕೇರಿ - Commodities: 1
+[2026-08-17T17:31:54Z INFO  raitha_darpana::scrape] City: 38]  ಮಾರುಕಟ್ಟೆ: ಮಾನ್ವಿ - Commodities: 9
+[2026-08-17T17:31:54Z INFO  raitha_darpana::scrape] City: 39]  ಮಾರುಕಟ್ಟೆ: ಮಾಲೂರು - Commodities: 4
+[2026-08-17T17:31:54Z INFO  raitha_darpana::scrape] City: 40]  ಮಾರುಕಟ್ಟೆ: ಮುಳಬಾಗಿಲು - Commodities: 5
+[2026-08-17T17:31:54Z INFO  raitha_darpana::scrape] City: 41]  ಮಾರುಕಟ್ಟೆ: ಮೈಸೂರು - Commodities: 26
+[2026-08-17T17:31:54Z INFO  raitha_darpana::scrape] City: 42]  ಮಾರುಕಟ್ಟೆ: ಯಲ್ಬುರ್ಗ - Commodities: 5
+[2026-08-17T17:31:54Z INFO  raitha_darpana::scrape] City: 43]  ಮಾರುಕಟ್ಟೆ: ರಾಣೆಬೆನ್ನೂರು - Commodities: 6
+[2026-08-17T17:31:54Z INFO  raitha_darpana::scrape] City: 44]  ಮಾರುಕಟ್ಟೆ: ರಾಮದುರ್ಗ - Commodities: 1
+[2026-08-17T17:31:54Z INFO  raitha_darpana::scrape] City: 45]  ಮಾರುಕಟ್ಟೆ: ರಾಮನಗರ - Commodities: 22
+[2026-08-17T17:31:54Z INFO  raitha_darpana::scrape] City: 46]  ಮಾರುಕಟ್ಟೆ: ರಾಯಚೂರು - Commodities: 5
+[2026-08-17T17:31:54Z INFO  raitha_darpana::scrape] City: 47]  ಮಾರುಕಟ್ಟೆ: ರೋಣ - Commodities: 2
+[2026-08-17T17:31:54Z INFO  raitha_darpana::scrape] City: 48]  ಮಾರುಕಟ್ಟೆ: ಲಿಂಗಸುಗೂರು - Commodities: 4
+[2026-08-17T17:31:54Z INFO  raitha_darpana::scrape] City: 49]  ಮಾರುಕಟ್ಟೆ: ಲಕ್ಷ್ಮೇಶ್ವರ - Commodities: 13
+[2026-08-17T17:31:54Z INFO  raitha_darpana::scrape] City: 50]  ಮಾರುಕಟ್ಟೆ: ವಿಜಯಾಪುರ - Commodities: 9
+[2026-08-17T17:31:54Z INFO  raitha_darpana::scrape] City: 51]  ಮಾರುಕಟ್ಟೆ: ಶಿಕಾರಿಪುರ - Commodities: 4
+[2026-08-17T17:31:54Z INFO  raitha_darpana::scrape] City: 52]  ಮಾರುಕಟ್ಟೆ: ಶ್ರೀನಿವಾಸಪುರ - Commodities: 1
+[2026-08-17T17:31:54Z INFO  raitha_darpana::scrape] City: 53]  ಮಾರುಕಟ್ಟೆ: ಶ್ರೀರ೦ಗಪಟ್ಟಣ - Commodities: 2
+[2026-08-17T17:31:54Z INFO  raitha_darpana::scrape] City: 54]  ಮಾರುಕಟ್ಟೆ: ಶಿವಮೊಗ್ಗ - Commodities: 24
+[2026-08-17T17:31:54Z INFO  raitha_darpana::scrape] City: 55]  ಮಾರುಕಟ್ಟೆ: ಸಂಕೇಶ್ವರ - Commodities: 3
+[2026-08-17T17:31:54Z INFO  raitha_darpana::scrape] City: 56]  ಮಾರುಕಟ್ಟೆ: ಸಂತೆಸರಗೂರು - Commodities: 4
+[2026-08-17T17:31:54Z INFO  raitha_darpana::scrape] City: 57]  ಮಾರುಕಟ್ಟೆ: ಸಿಂಧನೂರು - Commodities: 10
+[2026-08-17T17:31:54Z INFO  raitha_darpana::scrape] City: 58]  ಮಾರುಕಟ್ಟೆ: ಸಾಗರ - Commodities: 7
+[2026-08-17T17:31:54Z INFO  raitha_darpana::scrape] City: 59]  ಮಾರುಕಟ್ಟೆ: ಹಡಗಲಿ - Commodities: 2
+[2026-08-17T17:31:54Z INFO  raitha_darpana::scrape] City: 60]  ಮಾರುಕಟ್ಟೆ: ಹಿರಿಯೂರು - Commodities: 1
+[2026-08-17T17:31:54Z INFO  raitha_darpana::scrape] City: 61]  ಮಾರುಕಟ್ಟೆ: ಹರಿಹರ - Commodities: 2
+[2026-08-17T17:31:54Z INFO  raitha_darpana::scrape] City: 62]  ಮಾರುಕಟ್ಟೆ: ಹಳಿಯಾಳ - Commodities: 1
+[2026-08-17T17:31:54Z INFO  raitha_darpana::scrape] City: 63]  ಮಾರುಕಟ್ಟೆ: ಹಾವೇರಿ - Commodities: 3
+[2026-08-17T17:31:54Z INFO  raitha_darpana::scrape] City: 64]  ಮಾರುಕಟ್ಟೆ: ಹುಣಸೂರು - Commodities: 2
+[2026-08-17T17:31:54Z INFO  raitha_darpana::scrape] City: 65]  ಮಾರುಕಟ್ಟೆ: ಹುಬ್ಬಳ್ಳಿ - Commodities: 12
+[2026-08-17T17:31:54Z INFO  raitha_darpana::scrape] City: 66]  ಮಾರುಕಟ್ಟೆ: ಹೊನ್ನಾಳಿ - Commodities: 15
+[2026-08-17T17:31:54Z INFO  raitha_darpana::scrape] City: 67]  ಮಾರುಕಟ್ಟೆ: ಹೊಳ್ಳಕೆರೆ - Commodities: 3
+[2026-08-17T17:31:54Z INFO  raitha_darpana::scrape] City: 68]  ಮಾರುಕಟ್ಟೆ: ಹೊಸದುರ್ಗ - Commodities: 6
+[2026-08-17T17:31:54Z INFO  headless_chrome::browser] Dropping browser
+[2026-08-17T17:31:54Z INFO  headless_chrome::browser::process] Killing Chrome. PID: 6068
+[2026-08-17T17:31:54Z INFO  headless_chrome::browser::transport] Transport incoming message loop loop received shutdown message
+[2026-08-17T17:31:54Z INFO  headless_chrome::browser] Browser event loop received shutdown message
+[2026-08-17T17:31:54Z INFO  headless_chrome::browser::transport] Shutting down message handling loop
+[2026-08-17T17:31:54Z INFO  headless_chrome::browser] Finished browser's event handling loop
+[2026-08-17T17:31:54Z INFO  headless_chrome::browser::transport] cleared listeners, I think
+[2026-08-17T17:31:54Z INFO  headless_chrome::browser::transport::web_socket_connection] Sending shutdown message to message handling loop
+[2026-08-17T17:31:54Z INFO  headless_chrome::browser::tab] finished tab's event handling loop
+[2026-08-17T17:31:54Z INFO  headless_chrome::browser::tab] finished tab's event handling loop
+[2026-08-17T17:31:54Z WARN  headless_chrome::browser::transport::web_socket_connection] Couldn't send message to transport loop telling it to shut down
+[2026-08-17T17:31:55Z INFO  raitha_darpana::ui] [job 890e488a-4da8-4adc-82fd-e6f82be20fa1] Launching renderer...
+[2026-08-17T17:31:55Z INFO  headless_chrome::browser::process] Launching Chrome binary at C:\Program Files\Google\Chrome\Application\chrome.exe
+[2026-08-17T17:31:55Z INFO  headless_chrome::browser::process] Started Chrome. PID: 2904
+[2026-08-17T17:31:56Z INFO  raitha_darpana::render] Rendering images for city '32]  ಮಾರುಕಟ್ಟೆ: ಬೆಳಗಾವಿ' -> 'BELAGAVI'
+[2026-08-17T17:31:56Z INFO  raitha_darpana::ui] [job 890e488a-4da8-4adc-82fd-e6f82be20fa1] Rendering BELAGAVI (Instagram)...
+[2026-08-17T17:31:56Z INFO  raitha_darpana::render] Navigating to file:///D:/Projects/uiraitah_darpana/raitha_darpana/rd_media/20260817/BELAGAVI/BELAGAVI-20260817-ig-kan.html (city: BELAGAVI)
+[2026-08-17T17:31:56Z INFO  headless_chrome::browser::tab] Navigating a tab to file:///D:/Projects/uiraitah_darpana/raitha_darpana/rd_media/20260817/BELAGAVI/BELAGAVI-20260817-ig-kan.html
+[2026-08-17T17:31:58Z INFO  raitha_darpana::ui] [job 890e488a-4da8-4adc-82fd-e6f82be20fa1] Rendering BELAGAVI (YouTube)...
+[2026-08-17T17:31:58Z INFO  raitha_darpana::render] Navigating to file:///D:/Projects/uiraitah_darpana/raitha_darpana/rd_media/20260817/BELAGAVI/BELAGAVI-20260817-yt-kan.html (city: BELAGAVI)
+[2026-08-17T17:31:58Z INFO  headless_chrome::browser::tab] Navigating a tab to file:///D:/Projects/uiraitah_darpana/raitha_darpana/rd_media/20260817/BELAGAVI/BELAGAVI-20260817-yt-kan.html
+[2026-08-17T17:31:59Z INFO  raitha_darpana::voiceover] ನಮಸ್ಕಾರ ವೀಕ್ಷಕರೇ, ರೈತ ದರ್ಪಣ ಮಾರುಕಟ್ಟೆ ಬೆಲೆಗಳ ಮಾಹಿತಿ ಚಾನೆಲ್‌ಗೆ ಸುಸ್ವಾಗತ. ಇಂದಿನ BELAGAVI ಮಾರುಕಟ್ಟೆಯ ತರಕಾರಿ ಬೆಲೆಗಳ ಮಾಹಿತಿ ಇಲ್ಲಿದೆ. ವರದಿ ದಿನಾಂಕ: 17/08/2026. ಈರುಳ್ಳಿ, ತಳಿ ಪುಸ-ಕೆಂಪು: ಕನಿಷ್ಠ ಬೆಲೆ ಎರಡು ಸಾವಿರ ರೂಪಾಯಿ, ಗರಿಷ್ಠ ಬೆಲೆ ನಾಲ್ಕು ಸಾವಿರ ರೂಪಾಯಿ. ಆಲೂಗಡ್ಡೆ, ತಳಿ ಸ್ಥಳೀಯ: ಕನಿಷ್ಠ ಬೆಲೆ ಒಂದು ಸಾವಿರ ರೂಪಾಯಿ, ಗರಿಷ್ಠ ಬೆಲೆ ಒಂದು ಸಾವಿರ ಎಂಟು ನೂರು ರೂಪಾಯಿ. ದಿನನಿತ್ಯದ ನಿಖರ ಮಾಹಿತಿಗಾಗಿ ನಮ್ಮ ಇನ್ಸ್ಟಾಗ್ರಾಮ್ ಮತ್ತು ಯೂಟ್ಯೂಬ್ ಚಾನೆಲ್‌ಗೆ ಸಬ್‌ಸ್ಕ್ರೈಬ್ ಆಗಿ. ಧನ್ಯವಾದಗಳು!
+[2026-08-17T17:31:59Z INFO  raitha_darpana::ui] [job 890e488a-4da8-4adc-82fd-e6f82be20fa1] Generating voiceover for BELAGAVI...
+[2026-08-17T17:32:01Z INFO  raitha_darpana::voiceover] 🎧 Found background music at assets\bg_music.mp3. Mixing at 6% volume.
+[2026-08-17T17:32:01Z INFO  raitha_darpana::ui] [job 890e488a-4da8-4adc-82fd-e6f82be20fa1] Generating Instagram video for BELAGAVI...
+[2026-08-17T17:32:01Z INFO  headless_chrome::browser::tab] Navigating a tab to file:///D:/Projects/uiraitah_darpana/raitha_darpana/rd_media/20260817/BELAGAVI/frames/ig-kan/frame_00.html
+[2026-08-17T17:32:02Z INFO  headless_chrome::browser::tab] Navigating a tab to file:///D:/Projects/uiraitah_darpana/raitha_darpana/rd_media/20260817/BELAGAVI/frames/ig-kan/frame_01.html
+[2026-08-17T17:32:04Z INFO  headless_chrome::browser::tab] Navigating a tab to file:///D:/Projects/uiraitah_darpana/raitha_darpana/rd_media/20260817/BELAGAVI/frames/ig-kan/frame_02.html
+[2026-08-17T17:32:40Z INFO  raitha_darpana::ui] [job 890e488a-4da8-4adc-82fd-e6f82be20fa1] Generating YouTube video for BELAGAVI...
+[2026-08-17T17:32:40Z INFO  headless_chrome::browser::tab] Navigating a tab to file:///D:/Projects/uiraitah_darpana/raitha_darpana/rd_media/20260817/BELAGAVI/frames/yt-kan/frame_00.html
+[2026-08-17T17:32:41Z INFO  headless_chrome::browser::tab] Navigating a tab to file:///D:/Projects/uiraitah_darpana/raitha_darpana/rd_media/20260817/BELAGAVI/frames/yt-kan/frame_01.html
+[2026-08-17T17:32:43Z INFO  headless_chrome::browser::tab] Navigating a tab to file:///D:/Projects/uiraitah_darpana/raitha_darpana/rd_media/20260817/BELAGAVI/frames/yt-kan/frame_02.html
+[2026-08-17T17:33:11Z INFO  raitha_darpana::ui] [job 890e488a-4da8-4adc-82fd-e6f82be20fa1] Render complete.
+[2026-08-17T17:33:11Z INFO  headless_chrome::browser] Dropping browser
+[2026-08-17T17:33:11Z INFO  headless_chrome::browser] Browser event loop received shutdown message
+[2026-08-17T17:33:11Z INFO  headless_chrome::browser] Finished browser's event handling loop
+[2026-08-17T17:33:11Z WARN  headless_chrome::browser::transport] Couldn't send browser an event: "DetachedFromTarget(DetachedFromTargetEvent { params: DetachedFromTargetEventParams { session_id: \"218AB56426B105083AD862CE344E4AB7\", target_id: Some(\"D2A11A32337C8A2F8AF3814F55F5281A\") } })"
+    SendError { .. }
+[2026-08-17T17:33:11Z INFO  headless_chrome::browser::transport] Shutting down message handling loop
+[2026-08-17T17:33:11Z INFO  headless_chrome::browser::process] Killing Chrome. PID: 2904
+[2026-08-17T17:33:11Z INFO  headless_chrome::browser::transport] cleared listeners, I think
+[2026-08-17T17:33:11Z INFO  headless_chrome::browser::tab] finished tab's event handling loop
+[2026-08-17T17:33:11Z INFO  headless_chrome::browser::tab] finished tab's event handling loop
+[2026-08-17T17:33:11Z INFO  headless_chrome::browser::transport::web_socket_connection] Sending shutdown message to message handling loop
+[2026-08-17T17:33:11Z WARN  headless_chrome::browser::transport::web_socket_connection] Couldn't send message to transport loop telling it to shut down
+[2026-08-17T17:33:11Z INFO  headless_chrome::browser::transport] dropping transport
+[2026-08-17T17:33:11Z INFO  headless_chrome::browser::transport::web_socket_connection] dropping websocket connection
+[2026-08-18T02:54:21Z INFO  raitha_darpana] === raitha_darpana started, logging to rd_media\rd.log ===
+[2026-08-18T02:54:21Z INFO  raitha_darpana::ui] Web UI listening on http://127.0.0.1:56367
+[2026-08-18T02:56:28Z INFO  headless_chrome::browser::process] Launching Chrome binary at C:\Program Files\Google\Chrome\Application\chrome.exe
+[2026-08-18T02:56:28Z INFO  headless_chrome::browser::process] Started Chrome. PID: 5924
+[2026-08-18T02:56:30Z INFO  headless_chrome::browser::tab] Navigating a tab to https://krama.karnataka.gov.in/Kannada/Main_rep
+[2026-08-18T02:56:48Z INFO  headless_chrome::browser] Dropping browser
+[2026-08-18T02:56:48Z INFO  headless_chrome::browser::process] Killing Chrome. PID: 5924
+[2026-08-18T02:56:48Z INFO  headless_chrome::browser::transport] Transport incoming message loop loop received shutdown message
+[2026-08-18T02:56:48Z INFO  headless_chrome::browser::transport] Shutting down message handling loop
+[2026-08-18T02:56:48Z INFO  headless_chrome::browser::tab] finished tab's event handling loop
+[2026-08-18T02:56:48Z INFO  headless_chrome::browser] Finished browser's event handling loop
+[2026-08-18T02:56:48Z INFO  headless_chrome::browser::transport] cleared listeners, I think
+[2026-08-18T02:56:48Z INFO  headless_chrome::browser::tab] finished tab's event handling loop
+[2026-08-18T02:56:48Z INFO  headless_chrome::browser::transport::web_socket_connection] Sending shutdown message to message handling loop
+[2026-08-18T02:56:48Z WARN  headless_chrome::browser::transport::web_socket_connection] Couldn't send message to transport loop telling it to shut down
+[2026-08-18T02:57:18Z INFO  headless_chrome::browser::process] Launching Chrome binary at C:\Program Files\Google\Chrome\Application\chrome.exe
+[2026-08-18T02:57:18Z INFO  headless_chrome::browser::process] Started Chrome. PID: 2344
+[2026-08-18T02:57:20Z INFO  headless_chrome::browser::tab] Navigating a tab to https://krama.karnataka.gov.in/Kannada/Main_rep
+[2026-08-18T02:57:29Z INFO  raitha_darpana::scrape] Report Date: 17/08/2026
+[2026-08-18T02:57:29Z INFO  raitha_darpana::scrape] Total Cities: 69
+[2026-08-18T02:57:29Z INFO  raitha_darpana::scrape] City: 1]  ಮಾರುಕಟ್ಟೆ: ಅರಸೀಕೆರೆ - Commodities: 21
+[2026-08-18T02:57:29Z INFO  raitha_darpana::scrape] City: 2]  ಮಾರುಕಟ್ಟೆ: ಕೆ.ಅರ್ .ಪೇಟೆ - Commodities: 3
+[2026-08-18T02:57:29Z INFO  raitha_darpana::scrape] City: 3]  ಮಾರುಕಟ್ಟೆ: ಕಂಪ್ಲಿ - Commodities: 2
+[2026-08-18T02:57:29Z INFO  raitha_darpana::scrape] City: 4]  ಮಾರುಕಟ್ಟೆ: ಕನಕಗಿರಿ - Commodities: 5
+[2026-08-18T02:57:29Z INFO  raitha_darpana::scrape] City: 5]  ಮಾರುಕಟ್ಟೆ: ಕುಡಚಿ - Commodities: 1
+[2026-08-18T02:57:29Z INFO  raitha_darpana::scrape] City: 6]  ಮಾರುಕಟ್ಟೆ: ಕುಮುಟ - Commodities: 1
+[2026-08-18T02:57:29Z INFO  raitha_darpana::scrape] City: 7]  ಮಾರುಕಟ್ಟೆ: ಕುಷ್ಟಗಿ - Commodities: 4
+[2026-08-18T02:57:29Z INFO  raitha_darpana::scrape] City: 8]  ಮಾರುಕಟ್ಟೆ: ಕೊಪ್ಪ - Commodities: 1
+[2026-08-18T02:57:29Z INFO  raitha_darpana::scrape] City: 9]  ಮಾರುಕಟ್ಟೆ: ಕೊಪ್ಪಳ - Commodities: 4
+[2026-08-18T02:57:29Z INFO  raitha_darpana::scrape] City: 10]  ಮಾರುಕಟ್ಟೆ: ಗಂಗಾವತಿ - Commodities: 7
+[2026-08-18T02:57:29Z INFO  raitha_darpana::scrape] City: 11]  ಮಾರುಕಟ್ಟೆ: ಗುಂಡ್ಲುಪೇಟೆ - Commodities: 10
+[2026-08-18T02:57:29Z INFO  raitha_darpana::scrape] City: 12]  ಮಾರುಕಟ್ಟೆ: ಗುಬ್ಬಿ - Commodities: 4
+[2026-08-18T02:57:29Z INFO  raitha_darpana::scrape] City: 13]  ಮಾರುಕಟ್ಟೆ: ಗೋಣಿಕೊಪ್ಪಲ್ - Commodities: 1
+[2026-08-18T02:57:29Z INFO  raitha_darpana::scrape] City: 14]  ಮಾರುಕಟ್ಟೆ: ಗೌರಿಬಿದನೂರು - Commodities: 19
+[2026-08-18T02:57:29Z INFO  raitha_darpana::scrape] City: 15]  ಮಾರುಕಟ್ಟೆ: ಚಿಂತಾಮಣಿ - Commodities: 13
+[2026-08-18T02:57:29Z INFO  raitha_darpana::scrape] City: 16]  ಮಾರುಕಟ್ಟೆ: ಚಿಕ್ಕಬಳ್ಳಾಪುರ - Commodities: 1
+[2026-08-18T02:57:29Z INFO  raitha_darpana::scrape] City: 17]  ಮಾರುಕಟ್ಟೆ: ಚನ್ನಗಿರಿ - Commodities: 2
+[2026-08-18T02:57:29Z INFO  raitha_darpana::scrape] City: 18]  ಮಾರುಕಟ್ಟೆ: ಚಳ್ಳಕೆರೆ - Commodities: 2
+[2026-08-18T02:57:29Z INFO  raitha_darpana::scrape] City: 19]  ಮಾರುಕಟ್ಟೆ: ಚಾಮರಾಜನಗರ - Commodities: 17
+[2026-08-18T02:57:29Z INFO  raitha_darpana::scrape] City: 20]  ಮಾರುಕಟ್ಟೆ: ತಿಪಟೂರು - Commodities: 1
+[2026-08-18T02:57:29Z INFO  raitha_darpana::scrape] City: 21]  ಮಾರುಕಟ್ಟೆ: ತರಿಕೆರೆ - Commodities: 1
+[2026-08-18T02:57:29Z INFO  raitha_darpana::scrape] City: 22]  ಮಾರುಕಟ್ಟೆ: ತಾಳಿಕೋಟೆ - Commodities: 4
+[2026-08-18T02:57:29Z INFO  raitha_darpana::scrape] City: 23]  ಮಾರುಕಟ್ಟೆ: ತೀರ್ಥಹಳ್ಳಿ - Commodities: 4
+[2026-08-18T02:57:29Z INFO  raitha_darpana::scrape] City: 24]  ಮಾರುಕಟ್ಟೆ: ತುರುವೇಕೆರೆ - Commodities: 1
+[2026-08-18T02:57:29Z INFO  raitha_darpana::scrape] City: 25]  ಮಾರುಕಟ್ಟೆ: ದಾವಣಗೆರೆ - Commodities: 15
+[2026-08-18T02:57:29Z INFO  raitha_darpana::scrape] City: 26]  ಮಾರುಕಟ್ಟೆ: ದೊಡ್ಡಬಳ್ಳಾಪುರ - Commodities: 20
+[2026-08-18T02:57:29Z INFO  raitha_darpana::scrape] City: 27]  ಮಾರುಕಟ್ಟೆ: ಪಿರಿಯಾಪಟ್ಟಣ - Commodities: 1
+[2026-08-18T02:57:29Z INFO  raitha_darpana::scrape] City: 28]  ಮಾರುಕಟ್ಟೆ: ಪಾ೦ಡವಪುರ - Commodities: 1
+[2026-08-18T02:57:29Z INFO  raitha_darpana::scrape] City: 29]  ಮಾರುಕಟ್ಟೆ: ಬೆಂಗಳೂರು - Commodities: 41
+[2026-08-18T02:57:29Z INFO  raitha_darpana::scrape] City: 30]  ಮಾರುಕಟ್ಟೆ: ಬಂಗಾರಪೇಟೆ - Commodities: 18
+[2026-08-18T02:57:29Z INFO  raitha_darpana::scrape] City: 31]  ಮಾರುಕಟ್ಟೆ: ಬಿನ್ನಿಮಿಲ್ - Commodities: 47
+[2026-08-18T02:57:29Z INFO  raitha_darpana::scrape] City: 32]  ಮಾರುಕಟ್ಟೆ: ಬೆಳಗಾವಿ - Commodities: 2
+[2026-08-18T02:57:29Z INFO  raitha_darpana::scrape] City: 33]  ಮಾರುಕಟ್ಟೆ: ಬಳ್ಳಾರಿ - Commodities: 5
+[2026-08-18T02:57:29Z INFO  raitha_darpana::scrape] City: 34]  ಮಾರುಕಟ್ಟೆ: ಬಾಗೆಪಲ್ಲಿ - Commodities: 14
+[2026-08-18T02:57:29Z INFO  raitha_darpana::scrape] City: 35]  ಮಾರುಕಟ್ಟೆ: ಬೇಲೂರು - Commodities: 4
+[2026-08-18T02:57:29Z INFO  raitha_darpana::scrape] City: 36]  ಮಾರುಕಟ್ಟೆ: ಬೈಲಹೊಂಗಲ - Commodities: 1
+[2026-08-18T02:57:29Z INFO  raitha_darpana::scrape] City: 37]  ಮಾರುಕಟ್ಟೆ: ಭದ್ರಾವತಿ - Commodities: 8
+[2026-08-18T02:57:29Z INFO  raitha_darpana::scrape] City: 38]  ಮಾರುಕಟ್ಟೆ: ಮಡಿಕೇರಿ - Commodities: 1
+[2026-08-18T02:57:29Z INFO  raitha_darpana::scrape] City: 39]  ಮಾರುಕಟ್ಟೆ: ಮಾನ್ವಿ - Commodities: 9
+[2026-08-18T02:57:29Z INFO  raitha_darpana::scrape] City: 40]  ಮಾರುಕಟ್ಟೆ: ಮಾಲೂರು - Commodities: 4
+[2026-08-18T02:57:29Z INFO  raitha_darpana::scrape] City: 41]  ಮಾರುಕಟ್ಟೆ: ಮುಳಬಾಗಿಲು - Commodities: 5
+[2026-08-18T02:57:29Z INFO  raitha_darpana::scrape] City: 42]  ಮಾರುಕಟ್ಟೆ: ಮೈಸೂರು - Commodities: 26
+[2026-08-18T02:57:29Z INFO  raitha_darpana::scrape] City: 43]  ಮಾರುಕಟ್ಟೆ: ಯಲ್ಬುರ್ಗ - Commodities: 5
+[2026-08-18T02:57:29Z INFO  raitha_darpana::scrape] City: 44]  ಮಾರುಕಟ್ಟೆ: ರಾಣೆಬೆನ್ನೂರು - Commodities: 6
+[2026-08-18T02:57:29Z INFO  raitha_darpana::scrape] City: 45]  ಮಾರುಕಟ್ಟೆ: ರಾಮದುರ್ಗ - Commodities: 1
+[2026-08-18T02:57:29Z INFO  raitha_darpana::scrape] City: 46]  ಮಾರುಕಟ್ಟೆ: ರಾಮನಗರ - Commodities: 22
+[2026-08-18T02:57:29Z INFO  raitha_darpana::scrape] City: 47]  ಮಾರುಕಟ್ಟೆ: ರಾಯಚೂರು - Commodities: 5
+[2026-08-18T02:57:29Z INFO  raitha_darpana::scrape] City: 48]  ಮಾರುಕಟ್ಟೆ: ರೋಣ - Commodities: 2
+[2026-08-18T02:57:29Z INFO  raitha_darpana::scrape] City: 49]  ಮಾರುಕಟ್ಟೆ: ಲಿಂಗಸುಗೂರು - Commodities: 4
+[2026-08-18T02:57:29Z INFO  raitha_darpana::scrape] City: 50]  ಮಾರುಕಟ್ಟೆ: ಲಕ್ಷ್ಮೇಶ್ವರ - Commodities: 13
+[2026-08-18T02:57:29Z INFO  raitha_darpana::scrape] City: 51]  ಮಾರುಕಟ್ಟೆ: ವಿಜಯಾಪುರ - Commodities: 9
+[2026-08-18T02:57:29Z INFO  raitha_darpana::scrape] City: 52]  ಮಾರುಕಟ್ಟೆ: ಶಿಕಾರಿಪುರ - Commodities: 4
+[2026-08-18T02:57:29Z INFO  raitha_darpana::scrape] City: 53]  ಮಾರುಕಟ್ಟೆ: ಶ್ರೀನಿವಾಸಪುರ - Commodities: 1
+[2026-08-18T02:57:29Z INFO  raitha_darpana::scrape] City: 54]  ಮಾರುಕಟ್ಟೆ: ಶ್ರೀರ೦ಗಪಟ್ಟಣ - Commodities: 2
+[2026-08-18T02:57:29Z INFO  raitha_darpana::scrape] City: 55]  ಮಾರುಕಟ್ಟೆ: ಶಿವಮೊಗ್ಗ - Commodities: 24
+[2026-08-18T02:57:29Z INFO  raitha_darpana::scrape] City: 56]  ಮಾರುಕಟ್ಟೆ: ಸಂಕೇಶ್ವರ - Commodities: 3
+[2026-08-18T02:57:29Z INFO  raitha_darpana::scrape] City: 57]  ಮಾರುಕಟ್ಟೆ: ಸಂತೆಸರಗೂರು - Commodities: 4
+[2026-08-18T02:57:29Z INFO  raitha_darpana::scrape] City: 58]  ಮಾರುಕಟ್ಟೆ: ಸಿಂಧನೂರು - Commodities: 10
+[2026-08-18T02:57:29Z INFO  raitha_darpana::scrape] City: 59]  ಮಾರುಕಟ್ಟೆ: ಸಾಗರ - Commodities: 7
+[2026-08-18T02:57:29Z INFO  raitha_darpana::scrape] City: 60]  ಮಾರುಕಟ್ಟೆ: ಹಡಗಲಿ - Commodities: 2
+[2026-08-18T02:57:29Z INFO  raitha_darpana::scrape] City: 61]  ಮಾರುಕಟ್ಟೆ: ಹಿರಿಯೂರು - Commodities: 1
+[2026-08-18T02:57:29Z INFO  raitha_darpana::scrape] City: 62]  ಮಾರುಕಟ್ಟೆ: ಹರಿಹರ - Commodities: 2
+[2026-08-18T02:57:29Z INFO  raitha_darpana::scrape] City: 63]  ಮಾರುಕಟ್ಟೆ: ಹಳಿಯಾಳ - Commodities: 1
+[2026-08-18T02:57:29Z INFO  raitha_darpana::scrape] City: 64]  ಮಾರುಕಟ್ಟೆ: ಹಾವೇರಿ - Commodities: 3
+[2026-08-18T02:57:29Z INFO  raitha_darpana::scrape] City: 65]  ಮಾರುಕಟ್ಟೆ: ಹುಣಸೂರು - Commodities: 2
+[2026-08-18T02:57:29Z INFO  raitha_darpana::scrape] City: 66]  ಮಾರುಕಟ್ಟೆ: ಹುಬ್ಬಳ್ಳಿ - Commodities: 12
+[2026-08-18T02:57:29Z INFO  raitha_darpana::scrape] City: 67]  ಮಾರುಕಟ್ಟೆ: ಹೊನ್ನಾಳಿ - Commodities: 15
+[2026-08-18T02:57:29Z INFO  raitha_darpana::scrape] City: 68]  ಮಾರುಕಟ್ಟೆ: ಹೊಳ್ಳಕೆರೆ - Commodities: 3
+[2026-08-18T02:57:29Z INFO  raitha_darpana::scrape] City: 69]  ಮಾರುಕಟ್ಟೆ: ಹೊಸದುರ್ಗ - Commodities: 6
+[2026-08-18T02:57:29Z INFO  headless_chrome::browser] Dropping browser
+[2026-08-18T02:57:29Z INFO  headless_chrome::browser::process] Killing Chrome. PID: 2344
+[2026-08-18T02:57:29Z INFO  headless_chrome::browser::transport] Transport incoming message loop loop received shutdown message
+[2026-08-18T02:57:29Z INFO  headless_chrome::browser::transport] Shutting down message handling loop
+[2026-08-18T02:57:29Z INFO  headless_chrome::browser] Browser event loop received shutdown message
+[2026-08-18T02:57:29Z INFO  headless_chrome::browser] Finished browser's event handling loop
+[2026-08-18T02:57:29Z INFO  headless_chrome::browser::transport] cleared listeners, I think
+[2026-08-18T02:57:29Z INFO  headless_chrome::browser::tab] finished tab's event handling loop
+[2026-08-18T02:57:29Z INFO  headless_chrome::browser::transport::web_socket_connection] Sending shutdown message to message handling loop
+[2026-08-18T02:57:29Z WARN  headless_chrome::browser::transport::web_socket_connection] Couldn't send message to transport loop telling it to shut down
+[2026-08-18T02:57:29Z INFO  headless_chrome::browser::tab] finished tab's event handling loop
+[2026-08-25T11:27:14Z INFO  raitha_darpana] === raitha_darpana started, logging to rd_media\rd.log ===
+[2026-08-25T11:27:14Z INFO  raitha_darpana::ui] Web UI listening on http://127.0.0.1:61505
+[2026-08-25T11:27:20Z INFO  headless_chrome::browser::process] Launching Chrome binary at C:\Program Files\Google\Chrome\Application\chrome.exe
+[2026-08-25T11:27:20Z INFO  headless_chrome::browser::process] Started Chrome. PID: 15136
+[2026-08-25T11:27:22Z INFO  headless_chrome::browser::tab] Navigating a tab to https://krama.karnataka.gov.in/Kannada/Main_rep
+[2026-08-25T11:27:30Z INFO  raitha_darpana::scrape] Report Date: 25/08/2026
+[2026-08-25T11:27:30Z INFO  raitha_darpana::scrape] Total Cities: 62
+[2026-08-25T11:27:30Z INFO  raitha_darpana::scrape] City: 1]  ಮಾರುಕಟ್ಟೆ: ಅರಸೀಕೆರೆ - Commodities: 10
+[2026-08-25T11:27:30Z INFO  raitha_darpana::scrape] City: 2]  ಮಾರುಕಟ್ಟೆ: ಕೆ.ಅರ್ .ನಗರ - Commodities: 2
+[2026-08-25T11:27:30Z INFO  raitha_darpana::scrape] City: 3]  ಮಾರುಕಟ್ಟೆ: ಕಡೂರು - Commodities: 8
+[2026-08-25T11:27:30Z INFO  raitha_darpana::scrape] City: 4]  ಮಾರುಕಟ್ಟೆ: ಕನಕಗಿರಿ - Commodities: 3
+[2026-08-25T11:27:30Z INFO  raitha_darpana::scrape] City: 5]  ಮಾರುಕಟ್ಟೆ: ಕಲಬುರಗಿ - Commodities: 32
+[2026-08-25T11:27:30Z INFO  raitha_darpana::scrape] City: 6]  ಮಾರುಕಟ್ಟೆ: ಕುಡಚಿ - Commodities: 1
+[2026-08-25T11:27:30Z INFO  raitha_darpana::scrape] City: 7]  ಮಾರುಕಟ್ಟೆ: ಕುಮುಟ - Commodities: 2
+[2026-08-25T11:27:30Z INFO  raitha_darpana::scrape] City: 8]  ಮಾರುಕಟ್ಟೆ: ಕುಷ್ಟಗಿ - Commodities: 1
+[2026-08-25T11:27:30Z INFO  raitha_darpana::scrape] City: 9]  ಮಾರುಕಟ್ಟೆ: ಕೋಲಾರ - Commodities: 13
+[2026-08-25T11:27:30Z INFO  raitha_darpana::scrape] City: 10]  ಮಾರುಕಟ್ಟೆ: ಗಂಗಾವತಿ - Commodities: 7
+[2026-08-25T11:27:30Z INFO  raitha_darpana::scrape] City: 11]  ಮಾರುಕಟ್ಟೆ: ಗುಂಡ್ಲುಪೇಟೆ - Commodities: 5
+[2026-08-25T11:27:30Z INFO  raitha_darpana::scrape] City: 12]  ಮಾರುಕಟ್ಟೆ: ಚಿಂತಾಮಣಿ - Commodities: 10
+[2026-08-25T11:27:30Z INFO  raitha_darpana::scrape] City: 13]  ಮಾರುಕಟ್ಟೆ: ಚಿಕ್ಕಬಳ್ಳಾಪುರ - Commodities: 1
+[2026-08-25T11:27:30Z INFO  raitha_darpana::scrape] City: 14]  ಮಾರುಕಟ್ಟೆ: ಚನ್ನಗಿರಿ - Commodities: 3
+[2026-08-25T11:27:30Z INFO  raitha_darpana::scrape] City: 15]  ಮಾರುಕಟ್ಟೆ: ಚನ್ನಪಟ್ಟಣ - Commodities: 6
+[2026-08-25T11:27:30Z INFO  raitha_darpana::scrape] City: 16]  ಮಾರುಕಟ್ಟೆ: ಚಳ್ಳಕೆರೆ - Commodities: 1
+[2026-08-25T11:27:30Z INFO  raitha_darpana::scrape] City: 17]  ಮಾರುಕಟ್ಟೆ: ಚಾಮರಾಜನಗರ - Commodities: 20
+[2026-08-25T11:27:30Z INFO  raitha_darpana::scrape] City: 18]  ಮಾರುಕಟ್ಟೆ: ತೀರ್ಥಹಳ್ಳಿ - Commodities: 3
+[2026-08-25T11:27:30Z INFO  raitha_darpana::scrape] City: 19]  ಮಾರುಕಟ್ಟೆ: ದಾವಣಗೆರೆ - Commodities: 39
+[2026-08-25T11:27:30Z INFO  raitha_darpana::scrape] City: 20]  ಮಾರುಕಟ್ಟೆ: ದೊಡ್ಡಬಳ್ಳಾಪುರ - Commodities: 14
+[2026-08-25T11:27:30Z INFO  raitha_darpana::scrape] City: 21]  ಮಾರುಕಟ್ಟೆ: ಪಿರಿಯಾಪಟ್ಟಣ - Commodities: 1
+[2026-08-25T11:27:30Z INFO  raitha_darpana::scrape] City: 22]  ಮಾರುಕಟ್ಟೆ: ಪಾ೦ಡವಪುರ - Commodities: 1
+[2026-08-25T11:27:30Z INFO  raitha_darpana::scrape] City: 23]  ಮಾರುಕಟ್ಟೆ: ಬೆಂಗಳೂರು - Commodities: 38
+[2026-08-25T11:27:30Z INFO  raitha_darpana::scrape] City: 24]  ಮಾರುಕಟ್ಟೆ: ಬಂಗಾರಪೇಟೆ - Commodities: 20
+[2026-08-25T11:27:30Z INFO  raitha_darpana::scrape] City: 25]  ಮಾರುಕಟ್ಟೆ: ಬಿನ್ನಿಮಿಲ್ - Commodities: 45
+[2026-08-25T11:27:30Z INFO  raitha_darpana::scrape] City: 26]  ಮಾರುಕಟ್ಟೆ: ಬ್ಯಾಡಗಿ - Commodities: 3
+[2026-08-25T11:27:30Z INFO  raitha_darpana::scrape] City: 27]  ಮಾರುಕಟ್ಟೆ: ಬೆಳಗಾವಿ - Commodities: 5
+[2026-08-25T11:27:30Z INFO  raitha_darpana::scrape] City: 28]  ಮಾರುಕಟ್ಟೆ: ಬಳ್ಳಾರಿ - Commodities: 7
+[2026-08-25T11:27:30Z INFO  raitha_darpana::scrape] City: 29]  ಮಾರುಕಟ್ಟೆ: ಬಸವಕಲ್ಯಾಣ - Commodities: 8
+[2026-08-25T11:27:30Z INFO  raitha_darpana::scrape] City: 30]  ಮಾರುಕಟ್ಟೆ: ಬಾಗೆಪಲ್ಲಿ - Commodities: 7
+[2026-08-25T11:27:30Z INFO  raitha_darpana::scrape] City: 31]  ಮಾರುಕಟ್ಟೆ: ಬಾಗಲಕೋಟೆ - Commodities: 5
+[2026-08-25T11:27:30Z INFO  raitha_darpana::scrape] City: 32]  ಮಾರುಕಟ್ಟೆ: ಬೀದರ್ - Commodities: 6
+[2026-08-25T11:27:30Z INFO  raitha_darpana::scrape] City: 33]  ಮಾರುಕಟ್ಟೆ: ಬೈಲಹೊಂಗಲ - Commodities: 1
+[2026-08-25T11:27:30Z INFO  raitha_darpana::scrape] City: 34]  ಮಾರುಕಟ್ಟೆ: ಭದ್ರಾವತಿ - Commodities: 7
+[2026-08-25T11:27:30Z INFO  raitha_darpana::scrape] City: 35]  ಮಾರುಕಟ್ಟೆ: ಮಾನ್ವಿ - Commodities: 3
+[2026-08-25T11:27:30Z INFO  raitha_darpana::scrape] City: 36]  ಮಾರುಕಟ್ಟೆ: ಮಾಲೂರು - Commodities: 4
+[2026-08-25T11:27:30Z INFO  raitha_darpana::scrape] City: 37]  ಮಾರುಕಟ್ಟೆ: ಮುಳಬಾಗಿಲು - Commodities: 6
+[2026-08-25T11:27:30Z INFO  raitha_darpana::scrape] City: 38]  ಮಾರುಕಟ್ಟೆ: ಮೈಸೂರು - Commodities: 26
+[2026-08-25T11:27:30Z INFO  raitha_darpana::scrape] City: 39]  ಮಾರುಕಟ್ಟೆ: ಯಲ್ಬುರ್ಗ - Commodities: 3
+[2026-08-25T11:27:30Z INFO  raitha_darpana::scrape] City: 40]  ಮಾರುಕಟ್ಟೆ: ಯಲ್ಲಾಪೂರ - Commodities: 8
+[2026-08-25T11:27:30Z INFO  raitha_darpana::scrape] City: 41]  ಮಾರುಕಟ್ಟೆ: ರಾಮನಗರ - Commodities: 22
+[2026-08-25T11:27:30Z INFO  raitha_darpana::scrape] City: 42]  ಮಾರುಕಟ್ಟೆ: ರಾಯಚೂರು - Commodities: 6
+[2026-08-25T11:27:30Z INFO  raitha_darpana::scrape] City: 43]  ಮಾರುಕಟ್ಟೆ: ರೋಣ - Commodities: 2
+[2026-08-25T11:27:30Z INFO  raitha_darpana::scrape] City: 44]  ಮಾರುಕಟ್ಟೆ: ಲಿಂಗಸುಗೂರು - Commodities: 2
+[2026-08-25T11:27:30Z INFO  raitha_darpana::scrape] City: 45]  ಮಾರುಕಟ್ಟೆ: ಲಕ್ಷ್ಮೇಶ್ವರ - Commodities: 12
+[2026-08-25T11:27:30Z INFO  raitha_darpana::scrape] City: 46]  ಮಾರುಕಟ್ಟೆ: ವಿಜಯಾಪುರ - Commodities: 12
+[2026-08-25T11:27:30Z INFO  raitha_darpana::scrape] City: 47]  ಮಾರುಕಟ್ಟೆ: ಶಿಕಾರಿಪುರ - Commodities: 3
+[2026-08-25T11:27:30Z INFO  raitha_darpana::scrape] City: 48]  ಮಾರುಕಟ್ಟೆ: ಶ್ರೀನಿವಾಸಪುರ - Commodities: 1
+[2026-08-25T11:27:30Z INFO  raitha_darpana::scrape] City: 49]  ಮಾರುಕಟ್ಟೆ: ಶ್ರೀರ೦ಗಪಟ್ಟಣ - Commodities: 2
+[2026-08-25T11:27:30Z INFO  raitha_darpana::scrape] City: 50]  ಮಾರುಕಟ್ಟೆ: ಶಿವಮೊಗ್ಗ - Commodities: 24
+[2026-08-25T11:27:30Z INFO  raitha_darpana::scrape] City: 51]  ಮಾರುಕಟ್ಟೆ: ಸಿಂಧನೂರು - Commodities: 5
+[2026-08-25T11:27:30Z INFO  raitha_darpana::scrape] City: 52]  ಮಾರುಕಟ್ಟೆ: ಸಿದ್ಧಾಪುರ - Commodities: 7
+[2026-08-25T11:27:30Z INFO  raitha_darpana::scrape] City: 53]  ಮಾರುಕಟ್ಟೆ: ಸಾಗರ - Commodities: 4
+[2026-08-25T11:27:30Z INFO  raitha_darpana::scrape] City: 54]  ಮಾರುಕಟ್ಟೆ: ಹಿರಿಯೂರು - Commodities: 1
+[2026-08-25T11:27:30Z INFO  raitha_darpana::scrape] City: 55]  ಮಾರುಕಟ್ಟೆ: ಹಳಿಯಾಳ - Commodities: 1
+[2026-08-25T11:27:30Z INFO  raitha_darpana::scrape] City: 56]  ಮಾರುಕಟ್ಟೆ: ಹಾನ್ ಗಲ್ - Commodities: 2
+[2026-08-25T11:27:30Z INFO  raitha_darpana::scrape] City: 57]  ಮಾರುಕಟ್ಟೆ: ಹುಣಸೂರು - Commodities: 8
+[2026-08-25T11:27:30Z INFO  raitha_darpana::scrape] City: 58]  ಮಾರುಕಟ್ಟೆ: ಹುನಗುಂದ - Commodities: 2
+[2026-08-25T11:27:30Z INFO  raitha_darpana::scrape] City: 59]  ಮಾರುಕಟ್ಟೆ: ಹೊನ್ನಾಳಿ - Commodities: 14
+[2026-08-25T11:27:30Z INFO  raitha_darpana::scrape] City: 60]  ಮಾರುಕಟ್ಟೆ: ಹೊನ್ನಾವರ - Commodities: 2
+[2026-08-25T11:27:30Z INFO  raitha_darpana::scrape] City: 61]  ಮಾರುಕಟ್ಟೆ: ಹೊಳ್ಳಕೆರೆ - Commodities: 1
+[2026-08-25T11:27:30Z INFO  raitha_darpana::scrape] City: 62]  ಮಾರುಕಟ್ಟೆ: ಹೊಸದುರ್ಗ - Commodities: 2
+[2026-08-25T11:27:30Z INFO  headless_chrome::browser] Dropping browser
+[2026-08-25T11:27:30Z INFO  headless_chrome::browser::process] Killing Chrome. PID: 15136
+[2026-08-25T11:27:30Z INFO  headless_chrome::browser::transport] Transport incoming message loop loop received shutdown message
+[2026-08-25T11:27:30Z INFO  headless_chrome::browser::transport] Shutting down message handling loop
+[2026-08-25T11:27:30Z INFO  headless_chrome::browser] Browser event loop received shutdown message
+[2026-08-25T11:27:30Z INFO  headless_chrome::browser] Finished browser's event handling loop
+[2026-08-25T11:27:31Z INFO  headless_chrome::browser::transport::web_socket_connection] Sending shutdown message to message handling loop
+[2026-08-25T11:27:31Z INFO  headless_chrome::browser::transport] cleared listeners, I think
+[2026-08-25T11:27:31Z INFO  headless_chrome::browser::tab] finished tab's event handling loop
+[2026-08-25T11:27:31Z INFO  headless_chrome::browser::tab] finished tab's event handling loop
+[2026-08-25T11:34:51Z INFO  raitha_darpana] === raitha_darpana started, logging to rd_media\rd.log ===
+[2026-08-25T11:34:51Z INFO  raitha_darpana::ui] Web UI listening on http://127.0.0.1:64755
+[2026-08-25T11:35:06Z INFO  raitha_darpana::ui] [job 35373644-75f5-46c6-a697-4c0d0d076e00] Launching renderer...
+[2026-08-25T11:35:06Z INFO  headless_chrome::browser::process] Launching Chrome binary at C:\Program Files\Google\Chrome\Application\chrome.exe
+[2026-08-25T11:35:06Z INFO  headless_chrome::browser::process] Started Chrome. PID: 5340
+[2026-08-25T11:35:08Z INFO  raitha_darpana::render] Rendering images for city '32]  ಮಾರುಕಟ್ಟೆ: ಬೀದರ್' -> 'BIDAR'
+[2026-08-25T11:35:08Z INFO  raitha_darpana::ui] [job 35373644-75f5-46c6-a697-4c0d0d076e00] Rendering BIDAR (YouTube)...
+[2026-08-25T11:35:08Z INFO  raitha_darpana::render] Navigating to file:///D:/Projects/uiraitah_darpana/raitha_darpana/rd_media/20260825/BIDAR/BIDAR-20260825-yt-kan.html (city: BIDAR)
+[2026-08-25T11:35:08Z INFO  headless_chrome::browser::tab] Navigating a tab to file:///D:/Projects/uiraitah_darpana/raitha_darpana/rd_media/20260825/BIDAR/BIDAR-20260825-yt-kan.html
+[2026-08-25T11:35:09Z INFO  raitha_darpana::voiceover] ನಮಸ್ಕಾರ ವೀಕ್ಷಕರೇ, ರೈತ ದರ್ಪಣ ಮಾರುಕಟ್ಟೆ ಬೆಲೆಗಳ ಮಾಹಿತಿ ಚಾನೆಲ್‌ಗೆ ಸುಸ್ವಾಗತ. ಇಂದಿನ BIDAR ಮಾರುಕಟ್ಟೆಯ ತರಕಾರಿ ಬೆಲೆಗಳ ಮಾಹಿತಿ ಇಲ್ಲಿದೆ. ವರದಿ ದಿನಾಂಕ: 25/08/2026. ಹೆಸರುಕಾಳು, ತಳಿ ಜವರಿ / ಸ್ಥಳಿಯ: ಕನಿಷ್ಠ ಬೆಲೆ ನಾಲ್ಕು ಸಾವಿರ ಒಂದು ನೂರು ನಲವತ್ತು ಎಂಟು ರೂಪಾಯಿ, ಗರಿಷ್ಠ ಬೆಲೆ ಹತ್ತು ಸಾವಿರ ಐದು ನೂರು ರೂಪಾಯಿ. ತೊಗರಿ: ಕನಿಷ್ಠ ಬೆಲೆ ನಾಲ್ಕು ಸಾವಿರ ಎಂಟು ನೂರು ಇಪ್ಪತ್ತು ಎರಡು ರೂಪಾಯಿ, ಗರಿಷ್ಠ ಬೆಲೆ ಎಂಟು ಸಾವಿರ ಆರು ನೂರು ಇಪ್ಪತ್ತು ಒಂದು ರೂಪಾಯಿ. ಅಕ್ಕಿ, ತಳಿ ಸಿ.ಆರ್.1009 (ಸಾಧಾರಣ ): ಕನಿಷ್ಠ ಬೆಲೆ ನಾಲ್ಕು ಸಾವಿರ ಆರು ನೂರು ರೂಪಾಯಿ, ಗರಿಷ್ಠ ಬೆಲೆ ಐದು ಸಾವಿರ ಆರು ನೂರು ರೂಪಾಯಿ. ಕಡಲೆಕಾಳು, ತಳಿ ಜವರಿ / ಸ್ಥಳಿಯ: ಕನಿಷ್ಠ ಬೆಲೆ ನಾಲ್ಕು ಸಾವಿರ ಇಪ್ಪತ್ತು ಒಂದು ರೂಪಾಯಿ, ಗರಿಷ್ಠ ಬೆಲೆ ಆರು ಸಾವಿರ ಮೂರು ನೂರು ಅರವತ್ತು ಒಂಬತ್ತು ರೂಪಾಯಿ. ಉದ್ದಿನಕಾಳು, ತಳಿ ಉದ್ದಿನ ಕಾಳು: ಕನಿಷ್ಠ ಬೆಲೆ ಐದು ಸಾವಿರ ಐದು ನೂರು ನಲವತ್ತು ಎಂಟು ರೂಪಾಯಿ, ಗರಿಷ್ಠ ಬೆಲೆ ಒಂಬತ್ತು ಸಾವಿರ ಎರಡು ನೂರು ಮೂವತ್ತು ರೂಪಾಯಿ. ಸೋಯಾಬಿನ್, ತಳಿ ಹಳದಿ: ಕನಿಷ್ಠ ಬೆಲೆ ಐದು ಸಾವಿರ ಆರು ನೂರು ಐವತ್ತು ಎರಡು ರೂಪಾಯಿ, ಗರಿಷ್ಠ ಬೆಲೆ ಐದು ಸಾವಿರ ಏಳು ನೂರು ಐವತ್ತು ಒಂದು ರೂಪಾಯಿ. ದಿನನಿತ್ಯದ ನಿಖರ ಮಾಹಿತಿಗಾಗಿ ನಮ್ಮ ಇನ್ಸ್ಟಾಗ್ರಾಮ್ ಮತ್ತು ಯೂಟ್ಯೂಬ್ ಚಾನೆಲ್‌ಗೆ ಸಬ್‌ಸ್ಕ್ರೈಬ್ ಆಗಿ. ಧನ್ಯವಾದಗಳು!
+[2026-08-25T11:35:09Z INFO  raitha_darpana::ui] [job 35373644-75f5-46c6-a697-4c0d0d076e00] Generating voiceover for BIDAR...
+[2026-08-25T11:35:16Z INFO  raitha_darpana::voiceover] 🎧 Found background music at assets\bg_music.mp3. Mixing at 6% volume.
+[2026-08-25T11:35:17Z INFO  raitha_darpana::ui] [job 35373644-75f5-46c6-a697-4c0d0d076e00] Generating YouTube video for BIDAR...
+[2026-08-25T11:35:17Z INFO  headless_chrome::browser::tab] Navigating a tab to file:///D:/Projects/uiraitah_darpana/raitha_darpana/rd_media/20260825/BIDAR/frames/yt-kan/frame_00.html
+[2026-08-25T11:35:19Z INFO  headless_chrome::browser::tab] Navigating a tab to file:///D:/Projects/uiraitah_darpana/raitha_darpana/rd_media/20260825/BIDAR/frames/yt-kan/frame_01.html
+[2026-08-25T11:35:20Z INFO  headless_chrome::browser::tab] Navigating a tab to file:///D:/Projects/uiraitah_darpana/raitha_darpana/rd_media/20260825/BIDAR/frames/yt-kan/frame_02.html
+[2026-08-25T11:35:21Z INFO  headless_chrome::browser::tab] Navigating a tab to file:///D:/Projects/uiraitah_darpana/raitha_darpana/rd_media/20260825/BIDAR/frames/yt-kan/frame_03.html
+[2026-08-25T11:35:22Z INFO  headless_chrome::browser::tab] Navigating a tab to file:///D:/Projects/uiraitah_darpana/raitha_darpana/rd_media/20260825/BIDAR/frames/yt-kan/frame_04.html
+[2026-08-25T11:35:24Z INFO  headless_chrome::browser::tab] Navigating a tab to file:///D:/Projects/uiraitah_darpana/raitha_darpana/rd_media/20260825/BIDAR/frames/yt-kan/frame_05.html
+[2026-08-25T11:35:25Z INFO  headless_chrome::browser::tab] Navigating a tab to file:///D:/Projects/uiraitah_darpana/raitha_darpana/rd_media/20260825/BIDAR/frames/yt-kan/frame_06.html
+[2026-08-25T11:36:09Z INFO  raitha_darpana::ui] [job 35373644-75f5-46c6-a697-4c0d0d076e00] Render complete.
+[2026-08-25T11:36:09Z INFO  headless_chrome::browser] Dropping browser
+[2026-08-25T11:36:09Z INFO  headless_chrome::browser::transport] Transport incoming message loop loop received shutdown message
+[2026-08-25T11:36:09Z INFO  headless_chrome::browser::process] Killing Chrome. PID: 5340
+[2026-08-25T11:36:09Z INFO  headless_chrome::browser::transport] Shutting down message handling loop
+[2026-08-25T11:36:09Z INFO  headless_chrome::browser::transport::web_socket_connection] Sending shutdown message to message handling loop
+[2026-08-25T11:36:09Z INFO  headless_chrome::browser::transport] cleared listeners, I think
+[2026-08-25T11:36:09Z INFO  headless_chrome::browser::tab] finished tab's event handling loop
+[2026-08-25T11:36:09Z INFO  headless_chrome::browser] Finished browser's event handling loop
+[2026-08-25T11:36:09Z INFO  headless_chrome::browser::tab] finished tab's event handling loop
+[2026-08-25T11:36:09Z INFO  headless_chrome::browser::transport] dropping transport
+[2026-08-25T11:36:09Z INFO  headless_chrome::browser::transport::web_socket_connection] dropping websocket connection
+[2026-08-25T11:36:09Z INFO  raitha_darpana::ui] [job 35373644-75f5-46c6-a697-4c0d0d076e00] Publishing...
+[2026-08-25T11:41:10Z INFO  raitha_darpana::ui] [job 35373644-75f5-46c6-a697-4c0d0d076e00] ✗ YouTube upload failed for BIDAR
+    Reason: YouTube: timed out waiting for OAuth authorization in the browser
+[2026-08-25T11:43:03Z INFO  raitha_darpana::ui] [job 41f9d574-5713-401c-815a-b384191a92d5] Launching renderer...
+[2026-08-25T11:43:04Z INFO  headless_chrome::browser::process] Launching Chrome binary at C:\Program Files\Google\Chrome\Application\chrome.exe
+[2026-08-25T11:43:04Z INFO  headless_chrome::browser::process] Started Chrome. PID: 20316
+[2026-08-25T11:43:07Z INFO  raitha_darpana::render] Rendering images for city '32]  ಮಾರುಕಟ್ಟೆ: ಬೀದರ್' -> 'BIDAR'
+[2026-08-25T11:43:07Z INFO  raitha_darpana::ui] [job 41f9d574-5713-401c-815a-b384191a92d5] BIDAR (YouTube) already exists, skipping.
+[2026-08-25T11:43:07Z INFO  raitha_darpana::ui] [job 41f9d574-5713-401c-815a-b384191a92d5] BIDAR: videos already exist, skipping.
+[2026-08-25T11:43:07Z INFO  raitha_darpana::ui] [job 41f9d574-5713-401c-815a-b384191a92d5] Render complete.
+[2026-08-25T11:43:07Z INFO  headless_chrome::browser] Dropping browser
+[2026-08-25T11:43:07Z INFO  headless_chrome::browser::process] Killing Chrome. PID: 20316
+[2026-08-25T11:43:07Z INFO  headless_chrome::browser::transport] Transport incoming message loop loop received shutdown message
+[2026-08-25T11:43:07Z INFO  headless_chrome::browser::transport] Shutting down message handling loop
+[2026-08-25T11:43:07Z INFO  headless_chrome::browser] Browser event loop received shutdown message
+[2026-08-25T11:43:07Z INFO  headless_chrome::browser] Finished browser's event handling loop
+[2026-08-25T11:43:07Z INFO  headless_chrome::browser::transport::web_socket_connection] Sending shutdown message to message handling loop
+[2026-08-25T11:43:07Z INFO  headless_chrome::browser::transport] cleared listeners, I think
+[2026-08-25T11:43:07Z INFO  headless_chrome::browser::tab] finished tab's event handling loop
+[2026-08-25T11:43:07Z INFO  headless_chrome::browser::tab] finished tab's event handling loop
+[2026-08-25T11:43:07Z INFO  headless_chrome::browser::transport] dropping transport
+[2026-08-25T11:43:07Z INFO  headless_chrome::browser::transport::web_socket_connection] dropping websocket connection
+[2026-08-25T11:43:07Z INFO  raitha_darpana::ui] [job 41f9d574-5713-401c-815a-b384191a92d5] Publishing...
+[2026-08-25T11:43:24Z INFO  raitha_darpana::social::youtube] YouTube video published: video_id=-7cD3efqOsE
+[2026-08-25T11:43:24Z INFO  raitha_darpana::ui] [job 41f9d574-5713-401c-815a-b384191a92d5] ✓ YouTube video published (public) for BIDAR. YouTube video ID: -7cD3efqOsE
+[2026-08-25T11:45:06Z INFO  raitha_darpana] === raitha_darpana started, logging to rd_media\rd.log ===
+[2026-08-25T11:45:06Z INFO  raitha_darpana::ui] Web UI listening on http://127.0.0.1:63618
+[2026-08-25T11:45:20Z INFO  raitha_darpana::ui] [job 3154849b-565a-4f65-903f-0b9c544c51fc] Launching renderer...
+[2026-08-25T11:45:20Z INFO  headless_chrome::browser::process] Launching Chrome binary at C:\Program Files\Google\Chrome\Application\chrome.exe
+[2026-08-25T11:45:20Z INFO  headless_chrome::browser::process] Started Chrome. PID: 18440
+[2026-08-25T11:45:21Z INFO  raitha_darpana::render] Rendering images for city '32]  ಮಾರುಕಟ್ಟೆ: ಬೀದರ್' -> 'BIDAR'
+[2026-08-25T11:45:21Z INFO  raitha_darpana::ui] [job 3154849b-565a-4f65-903f-0b9c544c51fc] BIDAR (YouTube) already exists, skipping.
+[2026-08-25T11:45:21Z INFO  raitha_darpana::ui] [job 3154849b-565a-4f65-903f-0b9c544c51fc] BIDAR: videos already exist, skipping.
+[2026-08-25T11:45:21Z INFO  raitha_darpana::ui] [job 3154849b-565a-4f65-903f-0b9c544c51fc] Render complete.
+[2026-08-25T11:45:21Z INFO  headless_chrome::browser] Dropping browser
+[2026-08-25T11:45:21Z INFO  headless_chrome::browser::process] Killing Chrome. PID: 18440
+[2026-08-25T11:45:21Z INFO  headless_chrome::browser::transport] Transport incoming message loop loop received shutdown message
+[2026-08-25T11:45:21Z INFO  headless_chrome::browser::transport] Shutting down message handling loop
+[2026-08-25T11:45:21Z INFO  headless_chrome::browser] Browser event loop received shutdown message
+[2026-08-25T11:45:21Z INFO  headless_chrome::browser] Finished browser's event handling loop
+[2026-08-25T11:45:21Z INFO  headless_chrome::browser::transport::web_socket_connection] Sending shutdown message to message handling loop
+[2026-08-25T11:45:21Z INFO  headless_chrome::browser::tab] finished tab's event handling loop
+[2026-08-25T11:45:21Z INFO  headless_chrome::browser::transport] cleared listeners, I think
+[2026-08-25T11:45:21Z INFO  headless_chrome::browser::tab] finished tab's event handling loop
+[2026-08-25T11:45:22Z INFO  headless_chrome::browser::transport] dropping transport
+[2026-08-25T11:45:22Z INFO  headless_chrome::browser::transport::web_socket_connection] dropping websocket connection
+[2026-08-25T11:45:22Z INFO  raitha_darpana::ui] [job 3154849b-565a-4f65-903f-0b9c544c51fc] Publishing...
+[2026-08-25T11:45:22Z INFO  raitha_darpana::social] YouTube: BIDAR on 20260825 already published as video_id=-7cD3efqOsE, skipping duplicate upload.
+[2026-08-25T11:45:22Z INFO  raitha_darpana::ui] [job 3154849b-565a-4f65-903f-0b9c544c51fc] ✓ YouTube video published (public) for BIDAR. YouTube video ID: -7cD3efqOsE
+[2026-08-25T11:52:51Z INFO  raitha_darpana::ui] [job 87443e4b-e491-419f-b26c-c6bc294030e4] Launching renderer...
+[2026-08-25T11:52:51Z INFO  headless_chrome::browser::process] Launching Chrome binary at C:\Program Files\Google\Chrome\Application\chrome.exe
+[2026-08-25T11:52:51Z INFO  headless_chrome::browser::process] Started Chrome. PID: 7508
+[2026-08-25T11:52:53Z INFO  raitha_darpana::render] Rendering images for city '32]  ಮಾರುಕಟ್ಟೆ: ಬೀದರ್' -> 'BIDAR'
+[2026-08-25T11:52:53Z INFO  raitha_darpana::ui] [job 87443e4b-e491-419f-b26c-c6bc294030e4] BIDAR (YouTube) already exists, skipping.
+[2026-08-25T11:52:53Z INFO  raitha_darpana::ui] [job 87443e4b-e491-419f-b26c-c6bc294030e4] BIDAR: videos already exist, skipping.
+[2026-08-25T11:52:53Z INFO  raitha_darpana::ui] [job 87443e4b-e491-419f-b26c-c6bc294030e4] Render complete.
+[2026-08-25T11:52:53Z INFO  headless_chrome::browser] Dropping browser
+[2026-08-25T11:52:53Z INFO  headless_chrome::browser::process] Killing Chrome. PID: 7508
+[2026-08-25T11:52:53Z INFO  headless_chrome::browser] Browser event loop received shutdown message
+[2026-08-25T11:52:53Z INFO  headless_chrome::browser] Finished browser's event handling loop
+[2026-08-25T11:52:53Z INFO  headless_chrome::browser::transport::web_socket_connection] Sending shutdown message to message handling loop
+[2026-08-25T11:52:53Z INFO  headless_chrome::browser::transport] Received shutdown message
+[2026-08-25T11:52:53Z INFO  headless_chrome::browser::transport] Shutting down message handling loop
+[2026-08-25T11:52:53Z INFO  headless_chrome::browser::transport] cleared listeners, I think
+[2026-08-25T11:52:53Z INFO  headless_chrome::browser::tab] finished tab's event handling loop
+[2026-08-25T11:52:53Z INFO  headless_chrome::browser::tab] finished tab's event handling loop
+[2026-08-25T11:52:54Z INFO  headless_chrome::browser::transport] dropping transport
+[2026-08-25T11:52:54Z INFO  headless_chrome::browser::transport::web_socket_connection] dropping websocket connection
+[2026-08-25T11:52:54Z INFO  raitha_darpana::ui] [job 87443e4b-e491-419f-b26c-c6bc294030e4] Publishing...
+[2026-08-25T11:52:54Z INFO  raitha_darpana::social] YouTube: BIDAR on 20260825 already published as video_id=-7cD3efqOsE, skipping duplicate upload.
+[2026-08-25T11:52:54Z INFO  raitha_darpana::ui] [job 87443e4b-e491-419f-b26c-c6bc294030e4] ✓ YouTube video published (public) for BIDAR. YouTube video ID: -7cD3efqOsE
+[2026-08-25T11:54:07Z INFO  raitha_darpana::ui] [job e57e9efd-a1f7-4443-8856-f61ca867dc91] Launching renderer...
+[2026-08-25T11:54:07Z INFO  headless_chrome::browser::process] Launching Chrome binary at C:\Program Files\Google\Chrome\Application\chrome.exe
+[2026-08-25T11:54:07Z INFO  headless_chrome::browser::process] Started Chrome. PID: 18936
+[2026-08-25T11:54:08Z INFO  raitha_darpana::render] Rendering images for city '18]  ಮಾರುಕಟ್ಟೆ: ತೀರ್ಥಹಳ್ಳಿ' -> 'ತೀರ್ಥಹಳ್ಳಿ'
+[2026-08-25T11:54:08Z INFO  raitha_darpana::ui] [job e57e9efd-a1f7-4443-8856-f61ca867dc91] Rendering ತೀರ್ಥಹಳ್ಳಿ (YouTube)...
+[2026-08-25T11:54:08Z INFO  raitha_darpana::render] Navigating to file:///D:/Projects/uiraitah_darpana/raitha_darpana/rd_media/20260825/%E0%B2%A4%E0%B3%80%E0%B2%B0%E0%B3%8D%E0%B2%A5%E0%B2%B9%E0%B2%B3%E0%B3%8D%E0%B2%B3%E0%B2%BF/%E0%B2%A4%E0%B3%80%E0%B2%B0%E0%B3%8D%E0%B2%A5%E0%B2%B9%E0%B2%B3%E0%B3%8D%E0%B2%B3%E0%B2%BF-20260825-yt-kan.html (city: ತೀರ್ಥಹಳ್ಳಿ)
+[2026-08-25T11:54:09Z INFO  headless_chrome::browser::tab] Navigating a tab to file:///D:/Projects/uiraitah_darpana/raitha_darpana/rd_media/20260825/%E0%B2%A4%E0%B3%80%E0%B2%B0%E0%B3%8D%E0%B2%A5%E0%B2%B9%E0%B2%B3%E0%B3%8D%E0%B2%B3%E0%B2%BF/%E0%B2%A4%E0%B3%80%E0%B2%B0%E0%B3%8D%E0%B2%A5%E0%B2%B9%E0%B2%B3%E0%B3%8D%E0%B2%B3%E0%B2%BF-20260825-yt-kan.html
+[2026-08-25T11:54:10Z INFO  raitha_darpana::voiceover] ನಮಸ್ಕಾರ ವೀಕ್ಷಕರೇ, ರೈತ ದರ್ಪಣ ಮಾರುಕಟ್ಟೆ ಬೆಲೆಗಳ ಮಾಹಿತಿ ಚಾನೆಲ್‌ಗೆ ಸುಸ್ವಾಗತ. ಇಂದಿನ ತೀರ್ಥಹಳ್ಳಿ ಮಾರುಕಟ್ಟೆಯ ತರಕಾರಿ ಬೆಲೆಗಳ ಮಾಹಿತಿ ಇಲ್ಲಿದೆ. ವರದಿ ದಿನಾಂಕ: 25/08/2026. ಅಕ್ಕಿ, ತಳಿ ನುಚ್ಚಕ್ಕಿ: ಕನಿಷ್ಠ ಬೆಲೆ ಎರಡು ಸಾವಿರ ಐದು ನೂರು ರೂಪಾಯಿ, ಗರಿಷ್ಠ ಬೆಲೆ ಎರಡು ಸಾವಿರ ಐದು ನೂರು ರೂಪಾಯಿ. ಮೆಣಸು, ತಳಿ ಇತರೆ: ಕನಿಷ್ಠ ಬೆಲೆ ಮೂವತ್ತು ನಾಲ್ಕು ಸಾವಿರ ಎಂಟು ನೂರು ರೂಪಾಯಿ, ಗರಿಷ್ಠ ಬೆಲೆ ಮೂವತ್ತು ನಾಲ್ಕು ಸಾವಿರ ಎಂಟು ನೂರು ರೂಪಾಯಿ. ಅಡಿಕೆ, ತಳಿ ಸಿಪ್ಪೆಗೋಟು: ಕನಿಷ್ಠ ಬೆಲೆ ಹದಿನಾಲ್ಕು ಸಾವಿರ ರೂಪಾಯಿ, ಗರಿಷ್ಠ ಬೆಲೆ ಹದಿನಾಲ್ಕು ಸಾವಿರ ರೂಪಾಯಿ. ದಿನನಿತ್ಯದ ನಿಖರ ಮಾಹಿತಿಗಾಗಿ ನಮ್ಮ ಇನ್ಸ್ಟಾಗ್ರಾಮ್ ಮತ್ತು ಯೂಟ್ಯೂಬ್ ಚಾನೆಲ್‌ಗೆ ಸಬ್‌ಸ್ಕ್ರೈಬ್ ಆಗಿ. ಧನ್ಯವಾದಗಳು!
+[2026-08-25T11:54:10Z INFO  raitha_darpana::ui] [job e57e9efd-a1f7-4443-8856-f61ca867dc91] Generating voiceover for ತೀರ್ಥಹಳ್ಳಿ...
+[2026-08-25T11:54:14Z INFO  raitha_darpana::voiceover] 🎧 Found background music at assets\bg_music.mp3. Mixing at 6% volume.
+[2026-08-25T11:54:14Z INFO  raitha_darpana::ui] [job e57e9efd-a1f7-4443-8856-f61ca867dc91] Generating YouTube video for ತೀರ್ಥಹಳ್ಳಿ...
+[2026-08-25T11:54:14Z INFO  headless_chrome::browser::tab] Navigating a tab to file:///D:/Projects/uiraitah_darpana/raitha_darpana/rd_media/20260825/%E0%B2%A4%E0%B3%80%E0%B2%B0%E0%B3%8D%E0%B2%A5%E0%B2%B9%E0%B2%B3%E0%B3%8D%E0%B2%B3%E0%B2%BF/frames/yt-kan/frame_00.html
+[2026-08-25T11:54:16Z INFO  headless_chrome::browser::tab] Navigating a tab to file:///D:/Projects/uiraitah_darpana/raitha_darpana/rd_media/20260825/%E0%B2%A4%E0%B3%80%E0%B2%B0%E0%B3%8D%E0%B2%A5%E0%B2%B9%E0%B2%B3%E0%B3%8D%E0%B2%B3%E0%B2%BF/frames/yt-kan/frame_01.html
+[2026-08-25T11:54:17Z INFO  headless_chrome::browser::tab] Navigating a tab to file:///D:/Projects/uiraitah_darpana/raitha_darpana/rd_media/20260825/%E0%B2%A4%E0%B3%80%E0%B2%B0%E0%B3%8D%E0%B2%A5%E0%B2%B9%E0%B2%B3%E0%B3%8D%E0%B2%B3%E0%B2%BF/frames/yt-kan/frame_02.html
+[2026-08-25T11:54:19Z INFO  headless_chrome::browser::tab] Navigating a tab to file:///D:/Projects/uiraitah_darpana/raitha_darpana/rd_media/20260825/%E0%B2%A4%E0%B3%80%E0%B2%B0%E0%B3%8D%E0%B2%A5%E0%B2%B9%E0%B2%B3%E0%B3%8D%E0%B2%B3%E0%B2%BF/frames/yt-kan/frame_03.html
+[2026-08-25T11:54:48Z INFO  raitha_darpana::ui] [job e57e9efd-a1f7-4443-8856-f61ca867dc91] Render complete.
+[2026-08-25T11:54:48Z INFO  headless_chrome::browser] Dropping browser
+[2026-08-25T11:54:48Z INFO  headless_chrome::browser::process] Killing Chrome. PID: 18936
+[2026-08-25T11:54:48Z INFO  headless_chrome::browser::transport] Transport incoming message loop loop received shutdown message
+[2026-08-25T11:54:48Z INFO  headless_chrome::browser::transport] Shutting down message handling loop
+[2026-08-25T11:54:48Z INFO  headless_chrome::browser] Browser event loop received shutdown message
+[2026-08-25T11:54:48Z INFO  headless_chrome::browser] Finished browser's event handling loop
+[2026-08-25T11:54:48Z INFO  headless_chrome::browser::transport::web_socket_connection] Sending shutdown message to message handling loop
+[2026-08-25T11:54:48Z INFO  headless_chrome::browser::transport] cleared listeners, I think
+[2026-08-25T11:54:48Z INFO  headless_chrome::browser::tab] finished tab's event handling loop
+[2026-08-25T11:54:48Z INFO  headless_chrome::browser::tab] finished tab's event handling loop
+[2026-08-25T11:54:48Z INFO  headless_chrome::browser::transport] dropping transport
+[2026-08-25T11:54:48Z INFO  headless_chrome::browser::transport::web_socket_connection] dropping websocket connection
+[2026-08-25T11:54:48Z INFO  raitha_darpana::ui] [job e57e9efd-a1f7-4443-8856-f61ca867dc91] Publishing...
+[2026-08-25T11:54:52Z INFO  raitha_darpana::social::youtube] YouTube video published: video_id=DSlwjxIPxJs
+[2026-08-25T11:54:52Z INFO  raitha_darpana::ui] [job e57e9efd-a1f7-4443-8856-f61ca867dc91] ✓ YouTube video published (public) for ತೀರ್ಥಹಳ್ಳಿ. YouTube video ID: DSlwjxIPxJs
